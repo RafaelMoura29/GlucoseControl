@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./login.css";
+import { Link } from "react-router-dom";
 
 export default class Login extends Component {
   render() {
@@ -13,9 +14,9 @@ export default class Login extends Component {
             <input type="text" className="text-input"></input>
           </p>
           <p>
-            <button type="button" href="#" className="login-button">Login</button>
+            <button type="button" className="login-button">Login</button>
           </p>
-          <p href="#" id="register-text">Não tem cadastro ainda? <a href="google.com">cadastre-se</a></p>
+          <p href="#" id="register-text">Não tem cadastro ainda? <Link to={`/register/`}>cadastre-se</Link></p>
         </div>
     );
   }
