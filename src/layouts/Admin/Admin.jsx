@@ -95,6 +95,10 @@ class Admin extends React.Component {
   handleBgClick = color => {
     this.setState({ backgroundColor: color });
   };
+  
+  /*
+    Seleciona os names das rotas definidas no routes.js
+  */
   getBrandText = path => {
     for (let i = 0; i < routes.length; i++) {
       if (
