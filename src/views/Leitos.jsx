@@ -23,46 +23,94 @@ import { Line, Bar } from "react-chartjs-2";
 
 // reactstrap components
 import {
-  Button,
-  ButtonGroup,
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  Label,
-  FormGroup,
-  Input,
-  Table,
-  Row,
-  Col,
-  UncontrolledTooltip
+    Button,
+    ButtonGroup,
+    Card,
+    CardHeader,
+    CardBody,
+    CardTitle,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
+    UncontrolledDropdown,
+    Label,
+    FormGroup,
+    Input,
+    Table,
+    Row,
+    Col,
+    CardText,
+    UncontrolledTooltip,
+
 } from "reactstrap";
 
-class Leitos extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bigChartData: "data1"
+// core components
+import {
+    chartExample1,
+    chartExample2,
+    chartExample3,
+    chartExample4
+} from "variables/charts.jsx";
+
+class Dashboard extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            bigChartData: "data1"
+        };
+    }
+    setBgChartData = name => {
+        this.setState({
+            bigChartData: name
+        });
     };
-  }
-  setBgChartData = name => {
-    this.setState({
-      bigChartData: name
-    });
-  };
-  render() {
-    return (
-      <>
-        <div className="content">
-          
-        </div>
-      </>
-    );
-  }
+    render() {
+        return (
+            <>
+                <div className="content">
+                    <Row>
+                        <Col lg="3">
+                            <Card>
+                                <CardHeader>Leito 2</CardHeader>
+                                <CardBody>
+                                    <CardTitle>Desocupado</CardTitle>
+                                    <Button href="/#" color="success">Adicionar paciente</Button>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                        <Col lg="3">
+                            <Card>
+                                <CardHeader>Leito 2</CardHeader>
+                                <CardBody>
+                                    <CardTitle>Nome do paciente</CardTitle>
+                                    <Button href="/#" color="danger">Remover paciente</Button>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                        <Col lg="3">
+                            <Card>
+                                <CardHeader>Leito 2</CardHeader>
+                                <CardBody>
+                                    <CardTitle>Nome do paciente</CardTitle>
+                                    <Button href="/#" color="danger">Remover paciente</Button>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                        <Col lg="3">
+                            <Card>
+                                <CardHeader>Leito 2</CardHeader>
+                                <CardBody>
+                                    <CardTitle>Desocupado</CardTitle>
+                                    <Button href="/#" color="success">Adicionar paciente</Button>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+
+                </div>
+            </>
+        );
+    }
 }
 
-export default Leitos;
+export default Dashboard;
