@@ -16,7 +16,6 @@
 
 */
 import Dashboard from "views/Dashboard.jsx";
-import Icons from "views/Icons.jsx";
 import Map from "views/Map.jsx";
 import Notifications from "views/Notifications.jsx";
 import TableList from "views/TableList.jsx";
@@ -30,14 +29,6 @@ var routes = [
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,
-    layout: "/admin"
-  },
-  {
-    path: "/icons",
-    name: "Icons",
-    rtlName: "الرموز",
-    icon: "tim-icons icon-atom",
-    component: Icons,
     layout: "/admin"
   },
   {
