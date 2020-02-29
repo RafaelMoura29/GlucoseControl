@@ -123,7 +123,7 @@ class Sidebar extends React.Component {
                     this.activeRoute(prop.path) +
                     (prop.pro ? " active-pro" : "")
                   }
-                  key={key}
+                  key={key} 
                 >
                   <NavLink
                     to={prop.layout + prop.path}

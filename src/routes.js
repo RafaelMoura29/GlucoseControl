@@ -16,6 +16,7 @@
 
 */
 import Dashboard from "views/Dashboard.jsx";
+import Leitos from "views/Leitos.jsx";
 
 var routes = [
   {
@@ -23,6 +24,13 @@ var routes = [
     name: "Dashboard",
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,
+    layout: "/admin"
+  },
+  {
+    path: "/leitos",
+    name: "Leitos",
+    icon: "tim-icons icon-chart-pie-36",
+    component: Leitos,
     layout: "/admin"
   }
 ];
