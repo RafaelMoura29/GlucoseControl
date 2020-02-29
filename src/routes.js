@@ -19,7 +19,6 @@ import Dashboard from "views/Dashboard.jsx";
 import Map from "views/Map.jsx";
 import Notifications from "views/Notifications.jsx";
 import TableList from "views/TableList.jsx";
-import Typography from "views/Typography.jsx";
 import UserProfile from "views/UserProfile.jsx";
 
 var routes = [
@@ -61,14 +60,6 @@ var routes = [
     rtlName: "قائمة الجدول",
     icon: "tim-icons icon-puzzle-10",
     component: TableList,
-    layout: "/admin"
-  },
-  {
-    path: "/typography",
-    name: "Typography",
-    rtlName: "طباعة",
-    icon: "tim-icons icon-align-center",
-    component: Typography,
     layout: "/admin"
   }
 ];
