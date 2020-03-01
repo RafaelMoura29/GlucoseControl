@@ -80,7 +80,7 @@ class Admin extends React.Component {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
         return (
-          <Route 
+          <Route
             path={prop.layout + prop.path}
             component={prop.component}
             key={key}
@@ -94,7 +94,7 @@ class Admin extends React.Component {
   handleBgClick = color => {
     this.setState({ backgroundColor: color });
   };
-  
+
   /*
     Seleciona os names das rotas definidas no routes.js
   */
@@ -138,9 +138,9 @@ class Admin extends React.Component {
             />
             <Switch>{this.getRoutes(routes)}</Switch>
             {// we don't want the Footer to be rendered on map page
-            this.props.location.pathname.indexOf("maps") !== -1 ? null : (
-              <Footer fluid />
-            )}
+              this.props.location.pathname.indexOf("maps") !== -1 ? null : (
+                <Footer fluid />
+              )}
           </div>
         </div>
       </>

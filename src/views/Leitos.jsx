@@ -71,7 +71,7 @@ class Dashboard extends React.Component {
                     <Row>
                         <Col lg="3">
                             <Card>
-                                <CardHeader>Leito 2</CardHeader>
+                                <CardHeader >Leito 2</CardHeader>
                                 <CardBody>
                                     <CardTitle>Desocupado</CardTitle>
                                     <Button href="/#" color="success">Adicionar paciente</Button>
@@ -105,6 +105,7 @@ class Dashboard extends React.Component {
                                 </CardBody>
                             </Card>
                         </Col>
+                        <Button href="/admin/form_create_leito" color="success">Adicionar leito</Button>
                     </Row>
 
                 </div>

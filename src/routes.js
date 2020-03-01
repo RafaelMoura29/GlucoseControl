@@ -17,6 +17,8 @@
 */
 import Dashboard from "views/Dashboard.jsx";
 import Leitos from "views/Leitos.jsx";
+import Form_create_leito from "views/forms/Form_create_leito.jsx";
+
 
 var routes = [
   {
@@ -32,6 +34,12 @@ var routes = [
     icon: "tim-icons icon-chart-pie-36",
     component: Leitos,
     layout: "/admin"
-  }
+  },
+  {
+    path: "/form_create_leito",
+    component: Form_create_leito,
+    layout: "/admin"
+  },
+
 ];
 export default routes;
