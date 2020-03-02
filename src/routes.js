@@ -18,6 +18,7 @@
 import Dashboard from "views/Dashboard.jsx";
 import Leitos from "views/Leitos.jsx";
 import Form_create_leito from "views/forms/Form_create_leito.jsx";
+import Infos_leito from "views/Infos_leito.jsx";
 
 
 var routes = [
@@ -40,6 +41,10 @@ var routes = [
     component: Form_create_leito,
     layout: "/admin"
   },
-
+  {
+    path: "/infos_leito",
+    component: Infos_leito,
+    layout: "/admin"
+  },
 ];
 export default routes;

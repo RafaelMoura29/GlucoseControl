@@ -72,7 +72,7 @@ class Dashboard extends React.Component {
                         <Col lg="3">
                             <Card>
                                 <CardHeader >Leito 2
-                                <a href="/"><i className="tim-icons icon-paper"  style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} /></a>
+                                <a href="/admin/infos_leito"><i className="tim-icons icon-paper"  style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} /></a>
                                 </CardHeader>
                                 <CardBody>
                                     <CardTitle>Desocupado</CardTitle>
