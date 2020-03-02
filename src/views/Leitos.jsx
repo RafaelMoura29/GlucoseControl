@@ -72,7 +72,7 @@ class Dashboard extends React.Component {
                         <Col lg="3">
                             <Card>
                                 <CardHeader >Leito 2
-                                <i className="tim-icons icon-paper" href="/#" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                <a href="/"><i className="tim-icons icon-paper"  style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} /></a>
                                 </CardHeader>
                                 <CardBody>
                                     <CardTitle>Desocupado</CardTitle>
@@ -83,7 +83,8 @@ class Dashboard extends React.Component {
                         <Col lg="3">
                             <Card>
                                 <CardHeader>Leito 2
-                                <i className="tim-icons icon-paper" href="/#" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                <a href="/"><i className="tim-icons icon-paper"  style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} /></a>
+
                                 </CardHeader>
                                 <CardBody>
                                     <CardTitle>Nome do paciente</CardTitle>
@@ -94,18 +95,20 @@ class Dashboard extends React.Component {
                         <Col lg="3">
                             <Card>
                                 <CardHeader>Leito 2
-                                <i className="tim-icons icon-paper" href="/#" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                <a href="/"><i className="tim-icons icon-paper"  style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} /></a>
+
                                 </CardHeader>
                                 <CardBody>
                                     <CardTitle>Nome do paciente</CardTitle>
-                                    <Button href="/#" color="danger">Remover paciente</Button>
+                                    <Button href="/" color="danger">Remover paciente</Button>
                                 </CardBody>
                             </Card>
                         </Col>
                         <Col lg="3">
                             <Card>
                                 <CardHeader>Leito 2
-                                    <i className="tim-icons icon-paper" href="/#" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                <a href="/"><i className="tim-icons icon-paper"  style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} /></a>
+
                                 </CardHeader>
                                 <CardBody>
                                     <CardTitle>Desocupado</CardTitle>
