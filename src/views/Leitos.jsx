@@ -71,7 +71,9 @@ class Dashboard extends React.Component {
                     <Row>
                         <Col lg="3">
                             <Card>
-                                <CardHeader >Leito 2</CardHeader>
+                                <CardHeader >Leito 2
+                                <i className="tim-icons icon-paper" href="/#" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                </CardHeader>
                                 <CardBody>
                                     <CardTitle>Desocupado</CardTitle>
                                     <Button href="/#" color="success">Adicionar paciente</Button>
@@ -80,7 +82,9 @@ class Dashboard extends React.Component {
                         </Col>
                         <Col lg="3">
                             <Card>
-                                <CardHeader>Leito 2</CardHeader>
+                                <CardHeader>Leito 2
+                                <i className="tim-icons icon-paper" href="/#" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                </CardHeader>
                                 <CardBody>
                                     <CardTitle>Nome do paciente</CardTitle>
                                     <Button href="/#" color="danger">Remover paciente</Button>
@@ -89,7 +93,9 @@ class Dashboard extends React.Component {
                         </Col>
                         <Col lg="3">
                             <Card>
-                                <CardHeader>Leito 2</CardHeader>
+                                <CardHeader>Leito 2
+                                <i className="tim-icons icon-paper" href="/#" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                </CardHeader>
                                 <CardBody>
                                     <CardTitle>Nome do paciente</CardTitle>
                                     <Button href="/#" color="danger">Remover paciente</Button>
@@ -98,16 +104,21 @@ class Dashboard extends React.Component {
                         </Col>
                         <Col lg="3">
                             <Card>
-                                <CardHeader>Leito 2</CardHeader>
+                                <CardHeader>Leito 2
+                                    <i className="tim-icons icon-paper" href="/#" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                </CardHeader>
                                 <CardBody>
                                     <CardTitle>Desocupado</CardTitle>
                                     <Button href="/#" color="success">Adicionar paciente</Button>
                                 </CardBody>
                             </Card>
                         </Col>
-                        <Button href="/admin/form_create_leito" color="success">Adicionar leito</Button>
                     </Row>
-
+                    <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
+                        <Button href="/admin/form_create_leito" size="lg" className="btn-round btn-icon" color="info">
+                            <i className="tim-icons icon-simple-add" />
+                        </Button>
+                    </div>
                 </div>
             </>
         );

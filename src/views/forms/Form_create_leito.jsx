@@ -44,11 +44,11 @@ class Form_create_leito extends React.Component {
                                                 <FormGroup>
                                                     <label>Unidade</label>
                                                     <Input type="select">
-                                                        <option>2</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                        <option>Nome unidade</option>
+                                                        <option>Nome unidade</option>
+                                                        <option>Nome unidade</option>
+                                                        <option>Nome unidade</option>
+                                                        <option>Nome unidade</option>
                                                     </Input>
                                                 </FormGroup>
                                             </Col>
@@ -58,11 +58,11 @@ class Form_create_leito extends React.Component {
                                                 <FormGroup>
                                                     <label>Ativo</label>
                                                     <Input type="select">
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                        <option>Disponível</option>
+                                                        <option>Reservado</option>
+                                                        <option>Ocupado</option>
+                                                        <option>Bloqueado</option>
+                                                        <option>Inativo</option>
                                                     </Input>
                                                 </FormGroup>
                                             </Col>
