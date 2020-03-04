@@ -20,7 +20,7 @@ import React from "react";
 import classNames from "classnames";
 // react plugin used to create charts
 import { Line, Bar } from "react-chartjs-2";
-
+import { NavLink, Link } from "react-router-dom";
 // reactstrap components
 import {
     Button,
@@ -72,7 +72,11 @@ class Dashboard extends React.Component {
                         <Col lg="3">
                             <Card>
                                 <CardHeader >Leito 2
-                                <a href="/admin/infos_leito"><i className="tim-icons icon-paper"  style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} /></a>
+                                <NavLink
+                                        to={'/admin/infos_leito'}
+                                    >
+                                        <i className="tim-icons icon-paper" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                    </NavLink>
                                 </CardHeader>
                                 <CardBody>
                                     <CardTitle>Desocupado</CardTitle>
@@ -83,8 +87,11 @@ class Dashboard extends React.Component {
                         <Col lg="3">
                             <Card>
                                 <CardHeader>Leito 2
-                                <a href="/"><i className="tim-icons icon-paper"  style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} /></a>
-
+                                <NavLink
+                                        to={'/admin/infos_leito'}
+                                    >
+                                        <i className="tim-icons icon-paper" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                    </NavLink>
                                 </CardHeader>
                                 <CardBody>
                                     <CardTitle>Nome do paciente</CardTitle>
@@ -95,8 +102,11 @@ class Dashboard extends React.Component {
                         <Col lg="3">
                             <Card>
                                 <CardHeader>Leito 2
-                                <a href="/"><i className="tim-icons icon-paper"  style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} /></a>
-
+                                <NavLink
+                                        to={'/admin/infos_leito'}
+                                    >
+                                        <i className="tim-icons icon-paper" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                    </NavLink>
                                 </CardHeader>
                                 <CardBody>
                                     <CardTitle>Nome do paciente</CardTitle>
@@ -107,8 +117,11 @@ class Dashboard extends React.Component {
                         <Col lg="3">
                             <Card>
                                 <CardHeader>Leito 2
-                                <a href="/"><i className="tim-icons icon-paper"  style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} /></a>
-
+                                <NavLink
+                                        to={'/admin/infos_leito'}
+                                    >
+                                        <i className="tim-icons icon-paper" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                    </NavLink>
                                 </CardHeader>
                                 <CardBody>
                                     <CardTitle>Desocupado</CardTitle>
@@ -118,9 +131,11 @@ class Dashboard extends React.Component {
                         </Col>
                     </Row>
                     <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
-                        <Button href="/admin/form_create_leito" size="lg" className="btn-round btn-icon" color="info">
-                            <i className="tim-icons icon-simple-add" />
-                        </Button>
+                        <Link to="/admin/form_create_leito">
+                            <Button renderAs="button" size="lg" className="btn-round btn-icon" color="info">
+                                <i className="tim-icons icon-simple-add" />
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </>

@@ -24,7 +24,7 @@ import Infos_leito from "views/Infos_leito.jsx";
 var routes = [
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "Home",
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,
     layout: "/admin"
