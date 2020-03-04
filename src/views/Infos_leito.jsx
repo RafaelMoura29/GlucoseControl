@@ -29,12 +29,7 @@ import {
     Row,
     Col,
     CardText,
-    CardSubtitle,
-    CardLink,
-    Table,
-    FormGroup,
-    Label,
-    Input
+    Table
 } from "reactstrap";
 
 // core components

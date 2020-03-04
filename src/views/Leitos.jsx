@@ -24,24 +24,12 @@ import { NavLink, Link } from "react-router-dom";
 // reactstrap components
 import {
     Button,
-    ButtonGroup,
     Card,
     CardHeader,
     CardBody,
     CardTitle,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    UncontrolledDropdown,
-    Label,
-    FormGroup,
-    Input,
-    Table,
     Row,
     Col,
-    CardText,
-    UncontrolledTooltip,
-
 } from "reactstrap";
 
 // core components

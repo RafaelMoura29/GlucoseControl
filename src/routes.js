@@ -19,7 +19,8 @@ import Dashboard from "views/Dashboard.jsx";
 import Leitos from "views/Leitos.jsx";
 import Form_create_leito from "views/forms/Form_create_leito.jsx";
 import Infos_leito from "views/Infos_leito.jsx";
-
+import Pacientes from "views/Pacientes.jsx";
+import Form_create_paciente from "views/forms/Form_create_paciente.jsx";
 
 var routes = [
   {
@@ -38,13 +39,32 @@ var routes = [
   },
   {
     path: "/form_create_leito",
+    name: "Cadastro de leito",
     component: Form_create_leito,
-    layout: "/admin"
+    layout: "/admin",
+    hideSidebar: true
+  },
+  {
+    path: "/form_create_paciente",
+    name: "Cadastro de paciente",
+    component: Form_create_paciente,
+    layout: "/admin",
+    hideSidebar: true
+  },
+  {
+    path: "/pacientes",
+    name: "Pacientes",
+    icon: "tim-icons icon-chart-pie-36",
+    component: Pacientes,
+    layout: "/admin",
   },
   {
     path: "/infos_leito",
+    name: "Informações leito",
     component: Infos_leito,
-    layout: "/admin"
+    layout: "/admin",
+    hideSidebar: true
   },
+ 
 ];
 export default routes;

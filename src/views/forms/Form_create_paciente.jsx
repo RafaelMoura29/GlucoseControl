@@ -16,7 +16,7 @@ import {
     CardTitle
 } from "reactstrap";
 
-class Form_create_leito extends React.Component {
+class Form_create_paciente extends React.Component {
     render() {
         return (
             <>
@@ -26,7 +26,7 @@ class Form_create_leito extends React.Component {
                             <Card>
                                 <CardHeader>
                                 <CardTitle>
-                                        <h2 className="title">Cadastrar leito</h2>
+                                        <h2 className="title">Cadastrar paciente</h2>
                                     </CardTitle>
                                 </CardHeader>
                                 <CardBody>
@@ -97,4 +97,4 @@ class Form_create_leito extends React.Component {
     }
 }
 
-export default Form_create_leito;
+export default Form_create_paciente;
