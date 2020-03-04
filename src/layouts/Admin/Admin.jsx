@@ -116,7 +116,7 @@ class Admin extends React.Component {
         <div className="wrapper">
           <Sidebar
             {...this.props}
-            routes={routes}
+            routes={routes} 
             bgColor={this.state.backgroundColor}
             logo={{
               outterLink: "https://www.creative-tim.com/",
