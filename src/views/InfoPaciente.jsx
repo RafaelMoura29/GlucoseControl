@@ -46,7 +46,24 @@ class InfoPaciente extends React.Component {
         return (
             <>
                 <div className="content">
-                    <h1>Informações paciente</h1>
+                <Row>
+                        <Col md="7">
+                            <Card>
+                                <CardBody>
+                                    <CardTitle>
+                                        <h2 className="title">Peter Parker</h2>
+                                    </CardTitle>
+                                    <CardText>*Informações pessoais do paciente</CardText>
+                                    <CardText>*Mostrar se o paciente está internado caso esteja mostrar leito</CardText>
+                                    <CardText>*Procurar gráfico para representar internações do paciente
+                                    https://www.npmjs.com/package/calendar-graph
+                                    https://codepen.io/sgratzl/pen/QxoLoY
+                                    https://jscharting.com/examples/chart-types/calendar/multi-sparkline-comparison/
+                                    </CardText>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
                 </div>
             </>
         );
