@@ -40,7 +40,7 @@ import {
     chartExample4
 } from "variables/charts.jsx";
 
-class Info_leito extends React.Component {
+class InfoLeito extends React.Component {
 
     render() {
         return (
@@ -88,4 +88,4 @@ class Info_leito extends React.Component {
     }
 }
 
-export default Info_leito;
+export default InfoLeito;

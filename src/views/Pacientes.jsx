@@ -61,11 +61,10 @@ class Pacientes extends React.Component {
                         <Col lg="3">
                             <Card>
                                 <CardHeader className='title'>Peter Parker
-
                                 <NavLink
-                                        to={'/admin/infos_leito'}
+                                        to={'/admin/InfoPaciente'}
                                     >
-                                        <i className="tim-icons icon-paper" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                        <i className="tim-icons icon-single-copy-04" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
                                     </NavLink>
                                 </CardHeader>
                                 <CardBody>

@@ -61,7 +61,7 @@ class Dashboard extends React.Component {
                             <Card>
                                 <CardHeader >Leito 2
                                 <NavLink
-                                        to={'/admin/infos_leito'}
+                                        to={'/admin/InfoLeito'}
                                     >
                                         <i className="tim-icons icon-paper" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
                                     </NavLink>
@@ -76,7 +76,7 @@ class Dashboard extends React.Component {
                             <Card>
                                 <CardHeader>Leito 2
                                 <NavLink
-                                        to={'/admin/infos_leito'}
+                                        to={'/admin/InfoLeito'}
                                     >
                                         <i className="tim-icons icon-paper" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
                                     </NavLink>
@@ -91,7 +91,7 @@ class Dashboard extends React.Component {
                             <Card>
                                 <CardHeader>Leito 2
                                 <NavLink
-                                        to={'/admin/infos_leito'}
+                                        to={'/admin/InfoLeito'}
                                     >
                                         <i className="tim-icons icon-paper" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
                                     </NavLink>
@@ -106,7 +106,7 @@ class Dashboard extends React.Component {
                             <Card>
                                 <CardHeader>Leito 2
                                 <NavLink
-                                        to={'/admin/infos_leito'}
+                                        to={'/admin/InfoLeito'}
                                     >
                                         <i className="tim-icons icon-paper" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
                                     </NavLink>

@@ -18,9 +18,10 @@
 import Dashboard from "views/Dashboard.jsx";
 import Leitos from "views/Leitos.jsx";
 import Form_create_leito from "views/forms/Form_create_leito.jsx";
-import Infos_leito from "views/Infos_leito.jsx";
+import InfoLeito from "views/InfoLeito.jsx";
 import Pacientes from "views/Pacientes.jsx";
 import Form_create_paciente from "views/forms/Form_create_paciente.jsx";
+import InfoPaciente from "views/InfoPaciente.jsx";
 
 var routes = [
   {
@@ -59,12 +60,18 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/infos_leito",
+    path: "/InfoLeito",
     name: "Informações leito",
-    component: Infos_leito,
+    component: InfoLeito,
     layout: "/admin",
     hideSidebar: true
   },
- 
+  {
+    path: "/InfoPaciente",
+    name: "Informações paciente",
+    component: InfoPaciente,
+    layout: "/admin",
+    hideSidebar: true
+  },
 ];
 export default routes;
