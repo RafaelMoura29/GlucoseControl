@@ -30,6 +30,7 @@ import {
     CardTitle,
     Row,
     Col,
+    CardText
 } from "reactstrap";
 
 // core components
@@ -56,8 +57,24 @@ class Pacientes extends React.Component {
         return (
             <>
                 <div className="content">
-                  <h1>pacientes</h1>
-                  <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
+                    <Row>
+                        <Col lg="3">
+                            <Card>
+                                <CardHeader className='title'>Peter Parker
+
+                                <NavLink
+                                        to={'/admin/infos_leito'}
+                                    >
+                                        <i className="tim-icons icon-paper" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
+                                    </NavLink>
+                                </CardHeader>
+                                <CardBody>
+                                    <CardTitle>Prontuário: 123321999</CardTitle>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+                    <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
                         <Link to="/admin/form_create_paciente">
                             <Button renderAs="button" size="lg" className="btn-round btn-icon" color="info">
                                 <i className="tim-icons icon-simple-add" />
