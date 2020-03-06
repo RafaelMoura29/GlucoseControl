@@ -61,7 +61,7 @@ class Dashboard extends React.Component {
                 <CardHeader>
                   <CardTitle tag="h3">
                     <i className="tim-icons icon-bell-55 text-info" />{" "}
-                    Variação de internações
+                    Internações por mês
                   </CardTitle>
                 </CardHeader>
                 <CardBody>

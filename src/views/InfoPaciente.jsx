@@ -29,7 +29,8 @@ import {
     Row,
     Col,
     CardText,
-    Table
+    Table,
+    Badge
 } from "reactstrap";
 
 // core components
@@ -46,20 +47,46 @@ class InfoPaciente extends React.Component {
         return (
             <>
                 <div className="content">
-                <Row>
+                    <Row>
                         <Col md="7">
                             <Card>
                                 <CardBody>
                                     <CardTitle>
                                         <h2 className="title">Peter Parker</h2>
                                     </CardTitle>
-                                    <CardText>*Informações pessoais do paciente</CardText>
-                                    <CardText>*Mostrar se o paciente está internado caso esteja mostrar leito</CardText>
+                                    <Row className="mb-2">
+                                        <Col md='4'>
+                                            <CardText className="title">Prontuário:</CardText>
+                                            <CardText>123321999</CardText>
+                                        </Col>
+                                        <Col md='4'>
+                                            <CardText className="title">nascimento:</CardText>
+                                            <CardText> 14 / 10 / 1990</CardText>
+                                        </Col>
+                                        <Col md='4'>
+                                            <CardText className="title">sexo:</CardText>
+                                            <CardText>Masculino</CardText>
+                                        </Col>
+                                    </Row>
+                                    <Row className="mb-2">
+                                        <Col md='4'>
+                                            <CardText className="title">cpf:</CardText>
+                                            <CardText>12345678910</CardText>
+                                        </Col>
+                                        <Col md='8'>
+                                            <CardText className="title">tags:</CardText>
+                                            <Badge color="info" pill>Internado</Badge>
+                                            <Badge color="info" pill>Coronavirus</Badge>
+                                        </Col>
+                                    </Row>
+                                    <CardText>*Caso o paciente esteja internado mostrar leito </CardText>
                                     <CardText>*Procurar gráfico para representar internações do paciente
                                     https://www.npmjs.com/package/calendar-graph
                                     https://codepen.io/sgratzl/pen/QxoLoY
                                     https://jscharting.com/examples/chart-types/calendar/multi-sparkline-comparison/
+                                    https://github.com/kevinsqi/react-calendar-heatmap
                                     </CardText>
+
                                 </CardBody>
                             </Card>
                         </Col>
