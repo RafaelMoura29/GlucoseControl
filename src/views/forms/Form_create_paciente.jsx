@@ -13,6 +13,7 @@ import {
     Row,
     Col,
     CardTitle,
+    Label
 } from "reactstrap";
 
 class Form_create_paciente extends React.Component {
@@ -21,7 +22,7 @@ class Form_create_paciente extends React.Component {
             <>
                 <div className="content">
                     <Row>
-                        <Col md="7">
+                        <Col md="12">
                             <Card>
                                 <CardHeader>
                                     <CardTitle>
@@ -30,59 +31,77 @@ class Form_create_paciente extends React.Component {
                                 </CardHeader>
                                 <CardBody>
                                     <Form>
-
                                         <Row>
-                                            <Col className="pr-md-1" md="12">
+                                            <Col className="pr-md-1" md="6">
+                                                <Row>
+                                                    <Col className="pr-md-1" md="6">
 
-                                                <FormGroup>
-                                                    <label>PRONTUARIO</label>
-                                                    <Input
-                                                        placeholder="Tipo"
-                                                        type="text"
-                                                    />
-                                                </FormGroup>
+                                                        <FormGroup>
+                                                            <label>PRONTUARIO</label>
+                                                            <Input
+                                                                placeholder="Tipo"
+                                                                type="text"
+                                                            />
+                                                        </FormGroup>
+                                                    </Col>
+                                                    <Col className="pr-md-1" md="6">
+                                                        <FormGroup>
+                                                            <label>PRONTUARIO</label>
+                                                            <Input
+                                                                placeholder="Tipo"
+                                                                type="text"
+                                                            />
+                                                        </FormGroup>
+                                                    </Col>
+                                                    <Col className="pr-md-1" md="12">
+                                                    <FormGroup>
+                                                        <label>PRONTUARIO</label>
+                                                        <Input
+                                                            placeholder="Tipo"
+                                                            type="text"
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col className="pr-md-1" md="6">
 
-                                                <FormGroup>
-                                                    <label>NOME</label>
-                                                    <Input
-                                                        placeholder="Tipo"
-                                                        type="text"
-                                                    />
-                                                </FormGroup>
-
-                                                <FormGroup>
-                                                    <label>NASCIMENTO</label>
-                                                    <Input
-                                                        placeholder="Tipo"
-                                                        type="date"
-                                                    />
-                                                </FormGroup>
-
-                                                <FormGroup>
-                                                    <label>SEXO</label>
-                                                    <Input type="select" name="select" id="exampleSelect1">
-                                                        <option>Masculino</option>
-                                                        <option>Feminino</option>
-                                                    </Input>
-                                                </FormGroup>
-
-                                                <FormGroup>
-                                                    <label>CPF</label>
-                                                    <Input
-                                                        placeholder="Tipo"
-                                                        type="text"
-                                                    />
-                                                </FormGroup>
-
-                                                <FormGroup>
-                                                    <label>TAGS</label>
-                                                    <Input
-                                                        placeholder="Tipo"
-                                                        type="text"
-                                                    />
-                                                </FormGroup>
-
+                                                        <FormGroup>
+                                                            <label>PRONTUARIO</label>
+                                                            <Input
+                                                                placeholder="Tipo"
+                                                                type="text"
+                                                            />
+                                                        </FormGroup>
+                                                    </Col>
+                                                    <Col className="pr-md-1" md="6">
+                                                        <FormGroup>
+                                                            <label>PRONTUARIO</label>
+                                                            <Input
+                                                                placeholder="Tipo"
+                                                                type="text"
+                                                            />
+                                                        </FormGroup>
+                                                    </Col>
+                                                    <Col className="pr-md-1" md="12">
+                                                    <FormGroup>
+                                                        <label>PRONTUARIO</label>
+                                                        <Input
+                                                            placeholder="Tipo"
+                                                            type="text"
+                                                        />
+                                                    </FormGroup>
+                                                </Col>
+                                                </Row>
+                                                
                                             </Col>
+
+
+                                            <Col className="pr-md-1" md="6">
+                                                <FormGroup>
+                                                    <Label for="exampleText">Example textarea</Label>
+                                                    <Input type="textarea" name="text" id="exampleText" />
+                                                </FormGroup>
+                                            </Col>
+
                                         </Row>
                                     </Form>
                                 </CardBody>

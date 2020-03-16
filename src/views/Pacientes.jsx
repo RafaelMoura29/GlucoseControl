@@ -24,22 +24,15 @@ import { NavLink, Link } from "react-router-dom";
 // reactstrap components
 import {
     Button,
-    Card,
-    CardHeader,
-    CardBody,
-    CardTitle,
     Row,
     Col,
-    CardText
+    Form,
+    FormGroup,
+    Input,
+    Table,
+    Card,
+    CardBody
 } from "reactstrap";
-
-// core components
-import {
-    chartExample1,
-    chartExample2,
-    chartExample3,
-    chartExample4
-} from "variables/charts.jsx";
 
 class Pacientes extends React.Component {
     constructor(props) {
@@ -57,29 +50,111 @@ class Pacientes extends React.Component {
         return (
             <>
                 <div className="content">
-                    <Row>
-                        <Col lg="3">
-                            <Card>
-                                <CardHeader className='title'>Peter Parker
-                                <NavLink
-                                        to={'/admin/InfoPaciente'}
-                                    >
-                                        <i className="tim-icons icon-single-copy-04" style={{ float: 'right', cursor: 'pointer', fontSize: 22 }} />
-                                    </NavLink>
-                                </CardHeader>
-                                <CardBody>
-                                    <CardTitle>Prontuário: 123321999</CardTitle>
-                                </CardBody>
-                            </Card>
-                        </Col>
-                    </Row>
-                    <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
-                        <Link to="/admin/form_create_paciente">
-                            <Button renderAs="button" size="lg" className="btn-round btn-icon" color="info">
-                                <i className="tim-icons icon-simple-add" />
-                            </Button>
-                        </Link>
-                    </div>
+                    <Card >
+                        <CardBody>
+                            <Form>
+                                <Row>
+                                    <Col className="pr-md-1" md="5">
+                                        <FormGroup>
+                                            <Input
+                                                placeholder="Paciente"
+                                                type="text"
+                                            />
+                                        </FormGroup>
+                                    </Col>
+
+                                    <Col className="pr-md-1" md="7">
+                                        <NavLink
+                                            to={'/admin/Form_create_paciente'}
+                                        >
+                                            <Button color="success" style={{ float: 'right' }} className="animation-on-hover">
+                                                Novo
+                                </Button>
+                                        </NavLink>
+
+                                    </Col>
+
+                                </Row>
+                            </Form>
+                            <Table responsive>
+                                <thead>
+                                    <tr>
+                                        <th className="text-center">Protuário</th>
+                                        <th>Nome</th>
+                                        <th>Data</th>
+                                        <th className="text-right">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td className="text-center">1234567890</td>
+                                        <td>Jõao da Silva</td>
+                                        <td>11/10/1987</td>
+                                        <td className="text-right">
+                                            <Button className="btn-icon" color="info" size="sm">
+                                                <i className="fa fa-user"></i>
+                                            </Button>{` `}
+                                            <Button className="btn-icon" color="success" size="sm">
+                                                <i className="fa fa-edit"></i>
+                                            </Button>{` `}
+                                            <Button className="btn-icon" color="danger" size="sm">
+                                                <i className="fa fa-times" />
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-center">1234567890</td>
+                                        <td>Jõao da Silva</td>
+                                        <td>11/10/1987</td>
+                                        <td className="text-right">
+                                            <Button className="btn-icon" color="info" size="sm">
+                                                <i className="fa fa-user"></i>
+                                            </Button>{` `}
+                                            <Button className="btn-icon" color="success" size="sm">
+                                                <i className="fa fa-edit"></i>
+                                            </Button>{` `}
+                                            <Button className="btn-icon" color="danger" size="sm">
+                                                <i className="fa fa-times" />
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-center">1234567890</td>
+                                        <td>Jõao da Silva</td>
+                                        <td>11/10/1987</td>
+                                        <td className="text-right">
+                                            <Button className="btn-icon" color="info" size="sm">
+                                                <i className="fa fa-user"></i>
+                                            </Button>{` `}
+                                            <Button className="btn-icon" color="success" size="sm">
+                                                <i className="fa fa-edit"></i>
+                                            </Button>{` `}
+                                            <Button className="btn-icon" color="danger" size="sm">
+                                                <i className="fa fa-times" />
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-center">1234567890</td>
+                                        <td>Jõao da Silva</td>
+                                        <td>11/10/1987</td>
+                                        <td className="text-right">
+                                            <Button className="btn-icon" color="info" size="sm">
+                                                <i className="fa fa-user"></i>
+                                            </Button>{` `}
+                                            <Button className="btn-icon" color="success" size="sm">
+                                                <i className="fa fa-edit"></i>
+                                            </Button>{` `}
+                                            <Button className="btn-icon" color="danger" size="sm">
+                                                <i className="fa fa-times" />
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </Table>
+                        </CardBody>
+                    </Card>
+
                 </div>
             </>
         );
