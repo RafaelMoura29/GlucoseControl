@@ -62,8 +62,6 @@ class Pacientes extends React.Component {
                                             />
                                         </FormGroup>
                                     </Col>
-
-
                                 </Row>
                             </Form>
                             <Table responsive>
@@ -81,67 +79,17 @@ class Pacientes extends React.Component {
                                         <td>Jõao da Silva</td>
                                         <td>11/10/1987</td>
                                         <td className="text-right">
-                                            <Button className="btn-icon" color="info" size="sm">
-                                                <i className="fa fa-user"></i>
-                                            </Button>{` `}
-                                            <Link to="/admin/info_paciente">
-                                                <Button className="btn-icon" color="success" size="sm">
-                                                    <i className="fa fa-edit"></i>
+                                            <Link to="/admin/PainelPaciente">
+                                                <Button className="btn-icon" color="info" size="sm">
+                                                    <i className="fa fa-user"></i>
                                                 </Button>{` `}
                                             </Link>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-center">1234567890</td>
-                                        <td>Jõao da Silva</td>
-                                        <td>11/10/1987</td>
-                                        <td className="text-right">
-                                            <Button className="btn-icon" color="info" size="sm">
-                                                <i className="fa fa-user"></i>
+                                            <Button className="btn-icon" color="success" size="sm">
+                                                <i className="fa fa-edit"></i>
                                             </Button>{` `}
-                                            <Link to="/admin/info_paciente">
-
-                                                <Button className="btn-icon" color="success" size="sm">
-                                                    <i className="fa fa-edit"></i>
-                                                </Button>{` `}
-                                            </Link>
-
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td className="text-center">1234567890</td>
-                                        <td>Jõao da Silva</td>
-                                        <td>11/10/1987</td>
-                                        <td className="text-right">
-                                            <Button className="btn-icon" color="info" size="sm">
-                                                <i className="fa fa-user"></i>
-                                            </Button>{` `}
-                                            <Link to="/admin/info_paciente">
 
-                                                <Button className="btn-icon" color="success" size="sm">
-                                                    <i className="fa fa-edit"></i>
-                                                </Button>{` `}
-                                            </Link>
-
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="text-center">1234567890</td>
-                                        <td>Jõao da Silva</td>
-                                        <td>11/10/1987</td>
-                                        <td className="text-right">
-                                            <Button className="btn-icon" color="info" size="sm">
-                                                <i className="fa fa-user"></i>
-                                            </Button>{` `}
-                                            <Link to="/admin/info_paciente">
-
-                                                <Button className="btn-icon" color="success" size="sm">
-                                                    <i className="fa fa-edit"></i>
-                                                </Button>{` `}
-                                            </Link>
-
-                                        </td>
-                                    </tr>
                                 </tbody>
                             </Table>
                         </CardBody>
