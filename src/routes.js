@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Form_create_leito from "views/forms/Form_create_leito.jsx";
+import Form_glicemia from "views/forms/Form_glicemia.jsx";
 import Pacientes from "views/Pacientes.jsx";
 import Form_create_paciente from "views/forms/Form_create_paciente.jsx";
 import InfoPaciente from "views/InfoPaciente.jsx";
@@ -31,9 +31,9 @@ var routes = [
     hideSidebar: true
   },
   {
-    path: "/form_create_leito",
-    name: "Cadastro de leito",
-    component: Form_create_leito,
+    path: "/Form_glicemia",
+    name: "Cadastro de glicemia",
+    component: Form_glicemia,
     layout: "/admin",
     hideSidebar: true
   },

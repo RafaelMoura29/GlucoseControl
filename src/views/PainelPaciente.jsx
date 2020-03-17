@@ -85,7 +85,7 @@ class PainelPaciente extends React.Component {
 
                 </div>
                 <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
-                    <Link to="/admin/form_create_paciente">
+                    <Link to="/admin/Form_glicemia">
                         <Button renderAs="button" size="lg" className="btn-round btn-icon" color="warning">
                             <i className="tim-icons icon-simple-add" />
                         </Button>
