@@ -43,7 +43,7 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/InfoPaciente",
+    path: "/info_paciente",
     name: "Informações paciente",
     component: InfoPaciente,
     layout: "/admin",

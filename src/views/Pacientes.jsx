@@ -63,16 +63,6 @@ class Pacientes extends React.Component {
                                         </FormGroup>
                                     </Col>
 
-                                    <Col className="pr-md-1" md="7">
-                                        <NavLink
-                                            to={'/admin/Form_create_paciente'}
-                                        >
-                                            <Button color="success" style={{ float: 'right' }} className="animation-on-hover">
-                                                Novo
-                                </Button>
-                                        </NavLink>
-
-                                    </Col>
 
                                 </Row>
                             </Form>
@@ -94,12 +84,11 @@ class Pacientes extends React.Component {
                                             <Button className="btn-icon" color="info" size="sm">
                                                 <i className="fa fa-user"></i>
                                             </Button>{` `}
-                                            <Button className="btn-icon" color="success" size="sm">
-                                                <i className="fa fa-edit"></i>
-                                            </Button>{` `}
-                                            <Button className="btn-icon" color="danger" size="sm">
-                                                <i className="fa fa-times" />
-                                            </Button>
+                                            <Link to="/admin/info_paciente">
+                                                <Button className="btn-icon" color="success" size="sm">
+                                                    <i className="fa fa-edit"></i>
+                                                </Button>{` `}
+                                            </Link>
                                         </td>
                                     </tr>
                                     <tr>
@@ -110,12 +99,13 @@ class Pacientes extends React.Component {
                                             <Button className="btn-icon" color="info" size="sm">
                                                 <i className="fa fa-user"></i>
                                             </Button>{` `}
-                                            <Button className="btn-icon" color="success" size="sm">
-                                                <i className="fa fa-edit"></i>
-                                            </Button>{` `}
-                                            <Button className="btn-icon" color="danger" size="sm">
-                                                <i className="fa fa-times" />
-                                            </Button>
+                                            <Link to="/admin/info_paciente">
+
+                                                <Button className="btn-icon" color="success" size="sm">
+                                                    <i className="fa fa-edit"></i>
+                                                </Button>{` `}
+                                            </Link>
+
                                         </td>
                                     </tr>
                                     <tr>
@@ -126,12 +116,13 @@ class Pacientes extends React.Component {
                                             <Button className="btn-icon" color="info" size="sm">
                                                 <i className="fa fa-user"></i>
                                             </Button>{` `}
-                                            <Button className="btn-icon" color="success" size="sm">
-                                                <i className="fa fa-edit"></i>
-                                            </Button>{` `}
-                                            <Button className="btn-icon" color="danger" size="sm">
-                                                <i className="fa fa-times" />
-                                            </Button>
+                                            <Link to="/admin/info_paciente">
+
+                                                <Button className="btn-icon" color="success" size="sm">
+                                                    <i className="fa fa-edit"></i>
+                                                </Button>{` `}
+                                            </Link>
+
                                         </td>
                                     </tr>
                                     <tr>
@@ -142,19 +133,26 @@ class Pacientes extends React.Component {
                                             <Button className="btn-icon" color="info" size="sm">
                                                 <i className="fa fa-user"></i>
                                             </Button>{` `}
-                                            <Button className="btn-icon" color="success" size="sm">
-                                                <i className="fa fa-edit"></i>
-                                            </Button>{` `}
-                                            <Button className="btn-icon" color="danger" size="sm">
-                                                <i className="fa fa-times" />
-                                            </Button>
+                                            <Link to="/admin/info_paciente">
+
+                                                <Button className="btn-icon" color="success" size="sm">
+                                                    <i className="fa fa-edit"></i>
+                                                </Button>{` `}
+                                            </Link>
+
                                         </td>
                                     </tr>
                                 </tbody>
                             </Table>
                         </CardBody>
                     </Card>
-
+                    <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
+                        <Link to="/admin/form_create_paciente">
+                            <Button renderAs="button" size="lg" className="btn-round btn-icon" color="info">
+                                <i className="tim-icons icon-simple-add" />
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
             </>
         );

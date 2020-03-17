@@ -33,13 +33,6 @@ import {
     Badge
 } from "reactstrap";
 
-// core components
-import {
-    chartExample1,
-    chartExample2,
-    chartExample3,
-    chartExample4
-} from "variables/charts.jsx";
 
 class InfoPaciente extends React.Component {
 

@@ -54,15 +54,15 @@ class Form_create_paciente extends React.Component {
                                                         </FormGroup>
                                                     </Col>
                                                     <Col className="pr-md-1" md="12">
-                                                    <FormGroup>
-                                                        <label>PRONTUARIO</label>
-                                                        <Input
-                                                            placeholder="Tipo"
-                                                            type="text"
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
-                                                <Col className="pr-md-1" md="6">
+                                                        <FormGroup>
+                                                            <label>PRONTUARIO</label>
+                                                            <Input
+                                                                placeholder="Tipo"
+                                                                type="text"
+                                                            />
+                                                        </FormGroup>
+                                                    </Col>
+                                                    <Col className="pr-md-1" md="6">
 
                                                         <FormGroup>
                                                             <label>PRONTUARIO</label>
@@ -82,26 +82,58 @@ class Form_create_paciente extends React.Component {
                                                         </FormGroup>
                                                     </Col>
                                                     <Col className="pr-md-1" md="12">
-                                                    <FormGroup>
-                                                        <label>PRONTUARIO</label>
-                                                        <Input
-                                                            placeholder="Tipo"
-                                                            type="text"
-                                                        />
-                                                    </FormGroup>
-                                                </Col>
+                                                        <FormGroup>
+                                                            <label>PRONTUARIO</label>
+                                                            <Input
+                                                                placeholder="Tipo"
+                                                                type="text"
+                                                            />
+                                                        </FormGroup>
+                                                    </Col>
                                                 </Row>
-                                                
                                             </Col>
-
-
                                             <Col className="pr-md-1" md="6">
+                                                <FormGroup check inline>
+                                                    <Label check>
+                                                        <Input type="checkbox" /> 1
+              <span className="form-check-sign">
+                                                            <span className="check" />
+                                                        </span>
+                                                    </Label>
+
+                                                </FormGroup>
+                                                <p></p>
+                                                <FormGroup check inline>
+                                                    <Label check>
+                                                        <Input type="checkbox" /> 1
+              <span className="form-check-sign">
+                                                            <span className="check" />
+                                                        </span>
+                                                    </Label>
+                                                </FormGroup>
+                                                <p></p>
+                                                <FormGroup check inline>
+                                                    <Label check>
+                                                        <Input type="checkbox" /> 1
+              <span className="form-check-sign">
+                                                            <span className="check" />
+                                                        </span>
+                                                    </Label>
+                                                </FormGroup>
+                                                <p></p>
+                                                <FormGroup check inline>
+                                                    <Label check>
+                                                        <Input type="checkbox" /> 1
+              <span className="form-check-sign">
+                                                            <span className="check" />
+                                                        </span>
+                                                    </Label>
+                                                </FormGroup>
                                                 <FormGroup>
                                                     <Label for="exampleText">Example textarea</Label>
                                                     <Input type="textarea" name="text" id="exampleText" />
                                                 </FormGroup>
                                             </Col>
-
                                         </Row>
                                     </Form>
                                 </CardBody>
@@ -113,6 +145,7 @@ class Form_create_paciente extends React.Component {
                             </Card>
                         </Col>
                     </Row>
+                    
                 </div>
             </>
         );
