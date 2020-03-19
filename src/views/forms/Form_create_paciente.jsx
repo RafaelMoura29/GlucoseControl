@@ -93,41 +93,77 @@ class Form_create_paciente extends React.Component {
                                                 </Row>
                                             </Col>
                                             <Col className="pr-md-1" md="6">
-                                                <FormGroup check inline>
-                                                    <Label check>
-                                                        <Input type="checkbox" /> 1
-              <span className="form-check-sign">
-                                                            <span className="check" />
-                                                        </span>
-                                                    </Label>
-
-                                                </FormGroup>
-                                                <p></p>
-                                                <FormGroup check inline>
-                                                    <Label check>
-                                                        <Input type="checkbox" /> 1
-              <span className="form-check-sign">
-                                                            <span className="check" />
+                                                <FormGroup check>
+                                                    <Label className="form-check-label">
+                                                        <Input className="form-check-input" type="checkbox" value="" />
+                  Check me out
+                  <span className="form-check-sign">
+                                                            <span className="check"></span>
                                                         </span>
                                                     </Label>
                                                 </FormGroup>
-                                                <p></p>
-                                                <FormGroup check inline>
-                                                    <Label check>
-                                                        <Input type="checkbox" /> 1
-              <span className="form-check-sign">
-                                                            <span className="check" />
+                                                <FormGroup>
+                                                    <Input type="select" name="select" id="exampleSelect1">
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                    </Input>
+                                                </FormGroup>
+                                                <FormGroup check>
+                                                    <Label className="form-check-label">
+                                                        <Input className="form-check-input" type="checkbox" value="" />
+                  Check me out
+                  <span className="form-check-sign">
+                                                            <span className="check"></span>
                                                         </span>
                                                     </Label>
                                                 </FormGroup>
-                                                <p></p>
-                                                <FormGroup check inline>
-                                                    <Label check>
-                                                        <Input type="checkbox" /> 1
-              <span className="form-check-sign">
-                                                            <span className="check" />
+                                                <FormGroup>
+                                                    <Input type="select" name="select" id="exampleSelect1">
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                    </Input>
+                                                </FormGroup>
+                                                <FormGroup check>
+                                                    <Label className="form-check-label">
+                                                        <Input className="form-check-input" type="checkbox" value="" />
+                  Check me out
+                  <span className="form-check-sign">
+                                                            <span className="check"></span>
                                                         </span>
                                                     </Label>
+                                                </FormGroup>
+                                                <FormGroup>
+                                                    <Input type="select" name="select" id="exampleSelect1">
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                    </Input>
+                                                </FormGroup>
+                                                <FormGroup check>
+                                                    <Label className="form-check-label">
+                                                        <Input className="form-check-input" type="checkbox" value="" />
+                  Check me out
+                  <span className="form-check-sign">
+                                                            <span className="check"></span>
+                                                        </span>
+                                                    </Label>
+                                                </FormGroup>
+                                                <FormGroup>
+                                                    <Input type="select" name="select" id="exampleSelect1">
+                                                        <option>1</option>
+                                                        <option>2</option>
+                                                        <option>3</option>
+                                                        <option>4</option>
+                                                        <option>5</option>
+                                                    </Input>
                                                 </FormGroup>
                                                 <FormGroup>
                                                     <Label for="exampleText">Example textarea</Label>
@@ -145,7 +181,7 @@ class Form_create_paciente extends React.Component {
                             </Card>
                         </Col>
                     </Row>
-                    
+
                 </div>
             </>
         );
