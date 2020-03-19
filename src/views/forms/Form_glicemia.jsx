@@ -33,27 +33,27 @@ class Form_glicemia extends React.Component {
                                                 <Col className="pr-md-1" md="6">
 
                                                     <FormGroup>
-                                                        <label>PRONTUARIO</label>
+                                                        <label>PRONTUÁRIO</label>
                                                         <Input
-                                                            placeholder="Tipo"
+                                                            placeholder="Prontuário"
                                                             type="text"
                                                         />
                                                     </FormGroup>
                                                 </Col>
                                                 <Col className="pr-md-1" md="6">
                                                     <FormGroup>
-                                                        <label>PRONTUARIO</label>
+                                                        <label>DATA/HORA</label>
                                                         <Input
-                                                            placeholder="Tipo"
+                                                            placeholder="Data/Hora"
                                                             type="text"
                                                         />
                                                     </FormGroup>
                                                 </Col>
                                                 <Col className="pr-md-1" md="12">
                                                     <FormGroup>
-                                                        <label>PRONTUARIO</label>
+                                                        <label>PACIENTE</label>
                                                         <Input
-                                                            placeholder="Tipo"
+                                                            placeholder="Paciente"
                                                             type="text"
                                                         />
                                                     </FormGroup>
@@ -61,27 +61,27 @@ class Form_glicemia extends React.Component {
                                                 <Col className="pr-md-1" md="6">
 
                                                     <FormGroup>
-                                                        <label>PRONTUARIO</label>
+                                                        <label>DATA COLETA</label>
                                                         <Input
-                                                            placeholder="Tipo"
+                                                            placeholder="Data coleta"
                                                             type="text"
                                                         />
                                                     </FormGroup>
                                                 </Col>
                                                 <Col className="pr-md-1" md="6">
                                                     <FormGroup>
-                                                        <label>PRONTUARIO</label>
+                                                        <label>HORA COLETA</label>
                                                         <Input
-                                                            placeholder="Tipo"
+                                                            placeholder="Hora coleta"
                                                             type="text"
                                                         />
                                                     </FormGroup>
                                                 </Col>
                                                 <Col className="pr-md-1" md="12">
                                                     <FormGroup>
-                                                        <label>PRONTUARIO</label>
+                                                        <label>VALOR GLICEMIA</label>
                                                         <Input
-                                                            placeholder="Tipo"
+                                                            placeholder="valor glicemia"
                                                             type="text"
                                                         />
                                                     </FormGroup>
@@ -91,22 +91,22 @@ class Form_glicemia extends React.Component {
                                         <Col className="pr-md-1" md="6">
 
                                             <FormGroup>
-                                                <label>PRONTUARIO</label>
+                                                <label>TIPO</label>
                                                 <Input
                                                     placeholder="Tipo"
                                                     type="text"
                                                 />
                                             </FormGroup>
                                             <FormGroup>
-                                                <label>PRONTUARIO</label>
+                                                <label>TIPO ALIMENTAÇÃO</label>
                                                 <Input
-                                                    placeholder="Tipo"
+                                                    placeholder="Tipo alimentação"
                                                     type="text"
                                                 />
                                             </FormGroup>
                                             <FormGroup>
-                                                <Label for="exampleText">Example textarea</Label>
-                                                <Input type="textarea" name="text" id="exampleText" />
+                                                <Label for="exampleText">Observações</Label>
+                                                <Input type="textarea" name="text" id="exampleText" placeholder="Observações"/>
                                             </FormGroup>
                                         </Col>
                                     </Row>
@@ -114,7 +114,7 @@ class Form_glicemia extends React.Component {
                             </CardBody>
                             <CardFooter>
                                 <Button className="btn-fill" color="primary" type="submit">
-                                    Save
+                                    Atualizar
                   </Button>
                             </CardFooter>
                         </Card>
