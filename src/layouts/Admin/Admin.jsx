@@ -120,7 +120,7 @@ class Admin extends React.Component {
             bgColor={this.state.backgroundColor}
             logo={{
               outterLink: null,
-              text: "BlackBook",
+              text: "Glucose Control",
               imgSrc: logo
             }}
             toggleSidebar={this.toggleSidebar}
