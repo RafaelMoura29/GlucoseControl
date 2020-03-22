@@ -32,7 +32,7 @@ var routes = [
   },
   {
     path: "/Form_glicemia",
-    name: "Cadastro de glicemia",
+    name: "Coleta da glicemia",
     component: Form_glicemia,
     layout: "/admin",
     hideSidebar: true

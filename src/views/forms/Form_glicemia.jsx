@@ -13,7 +13,7 @@ import {
     Input,
     Row,
     Col,
-    CardTitle,
+    CardTitle, 
     Label
 } from "reactstrap";
 
@@ -92,17 +92,22 @@ class Form_glicemia extends React.Component {
 
                                             <FormGroup>
                                                 <label>TIPO</label>
-                                                <Input
-                                                    placeholder="Tipo"
-                                                    type="text"
-                                                />
+                                                <Input type="select" name="select" id="exampleSelect1">
+                                                        <option>Capilar</option>
+                                                        <option>Bioquímica</option>
+                                                    </Input>
                                             </FormGroup>
                                             <FormGroup>
                                                 <label>TIPO ALIMENTAÇÃO</label>
-                                                <Input
-                                                    placeholder="Tipo alimentação"
-                                                    type="text"
-                                                />
+                                                    <Input type="select" name="select" id="exampleSelect1">
+                                                        <option>Zero</option>
+                                                        <option>Oral líquida</option>
+                                                        <option>Oral pastosa</option>
+                                                        <option>Oral completa</option>
+                                                        <option>Interal intermitente</option>
+                                                        <option>Interal contínua</option>
+                                                        <option>Parenteral</option>
+                                                    </Input>
                                             </FormGroup>
                                             <FormGroup>
                                                 <Label for="exampleText">Observações</Label>
@@ -113,7 +118,10 @@ class Form_glicemia extends React.Component {
                                 </Form>
                             </CardBody>
                             <CardFooter>
-                                <Button className="btn-fill" color="primary" type="submit">
+                            <Button className="btn-fill" color="success" type="submit">
+                                    Plano aplic.
+                  </Button>
+                  <Button className="btn-fill" color="info" type="submit">
                                     Atualizar
                   </Button>
                             </CardFooter>
