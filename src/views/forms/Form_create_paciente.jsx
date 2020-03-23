@@ -174,8 +174,14 @@ class Form_create_paciente extends React.Component {
                                     </Form>
                                 </CardBody>
                                 <CardFooter>
-                                    <Button className="btn-fill" color="primary" type="submit">
-                                        Save
+                                    <Button className="btn-fill" color="success" type="submit">
+                                        Plano aplic.
+                  </Button>
+                                    <Button className="btn-fill" color="info" type="submit">
+                                        Atualizar
+                  </Button>
+                                    <Button className="btn-fill" color="warning" type="submit">
+                                        Coletar
                   </Button>
                                 </CardFooter>
                             </Card>

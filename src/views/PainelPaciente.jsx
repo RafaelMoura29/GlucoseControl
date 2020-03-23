@@ -106,25 +106,29 @@ class PainelPaciente extends React.Component {
                                         <thead>
                                             <tr>
                                                 <th>Data</th>
+                                                <th>Hora</th>
                                                 <th>Valor Glicemia</th>
-                                                <th>Outro</th>
+                                                <th>Tipo</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>20/02/2020</td>
+                                                <td>12:00</td>
                                                 <td>120 mg/dl</td>
-                                                <td>Algum dado</td>
+                                                <td>Capilar</td>
                                             </tr>
                                             <tr>
                                                 <td>20/02/2020</td>
+                                                <td>12:00</td>
                                                 <td>120 mg/dl</td>
-                                                <td>Algum dado</td>
+                                                <td>Capilar</td>
                                             </tr>
                                             <tr>
                                                 <td>20/02/2020</td>
+                                                <td>12:00</td>
                                                 <td>120 mg/dl</td>
-                                                <td>Algum dado</td>
+                                                <td>Capilar</td>
                                             </tr>
                                         </tbody>
                                     </Table>
