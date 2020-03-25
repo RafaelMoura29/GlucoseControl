@@ -31,11 +31,9 @@ class Form_glicemia extends React.Component {
         this.toggle = this.toggle.bind(this);
     };
     toggle() {
-        console.log("hello");
         this.setState({
             modal: !this.state.modal
         });
-        console.log('after setState: ', this.state);
     }
     render() {
         return (
@@ -301,15 +299,14 @@ atualize, caso contrário, basta confirmar.</CardText>
                                         </FormGroup>
                                     </Col>
                                 </Row>
-            <div className="text-center">
-            <Button className="btn-fill" color="info" type="submit" onClick={this.toggle}>
-                                    Atualizar
+                                <div className="text-center">
+                                    <Button className="btn-fill" color="info" type="submit" onClick={this.toggle}>
+                                        Atualizar
                   </Button>
-                                <Button className="btn-fill" color="success" type="submit">
-                                    Confirmar
+                                    <Button className="btn-fill" color="success" type="submit">
+                                        Confirmar
                   </Button>
-            </div>
-                                
+                                </div>
                             </ModalBody>
                         </Modal>
                     </div>
