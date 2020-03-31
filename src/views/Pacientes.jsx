@@ -41,6 +41,8 @@ import {
     DropdownItem
 } from "reactstrap";
 
+const axios = require('axios');
+
 class Pacientes extends React.Component {
 
 
@@ -48,14 +50,24 @@ class Pacientes extends React.Component {
         super(props);
         this.state = {
             bigChartData: "data1",
-            width: 0, height: 0
+            width: 0,
+            height: 0,
+            pacientes: [],
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    }
+
+    async getPacientes() {
+        axios.get("https://glucosecontrolapp.herokuapp.com/paciente")
+            .then(response => {
+                this.setState({ pacientes: response.data.paciente });
+            })
     }
 
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
+        this.getPacientes()
     }
 
     componentWillUnmount() {
@@ -72,13 +84,13 @@ class Pacientes extends React.Component {
         });
     };
     render() {
-
+        const pacientes = this.state.pacientes
         return (
             <>
                 <div className="content">
                     <Card >
                         <CardBody>
-                            
+
                             <Form>
                                 <Row>
                                     <Col className="pr-md-1" md="2">
@@ -107,9 +119,9 @@ class Pacientes extends React.Component {
                                         ? <Col className="pr-md-1" md="2">
                                             <Link to="/admin/form_create_paciente">
 
-                                            <Button className="btn-fill" color="success" type="submit">
-                                                Novo</Button>
-                                                </Link>
+                                                <Button className="btn-fill" color="success" type="submit">
+                                                    Novo</Button>
+                                            </Link>
                                         </Col>
                                         : <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
                                             <Link to="/admin/form_create_paciente">
@@ -132,19 +144,21 @@ class Pacientes extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1234567890</td>
-                                        <td>Fulano de Tal</td>
-                                        <td>20/02/2020</td>
-                                        <th scope="row" className="text-right">
-                                        <Link to="/admin/PainelPaciente">
-                                               
-                                            <Button className="btn-icon" color="danger" size="sm">
-                                                <i className="fa fa-tint"></i>
-                                            </Button>
-                                            </Link>
-                                        </th>
-                                    </tr>
+                                    {this.state.pacientes.map(paciente =>
+                                        <tr>
+                                            <td>{paciente.prontuario}</td>
+                                            <td>{paciente.nome}</td>
+                                            <td>{paciente.dataHoraInternacao}</td>
+                                            <th scope="row" className="text-right">
+                                                <Link to={'/admin/PainelPaciente/' + paciente._id}>
+                                                    <Button className="btn-icon" color="danger" size="sm">
+                                                        <i className="fa fa-tint"></i>
+                                                    </Button>
+                                                </Link>
+                                            </th>
+                                        </tr>
+                                    )}
+
                                 </tbody>
                             </Table>
                         </CardBody>
