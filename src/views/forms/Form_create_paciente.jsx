@@ -19,6 +19,8 @@ import {
     CardText
 } from "reactstrap";
 
+const axios = require('axios');
+
 class Form_create_paciente extends React.Component {
     constructor(props) {
         super(props);
@@ -32,6 +34,24 @@ class Form_create_paciente extends React.Component {
         this.setState({
             modal: !this.state.modal
         });
+    }
+    savePaciente(){
+        axios.post("https://glucosecontrolapp.herokuapp.com/paciente",{
+            "prontuario":"a",
+            "nome":"a",
+            "dataNascimento":"a",
+            "tipoInternacao":"a",
+            "diabetes":"a",
+            "insuficienciaRenal":"a",
+            "corticoide":"a",
+            "infeccao":"a",
+            "sepse":"a",
+            "sindromeDesconfortoRespiratorio":"a",
+            "sexo":"a",
+            "dataHoraInternacao":"a",
+            "observacoes":"a",
+        })
+        
     }
     render() {
         return (
@@ -321,15 +341,30 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                             <Input
                                                                 placeholder="PRONTUÁRIO"
                                                                 type="text"
+                                                                id="inputProntuario"
                                                             />
                                                         </FormGroup>
                                                     </Col>
-                                                    <Col className="pr-md-1" md="6">
+                                                    <Col className="pr-md-1" md="3">
                                                         <FormGroup>
-                                                            <label>DATA/HORA INTERNAÇÃO</label>
+                                                            <label>DATA INTERNAÇÃO</label>
                                                             <Input
-                                                                placeholder="DATA/HORA INTERNAÇÃO"
-                                                                type="text"
+                                                                type="date"
+                                                                name="datetime"
+                                                                id="exampleDatetime"
+                                                                placeholder="datetime placeholder"
+                                                                id="inputDataInternacao"
+                                                            />
+                                                        </FormGroup>
+                                                    </Col>
+                                                    <Col className="pr-md-1" md="3">
+                                                        <FormGroup>
+                                                        <label>HORA INTERNAÇÃO</label>
+                                                            <Input
+                                                                type="time"
+                                                                name="datetime"
+                                                                id="inputHoraInternacao"
+                                                                placeholder="datetime placeholder"
                                                             />
                                                         </FormGroup>
                                                     </Col>
@@ -339,6 +374,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                             <Input
                                                                 placeholder="NOME"
                                                                 type="text"
+                                                                id="inputNome"
                                                             />
                                                         </FormGroup>
                                                     </Col>
@@ -349,16 +385,17 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                             <Input
                                                                 placeholder="DATA NASCIMENTO"
                                                                 type="text"
+                                                                id="inputDataNascimento"
                                                             />
                                                         </FormGroup>
                                                     </Col>
                                                     <Col className="pr-md-1" md="6">
                                                         <FormGroup>
                                                             <label>SEXO</label>
-                                                            <Input
-                                                                placeholder="SEXO"
-                                                                type="text"
-                                                            />
+                                                            <Input type="select" name="select" id="inputSexo">
+                                                                <option>Masculino</option>
+                                                                <option>Feminino</option>
+                                                            </Input>
                                                         </FormGroup>
                                                     </Col>
                                                     <Col className="pr-md-1" md="12">
@@ -367,20 +404,21 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                             <Input
                                                                 placeholder="TIPO INTERNAÇÃO"
                                                                 type="text"
+                                                                id="inputTipoInternacao"
                                                             />
                                                         </FormGroup>
                                                     </Col>
                                                     <Col md="12">
                                                         <FormGroup check inline className="form-check-radio">
                                                             <Label className="form-check-label">
-                                                                <Input type="radio" name="exampleRadios1" id="exampleRadios11" value="option1" />
+                                                                <Input type="radio" name="exampleRadios1" id="inputRadioInternado" value="option1" defaultChecked />
                 INTERNADO
                 <span className="form-check-sign"></span>
                                                             </Label>
                                                         </FormGroup>
                                                         <FormGroup check inline className="form-check-radio">
                                                             <Label className="form-check-label">
-                                                                <Input type="radio" name="exampleRadios1" id="exampleRadios12" value="option2" defaultChecked />
+                                                                <Input type="radio" name="exampleRadios1" id="inputRadioAlta" value="option2" />
               ALTA
               <span className="form-check-sign"></span>
                                                             </Label>
@@ -391,7 +429,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                             <Col className="pr-md-1" md="6">
                                                 <FormGroup>
                                                     <Label for="exampleText">OBSERVAÇÕES</Label>
-                                                    <Input type="textarea" name="text" id="exampleText" />
+                                                    <Input type="textarea" name="text" id="inputObservacoes" />
                                                 </FormGroup>
                                                 <FormGroup check>
                                                     <Label className="form-check-label mb-1">
@@ -403,7 +441,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                     </Label>
                                                 </FormGroup>
                                                 <FormGroup>
-                                                    <Input type="select" name="select" id="exampleSelect1">
+                                                    <Input type="select" name="select" id="inputDiabetes">
                                                         <option></option>
                                                         <option>controle domiciliar dietético</option>
                                                         <option>controle domiciliar com hipoglicemiante oral</option>
@@ -421,7 +459,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                     </Label>
                                                 </FormGroup>
                                                 <FormGroup>
-                                                    <Input type="select" name="select" id="exampleSelect1">
+                                                    <Input type="select" name="select" id="inputInsuficienciaRenal">
                                                         Insuficiência Renal
                                                         <option></option>
                                                         <option>crônica dialítica</option>
@@ -440,13 +478,13 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                     </Label>
                                                 </FormGroup>
                                                 <FormGroup>
-                                                    <Input type="select" name="select" id="exampleSelect1">
+                                                    <Input type="select" name="select" id="inputCorticoide">
                                                         <option></option>
                                                         <option>a mais de 7 dias</option>
                                                         <option>menos de 7 dias</option>
                                                     </Input>
                                                 </FormGroup>
-                                                
+
                                                 <FormGroup check>
                                                     <Row>
                                                         <Col md="4">
@@ -487,7 +525,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                     <Button className="btn-fill" color="success" type="submit" onClick={this.toggle}>
                                         Plano aplicação
                   </Button>
-                                    <Button className="btn-fill" color="info" type="submit">
+                                    <Button className="btn-fill" color="info" type="submit" onClick={this.savePaciente}>
                                         Atualizar
                   </Button>
                                     <Button className="btn-fill" color="warning" type="submit">
