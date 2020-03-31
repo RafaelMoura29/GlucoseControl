@@ -48,7 +48,10 @@ class Form_create_paciente extends React.Component {
             document.getElementById("inputObservacoes").value === "" ||
             document.getElementById("inputDiabetes").value === "" ||
             document.getElementById("inputInsuficienciaRenal").value === "" ||
-            document.getElementById("inputCorticoide").value === "" 
+            document.getElementById("inputCorticoide").value === "" ||
+            document.getElementById("inputInfeccao").value === "" ||
+            document.getElementById("inputSepse").value === "" ||
+            document.getElementById("inputDesconfortoRespiratorio").value === "" 
             ) {
             alert("Preencha todos os campos|")
         }
@@ -60,9 +63,9 @@ class Form_create_paciente extends React.Component {
             "diabetes":document.getElementById("inputDiabetes").value,
             "insuficienciaRenal":document.getElementById("inputInsuficienciaRenal").value,
             "corticoide":document.getElementById("inputCorticoide").value === "" ,
-            "infeccao":"a",
-            "sepse":"a",
-            "sindromeDesconfortoRespiratorio":"a",
+            "infeccao":document.getElementById("inputInfeccao").value,
+            "sepse":document.getElementById("inputSepse").value,
+            "sindromeDesconfortoRespiratorio":document.getElementById("inputDesconfortoRespiratorio").value,
             "sexo":document.getElementById("inputSexo").value,
             "dataHoraInternacao":document.getElementById("inputDataInternacao").value,
             "observacoes":document.getElementById("inputObservacoes").value,
@@ -505,7 +508,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                     <Row>
                                                         <Col md="4">
                                                             <Label className="form-check-label">
-                                                                <Input className="form-check-input" type="checkbox" value="" />
+                                                                <Input className="form-check-input" id="inputInfeccao" type="checkbox" value="" />
                   INFECÇÃO
                   <span className="form-check-sign">
                                                                     <span className="check"></span>
@@ -514,7 +517,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                         </Col>
                                                         <Col md="4">
                                                             <Label className="form-check-label">
-                                                                <Input className="form-check-input" type="checkbox" value="" />
+                                                                <Input className="form-check-input" id="inputSepse" type="checkbox" value="" />
                   SEPSE
                   <span className="form-check-sign">
                                                                     <span className="check"></span>
@@ -523,7 +526,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                         </Col>
                                                         <Col md="4">
                                                             <Label className="form-check-label">
-                                                                <Input className="form-check-input" type="checkbox" value="" />
+                                                                <Input className="form-check-input" id="inputDesconfortoRespiratorio" type="checkbox" value="" />
                   SÍDROME DE DESCONFORTO RESPIRATÓRIO
                   <span className="form-check-sign">
                                                                     <span className="check"></span>
