@@ -36,22 +36,37 @@ class Form_create_paciente extends React.Component {
         });
     }
     savePaciente(){
+        if (document.getElementById("inputProntuario").value === "" || 
+            document.getElementById("inputDataInternacao").value === "" ||
+            document.getElementById("inputHoraInternacao").value === "" ||
+            document.getElementById("inputNome").value === "" ||
+            document.getElementById("inputDataNascimento").value === "" ||
+            document.getElementById("inputSexo").value === "" ||
+            document.getElementById("inputTipoInternacao").value === "" ||
+            document.getElementById("inputRadioInternado").value === "" ||
+            document.getElementById("inputRadioAlta").value === "" ||
+            document.getElementById("inputObservacoes").value === "" ||
+            document.getElementById("inputDiabetes").value === "" ||
+            document.getElementById("inputInsuficienciaRenal").value === "" ||
+            document.getElementById("inputCorticoide").value === "" 
+            ) {
+            alert("Preencha todos os campos|")
+        }
         axios.post("https://glucosecontrolapp.herokuapp.com/paciente",{
-            "prontuario":"a",
-            "nome":"a",
-            "dataNascimento":"a",
-            "tipoInternacao":"a",
-            "diabetes":"a",
-            "insuficienciaRenal":"a",
-            "corticoide":"a",
+            "prontuario":document.getElementById("inputProntuario").value,
+            "nome":document.getElementById("inputNome").value,
+            "dataNascimento":document.getElementById("inputDataNascimento").value,
+            "tipoInternacao":document.getElementById("inputTipoInternacao").value,
+            "diabetes":document.getElementById("inputDiabetes").value,
+            "insuficienciaRenal":document.getElementById("inputInsuficienciaRenal").value,
+            "corticoide":document.getElementById("inputCorticoide").value === "" ,
             "infeccao":"a",
             "sepse":"a",
             "sindromeDesconfortoRespiratorio":"a",
-            "sexo":"a",
-            "dataHoraInternacao":"a",
-            "observacoes":"a",
+            "sexo":document.getElementById("inputSexo").value,
+            "dataHoraInternacao":document.getElementById("inputDataInternacao").value,
+            "observacoes":document.getElementById("inputObservacoes").value,
         })
-        
     }
     render() {
         return (
@@ -342,6 +357,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                                 placeholder="PRONTUÁRIO"
                                                                 type="text"
                                                                 id="inputProntuario"
+                                                                required 
                                                             />
                                                         </FormGroup>
                                                     </Col>
