@@ -35,8 +35,8 @@ class Form_create_paciente extends React.Component {
             modal: !this.state.modal
         });
     }
-    savePaciente(){
-        if (document.getElementById("inputProntuario").value === "" || 
+    savePaciente() {
+        if (document.getElementById("inputProntuario").value === "" ||
             document.getElementById("inputDataInternacao").value === "" ||
             document.getElementById("inputHoraInternacao").value === "" ||
             document.getElementById("inputNome").value === "" ||
@@ -48,27 +48,43 @@ class Form_create_paciente extends React.Component {
             document.getElementById("inputObservacoes").value === "" ||
             document.getElementById("inputDiabetes").value === "" ||
             document.getElementById("inputInsuficienciaRenal").value === "" ||
-            document.getElementById("inputCorticoide").value === "" ||
-            document.getElementById("inputInfeccao").value === "" ||
-            document.getElementById("inputSepse").value === "" ||
-            document.getElementById("inputDesconfortoRespiratorio").value === "" 
-            ) {
+            document.getElementById("inputCorticoide").value === ""
+        ) {
             alert("Preencha todos os campos|")
         }
-        axios.post("https://glucosecontrolapp.herokuapp.com/paciente",{
-            "prontuario":document.getElementById("inputProntuario").value,
-            "nome":document.getElementById("inputNome").value,
-            "dataNascimento":document.getElementById("inputDataNascimento").value,
-            "tipoInternacao":document.getElementById("inputTipoInternacao").value,
-            "diabetes":document.getElementById("inputDiabetes").value,
-            "insuficienciaRenal":document.getElementById("inputInsuficienciaRenal").value,
-            "corticoide":document.getElementById("inputCorticoide").value === "" ,
-            "infeccao":document.getElementById("inputInfeccao").value,
-            "sepse":document.getElementById("inputSepse").value,
-            "sindromeDesconfortoRespiratorio":document.getElementById("inputDesconfortoRespiratorio").value,
-            "sexo":document.getElementById("inputSexo").value,
-            "dataHoraInternacao":document.getElementById("inputDataInternacao").value,
-            "observacoes":document.getElementById("inputObservacoes").value,
+        axios.post("https://glucosecontrolapp.herokuapp.com/paciente", {
+            "prontuario": document.getElementById("inputProntuario").value,
+            "nome": document.getElementById("inputNome").value,
+            "dataNascimento": document.getElementById("inputDataNascimento").value,
+            "tipoInternacao": document.getElementById("inputTipoInternacao").value,
+            "diabetes": document.getElementById("inputDiabetes").value,
+            "insuficienciaRenal": document.getElementById("inputInsuficienciaRenal").value,
+            "corticoide": document.getElementById("inputCorticoide").value === "",
+            "infeccao": document.getElementById("inputInfeccao").checked,
+            "sepse": document.getElementById("inputSepse").checked,
+            "sindromeDesconfortoRespiratorio": document.getElementById("inputDesconfortoRespiratorio").checked,
+            "sexo": document.getElementById("inputSexo").value,
+            "dataHoraInternacao": document.getElementById("inputDataInternacao").value,
+            "observacoes": document.getElementById("inputObservacoes").value,
+        })
+        .then(response =>{
+            alert("Dados Gravados com sucesso")
+            document.getElementById("inputProntuario").value = ""
+            document.getElementById("inputDataInternacao").value = ""
+            document.getElementById("inputHoraInternacao").value = ""
+            document.getElementById("inputNome").value = ""
+            document.getElementById("inputDataNascimento").value = ""
+            document.getElementById("inputSexo").value = ""
+            document.getElementById("inputTipoInternacao").value = ""
+            document.getElementById("inputRadioInternado").value = ""
+            document.getElementById("inputRadioAlta").value = ""
+            document.getElementById("inputObservacoes").value = ""
+            document.getElementById("inputDiabetes").value = ""
+            document.getElementById("inputInsuficienciaRenal").value = ""
+            document.getElementById("inputCorticoide").value = ""
+        })
+        .catch(error =>{
+            alert("Ocorreuum erro ao tentar gravar os dados. Tente novamente mais tarde!")
         })
     }
     render() {
@@ -352,19 +368,69 @@ atualize, caso contrário, basta confirmar.</CardText>
                                         <Row>
                                             <Col className="pr-md-1" md="6">
                                                 <Row>
-                                                    <Col className="pr-md-1" md="6">
 
+                                                    <Col className="pr-md-1" md="12">
+                                                        <FormGroup>
+                                                            <label>NOME</label>
+                                                            <Input
+                                                                placeholder="NOME"
+                                                                type="text"
+                                                                id="inputNome"
+                                                            />
+                                                        </FormGroup>
+                                                    </Col>
+
+                                                    <Col className="pr-md-1" md="6">
                                                         <FormGroup>
                                                             <label>PRONTUÁRIO</label>
                                                             <Input
                                                                 placeholder="PRONTUÁRIO"
                                                                 type="text"
                                                                 id="inputProntuario"
-                                                                required 
+                                                                required
                                                             />
                                                         </FormGroup>
                                                     </Col>
-                                                    <Col className="pr-md-1" md="3">
+
+                                                    <Col className="pr-md-1" md="6">
+                                                        <FormGroup>
+                                                            <label>DATA NASCIMENTO</label>
+                                                            <Input
+                                                                type="date"
+                                                                name="datetime"
+                                                                id="exampleDatetime"
+                                                                placeholder="datetime placeholder"
+                                                                id="inputDataNascimento"
+                                                            />
+                                                        </FormGroup>
+                                                    </Col>
+
+                                                    <Col className="pr-md-1" md="6">
+                                                        <FormGroup>
+                                                            <label>SEXO</label>
+                                                            <Input type="select" name="select" id="inputSexo">
+                                                                <option>Masculino</option>
+                                                                <option>Feminino</option>
+                                                            </Input>
+                                                        </FormGroup>
+                                                    </Col>
+
+                                                    <Col className="pr-md-1" md="6">
+                                                        <FormGroup>
+                                                            <label>TIPO INTERNAÇÃO</label>
+                                                            <Input type="select" name="select" id="inputTipoInternacao">
+                                                                <option>clínica</option>
+                                                                <option>cirurgica de urgência</option>
+                                                                <option>cirurgica eletiva</option>
+                                                                <option>sindorme coronariana aguda</option>
+                                                                <option>acidente vascular encefálico</option>
+                                                                <option>trauma</option>
+                                                                <option>oncológica</option>
+                                                            </Input>
+                                                        </FormGroup>
+                                                    </Col>
+
+                                                    <Col className="pr-md-1" md="6">
                                                         <FormGroup>
                                                             <label>DATA INTERNAÇÃO</label>
                                                             <Input
@@ -376,54 +442,15 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                             />
                                                         </FormGroup>
                                                     </Col>
-                                                    <Col className="pr-md-1" md="3">
+
+                                                    <Col className="pr-md-1" md="6">
                                                         <FormGroup>
-                                                        <label>HORA INTERNAÇÃO</label>
+                                                            <label>HORA INTERNAÇÃO</label>
                                                             <Input
                                                                 type="time"
                                                                 name="datetime"
                                                                 id="inputHoraInternacao"
                                                                 placeholder="datetime placeholder"
-                                                            />
-                                                        </FormGroup>
-                                                    </Col>
-                                                    <Col className="pr-md-1" md="12">
-                                                        <FormGroup>
-                                                            <label>NOME</label>
-                                                            <Input
-                                                                placeholder="NOME"
-                                                                type="text"
-                                                                id="inputNome"
-                                                            />
-                                                        </FormGroup>
-                                                    </Col>
-                                                    <Col className="pr-md-1" md="6">
-
-                                                        <FormGroup>
-                                                            <label>DATA NASCIMENTO</label>
-                                                            <Input
-                                                                placeholder="DATA NASCIMENTO"
-                                                                type="text"
-                                                                id="inputDataNascimento"
-                                                            />
-                                                        </FormGroup>
-                                                    </Col>
-                                                    <Col className="pr-md-1" md="6">
-                                                        <FormGroup>
-                                                            <label>SEXO</label>
-                                                            <Input type="select" name="select" id="inputSexo">
-                                                                <option>Masculino</option>
-                                                                <option>Feminino</option>
-                                                            </Input>
-                                                        </FormGroup>
-                                                    </Col>
-                                                    <Col className="pr-md-1" md="12">
-                                                        <FormGroup>
-                                                            <label>TIPO INTERNAÇÃO</label>
-                                                            <Input
-                                                                placeholder="TIPO INTERNAÇÃO"
-                                                                type="text"
-                                                                id="inputTipoInternacao"
                                                             />
                                                         </FormGroup>
                                                     </Col>
@@ -446,59 +473,34 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                 </Row>
                                             </Col>
                                             <Col className="pr-md-1" md="6">
+                                                
+
                                                 <FormGroup>
-                                                    <Label for="exampleText">OBSERVAÇÕES</Label>
-                                                    <Input type="textarea" name="text" id="inputObservacoes" />
-                                                </FormGroup>
-                                                <FormGroup check>
-                                                    <Label className="form-check-label mb-1">
-                                                        <Input className="form-check-input" type="checkbox" value="" />
-                  DIABETES
-                  <span className="form-check-sign">
-                                                            <span className="check"></span>
-                                                        </span>
-                                                    </Label>
-                                                </FormGroup>
-                                                <FormGroup>
+                                                    <Label for="exampleText">DIABETES</Label>
                                                     <Input type="select" name="select" id="inputDiabetes">
-                                                        <option></option>
+                                                        <option>Não se aplica</option>
                                                         <option>controle domiciliar dietético</option>
                                                         <option>controle domiciliar com hipoglicemiante oral</option>
                                                         <option>controle domiciliar com insulina</option>
                                                         <option>controle domiciliar medicamentoso misto</option>
                                                     </Input>
                                                 </FormGroup>
-                                                <FormGroup check>
-                                                    <Label className="form-check-label mb-1">
-                                                        <Input className="form-check-input" type="checkbox" value="" />
-                  INSUFICIÊNCIA RENAL
-                  <span className="form-check-sign">
-                                                            <span className="check"></span>
-                                                        </span>
-                                                    </Label>
-                                                </FormGroup>
+
                                                 <FormGroup>
+                                                    <Label for="exampleText">INSUFICIÊNCIA RENAL</Label>
                                                     <Input type="select" name="select" id="inputInsuficienciaRenal">
-                                                        Insuficiência Renal
-                                                        <option></option>
+                                                        <option>Não se aplica</option>
                                                         <option>crônica dialítica</option>
                                                         <option>crônica não dialítica</option>
                                                         <option>aguda dialítica</option>
                                                         <option>aguda não dialítica</option>
                                                     </Input>
                                                 </FormGroup>
-                                                <FormGroup check>
-                                                    <Label className="form-check-label mb-1">
-                                                        <Input className="form-check-input" type="checkbox" value="" />
-                  CORTICOIDE
-                  <span className="form-check-sign">
-                                                            <span className="check"></span>
-                                                        </span>
-                                                    </Label>
-                                                </FormGroup>
+
                                                 <FormGroup>
+                                                    <Label for="exampleText">CORTICOIDE</Label>
                                                     <Input type="select" name="select" id="inputCorticoide">
-                                                        <option></option>
+                                                        <option>Não se aplica</option>
                                                         <option>a mais de 7 dias</option>
                                                         <option>menos de 7 dias</option>
                                                     </Input>
@@ -535,6 +537,11 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                         </Col>
                                                     </Row>
 
+                                                </FormGroup>
+
+                                                <FormGroup>
+                                                    <Label for="exampleText">OBSERVAÇÕES</Label>
+                                                    <Input type="textarea" name="text" id="inputObservacoes" />
                                                 </FormGroup>
                                             </Col>
                                         </Row>
