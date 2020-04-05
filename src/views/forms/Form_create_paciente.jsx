@@ -4,7 +4,6 @@ import React from "react";
 import {
     Button,
     Card,
-    CardHeader,
     CardBody,
     CardFooter,
     FormGroup,
@@ -12,12 +11,13 @@ import {
     Input,
     Row,
     Col,
-    CardTitle,
     Label,
     Modal,
     ModalBody,
     CardText
 } from "reactstrap";
+
+const axios = require('axios');
 
 class Form_create_paciente extends React.Component {
     constructor(props) {
@@ -28,10 +28,62 @@ class Form_create_paciente extends React.Component {
         };
         this.toggle = this.toggle.bind(this);
     };
+
     toggle() {
         this.setState({
             modal: !this.state.modal
         });
+    }
+    savePaciente() {
+        if (document.getElementById("inputProntuario").value === "" ||
+            document.getElementById("inputDataInternacao").value === "" ||
+            document.getElementById("inputHoraInternacao").value === "" ||
+            document.getElementById("inputNome").value === "" ||
+            document.getElementById("inputDataNascimento").value === "" ||
+            document.getElementById("inputSexo").value === "" ||
+            document.getElementById("inputTipoInternacao").value === "" ||
+            document.getElementById("inputObservacoes").value === "" ||
+            document.getElementById("inputDiabetes").value === "" ||
+            document.getElementById("inputInsuficienciaRenal").value === "" ||
+            document.getElementById("inputCorticoide").value === ""
+        ) {
+            alert("Preencha todos os campos|")
+        }
+        axios.post("https://glucosecontrolapp.herokuapp.com/paciente", {
+            "prontuario": document.getElementById("inputProntuario").value,
+            "nome": document.getElementById("inputNome").value,
+            "dataNascimento": document.getElementById("inputDataNascimento").value,
+            "tipoInternacao": document.getElementById("inputTipoInternacao").value,
+            "diabetes": document.getElementById("inputDiabetes").value,
+            "insuficienciaRenal": document.getElementById("inputInsuficienciaRenal").value,
+            "corticoide": document.getElementById("inputCorticoide").value,
+            "infeccao": document.getElementById("inputInfeccao").checked,
+            "sepse": document.getElementById("inputSepse").checked,
+            "sindromeDesconfortoRespiratorio": document.getElementById("inputDesconfortoRespiratorio").checked,
+            "sexo": document.getElementById("inputSexo").value,
+            "dataHoraInternacao": document.getElementById("inputDataInternacao").value,
+            "observacoes": document.getElementById("inputObservacoes").value,
+            "estadoPaciente": document.getElementById("inputRadioAlta").checked ? "alta" : "internado"
+        })
+        .then(response =>{
+            alert("Dados Gravados com sucesso")
+            document.getElementById("inputProntuario").value = ""
+            document.getElementById("inputDataInternacao").value = ""
+            document.getElementById("inputHoraInternacao").value = ""
+            document.getElementById("inputNome").value = ""
+            document.getElementById("inputDataNascimento").value = ""
+            document.getElementById("inputSexo").value = ""
+            document.getElementById("inputTipoInternacao").value = ""
+            document.getElementById("inputRadioInternado").value = ""
+            document.getElementById("inputRadioAlta").value = ""
+            document.getElementById("inputObservacoes").value = ""
+            document.getElementById("inputDiabetes").value = ""
+            document.getElementById("inputInsuficienciaRenal").value = ""
+            document.getElementById("inputCorticoide").value = ""
+        })
+        .catch(error =>{
+            alert("Ocorreuum erro ao tentar gravar os dados. Tente novamente mais tarde!")
+        })
     }
     render() {
         return (
@@ -314,73 +366,103 @@ atualize, caso contrário, basta confirmar.</CardText>
                                         <Row>
                                             <Col className="pr-md-1" md="6">
                                                 <Row>
-                                                    <Col className="pr-md-1" md="6">
 
-                                                        <FormGroup>
-                                                            <label>PRONTUÁRIO</label>
-                                                            <Input
-                                                                placeholder="PRONTUÁRIO"
-                                                                type="text"
-                                                            />
-                                                        </FormGroup>
-                                                    </Col>
-                                                    <Col className="pr-md-1" md="6">
-                                                        <FormGroup>
-                                                            <label>DATA/HORA INTERNAÇÃO</label>
-                                                            <Input
-                                                                placeholder="DATA/HORA INTERNAÇÃO"
-                                                                type="text"
-                                                            />
-                                                        </FormGroup>
-                                                    </Col>
                                                     <Col className="pr-md-1" md="12">
                                                         <FormGroup>
                                                             <label>NOME</label>
                                                             <Input
                                                                 placeholder="NOME"
                                                                 type="text"
+                                                                id="inputNome"
                                                             />
                                                         </FormGroup>
                                                     </Col>
-                                                    <Col className="pr-md-1" md="6">
 
+                                                    <Col className="pr-md-1" md="6">
+                                                        <FormGroup>
+                                                            <label>PRONTUÁRIO</label>
+                                                            <Input
+                                                                placeholder="PRONTUÁRIO"
+                                                                type="text"
+                                                                id="inputProntuario"
+                                                                required
+                                                            />
+                                                        </FormGroup>
+                                                    </Col>
+
+                                                    <Col className="pr-md-1" md="6">
                                                         <FormGroup>
                                                             <label>DATA NASCIMENTO</label>
                                                             <Input
-                                                                placeholder="DATA NASCIMENTO"
-                                                                type="text"
+                                                                type="date"
+                                                                name="datetime"
+                                                                id="exampleDatetime"
+                                                                placeholder="datetime placeholder"
+                                                                id="inputDataNascimento"
                                                             />
                                                         </FormGroup>
                                                     </Col>
+
                                                     <Col className="pr-md-1" md="6">
                                                         <FormGroup>
                                                             <label>SEXO</label>
+                                                            <Input type="select" name="select" id="inputSexo">
+                                                                <option>Masculino</option>
+                                                                <option>Feminino</option>
+                                                            </Input>
+                                                        </FormGroup>
+                                                    </Col>
+
+                                                    <Col className="pr-md-1" md="6">
+                                                        <FormGroup>
+                                                            <label>TIPO INTERNAÇÃO</label>
+                                                            <Input type="select" name="select" id="inputTipoInternacao">
+                                                                <option>clínica</option>
+                                                                <option>cirurgica de urgência</option>
+                                                                <option>cirurgica eletiva</option>
+                                                                <option>sindorme coronariana aguda</option>
+                                                                <option>acidente vascular encefálico</option>
+                                                                <option>trauma</option>
+                                                                <option>oncológica</option>
+                                                            </Input>
+                                                        </FormGroup>
+                                                    </Col>
+
+                                                    <Col className="pr-md-1" md="6">
+                                                        <FormGroup>
+                                                            <label>DATA INTERNAÇÃO</label>
                                                             <Input
-                                                                placeholder="SEXO"
-                                                                type="text"
+                                                                type="date"
+                                                                name="datetime"
+                                                                id="exampleDatetime"
+                                                                placeholder="datetime placeholder"
+                                                                id="inputDataInternacao"
                                                             />
                                                         </FormGroup>
                                                     </Col>
-                                                    <Col className="pr-md-1" md="12">
+
+                                                    <Col className="pr-md-1" md="6">
                                                         <FormGroup>
-                                                            <label>TIPO INTERNAÇÃO</label>
+                                                            <label>HORA INTERNAÇÃO</label>
                                                             <Input
-                                                                placeholder="TIPO INTERNAÇÃO"
-                                                                type="text"
+                                                                type="time"
+                                                                name="datetime"
+                                                                id="inputHoraInternacao"
+                                                                placeholder="datetime placeholder"
                                                             />
                                                         </FormGroup>
                                                     </Col>
                                                     <Col md="12">
                                                         <FormGroup check inline className="form-check-radio">
                                                             <Label className="form-check-label">
-                                                                <Input type="radio" name="exampleRadios1" id="exampleRadios11" value="option1" />
+                                                                <Input type="radio" name="exampleRadios1" id="inputRadioInternado" value="option1" defaultChecked />
                 INTERNADO
                 <span className="form-check-sign"></span>
                                                             </Label>
                                                         </FormGroup>
                                                         <FormGroup check inline className="form-check-radio">
                                                             <Label className="form-check-label">
-                                                                <Input type="radio" name="exampleRadios1" id="exampleRadios12" value="option2" defaultChecked />
+                                                                <Input type="radio" name="exampleRadios1" id="inputRadioAlta" value="option2" />
               ALTA
               <span className="form-check-sign"></span>
                                                             </Label>
@@ -389,69 +471,44 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                 </Row>
                                             </Col>
                                             <Col className="pr-md-1" md="6">
+                                                
+
                                                 <FormGroup>
-                                                    <Label for="exampleText">OBSERVAÇÕES</Label>
-                                                    <Input type="textarea" name="text" id="exampleText" />
-                                                </FormGroup>
-                                                <FormGroup check>
-                                                    <Label className="form-check-label mb-1">
-                                                        <Input className="form-check-input" type="checkbox" value="" />
-                  DIABETES
-                  <span className="form-check-sign">
-                                                            <span className="check"></span>
-                                                        </span>
-                                                    </Label>
-                                                </FormGroup>
-                                                <FormGroup>
-                                                    <Input type="select" name="select" id="exampleSelect1">
-                                                        <option></option>
+                                                    <Label for="exampleText">DIABETES</Label>
+                                                    <Input type="select" name="select" id="inputDiabetes">
+                                                        <option>Não se aplica</option>
                                                         <option>controle domiciliar dietético</option>
                                                         <option>controle domiciliar com hipoglicemiante oral</option>
                                                         <option>controle domiciliar com insulina</option>
                                                         <option>controle domiciliar medicamentoso misto</option>
                                                     </Input>
                                                 </FormGroup>
-                                                <FormGroup check>
-                                                    <Label className="form-check-label mb-1">
-                                                        <Input className="form-check-input" type="checkbox" value="" />
-                  INSUFICIÊNCIA RENAL
-                  <span className="form-check-sign">
-                                                            <span className="check"></span>
-                                                        </span>
-                                                    </Label>
-                                                </FormGroup>
+
                                                 <FormGroup>
-                                                    <Input type="select" name="select" id="exampleSelect1">
-                                                        Insuficiência Renal
-                                                        <option></option>
+                                                    <Label for="exampleText">INSUFICIÊNCIA RENAL</Label>
+                                                    <Input type="select" name="select" id="inputInsuficienciaRenal">
+                                                        <option>Não se aplica</option>
                                                         <option>crônica dialítica</option>
                                                         <option>crônica não dialítica</option>
                                                         <option>aguda dialítica</option>
                                                         <option>aguda não dialítica</option>
                                                     </Input>
                                                 </FormGroup>
-                                                <FormGroup check>
-                                                    <Label className="form-check-label mb-1">
-                                                        <Input className="form-check-input" type="checkbox" value="" />
-                  CORTICOIDE
-                  <span className="form-check-sign">
-                                                            <span className="check"></span>
-                                                        </span>
-                                                    </Label>
-                                                </FormGroup>
+
                                                 <FormGroup>
-                                                    <Input type="select" name="select" id="exampleSelect1">
-                                                        <option></option>
+                                                    <Label for="exampleText">CORTICOIDE</Label>
+                                                    <Input type="select" name="select" id="inputCorticoide">
+                                                        <option>Não se aplica</option>
                                                         <option>a mais de 7 dias</option>
                                                         <option>menos de 7 dias</option>
                                                     </Input>
                                                 </FormGroup>
-                                                
+
                                                 <FormGroup check>
                                                     <Row>
                                                         <Col md="4">
                                                             <Label className="form-check-label">
-                                                                <Input className="form-check-input" type="checkbox" value="" />
+                                                                <Input className="form-check-input" id="inputInfeccao" type="checkbox" value="" />
                   INFECÇÃO
                   <span className="form-check-sign">
                                                                     <span className="check"></span>
@@ -460,7 +517,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                         </Col>
                                                         <Col md="4">
                                                             <Label className="form-check-label">
-                                                                <Input className="form-check-input" type="checkbox" value="" />
+                                                                <Input className="form-check-input" id="inputSepse" type="checkbox" value="" />
                   SEPSE
                   <span className="form-check-sign">
                                                                     <span className="check"></span>
@@ -469,7 +526,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                         </Col>
                                                         <Col md="4">
                                                             <Label className="form-check-label">
-                                                                <Input className="form-check-input" type="checkbox" value="" />
+                                                                <Input className="form-check-input" id="inputDesconfortoRespiratorio" type="checkbox" value="" />
                   SÍDROME DE DESCONFORTO RESPIRATÓRIO
                   <span className="form-check-sign">
                                                                     <span className="check"></span>
@@ -479,6 +536,11 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                     </Row>
 
                                                 </FormGroup>
+
+                                                <FormGroup>
+                                                    <Label for="exampleText">OBSERVAÇÕES</Label>
+                                                    <Input type="textarea" name="text" id="inputObservacoes" />
+                                                </FormGroup>
                                             </Col>
                                         </Row>
                                     </Form>
@@ -487,7 +549,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                     <Button className="btn-fill" color="success" type="submit" onClick={this.toggle}>
                                         Plano aplicação
                   </Button>
-                                    <Button className="btn-fill" color="info" type="submit">
+                                    <Button className="btn-fill" color="info" type="submit" onClick={this.savePaciente}>
                                         Atualizar
                   </Button>
                                     <Button className="btn-fill" color="warning" type="submit">

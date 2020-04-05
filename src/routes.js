@@ -18,11 +18,9 @@
 import Form_glicemia from "views/forms/Form_glicemia.jsx";
 import Pacientes from "views/Pacientes.jsx";
 import Form_create_paciente from "views/forms/Form_create_paciente.jsx";
-import InfoPaciente from "views/InfoPaciente.jsx";
 import PainelPaciente from "views/PainelPaciente.jsx";
 
 var routes = [
-  
   {
     path: "/PainelPaciente",
     name: "Informações paciente",
