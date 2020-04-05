@@ -31,20 +31,12 @@ import {
     Input,
     Table,
     Card,
-    CardBody,
-    Label,
-    InputGroupButtonDropdown,
-    InputGroup,
-    InputGroupAddon,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem
+    CardBody
 } from "reactstrap";
 
 const axios = require('axios');
 
 class Pacientes extends React.Component {
-
 
     constructor(props) {
         super(props);
@@ -83,8 +75,22 @@ class Pacientes extends React.Component {
             bigChartData: name
         });
     };
+
+    updatePacientes=()=>{
+        this.setState({ pacientes: this.state.pacientes });
+    }
+
     render() {
-        const pacientes = this.state.pacientes
+        let pacientes = this.state.pacientes.filter(paciente =>{
+            let filtroNome = document.getElementById('inputNomePaciente').value.toLowerCase()
+            let valor = paciente.nome.toLowerCase().indexOf(filtroNome) 
+            let filtroTipoInternacao = document.getElementById("selectTipoInternacao").value.toLowerCase()
+            console.log(filtroTipoInternacao)
+            if ((valor !== -1 || filtroNome === '') && 
+                (filtroTipoInternacao === "todos" || filtroTipoInternacao === paciente.estadoPaciente.toLowerCase())) {
+                return paciente
+            }
+        })
         return (
             <>
                 <div className="content">
@@ -95,7 +101,7 @@ class Pacientes extends React.Component {
                                 <Row>
                                     <Col className="pr-md-1" md="2">
                                         <FormGroup>
-                                            <Input type="select" name="select" id="exampleSelect1">
+                                            <Input type="select" name="select" id="selectTipoInternacao">
                                                 <option>Todos</option>
                                                 <option>Internado</option>
                                                 <option>Alta</option>
@@ -107,11 +113,12 @@ class Pacientes extends React.Component {
                                             <Input
                                                 placeholder="Paciente"
                                                 type="text"
+                                                id="inputNomePaciente"
                                             />
                                         </FormGroup>
                                     </Col>
                                     <Col md="3">
-                                        <Button className="btn-icon" color="info" size="sm">
+                                        <Button onClick={this.updatePacientes} className="btn-icon" color="info" size="sm">
                                             <i className="fa fa-search"></i>
                                         </Button>
                                     </Col>
@@ -125,7 +132,7 @@ class Pacientes extends React.Component {
                                         </Col>
                                         : <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
                                             <Link to="/admin/form_create_paciente">
-                                                <Button renderAs="button" size="lg" className="btn-round btn-icon" color="info">
+                                                <Button size="lg" className="btn-round btn-icon" color="info">
                                                     <i className="tim-icons icon-simple-add" />
                                                 </Button>
                                             </Link>
@@ -143,9 +150,9 @@ class Pacientes extends React.Component {
                                         <th></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    {this.state.pacientes.map(paciente =>
-                                        <tr>
+                                <tbody id="tableBody">
+                                    {pacientes.map(paciente =>
+                                        <tr key={paciente._id}>
                                             <td>{paciente.prontuario}</td>
                                             <td>{paciente.nome}</td>
                                             <td>{paciente.dataHoraInternacao}</td>

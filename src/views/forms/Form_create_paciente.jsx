@@ -4,7 +4,6 @@ import React from "react";
 import {
     Button,
     Card,
-    CardHeader,
     CardBody,
     CardFooter,
     FormGroup,
@@ -12,7 +11,6 @@ import {
     Input,
     Row,
     Col,
-    CardTitle,
     Label,
     Modal,
     ModalBody,
@@ -30,6 +28,7 @@ class Form_create_paciente extends React.Component {
         };
         this.toggle = this.toggle.bind(this);
     };
+
     toggle() {
         this.setState({
             modal: !this.state.modal
@@ -43,8 +42,6 @@ class Form_create_paciente extends React.Component {
             document.getElementById("inputDataNascimento").value === "" ||
             document.getElementById("inputSexo").value === "" ||
             document.getElementById("inputTipoInternacao").value === "" ||
-            document.getElementById("inputRadioInternado").value === "" ||
-            document.getElementById("inputRadioAlta").value === "" ||
             document.getElementById("inputObservacoes").value === "" ||
             document.getElementById("inputDiabetes").value === "" ||
             document.getElementById("inputInsuficienciaRenal").value === "" ||
@@ -59,13 +56,14 @@ class Form_create_paciente extends React.Component {
             "tipoInternacao": document.getElementById("inputTipoInternacao").value,
             "diabetes": document.getElementById("inputDiabetes").value,
             "insuficienciaRenal": document.getElementById("inputInsuficienciaRenal").value,
-            "corticoide": document.getElementById("inputCorticoide").value === "",
+            "corticoide": document.getElementById("inputCorticoide").value,
             "infeccao": document.getElementById("inputInfeccao").checked,
             "sepse": document.getElementById("inputSepse").checked,
             "sindromeDesconfortoRespiratorio": document.getElementById("inputDesconfortoRespiratorio").checked,
             "sexo": document.getElementById("inputSexo").value,
             "dataHoraInternacao": document.getElementById("inputDataInternacao").value,
             "observacoes": document.getElementById("inputObservacoes").value,
+            "estadoPaciente": document.getElementById("inputRadioAlta").checked ? "alta" : "internado"
         })
         .then(response =>{
             alert("Dados Gravados com sucesso")
