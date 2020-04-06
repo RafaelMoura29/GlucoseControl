@@ -34,6 +34,7 @@ class Form_create_paciente extends React.Component {
             modal: !this.state.modal
         });
     }
+
     savePaciente() {
         if (document.getElementById("inputProntuario").value === "" ||
             document.getElementById("inputDataInternacao").value === "" ||
@@ -47,7 +48,7 @@ class Form_create_paciente extends React.Component {
             document.getElementById("inputInsuficienciaRenal").value === "" ||
             document.getElementById("inputCorticoide").value === ""
         ) {
-            alert("Preencha todos os campos|")
+            return alert("Preencha todos os campos!")
         }
         axios.post("https://glucosecontrolapp.herokuapp.com/paciente", {
             "prontuario": document.getElementById("inputProntuario").value,
@@ -66,7 +67,6 @@ class Form_create_paciente extends React.Component {
             "estadoPaciente": document.getElementById("inputRadioAlta").checked ? "alta" : "internado"
         })
         .then(response =>{
-            alert("Dados Gravados com sucesso")
             document.getElementById("inputProntuario").value = ""
             document.getElementById("inputDataInternacao").value = ""
             document.getElementById("inputHoraInternacao").value = ""
@@ -77,12 +77,13 @@ class Form_create_paciente extends React.Component {
             document.getElementById("inputRadioInternado").value = ""
             document.getElementById("inputRadioAlta").value = ""
             document.getElementById("inputObservacoes").value = ""
-            document.getElementById("inputDiabetes").value = ""
-            document.getElementById("inputInsuficienciaRenal").value = ""
-            document.getElementById("inputCorticoide").value = ""
+            document.getElementById("inputDiabetes").value = "Não se aplica"
+            document.getElementById("inputInsuficienciaRenal").value = "Não se aplica"
+            document.getElementById("inputCorticoide").value = "Não se aplica"
+            alert("Dados Gravados com sucesso")
         })
         .catch(error =>{
-            alert("Ocorreuum erro ao tentar gravar os dados. Tente novamente mais tarde!")
+            alert("Ocorreu um  erro ao tentar gravar os dados. Tente novamente mais tarde!")
         })
     }
     render() {
@@ -374,6 +375,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                                 placeholder="NOME"
                                                                 type="text"
                                                                 id="inputNome"
+                                                                required
                                                             />
                                                         </FormGroup>
                                                     </Col>
