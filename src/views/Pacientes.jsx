@@ -49,6 +49,7 @@ class Pacientes extends React.Component {
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
 
+    //Fazendo requisição dos pacientes
     async getPacientes() {
         axios.get("https://glucosecontrolapp.herokuapp.com/paciente")
             .then(response => {
@@ -56,36 +57,35 @@ class Pacientes extends React.Component {
             })
     }
 
+    //Função executada depois da renderização.
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
         this.getPacientes()
     }
 
+    //Aciona a atualização do tamanho das telas
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
     }
 
+    //Atualiza velores da dimensão da tela
     updateWindowDimensions() {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
-    setBgChartData = name => {
-        this.setState({
-            bigChartData: name
-        });
-    };
-
+    //Recarrega o state dos pacientes para disparar a atualização da lista de pacientes
     updatePacientes=()=>{
         this.setState({ pacientes: this.state.pacientes });
     }
 
     render() {
         let pacientes = this.state.pacientes.filter(paciente =>{
+            //Pegando valores dos filtro e colocando pra lower case
             let filtroNome = document.getElementById('inputNomePaciente').value.toLowerCase()
-            let valor = paciente.nome.toLowerCase().indexOf(filtroNome) 
             let filtroTipoInternacao = document.getElementById("selectTipoInternacao").value.toLowerCase()
-            console.log(filtroTipoInternacao)
+            //Verificando se essa string está dentro do nome do paciente, caso esteja retorna a localização na string
+            let valor = paciente.nome.toLowerCase().indexOf(filtroNome) 
             if ((valor !== -1 || filtroNome === '') && 
                 (filtroTipoInternacao === "todos" || filtroTipoInternacao === paciente.estadoPaciente.toLowerCase())) {
                 return paciente
@@ -122,6 +122,7 @@ class Pacientes extends React.Component {
                                             <i className="fa fa-search"></i>
                                         </Button>
                                     </Col>
+                                    {/* Renderiza o botão personalizado add paciente de acordo com o tamanho da tela. */}
                                     {this.state.width > 910
                                         ? <Col className="pr-md-1" md="2">
                                             <Link to="/admin/form_create_paciente">
