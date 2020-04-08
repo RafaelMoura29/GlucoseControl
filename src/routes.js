@@ -22,7 +22,7 @@ import PainelPaciente from "views/PainelPaciente.jsx";
 
 var routes = [
   {
-    path: "/PainelPaciente",
+    path: "/PainelPaciente/:userId",
     name: "Informações paciente",
     component: PainelPaciente,
     layout: "/admin",

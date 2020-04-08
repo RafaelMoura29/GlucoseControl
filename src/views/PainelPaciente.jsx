@@ -38,6 +38,8 @@ class PainelPaciente extends React.Component {
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
+        const { match: { params } } = this.props;
+        console.log(params.userId)
     }
 
     componentWillUnmount() {

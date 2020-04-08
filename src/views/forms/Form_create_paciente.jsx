@@ -29,6 +29,7 @@ class Form_create_paciente extends React.Component {
         this.toggle = this.toggle.bind(this);
     };
 
+    //Muda vizibilidade do modal
     toggle() {
         this.setState({
             modal: !this.state.modal
@@ -36,6 +37,7 @@ class Form_create_paciente extends React.Component {
     }
 
     savePaciente() {
+        //Verifica preenchimento dos campos
         if (document.getElementById("inputProntuario").value === "" ||
             document.getElementById("inputDataInternacao").value === "" ||
             document.getElementById("inputHoraInternacao").value === "" ||
@@ -50,6 +52,8 @@ class Form_create_paciente extends React.Component {
         ) {
             return alert("Preencha todos os campos!")
         }
+
+        //Gravando paciente
         axios.post("https://glucosecontrolapp.herokuapp.com/paciente", {
             "prontuario": document.getElementById("inputProntuario").value,
             "nome": document.getElementById("inputNome").value,
@@ -67,6 +71,7 @@ class Form_create_paciente extends React.Component {
             "estadoPaciente": document.getElementById("inputRadioAlta").checked ? "alta" : "internado"
         })
         .then(response =>{
+            //Limpando campos
             document.getElementById("inputProntuario").value = ""
             document.getElementById("inputDataInternacao").value = ""
             document.getElementById("inputHoraInternacao").value = ""
