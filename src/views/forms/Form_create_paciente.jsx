@@ -52,7 +52,14 @@ class Form_create_paciente extends React.Component {
         ) {
             return alert("Preencha todos os campos!")
         }
-
+        let a = document.querySelectorAll(".checkPlano")
+        let planoAplicacao = '';
+        a.forEach((element, index) =>{
+            if(element.checked){
+                planoAplicacao = planoAplicacao + (index + 1) + "#"
+            }
+        })
+        planoAplicacao = planoAplicacao.slice(0, -1);
         //Gravando paciente
         axios.post("https://glucosecontrolapp.herokuapp.com/paciente", {
             "prontuario": document.getElementById("inputProntuario").value,
@@ -68,28 +75,32 @@ class Form_create_paciente extends React.Component {
             "sexo": document.getElementById("inputSexo").value,
             "dataHoraInternacao": document.getElementById("inputDataInternacao").value,
             "observacoes": document.getElementById("inputObservacoes").value,
-            "estadoPaciente": document.getElementById("inputRadioAlta").checked ? "alta" : "internado"
+            "estadoPaciente": document.getElementById("inputRadioAlta").checked ? "alta" : "internado",
+            "planoAplicacao":planoAplicacao
         })
-        .then(response =>{
-            //Limpando campos
-            document.getElementById("inputProntuario").value = ""
-            document.getElementById("inputDataInternacao").value = ""
-            document.getElementById("inputHoraInternacao").value = ""
-            document.getElementById("inputNome").value = ""
-            document.getElementById("inputDataNascimento").value = ""
-            document.getElementById("inputSexo").value = ""
-            document.getElementById("inputTipoInternacao").value = ""
-            document.getElementById("inputRadioInternado").value = ""
-            document.getElementById("inputRadioAlta").value = ""
-            document.getElementById("inputObservacoes").value = ""
-            document.getElementById("inputDiabetes").value = "Não se aplica"
-            document.getElementById("inputInsuficienciaRenal").value = "Não se aplica"
-            document.getElementById("inputCorticoide").value = "Não se aplica"
-            alert("Dados Gravados com sucesso")
-        })
-        .catch(error =>{
-            alert("Ocorreu um  erro ao tentar gravar os dados. Tente novamente mais tarde!")
-        })
+           .then(response => {
+                //Limpando campos
+                document.getElementById("inputProntuario").value = ""
+                document.getElementById("inputDataInternacao").value = ""
+                document.getElementById("inputHoraInternacao").value = ""
+                document.getElementById("inputNome").value = ""
+                document.getElementById("inputDataNascimento").value = ""
+                document.getElementById("inputSexo").value = ""
+                document.getElementById("inputTipoInternacao").value = ""
+                document.getElementById("inputRadioInternado").value = ""
+                document.getElementById("inputRadioAlta").value = ""
+                document.getElementById("inputObservacoes").value = ""
+                document.getElementById("inputDiabetes").value = "Não se aplica"
+                document.getElementById("inputInsuficienciaRenal").value = "Não se aplica"
+                document.getElementById("inputCorticoide").value = "Não se aplica"
+                a.forEach((element, index) =>{
+                    element.checked = false
+                })
+                alert("Dados Gravados com sucesso")
+            })
+            .catch(error => {
+                alert("Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!")
+            })
     }
     render() {
         return (
@@ -101,266 +112,236 @@ class Form_create_paciente extends React.Component {
                             <CardText style={{ color: '#aaa' }}>Plano inicial de aplicações sugeridos pelo sistema.
                             Caso desese alterar selecione os novos hoários e
 atualize, caso contrário, basta confirmar.</CardText>
-                            <Row className="mb-4">
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 1h
-              <span className="form-check-sign">
-                                                <span className="check" />
+                            <FormGroup check inline>
+                                <Row className="mb-4">
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  1h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
                                             </span>
                                         </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 2h
-              <span className="form-check-sign">
-                                                <span className="check" />
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  2h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
                                             </span>
                                         </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 2h
-              <span className="form-check-sign">
-                                                <span className="check" />
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  3h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
                                             </span>
                                         </Label>
-                                    </FormGroup>
-                                </Col>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  4h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  5h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  6h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  7h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  8h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  9h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  10h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  11h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  12h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  13h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  14h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  15h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  16h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  17h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  18h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  19h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  20h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  21h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  22h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  23h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
+                                    <Col md="3">
+                                        <Label className="form-check-label">
+                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
+                  24h
+                  <span className="form-check-sign">
+                                                <span className="check"></span>
+                                            </span>
+                                        </Label>
+                                    </Col>
 
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 3h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 4h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 5h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 6h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 7h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 8h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 9h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 10h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 11h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 12h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 13h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 14h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 15h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 16h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 17h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 18h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 19h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 20h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 21h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 22h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 23h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                                <Col md="2">
-                                    <FormGroup check inline>
-                                        <Label check>
-                                            <Input type="checkbox" /> 24h
-              <span className="form-check-sign">
-                                                <span className="check" />
-                                            </span>
-                                        </Label>
-                                    </FormGroup>
-                                </Col>
-                            </Row>
+                                </Row>
+
+                            </FormGroup>
                             <div className="text-center">
-                                <Button className="btn-fill" color="info" type="submit" onClick={this.toggle}>
-                                    Atualizar
+                                <Button className="btn-fill" color="info" type="submit" onClick={this.savePaciente}>
+                                    Salvar
                   </Button>
-                                <Button className="btn-fill" color="success" type="submit">
-                                    Confirmar
+                                <Button className="btn-fill" color="warning" type="submit" onClick={this.toggle}>
+                                    Salvar e Fazer Coleta
                   </Button>
+
                             </div>
                         </ModalBody>
                     </Modal>
@@ -478,7 +459,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                 </Row>
                                             </Col>
                                             <Col className="pr-md-1" md="6">
-                                                
+
 
                                                 <FormGroup>
                                                     <Label for="exampleText">DIABETES</Label>
@@ -555,12 +536,6 @@ atualize, caso contrário, basta confirmar.</CardText>
                                 <CardFooter>
                                     <Button className="btn-fill" color="success" type="submit" onClick={this.toggle}>
                                         Plano aplicação
-                  </Button>
-                                    <Button className="btn-fill" color="info" type="submit" onClick={this.savePaciente}>
-                                        Atualizar
-                  </Button>
-                                    <Button className="btn-fill" color="warning" type="submit">
-                                        Coletar
                   </Button>
                                 </CardFooter>
                             </Card>
