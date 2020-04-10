@@ -20,6 +20,8 @@ import Pacientes from "views/Pacientes.jsx";
 import Form_create_paciente from "views/forms/Form_create_paciente.jsx";
 import PainelPaciente from "views/PainelPaciente.jsx";
 import Ajuda from "views/Ajuda.jsx";
+import Contato from "views/Contato.jsx";
+import Sobre from "views/Sobre.jsx";
 
 var routes = [
   {
@@ -55,6 +57,20 @@ var routes = [
     name: "Ajuda",
     icon: "tim-icons icon-single-02",
     component: Ajuda,
+    layout: "/admin",
+  },
+  {
+    path: "/contato",
+    name: "Contato",
+    icon: "tim-icons icon-single-02",
+    component: Contato,
+    layout: "/admin",
+  },
+  {
+    path: "/sobre",
+    name: "Sobre",
+    icon: "tim-icons icon-single-02",
+    component: Sobre,
     layout: "/admin",
   },
   
