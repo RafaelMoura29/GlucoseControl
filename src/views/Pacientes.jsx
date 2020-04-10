@@ -75,18 +75,18 @@ class Pacientes extends React.Component {
     }
 
     //Recarrega o state dos pacientes para disparar a atualização da lista de pacientes
-    updatePacientes=()=>{
+    updatePacientes = () => {
         this.setState({ pacientes: this.state.pacientes });
     }
 
     render() {
-        let pacientes = this.state.pacientes.filter(paciente =>{
+        let pacientes = this.state.pacientes.filter(paciente => {
             //Pegando valores dos filtro e colocando pra lower case
             let filtroNome = document.getElementById('inputNomePaciente').value.toLowerCase()
             let filtroTipoInternacao = document.getElementById("selectTipoInternacao").value.toLowerCase()
             //Verificando se essa string está dentro do nome do paciente, caso esteja retorna a localização na string
-            let valor = paciente.nome.toLowerCase().indexOf(filtroNome) 
-            if ((valor !== -1 || filtroNome === '') && 
+            let valor = paciente.nome.toLowerCase().indexOf(filtroNome)
+            if ((valor !== -1 || filtroNome === '') &&
                 (filtroTipoInternacao === "todos" || filtroTipoInternacao === paciente.estadoPaciente.toLowerCase())) {
                 return paciente
             }
@@ -96,12 +96,11 @@ class Pacientes extends React.Component {
                 <div className="content">
                     <Card >
                         <CardBody>
-
                             <Form>
                                 <Row>
                                     <Col className="pr-md-1" md="2">
                                         <FormGroup>
-                                            <Input type="select" name="select" id="selectTipoInternacao">
+                                            <Input type="select" name="select" id="selectTipoInternacao" onChange={this.updatePacientes}>
                                                 <option>Todos</option>
                                                 <option>Internado</option>
                                                 <option>Alta</option>
@@ -114,20 +113,17 @@ class Pacientes extends React.Component {
                                                 placeholder="Paciente"
                                                 type="text"
                                                 id="inputNomePaciente"
+                                                onChange={this.updatePacientes}
                                             />
                                         </FormGroup>
                                     </Col>
-                                    <Col md="3">
-                                        <Button onClick={this.updatePacientes} className="btn-icon" color="info" size="sm">
-                                            <i className="fa fa-search"></i>
-                                        </Button>
-                                    </Col>
+                                    <Col md="3"></Col>
                                     {/* Renderiza o botão personalizado add paciente de acordo com o tamanho da tela. */}
                                     {this.state.width > 910
                                         ? <Col className="pr-md-1" md="2">
                                             <Link to="/admin/form_create_paciente">
 
-                                                <Button className="btn-fill" color="success" type="submit">
+                                                <Button className="btn-fill" color="info" type="submit">
                                                     Novo</Button>
                                             </Link>
                                         </Col>

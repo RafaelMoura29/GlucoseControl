@@ -27,6 +27,7 @@ class Footer extends React.Component {
   render() {
     return (
       <footer className="footer">
+        {/*
         <Container fluid>
           <Nav>
             <NavItem>
@@ -51,7 +52,7 @@ class Footer extends React.Component {
             </a>{" "}
             for a better web.
           </div>
-        </Container>
+        </Container>*/}
       </footer>
     );
   }

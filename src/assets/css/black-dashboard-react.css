@@ -10241,7 +10241,7 @@ hr {
 .form-check input[type="checkbox"]:checked + .form-check-sign::before,
 .form-check input[type="checkbox"]:checked + .form-check-sign::before {
   border: none;
-  background-color: #e14eca; }
+  background-color: #2b69f5; }
 
 .form-check .form-check-sign::after {
   font-family: 'nucleo';
@@ -11643,7 +11643,7 @@ code {
   .input-group.no-border .form-control + .input-group-append .input-group-text:active,
   .input-group.no-border .form-control + .input-group-append .input-group-text:active {
     border: medium none;
-    background-color: #252e49; }
+    background-color: #2b69f5; }
 
 .form-group.no-border .form-control:focus + .input-group-prepend .input-group-text,
 .form-group.no-border .form-control:focus + .input-group-append .input-group-text,

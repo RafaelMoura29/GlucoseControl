@@ -336,7 +336,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                             </FormGroup>
                             <div className="text-center">
                                 <Button className="btn-fill" color="info" type="submit" onClick={this.savePaciente}>
-                                    Salvar
+                                    Salvar Paciente
                   </Button>
                                 <Button className="btn-fill" color="warning" type="submit" onClick={this.toggle}>
                                     Salvar e Fazer Coleta
@@ -534,7 +534,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                     </Form>
                                 </CardBody>
                                 <CardFooter>
-                                    <Button className="btn-fill" color="success" type="submit" onClick={this.toggle}>
+                                    <Button className="btn-fill" color="info" type="submit" onClick={this.toggle}>
                                         Plano aplicação
                   </Button>
                                 </CardFooter>
