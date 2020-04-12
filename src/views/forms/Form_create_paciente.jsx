@@ -384,7 +384,6 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                             <Input
                                                                 type="date"
                                                                 name="datetime"
-                                                                id="exampleDatetime"
                                                                 placeholder="datetime placeholder"
                                                                 id="inputDataNascimento"
                                                             />
