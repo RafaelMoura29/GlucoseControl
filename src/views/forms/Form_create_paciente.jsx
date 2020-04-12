@@ -60,6 +60,8 @@ class Form_create_paciente extends React.Component {
             }
         })
         planoAplicacao = planoAplicacao.slice(0, -1);
+        let d = new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"});
+        //d.setHours(d.getHours() - 3)
         //Gravando paciente
         axios.post("https://glucosecontrolapp.herokuapp.com/paciente", {
             "prontuario": document.getElementById("inputProntuario").value,
@@ -76,7 +78,8 @@ class Form_create_paciente extends React.Component {
             "dataHoraInternacao": document.getElementById("inputDataInternacao").value,
             "observacoes": document.getElementById("inputObservacoes").value,
             "estadoPaciente": document.getElementById("inputRadioAlta").checked ? "alta" : "internado",
-            "planoAplicacao":planoAplicacao
+            "planoAplicacao":planoAplicacao,
+            "createDate": d
         })
            .then(response => {
                 //Limpando campos
