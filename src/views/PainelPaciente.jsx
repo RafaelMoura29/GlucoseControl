@@ -25,12 +25,18 @@ import {
     chartExample4
 } from "variables/charts.jsx";
 
+const axios = require('axios');
+
 class PainelPaciente extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            width: 0, height: 0
+            width: 0,
+            height: 0,
+            paciente: [],
+            glucose: [],
+            pacienteid: 0
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     }
@@ -38,8 +44,27 @@ class PainelPaciente extends React.Component {
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
+        const { match: { params } } = this.props;
+        this.getPaciente(params.userId)
+        this.getGlucose(params.userId)
     }
 
+    //Fazendo requisição dos pacientes
+    async getPaciente(userId) {
+        axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId="+userId)
+            .then(response => {
+                this.setState({ paciente: response.data.paciente });
+            })
+    }
+
+    //Fazendo requisição dos pacientes
+    async getGlucose(userId) {
+        axios.get("https://glucosecontrolapp.herokuapp.com/glucose?tagId="+userId)
+            .then(response => {
+                this.setState({ glucose: response.data.glucose });
+
+            })
+    }
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
     }

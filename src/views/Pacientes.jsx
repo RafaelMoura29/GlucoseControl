@@ -15,12 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState } from "react";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
-import { NavLink, Link } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 // reactstrap components
 import {
     Button,
@@ -45,63 +41,80 @@ class Pacientes extends React.Component {
             width: 0,
             height: 0,
             pacientes: [],
+            pacienteFiltrados: [],
+            nomePacienteFiltro: '',
+            tipoInternacaoFiltro: 'todos'
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this.updateInputValueAndFilter = this.updateInputValueAndFilter.bind(this);
     }
 
+    //Fazendo requisição dos pacientes
     async getPacientes() {
         axios.get("https://glucosecontrolapp.herokuapp.com/paciente")
             .then(response => {
-                this.setState({ pacientes: response.data.paciente });
+                this.setState({
+                    pacientes: response.data.paciente,
+                    pacienteFiltrados: response.data.paciente
+                });
             })
     }
 
+    //Função executada depois da renderização.
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
         this.getPacientes()
     }
 
+    //Atualiza o state do filtro e filtra os pacientes
+    updateInputValueAndFilter(event) {
+        let state = this.state
+        state[event.target.name] = event.target.value.toLowerCase()
+
+        state.pacienteFiltrados = this.state.pacientes.filter(paciente => {
+            //Verificando se essa string está dentro do nome do paciente, caso esteja retorna a localização na string
+            let valor = paciente.nome.toLowerCase().indexOf(this.state.nomePacienteFiltro)
+            if ((valor !== -1 || this.state.nomePacienteFiltro === '') &&
+                (this.state.tipoInternacaoFiltro === "todos" || this.state.tipoInternacaoFiltro === paciente.estadoPaciente.toLowerCase())) {
+                return paciente
+            }
+        })
+        this.setState(state)
+    }
+
+    //Aciona a atualização do tamanho das telas
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
     }
 
+    //Atualiza velores da dimensão da tela
     updateWindowDimensions() {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
-    setBgChartData = name => {
-        this.setState({
-            bigChartData: name
-        });
-    };
-
-    updatePacientes=()=>{
+    //Recarrega o state dos pacientes para disparar a atualização da lista de pacientes
+    updatePacientes = () => {
         this.setState({ pacientes: this.state.pacientes });
     }
 
     render() {
-        let pacientes = this.state.pacientes.filter(paciente =>{
-            let filtroNome = document.getElementById('inputNomePaciente').value.toLowerCase()
-            let valor = paciente.nome.toLowerCase().indexOf(filtroNome) 
-            let filtroTipoInternacao = document.getElementById("selectTipoInternacao").value.toLowerCase()
-            console.log(filtroTipoInternacao)
-            if ((valor !== -1 || filtroNome === '') && 
-                (filtroTipoInternacao === "todos" || filtroTipoInternacao === paciente.estadoPaciente.toLowerCase())) {
-                return paciente
-            }
-        })
+
         return (
             <>
                 <div className="content">
                     <Card >
                         <CardBody>
-
                             <Form>
                                 <Row>
                                     <Col className="pr-md-1" md="2">
                                         <FormGroup>
-                                            <Input type="select" name="select" id="selectTipoInternacao">
+                                            <Input
+                                                value={this.state.tipoInternacaoFiltro}
+                                                type="select"
+                                                name="tipoInternacaoFiltro"
+                                                onChange={this.updateInputValueAndFilter}
+                                            >
                                                 <option>Todos</option>
                                                 <option>Internado</option>
                                                 <option>Alta</option>
@@ -111,22 +124,21 @@ class Pacientes extends React.Component {
                                     <Col className="pr-md-1" md="5">
                                         <FormGroup >
                                             <Input
+                                                name="nomePacienteFiltro"
                                                 placeholder="Paciente"
                                                 type="text"
-                                                id="inputNomePaciente"
+                                                onChange={this.updateInputValueAndFilter}
+                                                value={this.state.nomePacienteFiltro}
                                             />
                                         </FormGroup>
                                     </Col>
-                                    <Col md="3">
-                                        <Button onClick={this.updatePacientes} className="btn-icon" color="info" size="sm">
-                                            <i className="fa fa-search"></i>
-                                        </Button>
-                                    </Col>
+                                    <Col md="3"></Col>
+                                    {/* Renderiza o botão personalizado add paciente de acordo com o tamanho da tela. */}
                                     {this.state.width > 910
                                         ? <Col className="pr-md-1" md="2">
                                             <Link to="/admin/form_create_paciente">
 
-                                                <Button className="btn-fill" color="success" type="submit">
+                                                <Button className="btn-fill" color="info" type="submit">
                                                     Novo</Button>
                                             </Link>
                                         </Col>
@@ -151,7 +163,7 @@ class Pacientes extends React.Component {
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody">
-                                    {pacientes.map(paciente =>
+                                    {this.state.pacienteFiltrados.map(paciente =>
                                         <tr key={paciente._id}>
                                             <td>{paciente.prontuario}</td>
                                             <td>{paciente.nome}</td>

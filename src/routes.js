@@ -19,10 +19,20 @@ import Form_glicemia from "views/forms/Form_glicemia.jsx";
 import Pacientes from "views/Pacientes.jsx";
 import Form_create_paciente from "views/forms/Form_create_paciente.jsx";
 import PainelPaciente from "views/PainelPaciente.jsx";
+import Ajuda from "views/Ajuda.jsx";
+import Contato from "views/Contato.jsx";
+import Sobre from "views/Sobre.jsx";
 
 var routes = [
   {
-    path: "/PainelPaciente",
+    path: "/pacientes",
+    name: "Pacientes",
+    icon: "tim-icons icon-single-02",
+    component: Pacientes,
+    layout: "/admin",
+  },
+  {
+    path: "/PainelPaciente/:userId",
     name: "Informações paciente",
     component: PainelPaciente,
     layout: "/admin",
@@ -41,11 +51,26 @@ var routes = [
     component: Form_create_paciente,
     layout: "/admin",
     hideSidebar: true
-  },{
-    path: "/",
-    name: "Pacientes",
-    icon: "tim-icons icon-chart-pie-36",
-    component: Pacientes,
+  },
+  {
+    path: "/ajuda",
+    name: "Ajuda",
+    icon: "tim-icons icon-single-02",
+    component: Ajuda,
+    layout: "/admin",
+  },
+  {
+    path: "/contato",
+    name: "Contato",
+    icon: "tim-icons icon-single-02",
+    component: Contato,
+    layout: "/admin",
+  },
+  {
+    path: "/sobre",
+    name: "Sobre",
+    icon: "tim-icons icon-single-02",
+    component: Sobre,
     layout: "/admin",
   },
   
