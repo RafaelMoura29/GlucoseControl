@@ -1,4 +1,7 @@
 import React from "react";
+import LoadingSpinner from '../../components/LoadingSpinner.js'
+import ModalMessager from '../../components/ModalMessager.js'
+import ModalPlanoAplicacao from '../../components/ModalPlanoAplicacao.js'
 
 // reactstrap components
 import {
@@ -12,9 +15,7 @@ import {
     Row,
     Col,
     Label,
-    Modal,
-    ModalBody,
-    CardText
+    ModalHeader
 } from "reactstrap";
 
 const axios = require('axios');
@@ -24,19 +25,29 @@ class Form_create_paciente extends React.Component {
         super(props);
         this.state = {
             modal: false,
-            fade: true
+            fade: true,
+            LoadingSpinner: false,
+            ModalMessager: false,
+            ModalMessagerText: ''
         };
-        this.toggle = this.toggle.bind(this);
     };
 
-    //Muda vizibilidade do modal
-    toggle() {
+    togglePlanoAplicacao = () => {
         this.setState({
             modal: !this.state.modal
         });
+        console.log(this.state.modal)
     }
 
-    savePaciente() {
+    toggleMessager = () => {
+        this.setState({
+            ModalMessager: !this.state.ModalMessager
+        });
+    }
+
+    savePaciente = () => {
+        this.setState({ LoadingSpinner: true, modal: false, });
+
         //Verifica preenchimento dos campos
         if (document.getElementById("inputProntuario").value === "" ||
             document.getElementById("inputDataInternacao").value === "" ||
@@ -50,17 +61,22 @@ class Form_create_paciente extends React.Component {
             document.getElementById("inputInsuficienciaRenal").value === "" ||
             document.getElementById("inputCorticoide").value === ""
         ) {
-            return alert("Preencha todos os campos!")
+            return this.setState({
+                LoadingSpinner: false,
+                ModalMessager: true,
+                ModalMessagerText: 'Preencha todos os campos!'
+            });
         }
+
         let a = document.querySelectorAll(".checkPlano")
         let planoAplicacao = '';
-        a.forEach((element, index) =>{
-            if(element.checked){
+        a.forEach((element, index) => {
+            if (element.checked) {
                 planoAplicacao = planoAplicacao + (index + 1) + "#"
             }
         })
         planoAplicacao = planoAplicacao.slice(0, -1);
-        let d = new Date().toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"});
+        let d = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
         //d.setHours(d.getHours() - 3)
         //Gravando paciente
         axios.post("https://glucosecontrolapp.herokuapp.com/paciente", {
@@ -75,279 +91,57 @@ class Form_create_paciente extends React.Component {
             "sepse": document.getElementById("inputSepse").checked,
             "sindromeDesconfortoRespiratorio": document.getElementById("inputDesconfortoRespiratorio").checked,
             "sexo": document.getElementById("inputSexo").value,
-            "dataHoraInternacao": document.getElementById("inputDataInternacao").value + " " +  document.getElementById("inputHoraInternacao").value,
+            "dataHoraInternacao": document.getElementById("inputDataInternacao").value + " " + document.getElementById("inputHoraInternacao").value,
             "observacoes": document.getElementById("inputObservacoes").value,
             "estadoPaciente": document.getElementById("inputRadioAlta").checked ? "alta" : "internado",
-            "planoAplicacao":planoAplicacao,
+            "planoAplicacao": planoAplicacao,
             "createDate": d
         })
-           .then(response => {
+            .then(response => {
                 //Limpando campos
                 document.getElementById("inputProntuario").value = ""
                 document.getElementById("inputDataInternacao").value = ""
                 document.getElementById("inputHoraInternacao").value = ""
                 document.getElementById("inputNome").value = ""
-                document.getElementById("inputDataNascimento").value = ""
-                document.getElementById("inputSexo").value = ""
-                document.getElementById("inputTipoInternacao").value = ""
-                document.getElementById("inputRadioInternado").value = ""
-                document.getElementById("inputRadioAlta").value = ""
+                document.getElementById("inputDataNascimento").value = "13/11/2020"
+                document.getElementById("inputSexo").value = "Masculino"
+                document.getElementById("inputTipoInternacao").value = "Clínica"
                 document.getElementById("inputObservacoes").value = ""
                 document.getElementById("inputDiabetes").value = "Não se aplica"
                 document.getElementById("inputInsuficienciaRenal").value = "Não se aplica"
                 document.getElementById("inputCorticoide").value = "Não se aplica"
-                a.forEach((element, index) =>{
+                a.forEach((element, index) => {
                     element.checked = false
                 })
-                alert("Dados Gravados com sucesso")
+                this.setState({
+                    LoadingSpinner: false,
+                    ModalMessager: true,
+                    ModalMessagerText: 'Dados Gravados com sucesso'
+                });
             })
             .catch(error => {
-                alert("Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!")
+                this.setState({
+                    LoadingSpinner: false,
+                    ModalMessager: true,
+                    ModalMessagerText: 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
+                });
             })
     }
     render() {
         return (
             <>
                 <div className="content">
-                    <Modal isOpen={this.state.modal} fade={this.state.fade} toggle={this.toggle}>
-                        <ModalBody style={{ backgroundColor: '#1e1e2f' }}>
-                            <h3 className="text-center mb-4">Plano inicial de aplicação</h3>
-                            <CardText style={{ color: '#aaa' }}>Plano inicial de aplicações sugeridos pelo sistema.
-                            Caso desese alterar selecione os novos hoários e
-atualize, caso contrário, basta confirmar.</CardText>
-                            <FormGroup check inline>
-                                <Row className="mb-4">
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  1h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  2h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  3h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  4h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  5h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  6h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  7h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  8h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  9h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  10h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  11h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  12h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  13h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  14h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  15h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  16h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  17h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  18h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  19h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  20h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  21h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  22h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  23h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
-                                    <Col md="3">
-                                        <Label className="form-check-label">
-                                            <Input className="form-check-input checkPlano" type="checkbox" value=""  />
-                  24h
-                  <span className="form-check-sign">
-                                                <span className="check"></span>
-                                            </span>
-                                        </Label>
-                                    </Col>
+                    <LoadingSpinner visible={this.state.LoadingSpinner} />
 
-                                </Row>
+                    <ModalMessager visible={this.state.ModalMessager} text={this.state.ModalMessagerText} >
+                        <ModalHeader toggle={this.toggleMessager}></ModalHeader>
+                    </ModalMessager>
 
-                            </FormGroup>
-                            <div className="text-center">
-                                <Button className="btn-fill" color="info" type="submit" onClick={this.savePaciente}>
-                                    Salvar Paciente
-                  </Button>
-                                <Button className="btn-fill" color="warning" type="submit" onClick={this.toggle}>
-                                    Salvar e Fazer Coleta
-                  </Button>
+                    <ModalPlanoAplicacao
+                        modal={this.state.modal}
+                        click={this.savePaciente}
+                        toggle={this.togglePlanoAplicacao} />
 
-                            </div>
-                        </ModalBody>
-                    </Modal>
                     <Row>
                         <Col md="12">
                             <Card>
@@ -536,7 +330,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                     </Form>
                                 </CardBody>
                                 <CardFooter>
-                                    <Button className="btn-fill" color="info" type="submit" onClick={this.toggle}>
+                                    <Button className="btn-fill" color="info" type="submit" onClick={this.togglePlanoAplicacao}>
                                         Plano aplicação
                   </Button>
                                 </CardFooter>
