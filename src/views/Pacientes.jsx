@@ -1,22 +1,6 @@
-/*!
-
-=========================================================
-* Black Dashboard React v1.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import { Link } from "react-router-dom";
+import LoadingSpinner from '../components/LoadingSpinner.js'
 // reactstrap components
 import {
     Button,
@@ -43,21 +27,36 @@ class Pacientes extends React.Component {
             pacientes: [],
             pacienteFiltrados: [],
             nomePacienteFiltro: '',
-            tipoInternacaoFiltro: 'todos'
+            tipoInternacaoFiltro: 'todos',
+            LoadingSpinner: false
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.updateInputValueAndFilter = this.updateInputValueAndFilter.bind(this);
     }
 
+    formataData(data){
+        let a = data.substring(0,10).split('-')
+        data = a[2] + "/" + a[1] + "/" + a[0]
+        return data
+    }
+
     //Fazendo requisição dos pacientes
     async getPacientes() {
+        this.setState({LoadingSpinner: true});
+        
         axios.get("https://glucosecontrolapp.herokuapp.com/paciente")
             .then(response => {
+                response.data.paciente.map(e => {
+                    e.dataHoraInternacao = this.formataData(e.dataHoraInternacao)
+                })
                 this.setState({
                     pacientes: response.data.paciente,
                     pacienteFiltrados: response.data.paciente
                 });
             })
+            .finally( () => {
+                this.setState({LoadingSpinner: false});
+            } )
     }
 
     //Função executada depois da renderização.
@@ -93,19 +92,15 @@ class Pacientes extends React.Component {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
-    //Recarrega o state dos pacientes para disparar a atualização da lista de pacientes
-    updatePacientes = () => {
-        this.setState({ pacientes: this.state.pacientes });
-    }
-
     render() {
 
         return (
             <>
                 <div className="content">
+                <LoadingSpinner visible={this.state.LoadingSpinner}/>
                     <Card >
                         <CardBody>
-                            <Form>
+                            <Form className="mb-4">
                                 <Row>
                                     <Col className="pr-md-1" md="2">
                                         <FormGroup>
@@ -156,18 +151,18 @@ class Pacientes extends React.Component {
                             <Table responsive>
                                 <thead>
                                     <tr>
+                                        <th>Data Internação</th>
                                         <th>Prontuário</th>
                                         <th>Nome</th>
-                                        <th>Data</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody">
                                     {this.state.pacienteFiltrados.map(paciente =>
                                         <tr key={paciente._id}>
+                                            <td>{paciente.dataHoraInternacao}</td>
                                             <td>{paciente.prontuario}</td>
                                             <td>{paciente.nome}</td>
-                                            <td>{paciente.dataHoraInternacao}</td>
                                             <th scope="row" className="text-right">
                                                 <Link to={'/admin/PainelPaciente/' + paciente._id}>
                                                     <Button className="btn-icon" color="danger" size="sm">

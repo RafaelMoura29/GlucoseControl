@@ -75,7 +75,7 @@ class Form_create_paciente extends React.Component {
             "sepse": document.getElementById("inputSepse").checked,
             "sindromeDesconfortoRespiratorio": document.getElementById("inputDesconfortoRespiratorio").checked,
             "sexo": document.getElementById("inputSexo").value,
-            "dataHoraInternacao": document.getElementById("inputDataInternacao").value,
+            "dataHoraInternacao": document.getElementById("inputDataInternacao").value + " " +  document.getElementById("inputHoraInternacao").value,
             "observacoes": document.getElementById("inputObservacoes").value,
             "estadoPaciente": document.getElementById("inputRadioAlta").checked ? "alta" : "internado",
             "planoAplicacao":planoAplicacao,

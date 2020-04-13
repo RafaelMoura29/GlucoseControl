@@ -53,24 +53,24 @@ var routes = [
     hideSidebar: true
   },
   {
-    path: "/ajuda",
-    name: "Ajuda",
-    icon: "tim-icons icon-single-02",
-    component: Ajuda,
+    path: "/sobre",
+    name: "Sobre",
+    icon: "tim-icons icon-bulb-63",
+    component: Sobre,
     layout: "/admin",
   },
   {
     path: "/contato",
     name: "Contato",
-    icon: "tim-icons icon-single-02",
+    icon: "tim-icons icon-chat-33",
     component: Contato,
     layout: "/admin",
   },
   {
-    path: "/sobre",
-    name: "Sobre",
-    icon: "tim-icons icon-single-02",
-    component: Sobre,
+    path: "/ajuda",
+    name: "Ajuda",
+    icon: "tim-icons icon-alert-circle-exc",
+    component: Ajuda,
     layout: "/admin",
   },
   
