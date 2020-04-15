@@ -39,7 +39,7 @@ var routes = [
     hideSidebar: true
   },
   {
-    path: "/Form_glicemia",
+    path: "/Form_glicemia/:userId",
     name: "Coleta da glicemia",
     component: Form_glicemia,
     layout: "/admin",

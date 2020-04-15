@@ -380,7 +380,7 @@ class ModalPlanoAplicacao extends React.Component {
             <Button className="btn-fill" color="info" type="submit" onClick={this.props.click}>
               {this.props.textBtn} Paciente
             </Button>
-            <Button className="btn-fill" color="warning" type="submit" onClick={this.toggle}>
+            <Button className="btn-fill" color="warning" name="btnColeta"type="submit" onClick={this.props.clickColeta}>
               {this.props.textBtn} e Fazer Coleta
             </Button>
           </div>
