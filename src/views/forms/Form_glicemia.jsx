@@ -21,6 +21,8 @@ import {
     ModalFooter
 } from "reactstrap";
 
+const axios = require('axios');
+
 class Form_glicemia extends React.Component {
     constructor(props) {
         super(props);
@@ -29,12 +31,60 @@ class Form_glicemia extends React.Component {
             fade: true
         };
         this.toggle = this.toggle.bind(this);
+        this._idPaciente = "";
+        this.saveGlicose= this.saveGlicose.bind(this);
     };
     toggle() {
         this.setState({
             modal: !this.state.modal
         });
     }
+    componentDidMount(){
+        const{match:{params}} = this.props;
+        this._idPaciente = params._idPaciente;
+    }
+        saveGlicose() {
+            if (document.getElementById("inputProntuarioGlicose").value === "" ||
+                document.getElementById("inputHoraGlicose").value === "" ||
+                document.getElementById("inputPacienteGlicose").value === "" ||
+                document.getElementById("inputDataColetaGlicose").value === "" ||
+                document.getElementById("inputHoraColetaGlicose").value === "" ||
+                document.getElementById("inputValorGlicemiaGlicose").value === "" ||
+                document.getElementById("inputTipoGlicose").value === "" ||
+                document.getElementById("inputTipoAlimentacaoGlicose").value === "" ||
+                document.getElementById("inputObservacoesGlicose").value === "" 
+            ) {
+                return alert("Preencha todos os campos!")
+            }
+            axios.post("https://glucosecontrolapp.herokuapp.com/glucose", {
+                "prontuario": document.getElementById("inputProntuarioGlicose").value,
+                "paciente": document.getElementById("inputPacienteGlicose").value,
+                "dataColeta": document.getElementById("inputDataColetaGlicose").value,
+                "valorGlicemia": document.getElementById("inputValorGlicemiaGlicose").value,
+                "tipo": document.getElementById("inputTipoGlicose").value,
+                "tipoAlimentacao": document.getElementById("inputTipoAlimentacaoGlicose").value,
+                "hora": document.getElementById("inputHoraGlicose").value,
+                "horaColeta": document.getElementById("inputHoraColetaGlicose").checked,
+                "observacoes": document.getElementById("inputObservacoesGlicose").checked,
+                "_idPaciente" : this._idPaciente
+            })
+            .then(response =>{
+                document.getElementById("inputProntuarioGlicose").value = ""
+                document.getElementById("inputPacienteGlicose").value = ""
+                document.getElementById("inputHoraGlicose").value = ""
+                document.getElementById("inputPacienteGlicose").value = ""
+                document.getElementById("inputDataColetaGlicose").value = ""
+                document.getElementById("inputHoraColetaGlicose").value = ""
+                document.getElementById("inputValorGlicemiaGlicose").value = ""
+                document.getElementById("inputTipoGlicose").value = ""
+                document.getElementById("inputTipoAlimentacaoGlicose").value = ""
+                document.getElementById("inputObservacoesGlicose").value = ""
+                alert("Dados Gravados com sucesso")
+            })
+            .catch(error =>{
+                alert("Ocorreu um  erro ao tentar gravar os dados. Tente novamente mais tarde!")
+            })
+        }
     render() {
         return (
             <>
@@ -325,6 +375,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                         <Input
                                                             placeholder="Prontuário"
                                                             type="text"
+                                                            id="inputProntuarioGlicose"
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -334,6 +385,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                         <Input
                                                             placeholder="Data/Hora"
                                                             type="text"
+                                                            id="inputHoraGlicose"
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -343,6 +395,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                         <Input
                                                             placeholder="Paciente"
                                                             type="text"
+                                                            id="inputPacienteGlicose"
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -353,6 +406,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                         <Input
                                                             placeholder="Data coleta"
                                                             type="text"
+                                                            id="inputDataColetaGlicose"
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -362,6 +416,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                         <Input
                                                             placeholder="Hora coleta"
                                                             type="text"
+                                                            id="inputHoraColetaGlicose"
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -371,6 +426,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                         <Input
                                                             placeholder="valor glicemia"
                                                             type="text"
+                                                            id="inputValorGlicemiaGlicose"
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -380,14 +436,14 @@ atualize, caso contrário, basta confirmar.</CardText>
 
                                             <FormGroup>
                                                 <label>TIPO</label>
-                                                <Input type="select" name="select" id="exampleSelect1">
+                                                <Input type="select" name="select" id="inputTipoGlicose">
                                                     <option>Capilar</option>
                                                     <option>Bioquímica</option>
                                                 </Input>
                                             </FormGroup>
                                             <FormGroup>
                                                 <label>TIPO ALIMENTAÇÃO</label>
-                                                <Input type="select" name="select" id="exampleSelect1">
+                                                <Input type="select" name="select" id="inputTipoAlimentacaoGlicose">
                                                     <option>Zero</option>
                                                     <option>Oral líquida</option>
                                                     <option>Oral pastosa</option>
@@ -399,7 +455,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                             </FormGroup>
                                             <FormGroup>
                                                 <Label for="exampleText">Observações</Label>
-                                                <Input type="textarea" name="text" id="exampleText" placeholder="Observações" />
+                                                <Input type="textarea" name="text" id="inputObservacoesGlicose" placeholder="Observações" />
                                             </FormGroup>
                                         </Col>
                                     </Row>
@@ -409,7 +465,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                 <Button className="btn-fill" color="success" type="submit" onClick={this.toggle}>
                                     Plano aplicação
                   </Button>
-                                <Button className="btn-fill" color="info" type="submit">
+                                <Button className="btn-fill" color="info" type="submit" onClick={this.saveGlicose}>
                                     Atualizar
                   </Button>
                             </CardFooter>

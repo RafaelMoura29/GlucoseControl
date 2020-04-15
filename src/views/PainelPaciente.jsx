@@ -1,3 +1,4 @@
+PainelPaciente
 import React from "react";
 import classNames from "classnames";
 import { Line, Bar } from "react-chartjs-2";
@@ -32,39 +33,19 @@ class PainelPaciente extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            width: 0,
-            height: 0,
-            paciente: [],
-            glucose: [],
-            pacienteid: 0
+            width: 0, height: 0
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this._idPaciente = "";
     }
 
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
-        const { match: { params } } = this.props;
-        this.getPaciente(params.userId)
-        this.getGlucose(params.userId)
+        const{match:{params}} = this.props;
+        this._idPaciente = params._idPaciente
     }
 
-    //Fazendo requisição dos pacientes
-    async getPaciente(userId) {
-        axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId="+userId)
-            .then(response => {
-                this.setState({ paciente: response.data.paciente });
-            })
-    }
-
-    //Fazendo requisição dos pacientes
-    async getGlucose(userId) {
-        axios.get("https://glucosecontrolapp.herokuapp.com/glucose?tagId="+userId)
-            .then(response => {
-                this.setState({ glucose: response.data.glucose });
-
-            })
-    }
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
     }
@@ -90,7 +71,7 @@ class PainelPaciente extends React.Component {
                                 </Col>
                                 {this.state.width > 910
                                     ? <Col className="pr-md-1" md="2">
-                                        <Link to="/admin/Form_glicemia">
+                                        <Link to={"/admin/Form_glicemia/"+ this._idPaciente}>
                                             <Button className="btn-fill" color="warning" type="submit">
                                                 Coleta</Button>
                                         </Link>
