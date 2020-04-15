@@ -23,7 +23,7 @@ const axios = require('axios');
 class Form_create_paciente extends React.Component {
     constructor(props) {
         super(props);
-        this.initialState = {
+        this.state = {
             modal: false,
             fade: true,
             LoadingSpinner: false,
@@ -32,7 +32,7 @@ class Form_create_paciente extends React.Component {
             idPaciente: 0,
             form: {
                 textBtnRequest: '',
-                requestType: 'post',
+                requestType: '',
                 nome: '',
                 prontuario: '',
                 dataNascimento: '',
@@ -77,7 +77,6 @@ class Form_create_paciente extends React.Component {
                 ]
             }
         }
-        this.state = this.initialState
 
     }
 
@@ -217,7 +216,55 @@ class Form_create_paciente extends React.Component {
             })
                 .then(response => {
                     //Limpando campos
-                    this.setState(this.initialState);
+                    this.setState({
+                        form: {
+                            nome: '',
+                            prontuario: '',
+                            dataNascimento: '',
+                            sexo: 'Masculino',
+                            tipoInternacao: 'Clínica',
+                            dataInternacao: '',
+                            horaInternacao: '',
+                            internado: true,
+                            alta: false,
+                            diabetes: 'Não se aplica',
+                            insuficienciaRenal: 'Não se aplica',
+                            corticoide: 'Não se aplica',
+                            infeccao: false,
+                            sepse: false,
+                            sindromeDesconfortoRespiratorio: false,
+                            observacoes: '',
+                            planoAplicacao: [
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                                false,
+                            ]
+                        },
+                        LoadingSpinner: false,
+                        ModalMessager: true,
+                        ModalMessagerText: 'Dados Gravados com sucesso'
+                    });
                 })
                 .catch(error => {
                     this.setState({
@@ -251,7 +298,56 @@ class Form_create_paciente extends React.Component {
                 }
             ).then(response => {
                 //Limpando campos
-                this.setState(this.initialState);
+                this.setState({
+                    requestType: 'post',
+                    form: {
+                        nome: '',
+                        prontuario: '',
+                        dataNascimento: '',
+                        sexo: 'Masculino',
+                        tipoInternacao: 'Clínica',
+                        dataInternacao: '',
+                        horaInternacao: '',
+                        internado: true,
+                        alta: false,
+                        diabetes: 'Não se aplica',
+                        insuficienciaRenal: 'Não se aplica',
+                        corticoide: 'Não se aplica',
+                        infeccao: false,
+                        sepse: false,
+                        sindromeDesconfortoRespiratorio: false,
+                        observacoes: '',
+                        planoAplicacao: [
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                            false,
+                        ]
+                    },
+                    LoadingSpinner: false,
+                    ModalMessager: true,
+                    ModalMessagerText: 'Dados Gravados com sucesso'
+                });
             })
                 .catch(error => {
                     this.setState({
@@ -262,7 +358,6 @@ class Form_create_paciente extends React.Component {
                 })
         }
     }
-    
     render() {
         return (
             <>
