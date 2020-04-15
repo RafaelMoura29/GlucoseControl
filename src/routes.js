@@ -46,8 +46,8 @@ var routes = [
     hideSidebar: true
   },
   {
-    path: "/form_create_paciente",
-    name: "Cadastro de paciente",
+    path: "/form_create_paciente/:userId",
+    name: "Cadastro paciente",
     component: Form_create_paciente,
     layout: "/admin",
     hideSidebar: true

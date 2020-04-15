@@ -131,14 +131,14 @@ class Pacientes extends React.Component {
                                     {/* Renderiza o botão personalizado add paciente de acordo com o tamanho da tela. */}
                                     {this.state.width > 910
                                         ? <Col className="pr-md-1" md="2">
-                                            <Link to="/admin/form_create_paciente">
+                                            <Link to="/admin/form_create_paciente/0">
 
                                                 <Button className="btn-fill" color="info" type="submit">
                                                     Novo</Button>
                                             </Link>
                                         </Col>
                                         : <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
-                                            <Link to="/admin/form_create_paciente">
+                                            <Link to="/admin/form_create_paciente/0">
                                                 <Button size="lg" className="btn-round btn-icon" color="info">
                                                     <i className="tim-icons icon-simple-add" />
                                                 </Button>
@@ -151,6 +151,8 @@ class Pacientes extends React.Component {
                             <Table responsive>
                                 <thead>
                                     <tr>
+                                    <th></th>
+
                                         <th>Data Internação</th>
                                         <th>Prontuário</th>
                                         <th>Nome</th>
@@ -160,6 +162,13 @@ class Pacientes extends React.Component {
                                 <tbody id="tableBody">
                                     {this.state.pacienteFiltrados.map(paciente =>
                                         <tr key={paciente._id}>
+                                            <th scope="row" className="text-left">
+                                                <Link to={'/admin/form_create_paciente/' + paciente._id}>
+                                                    <Button className="btn-icon" color="info" size="sm">
+                                                        <i className="fas fa-edit"></i>
+                                                    </Button>
+                                                </Link>
+                                            </th>
                                             <td>{paciente.dataHoraInternacao}</td>
                                             <td>{paciente.prontuario}</td>
                                             <td>{paciente.nome}</td>

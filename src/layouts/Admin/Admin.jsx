@@ -102,9 +102,12 @@ class Admin extends React.Component {
     for (let i = 0; i < routes.length; i++) {
       if (
         this.props.location.pathname.indexOf(
-          routes[i].layout + routes[i].path
+          routes[i].layout + routes[i].path 
         ) !== -1
       ) {
+        console.log(this.props.location.pathname)
+        console.log(routes[i].layout)
+        console.log(routes[i].path)
         return routes[i].name;
       }
     }
