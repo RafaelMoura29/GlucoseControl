@@ -32,7 +32,7 @@ class PainelPaciente extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            width: 0, height: 0
+            width: 0, height: 0, glucosePaciente: []
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this._idPaciente = "";
@@ -42,7 +42,20 @@ class PainelPaciente extends React.Component {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
         const{match:{params}} = this.props;
-        this._idPaciente = params._idPaciente
+        this._idPaciente = params._idPaciente;
+        this.getListGlucose();
+    }
+    async getListGlucose() {
+        
+        axios.get("https://glucosecontrolapp.herokuapp.com/glucose?tagid="+ this._idPaciente)
+            .then(response => {
+                    this.setState({
+                        glucosePaciente: response.data.glucose
+                    })
+                    
+            })
+            .finally( () => {
+            } )
     }
 
     componentWillUnmount() {
@@ -117,24 +130,14 @@ class PainelPaciente extends React.Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>20/02/2020</td>
-                                                <td>12:00</td>
-                                                <td>120 mg/dl</td>
-                                                <td>Capilar</td>
-                                            </tr>
-                                            <tr>
-                                                <td>20/02/2020</td>
-                                                <td>12:00</td>
-                                                <td>120 mg/dl</td>
-                                                <td>Capilar</td>
-                                            </tr>
-                                            <tr>
-                                                <td>20/02/2020</td>
-                                                <td>12:00</td>
-                                                <td>120 mg/dl</td>
-                                                <td>Capilar</td>
-                                            </tr>
+                                            {this.state.glucosePaciente.map(glucose =>
+                                                <tr key={glucose._id}>
+                                                    <td>{glucose.dataColeta}</td>
+                                                    <td>{glucose.horaColeta}</td>
+                                                    <td>{glucose.valorGlicemia}</td>
+                                                    <td>{glucose.tipo}</td>
+                                                </tr>
+                                            )}
                                         </tbody>
                                     </Table>
                                 </Col>
