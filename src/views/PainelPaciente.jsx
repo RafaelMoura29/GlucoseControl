@@ -47,7 +47,7 @@ class PainelPaciente extends React.Component {
     }
     async getListGlucose() {
         
-        axios.get("https://glucosecontrolapp.herokuapp.com/glucose?tagid="+ this._idPaciente)
+        axios.get("https://glucosecontrolapp.herokuapp.com/glucose?tagId="+ this._idPaciente)
             .then(response => {
                     this.setState({
                         glucosePaciente: response.data.glucose
