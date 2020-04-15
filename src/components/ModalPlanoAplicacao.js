@@ -378,12 +378,11 @@ class ModalPlanoAplicacao extends React.Component {
           </FormGroup>
           <div className="text-center">
             <Button className="btn-fill" color="info" type="submit" onClick={this.props.click}>
-              Salvar Paciente
-</Button>
+              {this.props.textBtn} Paciente
+            </Button>
             <Button className="btn-fill" color="warning" type="submit" onClick={this.toggle}>
-              Salvar e Fazer Coleta
-</Button>
-
+              {this.props.textBtn} e Fazer Coleta
+            </Button>
           </div>
         </ModalBody>
       </Modal>
