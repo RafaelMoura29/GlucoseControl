@@ -1,4 +1,3 @@
-PainelPaciente
 import React from "react";
 import classNames from "classnames";
 import { Line, Bar } from "react-chartjs-2";
