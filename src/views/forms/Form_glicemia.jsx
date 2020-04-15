@@ -64,8 +64,8 @@ class Form_glicemia extends React.Component {
                 "tipo": document.getElementById("inputTipoGlicose").value,
                 "tipoAlimentacao": document.getElementById("inputTipoAlimentacaoGlicose").value,
                 "hora": document.getElementById("inputHoraGlicose").value,
-                "horaColeta": document.getElementById("inputHoraColetaGlicose").checked,
-                "observacoes": document.getElementById("inputObservacoesGlicose").checked,
+                "horaColeta": document.getElementById("inputHoraColetaGlicose").value,
+                "observacoes": document.getElementById("inputObservacoesGlicose").value,
                 "_idPaciente" : this._idPaciente
             })
             .then(response =>{
