@@ -83,8 +83,8 @@ class Form_create_paciente extends React.Component {
     componentDidMount() {
         this.setState({ LoadingSpinner: true, modal: false, });
         const { match: { params } } = this.props;
-        if (params.userId !== '0') {
-            axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + params.userId)
+        if (params._idPaciente !== '0') {
+            axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + params._idPaciente)
                 .then(response => {
                     const paciente = response.data.paciente[0]
                     let state = this.state
