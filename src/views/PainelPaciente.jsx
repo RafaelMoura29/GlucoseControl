@@ -130,14 +130,14 @@ class PainelPaciente extends React.Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {this.state.glucosePaciente.map(glucose =>
+                                            {this.state.glucosePaciente.map(glucose => (
                                                 <tr key={glucose._id}>
                                                     <td>{glucose.dataColeta}</td>
                                                     <td>{glucose.horaColeta}</td>
                                                     <td>{glucose.valorGlicemia}</td>
                                                     <td>{glucose.tipo}</td>
                                                 </tr>
-                                            )}
+                                            ))}
                                         </tbody>
                                     </Table>
                                 </Col>
@@ -206,7 +206,7 @@ class PainelPaciente extends React.Component {
                 </div>
                 {this.state.width < 910
                     ? <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
-                        <Link to="/admin/Form_glicemia">
+                        <Link to={"/admin/Form_glicemia/"+ this._idPaciente}>
                             <Button renderAs="button" size="lg" className="btn-round btn-icon" color="warning">
                                 <i className="fa fa-tint"></i>
                             </Button>
