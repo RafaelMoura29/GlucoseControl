@@ -161,7 +161,8 @@ class Form_create_paciente extends React.Component {
         this.setState(state)
     }
 
-    savePaciente = () => {
+    savePaciente = (event) => {
+        let coleta = event.target.name === 'btnColeta'
         this.setState({ LoadingSpinner: true, modal: false, });
         let form = this.state.form
 
@@ -265,6 +266,9 @@ class Form_create_paciente extends React.Component {
                         ModalMessager: true,
                         ModalMessagerText: 'Dados Gravados com sucesso'
                     });
+                    if(coleta){
+                    document.location.href = '/admin/Form_glicemia/' + response.data.paciente._id;
+                    }
                 })
                 .catch(error => {
                     this.setState({
@@ -348,6 +352,9 @@ class Form_create_paciente extends React.Component {
                     ModalMessager: true,
                     ModalMessagerText: 'Dados Gravados com sucesso'
                 });
+                if(coleta){
+                    document.location.href = '/admin/Form_glicemia/'+response.data.paciente._id;
+                }
             })
                 .catch(error => {
                     this.setState({
@@ -371,6 +378,7 @@ class Form_create_paciente extends React.Component {
                     <ModalPlanoAplicacao
                         modal={this.state.modal}
                         click={this.savePaciente}
+                        clickColeta={this.savePaciente}
                         toggle={this.togglePlanoAplicacao}
                         planoAplicacao={this.state.form.planoAplicacao}
                         planoAplicacaoChange={this.updateCheckedAplicacao}

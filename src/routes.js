@@ -32,21 +32,21 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/PainelPaciente/:userId",
+    path: "/PainelPaciente/:_idPaciente",
     name: "Informações paciente",
     component: PainelPaciente,
     layout: "/admin",
     hideSidebar: true
   },
   {
-    path: "/Form_glicemia",
+    path: "/Form_glicemia/:userId",
     name: "Coleta da glicemia",
     component: Form_glicemia,
     layout: "/admin",
     hideSidebar: true
   },
   {
-    path: "/form_create_paciente/:userId",
+    path: "/form_create_paciente/:_idPaciente",
     name: "Cadastro paciente",
     component: Form_create_paciente,
     layout: "/admin",

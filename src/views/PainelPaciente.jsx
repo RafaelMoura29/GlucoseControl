@@ -32,39 +32,32 @@ class PainelPaciente extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            width: 0,
-            height: 0,
-            paciente: [],
-            glucose: [],
-            pacienteid: 0
+            width: 0, height: 0, glucosePaciente: []
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+        this._idPaciente = "";
     }
 
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
-        const { match: { params } } = this.props;
-        this.getPaciente(params.userId)
-        this.getGlucose(params.userId)
+        const{match:{params}} = this.props;
+        this._idPaciente = params._idPaciente;
+        this.getListGlucose();
     }
-
-    //Fazendo requisição dos pacientes
-    async getPaciente(userId) {
-        axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId="+userId)
+    async getListGlucose() {
+        
+        axios.get("https://glucosecontrolapp.herokuapp.com/glucose?tagId="+ this._idPaciente)
             .then(response => {
-                this.setState({ paciente: response.data.paciente });
+                    this.setState({
+                        glucosePaciente: response.data.glucose
+                    })
+                    
             })
+            .finally( () => {
+            } )
     }
 
-    //Fazendo requisição dos pacientes
-    async getGlucose(userId) {
-        axios.get("https://glucosecontrolapp.herokuapp.com/glucose?tagId="+userId)
-            .then(response => {
-                this.setState({ glucose: response.data.glucose });
-
-            })
-    }
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
     }
@@ -90,7 +83,7 @@ class PainelPaciente extends React.Component {
                                 </Col>
                                 {this.state.width > 910
                                     ? <Col className="pr-md-1" md="2">
-                                        <Link to="/admin/Form_glicemia">
+                                        <Link to={"/admin/Form_glicemia/"+ this._idPaciente}>
                                             <Button className="btn-fill" color="warning" type="submit">
                                                 Coleta</Button>
                                         </Link>
@@ -137,24 +130,14 @@ class PainelPaciente extends React.Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>20/02/2020</td>
-                                                <td>12:00</td>
-                                                <td>120 mg/dl</td>
-                                                <td>Capilar</td>
-                                            </tr>
-                                            <tr>
-                                                <td>20/02/2020</td>
-                                                <td>12:00</td>
-                                                <td>120 mg/dl</td>
-                                                <td>Capilar</td>
-                                            </tr>
-                                            <tr>
-                                                <td>20/02/2020</td>
-                                                <td>12:00</td>
-                                                <td>120 mg/dl</td>
-                                                <td>Capilar</td>
-                                            </tr>
+                                            {this.state.glucosePaciente.map(glucose =>
+                                                <tr key={glucose._id}>
+                                                    <td>{glucose.dataColeta}</td>
+                                                    <td>{glucose.horaColeta}</td>
+                                                    <td>{glucose.valorGlicemia}</td>
+                                                    <td>{glucose.tipo}</td>
+                                                </tr>
+                                            )}
                                         </tbody>
                                     </Table>
                                 </Col>
