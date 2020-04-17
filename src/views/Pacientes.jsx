@@ -71,11 +71,11 @@ class Pacientes extends React.Component {
         let state = this.state
         state[event.target.name] = event.target.value.toLowerCase()
 
-        state.pacienteFiltrados = this.state.pacientes.filter(paciente => {
-            //Verificando se essa string está dentro do nome do paciente, caso esteja retorna a localização na string
-            let valor = paciente.nome.toLowerCase().indexOf(this.state.nomePacienteFiltro)
-            if ((valor !== -1 || this.state.nomePacienteFiltro === '') &&
-                (this.state.tipoInternacaoFiltro === "todos" || this.state.tipoInternacaoFiltro === paciente.estadoPaciente.toLowerCase())) {
+        state.pacienteFiltrados = state.pacientes.filter(paciente => {
+            //se o nome digitado corresponder ao de um paciente retorna valor >= 0
+            let valor = paciente.nome.toLowerCase().indexOf(state.nomePacienteFiltro)
+            if ((valor !== -1 || state.nomePacienteFiltro === '') &&
+                (state.tipoInternacaoFiltro === "todos" || state.tipoInternacaoFiltro === paciente.estadoPaciente.toLowerCase())) {
                 return paciente
             }
             return null;
@@ -111,9 +111,9 @@ class Pacientes extends React.Component {
                                                 name="tipoInternacaoFiltro"
                                                 onChange={this.updateInputValueAndFilter}
                                             >
-                                                <option>Todos</option>
-                                                <option>Internado</option>
-                                                <option>Alta</option>
+                                                <option value="todos">Todos</option>
+                                                <option value="internado">Internado</option>
+                                                <option value="alta">Alta</option>
                                             </Input>
                                         </FormGroup>
                                     </Col>
