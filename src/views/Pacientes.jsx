@@ -14,7 +14,7 @@ import {
     CardBody
 } from "reactstrap";
 
-const axios = require('axios');
+const axios = require("axios");
 
 class Pacientes extends React.Component {
 
@@ -26,8 +26,8 @@ class Pacientes extends React.Component {
             height: 0,
             pacientes: [],
             pacienteFiltrados: [],
-            nomePacienteFiltro: '',
-            tipoInternacaoFiltro: 'todos',
+            nomePacienteFiltro: "",
+            tipoInternacaoFiltro: "todos",
             LoadingSpinner: false
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -35,9 +35,9 @@ class Pacientes extends React.Component {
     }
 
     formataData(data){
-        let a = data.substring(0,10).split('-')
-        data = a[2] + "/" + a[1] + "/" + a[0]
-        return data
+        let a = data.substring(0,10).split("-");
+        data = a[2] + "/" + a[1] + "/" + a[0];
+        return data;
     }
 
     //Fazendo requisição dos pacientes
@@ -154,9 +154,9 @@ class Pacientes extends React.Component {
                                     <tr>
                                     <th></th>
 
-                                        <th>Data Internação</th>
                                         <th>Prontuário</th>
                                         <th>Nome</th>
+                                        <th>Data Internação</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -170,9 +170,9 @@ class Pacientes extends React.Component {
                                                     </Button>
                                                 </Link>
                                             </th>
-                                            <td>{paciente.dataHoraInternacao}</td>
                                             <td>{paciente.prontuario}</td>
                                             <td>{paciente.nome}</td>
+                                            <td>{paciente.dataHoraInternacao}</td>
                                             <th scope="row" className="text-right">
                                                 <Link to={'/admin/PainelPaciente/' + paciente._id}>
                                                     <Button className="btn-icon" color="danger" size="sm">
