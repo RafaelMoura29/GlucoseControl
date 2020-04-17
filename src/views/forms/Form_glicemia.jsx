@@ -4,7 +4,6 @@ import React from "react";
 import {
     Button,
     Card,
-    CardHeader,
     CardBody,
     CardFooter,
     CardText,
@@ -13,12 +12,9 @@ import {
     Input,
     Row,
     Col,
-    CardTitle,
     Label,
     Modal,
-    ModalHeader,
     ModalBody,
-    ModalFooter
 } from "reactstrap";
 
 const axios = require('axios');

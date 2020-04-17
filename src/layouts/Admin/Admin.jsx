@@ -105,9 +105,6 @@ class Admin extends React.Component {
           routes[i].layout + routes[i].path 
         ) !== -1
       ) {
-        console.log(this.props.location.pathname)
-        console.log(routes[i].layout)
-        console.log(routes[i].path)
         return routes[i].name;
       }
     }

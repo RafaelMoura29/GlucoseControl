@@ -107,9 +107,9 @@ class Form_create_paciente extends React.Component {
                     state.form.sepse = 'true' === paciente.sepse
                     state.form.sindromeDesconfortoRespiratorio = 'true' === paciente.sindromeDesconfortoRespiratorio
                     state.form.observacoes = paciente.observacoes
-                    paciente.planoAplicacao.split("#").map(hora => {
+                    paciente.planoAplicacao.split("#").map(hora => (
                         state.form.planoAplicacao[parseInt(hora) - 1] = true
-                    })
+                    ))
                     this.setState(state)
                 })
                 .finally(e => {
@@ -189,7 +189,10 @@ class Form_create_paciente extends React.Component {
 
         let planoAplicacao = '';
         form.planoAplicacao.map((element, index) => {
-            if (element) planoAplicacao = planoAplicacao + (index + 1) + "#"
+            if (element) {
+                return planoAplicacao = planoAplicacao + (index + 1) + "#"
+            }
+            return null
         })
         planoAplicacao = planoAplicacao.slice(0, -1);
 

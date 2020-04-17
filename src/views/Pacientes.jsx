@@ -46,9 +46,9 @@ class Pacientes extends React.Component {
         
         axios.get("https://glucosecontrolapp.herokuapp.com/paciente")
             .then(response => {
-                response.data.paciente.map(e => {
+                response.data.paciente.map(e => (
                     e.dataHoraInternacao = this.formataData(e.dataHoraInternacao)
-                })
+                ))
                 this.setState({
                     pacientes: response.data.paciente,
                     pacienteFiltrados: response.data.paciente
@@ -78,6 +78,7 @@ class Pacientes extends React.Component {
                 (this.state.tipoInternacaoFiltro === "todos" || this.state.tipoInternacaoFiltro === paciente.estadoPaciente.toLowerCase())) {
                 return paciente
             }
+            return null;
         })
         this.setState(state)
     }

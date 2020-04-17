@@ -2,8 +2,7 @@ import React from 'react';
 import {
   Modal,
   ModalBody,
-  CardText,
-  ModalHeader
+  CardText
 } from "reactstrap";
 
 const ModalMessager = ({children, visible, text, toggle}) => (
