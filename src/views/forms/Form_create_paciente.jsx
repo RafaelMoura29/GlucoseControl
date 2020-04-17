@@ -30,7 +30,7 @@ class Form_create_paciente extends React.Component {
         //Ajustando formato da data
         dataInternacao = dataInternacao[2] + "-" + dataInternacao[1] + "-" + dataInternacao[0]
         //Hora atual
-        let horaInternacao = dateTime[1].substring(0,5)
+        let horaInternacao = dateTime[1].substring(0, 5)
 
         super(props);
         this.state = {
@@ -40,6 +40,7 @@ class Form_create_paciente extends React.Component {
             ModalMessager: false,
             ModalMessagerText: '',
             idPaciente: 0,
+            redirectUrl: '',
             form: {
                 textBtnRequest: '',
                 requestType: '',
@@ -60,10 +61,10 @@ class Form_create_paciente extends React.Component {
                 sindromeDesconfortoRespiratorio: false,
                 observacoes: '',
                 planoAplicacao: [
-                    false,false,false,false,false,false,
-                    false,false,false,false,false,false,
-                    false,false,false,false,false,false,
-                    false,false,false,false,false,false,
+                    false, false, false, false, false, false,
+                    false, false, false, false, false, false,
+                    false, false, false, false, false, false,
+                    false, false, false, false, false, false,
                 ]
             }
         }
@@ -151,8 +152,15 @@ class Form_create_paciente extends React.Component {
     }
 
     savePaciente = (event) => {
+        
         let coleta = event.target.name === 'btnColeta'
-        this.setState({ LoadingSpinner: true, modal: false, });
+        let url;
+        if (coleta) {
+            url = '/admin/Form_glicemia/' + this.state.idPaciente
+        } else {
+            url = '/admin/pacientes/'
+        }
+        this.setState({ LoadingSpinner: true, modal: false, redirectUrl: url });
         let form = this.state.form
 
         //Verifica preenchimento dos campos
@@ -228,19 +236,17 @@ class Form_create_paciente extends React.Component {
                             sindromeDesconfortoRespiratorio: false,
                             observacoes: '',
                             planoAplicacao: [
-                                false,false,false,false,false,false,
-                                false,false,false,false,false,false,
-                                false,false,false,false,false,false,
-                                false,false,false,false,false,false,
+                                false, false, false, false, false, false,
+                                false, false, false, false, false, false,
+                                false, false, false, false, false, false,
+                                false, false, false, false, false, false,
                             ]
                         },
                         LoadingSpinner: false,
                         ModalMessager: true,
                         ModalMessagerText: 'Dados Gravados com sucesso'
                     });
-                    if(coleta){
-                    document.location.href = '/admin/Form_glicemia/' + response.data.paciente._id;
-                    }
+                    
                 })
                 .catch(error => {
                     this.setState({
@@ -294,19 +300,17 @@ class Form_create_paciente extends React.Component {
                         sindromeDesconfortoRespiratorio: false,
                         observacoes: '',
                         planoAplicacao: [
-                            false,false,false,false,false,false,
-                            false,false,false,false,false,false,
-                            false,false,false,false,false,false,
-                            false,false,false,false,false,false,
+                            false, false, false, false, false, false,
+                            false, false, false, false, false, false,
+                            false, false, false, false, false, false,
+                            false, false, false, false, false, false,
                         ]
                     },
                     LoadingSpinner: false,
                     ModalMessager: true,
                     ModalMessagerText: 'Dados Gravados com sucesso'
                 });
-                if(coleta){
-                    document.location.href = '/admin/Form_glicemia/'+response.data.paciente._id;
-                }
+                
             })
                 .catch(error => {
                     this.setState({
@@ -316,6 +320,7 @@ class Form_create_paciente extends React.Component {
                     });
                 })
         }
+        //document.location.href = '/admin/pacientes/';
     }
     render() {
         return (
@@ -323,7 +328,11 @@ class Form_create_paciente extends React.Component {
                 <div className="content">
                     <LoadingSpinner visible={this.state.LoadingSpinner} />
 
-                    <ModalMessager visible={this.state.ModalMessager} text={this.state.ModalMessagerText} >
+                    <ModalMessager 
+                        visible={this.state.ModalMessager} 
+                        text={this.state.ModalMessagerText}
+                        toggle={() => document.location.href = this.state.redirectUrl}
+                        >
                         <ModalHeader toggle={this.toggleMessager}></ModalHeader>
                     </ModalMessager>
 
