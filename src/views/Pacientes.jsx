@@ -14,7 +14,7 @@ import {
     CardBody
 } from "reactstrap";
 
-const axios = require('axios');
+const axios = require("axios");
 
 class Pacientes extends React.Component {
 
@@ -26,8 +26,8 @@ class Pacientes extends React.Component {
             height: 0,
             pacientes: [],
             pacienteFiltrados: [],
-            nomePacienteFiltro: '',
-            tipoInternacaoFiltro: 'todos',
+            nomePacienteFiltro: "",
+            tipoInternacaoFiltro: "todos",
             LoadingSpinner: false
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
@@ -35,9 +35,9 @@ class Pacientes extends React.Component {
     }
 
     formataData(data){
-        let a = data.substring(0,10).split('-')
-        data = a[2] + "/" + a[1] + "/" + a[0]
-        return data
+        let a = data.substring(0,10).split("-");
+        data = a[2] + "/" + a[1] + "/" + a[0];
+        return data;
     }
 
     //Fazendo requisição dos pacientes
@@ -46,9 +46,9 @@ class Pacientes extends React.Component {
         
         axios.get("https://glucosecontrolapp.herokuapp.com/paciente")
             .then(response => {
-                response.data.paciente.map(e => {
+                response.data.paciente.map(e => (
                     e.dataHoraInternacao = this.formataData(e.dataHoraInternacao)
-                })
+                ))
                 this.setState({
                     pacientes: response.data.paciente,
                     pacienteFiltrados: response.data.paciente
@@ -71,13 +71,14 @@ class Pacientes extends React.Component {
         let state = this.state
         state[event.target.name] = event.target.value.toLowerCase()
 
-        state.pacienteFiltrados = this.state.pacientes.filter(paciente => {
-            //Verificando se essa string está dentro do nome do paciente, caso esteja retorna a localização na string
-            let valor = paciente.nome.toLowerCase().indexOf(this.state.nomePacienteFiltro)
-            if ((valor !== -1 || this.state.nomePacienteFiltro === '') &&
-                (this.state.tipoInternacaoFiltro === "todos" || this.state.tipoInternacaoFiltro === paciente.estadoPaciente.toLowerCase())) {
+        state.pacienteFiltrados = state.pacientes.filter(paciente => {
+            //se o nome digitado corresponder ao de um paciente retorna valor >= 0
+            let valor = paciente.nome.toLowerCase().indexOf(state.nomePacienteFiltro)
+            if ((valor !== -1 || state.nomePacienteFiltro === '') &&
+                (state.tipoInternacaoFiltro === "todos" || state.tipoInternacaoFiltro === paciente.estadoPaciente.toLowerCase())) {
                 return paciente
             }
+            return null;
         })
         this.setState(state)
     }
@@ -110,9 +111,9 @@ class Pacientes extends React.Component {
                                                 name="tipoInternacaoFiltro"
                                                 onChange={this.updateInputValueAndFilter}
                                             >
-                                                <option>Todos</option>
-                                                <option>Internado</option>
-                                                <option>Alta</option>
+                                                <option value="todos">Todos</option>
+                                                <option value="internado">Internado</option>
+                                                <option value="alta">Alta</option>
                                             </Input>
                                         </FormGroup>
                                     </Col>
@@ -134,7 +135,7 @@ class Pacientes extends React.Component {
                                             <Link to="/admin/form_create_paciente/0">
 
                                                 <Button className="btn-fill" color="info" type="submit">
-                                                    Novo</Button>
+                                                    NOVO</Button>
                                             </Link>
                                         </Col>
                                         : <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
@@ -153,9 +154,9 @@ class Pacientes extends React.Component {
                                     <tr>
                                     <th></th>
 
-                                        <th>Data Internação</th>
                                         <th>Prontuário</th>
                                         <th>Nome</th>
+                                        <th>Data Internação</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -169,9 +170,9 @@ class Pacientes extends React.Component {
                                                     </Button>
                                                 </Link>
                                             </th>
-                                            <td>{paciente.dataHoraInternacao}</td>
                                             <td>{paciente.prontuario}</td>
                                             <td>{paciente.nome}</td>
+                                            <td>{paciente.dataHoraInternacao}</td>
                                             <th scope="row" className="text-right">
                                                 <Link to={'/admin/PainelPaciente/' + paciente._id}>
                                                     <Button className="btn-icon" color="danger" size="sm">

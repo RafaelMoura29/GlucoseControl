@@ -15,13 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useState } from "react";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
-import { NavLink, Link } from "react-router-dom";
-// reactstrap components
+import React from "react";
+
 import {
     Card,
     CardBody
@@ -44,7 +39,6 @@ class Ajuda extends React.Component {
                            <h1>Página ajuda</h1>
                         </CardBody>
                     </Card>
-
                 </div>
             </>
         );

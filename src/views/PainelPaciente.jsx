@@ -1,7 +1,6 @@
 import React from "react";
-import classNames from "classnames";
-import { Line, Bar } from "react-chartjs-2";
-import { NavLink, Link } from "react-router-dom";
+import { Line } from "react-chartjs-2";
+import { Link } from "react-router-dom";
 
 import {
     Card,
@@ -9,9 +8,7 @@ import {
     CardTitle,
     Row,
     Col,
-    CardText,
     Table,
-    Badge,
     Button,
     CardHeader,
     FormGroup,
@@ -19,10 +16,7 @@ import {
     Label
 } from "reactstrap";
 import {
-    chartExample1,
     chartExample2,
-    chartExample3,
-    chartExample4
 } from "variables/charts.jsx";
 
 const axios = require('axios');

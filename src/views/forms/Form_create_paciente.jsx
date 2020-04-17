@@ -22,6 +22,16 @@ const axios = require('axios');
 
 class Form_create_paciente extends React.Component {
     constructor(props) {
+        let dateTime = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+        //Separa data da hora
+        dateTime = dateTime.split(" ")
+        //Separa mes, dia e ano
+        let dataInternacao = dateTime[0].split("/")
+        //Ajustando formato da data
+        dataInternacao = dataInternacao[2] + "-" + dataInternacao[1] + "-" + dataInternacao[0]
+        //Hora atual
+        let horaInternacao = dateTime[1].substring(0, 5)
+
         super(props);
         this.state = {
             modal: false,
@@ -30,6 +40,7 @@ class Form_create_paciente extends React.Component {
             ModalMessager: false,
             ModalMessagerText: '',
             idPaciente: 0,
+            redirectUrl: '',
             form: {
                 textBtnRequest: '',
                 requestType: '',
@@ -38,8 +49,8 @@ class Form_create_paciente extends React.Component {
                 dataNascimento: '',
                 sexo: 'Masculino',
                 tipoInternacao: 'Clínica',
-                dataInternacao: '',
-                horaInternacao: '',
+                dataInternacao: dataInternacao,
+                horaInternacao: horaInternacao,
                 internado: true,
                 alta: false,
                 diabetes: 'Não se aplica',
@@ -50,34 +61,13 @@ class Form_create_paciente extends React.Component {
                 sindromeDesconfortoRespiratorio: false,
                 observacoes: '',
                 planoAplicacao: [
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
-                    false,
+                    false, false, false, false, false, false,
+                    false, false, false, false, false, false,
+                    false, false, false, false, false, false,
+                    false, false, false, false, false, false,
                 ]
             }
         }
-
     }
 
     componentDidMount() {
@@ -89,7 +79,7 @@ class Form_create_paciente extends React.Component {
                     const paciente = response.data.paciente[0]
                     let state = this.state
                     state.idPaciente = paciente._id
-                    state.textBtnRequest = 'Atualizar'
+                    state.textBtnRequest = 'ATUALIZAR'
                     state.requestType = 'put'
                     state.form.nome = paciente.nome
                     state.form.prontuario = paciente.prontuario
@@ -107,9 +97,9 @@ class Form_create_paciente extends React.Component {
                     state.form.sepse = 'true' === paciente.sepse
                     state.form.sindromeDesconfortoRespiratorio = 'true' === paciente.sindromeDesconfortoRespiratorio
                     state.form.observacoes = paciente.observacoes
-                    paciente.planoAplicacao.split("#").map(hora => {
+                    paciente.planoAplicacao.split("#").map(hora => (
                         state.form.planoAplicacao[parseInt(hora) - 1] = true
-                    })
+                    ))
                     this.setState(state)
                 })
                 .finally(e => {
@@ -118,7 +108,7 @@ class Form_create_paciente extends React.Component {
         } else {
             this.setState({
                 LoadingSpinner: false,
-                textBtnRequest: "Salvar",
+                textBtnRequest: "SALVAR",
                 requestType: 'post'
             });
         }
@@ -162,8 +152,15 @@ class Form_create_paciente extends React.Component {
     }
 
     savePaciente = (event) => {
+        
         let coleta = event.target.name === 'btnColeta'
-        this.setState({ LoadingSpinner: true, modal: false, });
+        let url;
+        if (coleta) {
+            url = '/admin/Form_glicemia/' + this.state.idPaciente
+        } else {
+            url = '/admin/pacientes/'
+        }
+        this.setState({ LoadingSpinner: true, modal: false, redirectUrl: url });
         let form = this.state.form
 
         //Verifica preenchimento dos campos
@@ -189,7 +186,10 @@ class Form_create_paciente extends React.Component {
 
         let planoAplicacao = '';
         form.planoAplicacao.map((element, index) => {
-            if (element) planoAplicacao = planoAplicacao + (index + 1) + "#"
+            if (element) {
+                return planoAplicacao = planoAplicacao + (index + 1) + "#"
+            }
+            return null
         })
         planoAplicacao = planoAplicacao.slice(0, -1);
 
@@ -236,39 +236,17 @@ class Form_create_paciente extends React.Component {
                             sindromeDesconfortoRespiratorio: false,
                             observacoes: '',
                             planoAplicacao: [
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
-                                false,
+                                false, false, false, false, false, false,
+                                false, false, false, false, false, false,
+                                false, false, false, false, false, false,
+                                false, false, false, false, false, false,
                             ]
                         },
                         LoadingSpinner: false,
                         ModalMessager: true,
                         ModalMessagerText: 'Dados Gravados com sucesso'
                     });
-                    if(coleta){
-                    document.location.href = '/admin/Form_glicemia/' + response.data.paciente._id;
-                    }
+                    
                 })
                 .catch(error => {
                     this.setState({
@@ -322,39 +300,17 @@ class Form_create_paciente extends React.Component {
                         sindromeDesconfortoRespiratorio: false,
                         observacoes: '',
                         planoAplicacao: [
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
-                            false,
+                            false, false, false, false, false, false,
+                            false, false, false, false, false, false,
+                            false, false, false, false, false, false,
+                            false, false, false, false, false, false,
                         ]
                     },
                     LoadingSpinner: false,
                     ModalMessager: true,
                     ModalMessagerText: 'Dados Gravados com sucesso'
                 });
-                if(coleta){
-                    document.location.href = '/admin/Form_glicemia/'+response.data.paciente._id;
-                }
+                
             })
                 .catch(error => {
                     this.setState({
@@ -364,6 +320,7 @@ class Form_create_paciente extends React.Component {
                     });
                 })
         }
+        //document.location.href = '/admin/pacientes/';
     }
     render() {
         return (
@@ -371,7 +328,11 @@ class Form_create_paciente extends React.Component {
                 <div className="content">
                     <LoadingSpinner visible={this.state.LoadingSpinner} />
 
-                    <ModalMessager visible={this.state.ModalMessager} text={this.state.ModalMessagerText} >
+                    <ModalMessager 
+                        visible={this.state.ModalMessager} 
+                        text={this.state.ModalMessagerText}
+                        toggle={() => document.location.href = this.state.redirectUrl}
+                        >
                         <ModalHeader toggle={this.toggleMessager}></ModalHeader>
                     </ModalMessager>
 
@@ -400,7 +361,6 @@ class Form_create_paciente extends React.Component {
                                                             <Input
                                                                 placeholder="NOME"
                                                                 type="text"
-                                                                id="inputNome"
                                                                 name="nome"
                                                                 onChange={this.updateInputValue}
                                                                 value={this.state.form.nome}
@@ -414,7 +374,6 @@ class Form_create_paciente extends React.Component {
                                                             <Input
                                                                 placeholder="PRONTUÁRIO"
                                                                 type="text"
-                                                                id="inputProntuario"
                                                                 name="prontuario"
                                                                 onChange={this.updateInputValue}
                                                                 value={this.state.form.prontuario}
@@ -429,7 +388,6 @@ class Form_create_paciente extends React.Component {
                                                                 type="date"
                                                                 name="dataNascimento"
                                                                 placeholder="datetime placeholder"
-                                                                id="inputDataNascimento"
                                                                 onChange={this.updateInputValue}
                                                                 value={this.state.form.dataNascimento}
                                                             />
@@ -442,7 +400,6 @@ class Form_create_paciente extends React.Component {
                                                             <Input
                                                                 name="sexo"
                                                                 type="select"
-                                                                id="inputSexo"
                                                                 onChange={this.updateInputValue}
                                                                 value={this.state.form.sexo}>
                                                                 <option>Masculino</option>
@@ -457,7 +414,6 @@ class Form_create_paciente extends React.Component {
                                                             <Input
                                                                 type="select"
                                                                 name="tipoInternacao"
-                                                                id="inputTipoInternacao"
                                                                 onChange={this.updateInputValue}
                                                                 value={this.state.form.tipoInternacao}>
                                                                 <option>clínica</option>
@@ -478,7 +434,6 @@ class Form_create_paciente extends React.Component {
                                                                 type="date"
                                                                 name="dataInternacao"
                                                                 placeholder="datetime placeholder"
-                                                                id="inputDataInternacao"
                                                                 onChange={this.updateInputValue}
                                                                 value={this.state.form.dataInternacao}
                                                             />
@@ -491,7 +446,6 @@ class Form_create_paciente extends React.Component {
                                                             <Input
                                                                 type="time"
                                                                 name="horaInternacao"
-                                                                id="inputHoraInternacao"
                                                                 placeholder="datetime placeholder"
                                                                 onChange={this.updateInputValue}
                                                                 value={this.state.form.horaInternacao}
@@ -504,7 +458,6 @@ class Form_create_paciente extends React.Component {
                                                                 <Input
                                                                     type="radio"
                                                                     name="internado"
-                                                                    id="inputRadioInternado"
                                                                     onChange={this.updateCheckValue}
                                                                     checked={this.state.form.internado}
                                                                 />
@@ -517,7 +470,6 @@ class Form_create_paciente extends React.Component {
                                                                 <Input
                                                                     type="radio"
                                                                     name="alta"
-                                                                    id="inputRadioAlta"
                                                                     onChange={this.updateCheckValue}
                                                                     checked={this.state.form.alta} />
                                                                     ALTA
@@ -533,7 +485,6 @@ class Form_create_paciente extends React.Component {
                                                     <Input
                                                         type="select"
                                                         name="diabetes"
-                                                        id="inputDiabetes"
                                                         onChange={this.updateInputValue}
                                                         value={this.state.form.diabetes}>
                                                         <option>Não se aplica</option>
@@ -549,7 +500,6 @@ class Form_create_paciente extends React.Component {
                                                     <Input
                                                         type="select"
                                                         name="insuficienciaRenal"
-                                                        id="inputInsuficienciaRenal"
                                                         onChange={this.updateInputValue}
                                                         value={this.state.form.insuficienciaRenal}
                                                     >
@@ -566,7 +516,6 @@ class Form_create_paciente extends React.Component {
                                                     <Input
                                                         type="select"
                                                         name="corticoide"
-                                                        id="inputCorticoide"
                                                         onChange={this.updateInputValue}
                                                         value={this.state.form.corticoide}
                                                     >
@@ -583,7 +532,6 @@ class Form_create_paciente extends React.Component {
                                                                 <Input
                                                                     className="form-check-input"
                                                                     name="infeccao"
-                                                                    id="inputInfeccao"
                                                                     type="checkbox"
                                                                     onChange={this.updateCheckValue}
                                                                     checked={this.state.form.infeccao}
@@ -599,7 +547,6 @@ class Form_create_paciente extends React.Component {
                                                                 <Input
                                                                     className="form-check-input"
                                                                     name="sepse"
-                                                                    id="inputSepse"
                                                                     type="checkbox"
                                                                     onChange={this.updateCheckValue}
                                                                     checked={this.state.form.sepse}
@@ -615,7 +562,6 @@ class Form_create_paciente extends React.Component {
                                                                 <Input
                                                                     className="form-check-input"
                                                                     name="sindromeDesconfortoRespiratorio"
-                                                                    id="inputDesconfortoRespiratorio"
                                                                     type="checkbox"
                                                                     onChange={this.updateCheckValue}
                                                                     checked={this.state.form.sindromeDesconfortoRespiratorio}
@@ -635,7 +581,6 @@ class Form_create_paciente extends React.Component {
                                                     <Input
                                                         type="textarea"
                                                         name="observacoes"
-                                                        id="inputObservacoes"
                                                         onChange={this.updateInputValue}
                                                         value={this.state.form.observacoes}
                                                     />
@@ -646,7 +591,7 @@ class Form_create_paciente extends React.Component {
                                 </CardBody>
                                 <CardFooter>
                                     <Button className="btn-fill" color="info" type="submit" onClick={this.togglePlanoAplicacao}>
-                                        Plano aplicação
+                                        PLANO COLETA
                                     </Button>
                                 </CardFooter>
                             </Card>

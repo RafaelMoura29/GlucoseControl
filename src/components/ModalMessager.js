@@ -3,10 +3,10 @@ import {
   Modal,
   ModalBody,
   CardText,
-  ModalHeader
+  Button
 } from "reactstrap";
 
-const ModalMessager = ({children, visible, text, toggle}) => (
+const ModalMessager = ({ children, visible, text, toggle }) => (
   <Modal isOpen={visible} fade={false} style={{
     width: '300px',
     height: '300px',
@@ -19,10 +19,13 @@ const ModalMessager = ({children, visible, text, toggle}) => (
       height: '100%',
       fontSize: '20px'
     }}>
-    {children}
+      {children}
       <CardText style={{ color: '#ddd' }}>
         {text}
       </CardText>
+      <Button className="btn-fill" color="success" type="submit" onClick={toggle}>
+        OK
+      </Button>
     </ModalBody>
   </Modal>
 
