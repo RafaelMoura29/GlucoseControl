@@ -89,7 +89,7 @@ class Form_create_paciente extends React.Component {
                     const paciente = response.data.paciente[0]
                     let state = this.state
                     state.idPaciente = paciente._id
-                    state.textBtnRequest = 'Atualizar'
+                    state.textBtnRequest = 'ATUALIZAR'
                     state.requestType = 'put'
                     state.form.nome = paciente.nome
                     state.form.prontuario = paciente.prontuario
@@ -118,7 +118,7 @@ class Form_create_paciente extends React.Component {
         } else {
             this.setState({
                 LoadingSpinner: false,
-                textBtnRequest: "Salvar",
+                textBtnRequest: "SALVAR",
                 requestType: 'post'
             });
         }
@@ -649,7 +649,7 @@ class Form_create_paciente extends React.Component {
                                 </CardBody>
                                 <CardFooter>
                                     <Button className="btn-fill" color="info" type="submit" onClick={this.togglePlanoAplicacao}>
-                                        Plano aplicação
+                                        PLANO COLETA
                                     </Button>
                                 </CardFooter>
                             </Card>

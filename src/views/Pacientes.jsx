@@ -135,7 +135,7 @@ class Pacientes extends React.Component {
                                             <Link to="/admin/form_create_paciente/0">
 
                                                 <Button className="btn-fill" color="info" type="submit">
-                                                    Novo</Button>
+                                                    NOVO</Button>
                                             </Link>
                                         </Col>
                                         : <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
