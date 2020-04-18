@@ -137,12 +137,10 @@ class Form_create_paciente extends React.Component {
         if (event.target.name === 'alta' || event.target.name === 'internado') {
             state.form.alta = !this.state.form.alta
             state.form.internado = !this.state.form.internado
-            this.setState(state)
-        } else {
-            state.form[event.target.name] = event.target.checked
-            this.setState(state)
+            return this.setState(state)
         }
-
+        state.form[event.target.name] = event.target.checked
+        this.setState(state)
     }
 
     updateCheckedAplicacao = (event) => {
@@ -151,15 +149,103 @@ class Form_create_paciente extends React.Component {
         this.setState(state)
     }
 
-    savePaciente = (event) => {
-        
+    salvarPaciente = (planoAplicacao) => {
+
+        let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+        let form = this.state.form
+        //Gravando paciente
+        axios.post("https://glucosecontrolapp.herokuapp.com/paciente", {
+            "prontuario": form.prontuario,
+            "nome": form.nome,
+            "dataNascimento": form.dataNascimento,
+            "tipoInternacao": form.tipoInternacao,
+            "diabetes": form.diabetes,
+            "insuficienciaRenal": form.insuficienciaRenal,
+            "corticoide": form.corticoide,
+            "infeccao": form.infeccao,
+            "sepse": form.sepse,
+            "sindromeDesconfortoRespiratorio": form.sindromeDesconfortoRespiratorio,
+            "sexo": form.sexo,
+            "dataHoraInternacao": form.dataInternacao + " " + form.horaInternacao,
+            "observacoes": form.observacoes,
+            "estadoPaciente": form.alta ? "alta" : "internado",
+            "planoAplicacao": planoAplicacao,
+            "createDate": dataCriacao
+        })
+            .then(response => {
+                //Limpando campos
+                this.setState({
+                    LoadingSpinner: false,
+                    ModalMessager: true,
+                    ModalMessagerText: 'Dados Gravados com sucesso'
+                });
+
+            })
+            .catch(error => {
+                this.setState({
+                    LoadingSpinner: false,
+                    ModalMessager: true,
+                    ModalMessagerText: 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
+                });
+            })
+    }
+
+    atualizarPaciente = (planoAplicacao) => {
+
+        let dataAtualizacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+        let form = this.state.form
+
+        axios.put("https://glucosecontrolapp.herokuapp.com/paciente",
+            {
+                "_id": this.state.idPaciente,
+                "dataUpdated": {
+                    "prontuario": form.prontuario,
+                    "nome": form.nome,
+                    "dataNascimento": form.dataNascimento,
+                    "tipoInternacao": form.tipoInternacao,
+                    "diabetes": form.diabetes,
+                    "insuficienciaRenal": form.insuficienciaRenal,
+                    "corticoide": form.corticoide,
+                    "infeccao": form.infeccao,
+                    "sepse": form.sepse,
+                    "sindromeDesconfortoRespiratorio": form.sindromeDesconfortoRespiratorio,
+                    "sexo": form.sexo,
+                    "dataHoraInternacao": form.dataInternacao + " " + form.horaInternacao,
+                    "observacoes": form.observacoes,
+                    "estadoPaciente": form.alta ? "alta" : "internado",
+                    "planoAplicacao": planoAplicacao,
+                    "updateDate": dataAtualizacao
+                }
+            }
+        ).then(response => {
+            //Limpando campos
+            this.setState({
+                LoadingSpinner: false,
+                ModalMessager: true,
+                ModalMessagerText: 'Dados Gravados com sucesso'
+            });
+
+        })
+            .catch(error => {
+                this.setState({
+                    LoadingSpinner: false,
+                    ModalMessager: true,
+                    ModalMessagerText: 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
+                });
+            })
+    }
+
+    verificarPreenchimentoForm = (event) => {
+
         let coleta = event.target.name === 'btnColeta'
         let url;
+        
         if (coleta) {
             url = '/admin/Form_glicemia/' + this.state.idPaciente
         } else {
             url = '/admin/pacientes/'
         }
+
         this.setState({ LoadingSpinner: true, modal: false, redirectUrl: url });
         let form = this.state.form
 
@@ -180,7 +266,8 @@ class Form_create_paciente extends React.Component {
             return this.setState({
                 LoadingSpinner: false,
                 ModalMessager: true,
-                ModalMessagerText: 'Preencha todos os campos!'
+                ModalMessagerText: 'Preencha todos os campos!',
+                redirectUrl: null
             });
         }
 
@@ -193,153 +280,36 @@ class Form_create_paciente extends React.Component {
         })
         planoAplicacao = planoAplicacao.slice(0, -1);
 
-        let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
-
         if (this.state.requestType === "post") {
-            //Gravando paciente
-            axios.post("https://glucosecontrolapp.herokuapp.com/paciente", {
-                "prontuario": form.prontuario,
-                "nome": form.nome,
-                "dataNascimento": form.dataNascimento,
-                "tipoInternacao": form.tipoInternacao,
-                "diabetes": form.diabetes,
-                "insuficienciaRenal": form.insuficienciaRenal,
-                "corticoide": form.corticoide,
-                "infeccao": form.infeccao,
-                "sepse": form.sepse,
-                "sindromeDesconfortoRespiratorio": form.sindromeDesconfortoRespiratorio,
-                "sexo": form.sexo,
-                "dataHoraInternacao": form.dataInternacao + " " + form.horaInternacao,
-                "observacoes": form.observacoes,
-                "estadoPaciente": form.alta ? "alta" : "internado",
-                "planoAplicacao": planoAplicacao,
-                "createDate": dataCriacao
-            })
-                .then(response => {
-                    //Limpando campos
-                    this.setState({
-                        form: {
-                            nome: '',
-                            prontuario: '',
-                            dataNascimento: '',
-                            sexo: 'Masculino',
-                            tipoInternacao: 'Clínica',
-                            dataInternacao: '',
-                            horaInternacao: '',
-                            internado: true,
-                            alta: false,
-                            diabetes: 'Não se aplica',
-                            insuficienciaRenal: 'Não se aplica',
-                            corticoide: 'Não se aplica',
-                            infeccao: false,
-                            sepse: false,
-                            sindromeDesconfortoRespiratorio: false,
-                            observacoes: '',
-                            planoAplicacao: [
-                                false, false, false, false, false, false,
-                                false, false, false, false, false, false,
-                                false, false, false, false, false, false,
-                                false, false, false, false, false, false,
-                            ]
-                        },
-                        LoadingSpinner: false,
-                        ModalMessager: true,
-                        ModalMessagerText: 'Dados Gravados com sucesso'
-                    });
-                    
-                })
-                .catch(error => {
-                    this.setState({
-                        LoadingSpinner: false,
-                        ModalMessager: true,
-                        ModalMessagerText: 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
-                    });
-                })
+            this.salvarPaciente(planoAplicacao)
         } else {
-            axios.put("https://glucosecontrolapp.herokuapp.com/paciente",
-                {
-                    "_id": this.state.idPaciente,
-                    "dataUpdated": {
-                        "prontuario": form.prontuario,
-                        "nome": form.nome,
-                        "dataNascimento": form.dataNascimento,
-                        "tipoInternacao": form.tipoInternacao,
-                        "diabetes": form.diabetes,
-                        "insuficienciaRenal": form.insuficienciaRenal,
-                        "corticoide": form.corticoide,
-                        "infeccao": form.infeccao,
-                        "sepse": form.sepse,
-                        "sindromeDesconfortoRespiratorio": form.sindromeDesconfortoRespiratorio,
-                        "sexo": form.sexo,
-                        "dataHoraInternacao": form.dataInternacao + " " + form.horaInternacao,
-                        "observacoes": form.observacoes,
-                        "estadoPaciente": form.alta ? "alta" : "internado",
-                        "planoAplicacao": planoAplicacao,
-                        "createDate": dataCriacao
-                    }
-                }
-            ).then(response => {
-                //Limpando campos
-                this.setState({
-                    requestType: 'post',
-                    form: {
-                        nome: '',
-                        prontuario: '',
-                        dataNascimento: '',
-                        sexo: 'Masculino',
-                        tipoInternacao: 'Clínica',
-                        dataInternacao: '',
-                        horaInternacao: '',
-                        internado: true,
-                        alta: false,
-                        diabetes: 'Não se aplica',
-                        insuficienciaRenal: 'Não se aplica',
-                        corticoide: 'Não se aplica',
-                        infeccao: false,
-                        sepse: false,
-                        sindromeDesconfortoRespiratorio: false,
-                        observacoes: '',
-                        planoAplicacao: [
-                            false, false, false, false, false, false,
-                            false, false, false, false, false, false,
-                            false, false, false, false, false, false,
-                            false, false, false, false, false, false,
-                        ]
-                    },
-                    LoadingSpinner: false,
-                    ModalMessager: true,
-                    ModalMessagerText: 'Dados Gravados com sucesso'
-                });
-                
-            })
-                .catch(error => {
-                    this.setState({
-                        LoadingSpinner: false,
-                        ModalMessager: true,
-                        ModalMessagerText: 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
-                    });
-                })
+            this.atualizarPaciente(planoAplicacao)
         }
-        //document.location.href = '/admin/pacientes/';
     }
+
     render() {
         return (
             <>
                 <div className="content">
                     <LoadingSpinner visible={this.state.LoadingSpinner} />
 
-                    <ModalMessager 
-                        visible={this.state.ModalMessager} 
+                    <ModalMessager
+                        visible={this.state.ModalMessager}
                         text={this.state.ModalMessagerText}
-                        toggle={() => document.location.href = this.state.redirectUrl}
-                        >
+                        toggle={() => {
+                            if (this.state.redirectUrl) {
+                                return document.location.href = this.state.redirectUrl
+                            }
+                            return this.setState({ ModalMessager: false })
+                        }}
+                    >
                         <ModalHeader toggle={this.toggleMessager}></ModalHeader>
                     </ModalMessager>
 
                     <ModalPlanoAplicacao
                         modal={this.state.modal}
-                        click={this.savePaciente}
-                        clickColeta={this.savePaciente}
+                        click={this.verificarPreenchimentoForm}
+                        clickColeta={this.verificarPreenchimentoForm}
                         toggle={this.togglePlanoAplicacao}
                         planoAplicacao={this.state.form.planoAplicacao}
                         planoAplicacaoChange={this.updateCheckedAplicacao}
