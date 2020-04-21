@@ -41,9 +41,9 @@ class Form_create_paciente extends React.Component {
             ModalMessagerText: '',
             idPaciente: 0,
             redirectUrl: '',
+            textBtnRequest: '',
+            requestType: '',
             form: {
-                textBtnRequest: '',
-                requestType: '',
                 nome: '',
                 prontuario: '',
                 dataNascimento: '',
@@ -173,11 +173,10 @@ class Form_create_paciente extends React.Component {
             "createDate": dataCriacao
         })
             .then(response => {
-                //Limpando campos
                 this.setState({
                     LoadingSpinner: false,
                     ModalMessager: true,
-                    ModalMessagerText: 'Dados Gravados com sucesso'
+                    ModalMessagerText: 'Dados Gravados Com Sucesso'
                 });
 
             })
@@ -222,7 +221,7 @@ class Form_create_paciente extends React.Component {
             this.setState({
                 LoadingSpinner: false,
                 ModalMessager: true,
-                ModalMessagerText: 'Dados Gravados com sucesso'
+                ModalMessagerText: 'Dados Gravados Com Sucesso'
             });
 
         })
@@ -237,32 +236,18 @@ class Form_create_paciente extends React.Component {
 
     verificarPreenchimentoForm = (event) => {
 
-        let coleta = event.target.name === 'btnColeta'
-        let url;
-        
-        if (coleta) {
-            url = '/admin/Form_glicemia/' + this.state.idPaciente
-        } else {
-            url = '/admin/pacientes/'
-        }
+        //Url para redirecionamento após salvar/atualizar paciente
+        let url = event.target.name === 'btnColeta'
+            ? '/admin/Form_glicemia/' + this.state.idPaciente
+            : '/admin/pacientes/'
 
         this.setState({ LoadingSpinner: true, modal: false, redirectUrl: url });
+
         let form = this.state.form
 
-        //Verifica preenchimento dos campos
-        if (
-            form.prontuario === "" ||
-            form.dataInternacao === "" ||
-            form.horaInternacao === "" ||
-            form.nome === "" ||
-            form.dataNascimento === "" ||
-            form.sexo === "" ||
-            form.tipoInternacao === "" ||
-            form.observacoes === "" ||
-            form.diabetes === "" ||
-            form.insuficienciaRenal === "" ||
-            form.corticoide === ""
-        ) {
+        //Verifica se o formulário está preenchido
+        const formNaoEstaPreenchido = Object.values(form).some((value) => value === "")
+        if (formNaoEstaPreenchido) {
             return this.setState({
                 LoadingSpinner: false,
                 ModalMessager: true,
@@ -270,15 +255,11 @@ class Form_create_paciente extends React.Component {
                 redirectUrl: null
             });
         }
-
-        let planoAplicacao = '';
-        form.planoAplicacao.map((element, index) => {
-            if (element) {
-                return planoAplicacao = planoAplicacao + (index + 1) + "#"
-            }
-            return null
-        })
-        planoAplicacao = planoAplicacao.slice(0, -1);
+        
+        //Monta a string do plano de aplicação
+        let planoAplicacao = form.planoAplicacao.reduce((acumulador, hora, index) => (
+            hora === true ? acumulador + (index + 1) + "#" : acumulador + ''
+        ), '').slice(0, -1)
 
         if (this.state.requestType === "post") {
             this.salvarPaciente(planoAplicacao)
