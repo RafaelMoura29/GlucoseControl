@@ -30,8 +30,6 @@ class Pacientes extends React.Component {
             tipoInternacaoFiltro: "todos",
             LoadingSpinner: false
         };
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-        this.updateInputValueAndFilter = this.updateInputValueAndFilter.bind(this);
     }
 
     formataData(data){
@@ -59,7 +57,6 @@ class Pacientes extends React.Component {
             } )
     }
 
-    //Função executada depois da renderização.
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
@@ -67,7 +64,7 @@ class Pacientes extends React.Component {
     }
 
     //Atualiza o state do filtro e filtra os pacientes
-    updateInputValueAndFilter(event) {
+    updateInputValueAndFilter = (event) => {
         let state = this.state
         state[event.target.name] = event.target.value.toLowerCase()
 
@@ -89,7 +86,7 @@ class Pacientes extends React.Component {
     }
 
     //Atualiza velores da dimensão da tela
-    updateWindowDimensions() {
+    updateWindowDimensions = () => {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
