@@ -1,6 +1,7 @@
 import React from "react";
 
 import LoadingSpinner from '../../components/LoadingSpinner.js'
+import ModalMessager from '../../components/ModalMessager.js'
 
 // reactstrap components
 import {
@@ -8,15 +9,13 @@ import {
     Card,
     CardBody,
     CardFooter,
-    CardText,
     FormGroup,
     Form,
     Input,
     Row,
     Col,
+    ModalHeader,
     Label,
-    Modal,
-    ModalBody,
 } from "reactstrap";
 
 const axios = require('axios');
@@ -27,17 +26,11 @@ class Form_glicemia extends React.Component {
         this.state = {
             modal: false,
             fade: true,
-            LoadingSpinner: false
+            LoadingSpinner: false,
+            ModalMessager: false,
+            ModalMessagerText: "",
         };
-        this.toggle = this.toggle.bind(this);
         this._idPaciente = "";
-        this.saveGlicose = this.saveGlicose.bind(this);
-    }
-
-    toggle() {
-        this.setState({
-            modal: !this.state.modal
-        });
     }
 
     componentDidMount() {
@@ -46,10 +39,14 @@ class Form_glicemia extends React.Component {
         this.getPaciente()
     }
 
+    toggleMessager = () => {
+        this.setState({
+            ModalMessager: !this.state.ModalMessager
+        });
+    }
+
     formataDataHora(data) {
         let dataHora = data.split(" ");
-        console.log(dataHora)
-        console.log(data)
         let hora = dataHora[1]
         let dataFormatada = dataHora[0]
         dataFormatada = dataFormatada.substring(0, 10).split("-");
@@ -61,7 +58,6 @@ class Form_glicemia extends React.Component {
         axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + this._idPaciente )
             .then( (response) => {
                 const paciente = response.data.paciente[0]
-                console.log(response.data.paciente[0])
                 document.getElementById("inputProntuarioGlicose").value = paciente.prontuario
                 document.getElementById("inputPacienteGlicose").value = paciente.nome
                 document.getElementById("inputHoraGlicose").value = this.formataDataHora(paciente.dataHoraInternacao)
@@ -69,7 +65,7 @@ class Form_glicemia extends React.Component {
 
     }
 
-    saveGlicose() {
+    saveGlicose = () => {
         this.setState({ LoadingSpinner: true });
 
         if (document.getElementById("inputProntuarioGlicose").value === "" ||
@@ -82,8 +78,11 @@ class Form_glicemia extends React.Component {
             document.getElementById("inputTipoAlimentacaoGlicose").value === "" ||
             document.getElementById("inputObservacoesGlicose").value === ""
         ) {
-            this.setState({ LoadingSpinner: false });
-            return alert("Preencha todos os campos!")
+            return this.setState({
+                LoadingSpinner: false,
+                ModalMessager: true,
+                ModalMessagerText: 'Preencha todos os campos!',
+            });
         }
         axios.post("https://glucosecontrolapp.herokuapp.com/glucose", {
             "prontuario": document.getElementById("inputProntuarioGlicose").value,
@@ -98,29 +97,43 @@ class Form_glicemia extends React.Component {
             "_idPaciente": this._idPaciente
         })
             .then(response => {
-                document.getElementById("inputProntuarioGlicose").value = ""
-                document.getElementById("inputPacienteGlicose").value = ""
-                document.getElementById("inputHoraGlicose").value = ""
-                document.getElementById("inputPacienteGlicose").value = ""
                 document.getElementById("inputDataColetaGlicose").value = ""
                 document.getElementById("inputHoraColetaGlicose").value = ""
                 document.getElementById("inputValorGlicemiaGlicose").value = ""
-                document.getElementById("inputTipoGlicose").value = ""
-                document.getElementById("inputTipoAlimentacaoGlicose").value = ""
+                document.getElementById("inputTipoGlicose").value = "Capilar"
+                document.getElementById("inputTipoAlimentacaoGlicose").value = "Zero"
                 document.getElementById("inputObservacoesGlicose").value = ""
-                alert("Dados Gravados com sucesso")
+                this.setState({
+                    LoadingSpinner: false,
+                    ModalMessager: true,
+                    ModalMessagerText: 'Dados Gravados Com Sucesso'
+                });
             })
             .catch(error => {
-                alert("Ocorreu um  erro ao tentar gravar os dados. Tente novamente mais tarde!")
+                this.setState({
+                    LoadingSpinner: false,
+                    ModalMessager: true,
+                    ModalMessagerText: 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
+                });
             })
-            .finally(e => {
-                this.setState({ LoadingSpinner: false });
-            })
+            
     }
     render() {
         return (
             <>
                 <div className="content">
+                    <ModalMessager
+                        visible={this.state.ModalMessager}
+                        text={this.state.ModalMessagerText}
+                        toggle={() => {
+                            this.setState({
+                                ModalMessager: false,
+                            });
+                        }}
+                    >
+                        <ModalHeader toggle={this.toggleMessager}></ModalHeader>
+                    </ModalMessager>
+
                     <LoadingSpinner visible={this.state.LoadingSpinner} />
                     <Row>
 
