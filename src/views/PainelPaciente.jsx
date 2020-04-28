@@ -24,7 +24,7 @@ const axios = require('axios');
 class PainelPaciente extends React.Component {
 
     constructor(props) {
-        super(props);
+        super(props); 
         this.state = {
             width: 0, height: 0, glucosePaciente: []
         };
@@ -39,6 +39,13 @@ class PainelPaciente extends React.Component {
         this._idPaciente = params._idPaciente;
         this.getListGlucose();
     }
+
+    formataData(data) {
+        let a = data.substring(0, 10).split("-");
+        data = a[2] + "/" + a[1] + "/" + a[0];
+        return data;
+    }
+
     async getListGlucose() {
         
         axios.get("https://glucosecontrolapp.herokuapp.com/glucose?tagId="+ this._idPaciente)
@@ -48,8 +55,6 @@ class PainelPaciente extends React.Component {
                     })
                     
             })
-            .finally( () => {
-            } )
     }
 
     componentWillUnmount() {
@@ -126,7 +131,7 @@ class PainelPaciente extends React.Component {
                                         <tbody>
                                             {this.state.glucosePaciente.map(glucose => (
                                                 <tr key={glucose._id}>
-                                                    <td>{glucose.dataColeta}</td>
+                                                    <td>{this.formataData(glucose.dataColeta)}</td>
                                                     <td>{glucose.horaColeta}</td>
                                                     <td>{glucose.valorGlicemia}</td>
                                                     <td>{glucose.tipo}</td>
