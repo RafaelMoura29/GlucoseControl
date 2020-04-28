@@ -1,6 +1,5 @@
 import React from "react";
 
-// reactstrap components
 import {
   Button,
   FormGroup,
@@ -13,7 +12,6 @@ import {
   CardText,
   ModalHeader
 } from "reactstrap";
-
 
 class ModalPlanoAplicacao extends React.Component {
   constructor(props) {

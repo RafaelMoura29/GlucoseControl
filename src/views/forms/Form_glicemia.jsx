@@ -1,20 +1,21 @@
 import React from "react";
 
+import LoadingSpinner from '../../components/LoadingSpinner.js'
+import ModalMessager from '../../components/ModalMessager.js'
+
 // reactstrap components
 import {
     Button,
     Card,
     CardBody,
     CardFooter,
-    CardText,
     FormGroup,
     Form,
     Input,
     Row,
     Col,
+    ModalHeader,
     Label,
-    Modal,
-    ModalBody,
 } from "reactstrap";
 
 const axios = require('axios');
@@ -24,341 +25,119 @@ class Form_glicemia extends React.Component {
         super(props);
         this.state = {
             modal: false,
-            fade: true
+            fade: true,
+            LoadingSpinner: false,
+            ModalMessager: false,
+            ModalMessagerText: "",
         };
-        this.toggle = this.toggle.bind(this);
         this._idPaciente = "";
-        this.saveGlicose= this.saveGlicose.bind(this);
-    };
-    toggle() {
+    }
+
+    componentDidMount() {
+        const { match: { params } } = this.props;
+        this._idPaciente = params._idPaciente;
+        this.getPaciente()
+    }
+
+    toggleMessager = () => {
         this.setState({
-            modal: !this.state.modal
+            ModalMessager: !this.state.ModalMessager
         });
     }
-    componentDidMount(){
-        const{match:{params}} = this.props;
-        this._idPaciente = params._idPaciente;
+
+    formataDataHora(data) {
+        let dataHora = data.split(" ");
+        let hora = dataHora[1]
+        let dataFormatada = dataHora[0]
+        dataFormatada = dataFormatada.substring(0, 10).split("-");
+        dataFormatada = dataFormatada[2] + "/" + dataFormatada[1] + "/" + dataFormatada[0] + " " + hora;
+        return dataFormatada;
     }
-        saveGlicose() {
-            if (document.getElementById("inputProntuarioGlicose").value === "" ||
-                document.getElementById("inputHoraGlicose").value === "" ||
-                document.getElementById("inputPacienteGlicose").value === "" ||
-                document.getElementById("inputDataColetaGlicose").value === "" ||
-                document.getElementById("inputHoraColetaGlicose").value === "" ||
-                document.getElementById("inputValorGlicemiaGlicose").value === "" ||
-                document.getElementById("inputTipoGlicose").value === "" ||
-                document.getElementById("inputTipoAlimentacaoGlicose").value === "" ||
-                document.getElementById("inputObservacoesGlicose").value === "" 
-            ) {
-                return alert("Preencha todos os campos!")
-            }
-            axios.post("https://glucosecontrolapp.herokuapp.com/glucose", {
-                "prontuario": document.getElementById("inputProntuarioGlicose").value,
-                "paciente": document.getElementById("inputPacienteGlicose").value,
-                "dataColeta": document.getElementById("inputDataColetaGlicose").value,
-                "valorGlicemia": document.getElementById("inputValorGlicemiaGlicose").value,
-                "tipo": document.getElementById("inputTipoGlicose").value,
-                "tipoAlimentacao": document.getElementById("inputTipoAlimentacaoGlicose").value,
-                "hora": document.getElementById("inputHoraGlicose").value,
-                "horaColeta": document.getElementById("inputHoraColetaGlicose").value,
-                "observacoes": document.getElementById("inputObservacoesGlicose").value,
-                "_idPaciente" : this._idPaciente
+
+    getPaciente = () => {
+        axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + this._idPaciente )
+            .then( (response) => {
+                const paciente = response.data.paciente[0]
+                document.getElementById("inputProntuarioGlicose").value = paciente.prontuario
+                document.getElementById("inputPacienteGlicose").value = paciente.nome
+                document.getElementById("inputHoraGlicose").value = this.formataDataHora(paciente.dataHoraInternacao)
             })
-            .then(response =>{
-                document.getElementById("inputProntuarioGlicose").value = ""
-                document.getElementById("inputPacienteGlicose").value = ""
-                document.getElementById("inputHoraGlicose").value = ""
-                document.getElementById("inputPacienteGlicose").value = ""
+
+    }
+
+    saveGlicose = () => {
+        this.setState({ LoadingSpinner: true });
+
+        if (document.getElementById("inputProntuarioGlicose").value === "" ||
+            document.getElementById("inputHoraGlicose").value === "" ||
+            document.getElementById("inputPacienteGlicose").value === "" ||
+            document.getElementById("inputDataColetaGlicose").value === "" ||
+            document.getElementById("inputHoraColetaGlicose").value === "" ||
+            document.getElementById("inputValorGlicemiaGlicose").value === "" ||
+            document.getElementById("inputTipoGlicose").value === "" ||
+            document.getElementById("inputTipoAlimentacaoGlicose").value === "" ||
+            document.getElementById("inputObservacoesGlicose").value === ""
+        ) {
+            return this.setState({
+                LoadingSpinner: false,
+                ModalMessager: true,
+                ModalMessagerText: 'Preencha todos os campos!',
+            });
+        }
+        axios.post("https://glucosecontrolapp.herokuapp.com/glucose", {
+            "prontuario": document.getElementById("inputProntuarioGlicose").value,
+            "paciente": document.getElementById("inputPacienteGlicose").value,
+            "dataColeta": document.getElementById("inputDataColetaGlicose").value,
+            "valorGlicemia": document.getElementById("inputValorGlicemiaGlicose").value,
+            "tipo": document.getElementById("inputTipoGlicose").value,
+            "tipoAlimentacao": document.getElementById("inputTipoAlimentacaoGlicose").value,
+            "hora": document.getElementById("inputHoraGlicose").value,
+            "horaColeta": document.getElementById("inputHoraColetaGlicose").value,
+            "observacoes": document.getElementById("inputObservacoesGlicose").value,
+            "_idPaciente": this._idPaciente
+        })
+            .then(response => {
                 document.getElementById("inputDataColetaGlicose").value = ""
                 document.getElementById("inputHoraColetaGlicose").value = ""
                 document.getElementById("inputValorGlicemiaGlicose").value = ""
-                document.getElementById("inputTipoGlicose").value = ""
-                document.getElementById("inputTipoAlimentacaoGlicose").value = ""
+                document.getElementById("inputTipoGlicose").value = "Capilar"
+                document.getElementById("inputTipoAlimentacaoGlicose").value = "Zero"
                 document.getElementById("inputObservacoesGlicose").value = ""
-                alert("Dados Gravados com sucesso")
+                this.setState({
+                    LoadingSpinner: false,
+                    ModalMessager: true,
+                    ModalMessagerText: 'Dados Gravados Com Sucesso'
+                });
             })
-            .catch(error =>{
-                alert("Ocorreu um  erro ao tentar gravar os dados. Tente novamente mais tarde!")
+            .catch(error => {
+                this.setState({
+                    LoadingSpinner: false,
+                    ModalMessager: true,
+                    ModalMessagerText: 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
+                });
             })
-        }
+            
+    }
     render() {
         return (
             <>
                 <div className="content">
-                    <div>
-                        <Modal isOpen={this.state.modal} fade={this.state.fade} toggle={this.toggle}>
-                            <ModalBody style={{ backgroundColor: '#1e1e2f' }}>
-                                <h3 className="text-center mb-4">Plano inicial de aplicação</h3>
-                                <CardText style={{ color: '#aaa' }}>Plano inicial de aplicações sugeridos pelo sistema.
-                                Caso desese alterar selecione os novos hoários e
-atualize, caso contrário, basta confirmar.</CardText>
-                                <Row className="mb-4">
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 1h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 2h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 2h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
+                    <ModalMessager
+                        visible={this.state.ModalMessager}
+                        text={this.state.ModalMessagerText}
+                        toggle={() => {
+                            this.setState({
+                                ModalMessager: false,
+                            });
+                        }}
+                    >
+                        <ModalHeader toggle={this.toggleMessager}></ModalHeader>
+                    </ModalMessager>
 
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 3h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 4h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 5h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 6h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 7h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 8h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 9h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 10h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 11h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 12h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 13h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 14h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 15h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 16h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 17h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 18h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 19h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 20h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 21h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 22h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 23h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col md="2">
-                                        <FormGroup check inline>
-                                            <Label check>
-                                                <Input type="checkbox" /> 24h
-              <span className="form-check-sign">
-                                                    <span className="check" />
-                                                </span>
-                                            </Label>
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-                                <div className="text-center">
-                                    <Button className="btn-fill" color="info" type="submit" onClick={this.toggle}>
-                                        Atualizar
-                  </Button>
-                                    <Button className="btn-fill" color="success" type="submit">
-                                        Confirmar
-                  </Button>
-                                </div>
-                            </ModalBody>
-                        </Modal>
-                    </div>
+                    <LoadingSpinner visible={this.state.LoadingSpinner} />
                     <Row>
-                        <Card>
 
+                        <Card>
                             <CardBody>
                                 <Form>
                                     <Row>
@@ -372,16 +151,18 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                             placeholder="Prontuário"
                                                             type="text"
                                                             id="inputProntuarioGlicose"
+                                                            disabled
                                                         />
                                                     </FormGroup>
                                                 </Col>
                                                 <Col className="pr-md-1" md="6">
                                                     <FormGroup>
-                                                        <label>DATA/HORA</label>
+                                                        <label>DATA e HORA INTERNAÇÃO</label>
                                                         <Input
                                                             placeholder="Data/Hora"
                                                             type="text"
                                                             id="inputHoraGlicose"
+                                                            disabled
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -392,6 +173,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                             placeholder="Paciente"
                                                             type="text"
                                                             id="inputPacienteGlicose"
+                                                            disabled
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -400,8 +182,8 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                     <FormGroup>
                                                         <label>DATA COLETA</label>
                                                         <Input
+                                                            type="date"
                                                             placeholder="Data coleta"
-                                                            type="text"
                                                             id="inputDataColetaGlicose"
                                                         />
                                                     </FormGroup>
@@ -411,7 +193,7 @@ atualize, caso contrário, basta confirmar.</CardText>
                                                         <label>HORA COLETA</label>
                                                         <Input
                                                             placeholder="Hora coleta"
-                                                            type="text"
+                                                            type="time"
                                                             id="inputHoraColetaGlicose"
                                                         />
                                                     </FormGroup>
@@ -458,12 +240,9 @@ atualize, caso contrário, basta confirmar.</CardText>
                                 </Form>
                             </CardBody>
                             <CardFooter>
-                                <Button className="btn-fill" color="success" type="submit" onClick={this.toggle}>
-                                    Plano aplicação
-                  </Button>
                                 <Button className="btn-fill" color="info" type="submit" onClick={this.saveGlicose}>
-                                    Atualizar
-                  </Button>
+                                    SALVAR GLICEMIA
+                                </Button>
                             </CardFooter>
                         </Card>
                     </Row>

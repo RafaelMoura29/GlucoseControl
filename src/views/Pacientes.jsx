@@ -32,16 +32,16 @@ class Pacientes extends React.Component {
         };
     }
 
-    formataData(data){
-        let a = data.substring(0,10).split("-");
+    formataData(data) {
+        let a = data.substring(0, 10).split("-");
         data = a[2] + "/" + a[1] + "/" + a[0];
         return data;
     }
 
     //Fazendo requisição dos pacientes
     async getPacientes() {
-        this.setState({LoadingSpinner: true});
-        
+        this.setState({ LoadingSpinner: true });
+
         axios.get("https://glucosecontrolapp.herokuapp.com/paciente")
             .then(response => {
                 response.data.paciente.map(e => (
@@ -52,9 +52,7 @@ class Pacientes extends React.Component {
                     pacienteFiltrados: response.data.paciente
                 });
             })
-            .finally( () => {
-                this.setState({LoadingSpinner: false});
-            } )
+            .finally(() => this.setState({ LoadingSpinner: false }))
     }
 
     componentDidMount() {
@@ -91,11 +89,10 @@ class Pacientes extends React.Component {
     }
 
     render() {
-
         return (
             <>
                 <div className="content">
-                <LoadingSpinner visible={this.state.LoadingSpinner}/>
+                    <LoadingSpinner visible={this.state.LoadingSpinner} />
                     <Card >
                         <CardBody>
                             <Form className="mb-4">
@@ -149,7 +146,7 @@ class Pacientes extends React.Component {
                             <Table responsive>
                                 <thead>
                                     <tr>
-                                    <th></th>
+                                        <th></th>
 
                                         <th>Prontuário</th>
                                         <th>Nome</th>
