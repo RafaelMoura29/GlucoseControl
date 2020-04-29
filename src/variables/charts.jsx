@@ -434,8 +434,8 @@ const chartExample4 = {
 
 let lineChart = {
 
-  dados: [],
-  labels: [],
+  dados: [0],
+  labels: ["a"],
 
   data: canvas => {
     let ctx = canvas.getContext("2d");

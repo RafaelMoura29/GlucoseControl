@@ -111,9 +111,6 @@ class PainelPaciente extends React.Component {
 
         const dadosGlicemia = glucoseFiltrada.map(glucose => glucose.valorGlicemia)
         const labelsColeta = glucoseFiltrada.map(glucose => this.formataData(glucose.dataColeta) + "-" + glucose.horaColeta)
-        console.log("executando")
-        console.log(dadosGlicemia,
-            labelsColeta)
         state.lineChart.dados = dadosGlicemia
         state.lineChart.labels = labelsColeta
         this.setState(state)
