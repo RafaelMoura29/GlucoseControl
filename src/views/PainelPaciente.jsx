@@ -17,6 +17,7 @@ import {
 } from "reactstrap";
 import {
     chartExample2,
+    lineChart
 } from "variables/charts.jsx";
 
 const axios = require('axios');
@@ -24,9 +25,24 @@ const axios = require('axios');
 class PainelPaciente extends React.Component {
 
     constructor(props) {
-        super(props); 
+        let dateTime = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+        //Separa data da hora
+        dateTime = dateTime.split(" ")
+        //Separa mes, dia e ano
+        let dataInternacao = dateTime[0].split("/")
+        //Ajustando formato da data
+        dataInternacao = dataInternacao[2] + "-" + dataInternacao[1] + "-" + dataInternacao[0]
+
+        super(props);
         this.state = {
-            width: 0, height: 0, glucosePaciente: []
+            width: 0,
+            height: 0,
+            glucosePaciente: [],
+            glucosePacienteFiltrado: [],
+            filtroDataColeta: 0,
+            filtroDataInicial: "2000-03-28",
+            filtroDataFinal: dataInternacao,
+            lineChart: lineChart
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this._idPaciente = "";
@@ -35,7 +51,7 @@ class PainelPaciente extends React.Component {
     componentDidMount() {
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
-        const{match:{params}} = this.props;
+        const { match: { params } } = this.props;
         this._idPaciente = params._idPaciente;
         this.getListGlucose();
     }
@@ -47,13 +63,17 @@ class PainelPaciente extends React.Component {
     }
 
     async getListGlucose() {
-        
-        axios.get("https://glucosecontrolapp.herokuapp.com/glucose?tagId="+ this._idPaciente)
+
+        axios.get("https://glucosecontrolapp.herokuapp.com/glucose?tagId=" + this._idPaciente)
             .then(response => {
-                    this.setState({
-                        glucosePaciente: response.data.glucose
-                    })
-                    
+                this.setState({
+                    glucosePaciente: response.data.glucose,
+                    glucosePacienteFiltrado: response.data.glucose
+                }, () => {
+                    this.filtrarEvolucaoGlicemia()
+
+                })
+
             })
     }
 
@@ -65,11 +85,40 @@ class PainelPaciente extends React.Component {
         this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
-    setBgChartData = name => {
+    setBgChartData = (name) => {
         this.setState({
             bigChartData: name
         });
     };
+
+    filtrarColetas = () => {
+        if (this.state.filtroDataColeta !== 0) {
+            let pacientesFiltrados = this.state.glucosePaciente.filter(glucose => {
+                return glucose.dataColeta === this.state.filtroDataColeta
+            })
+            this.setState({ glucosePacienteFiltrado: pacientesFiltrados })
+        } else {
+            this.setState({ glucosePacienteFiltrado: this.state.glucosePaciente })
+        }
+    }
+
+    filtrarEvolucaoGlicemia = () => {
+        let state = this.state
+
+        let glucoseFiltrada = state.glucosePaciente.filter(glucose => {
+            return glucose.dataColeta > state.filtroDataInicial && glucose.dataColeta < state.filtroDataFinal
+        })
+
+        const dadosGlicemia = glucoseFiltrada.map(glucose => glucose.valorGlicemia)
+        const labelsColeta = glucoseFiltrada.map(glucose => this.formataData(glucose.dataColeta) + "-" + glucose.horaColeta)
+        console.log("executando")
+        console.log(dadosGlicemia,
+            labelsColeta)
+        state.lineChart.dados = dadosGlicemia
+        state.lineChart.labels = labelsColeta
+        this.setState(state)
+    }
+
     render() {
         return (
             <>
@@ -80,16 +129,18 @@ class PainelPaciente extends React.Component {
                                 <Col className="pr-md-1" md="10">
                                     <h3 className="title">Coletas de Nome paciente</h3>
                                 </Col>
-                                {this.state.width > 910
-                                    ? <Col className="pr-md-1" md="2">
-                                        <Link to={"/admin/Form_glicemia/"+ this._idPaciente}>
-                                            <Button className="btn-fill" color="warning" type="submit">
-                                                Coleta</Button>
-                                        </Link>
-                                    </Col>
-                                    : <Col className="pr-md-1" md="3">
-
-                                    </Col>
+                                {
+                                    this.state.width > 910
+                                        ?
+                                        <Col className="pr-md-1" md="2">
+                                            <Link to={"/admin/Form_glicemia/" + this._idPaciente}>
+                                                <Button className="btn-fill" color="warning" type="submit">
+                                                    Coleta
+                                            </Button>
+                                            </Link>
+                                        </Col>
+                                        :
+                                        <Col className="pr-md-1" md="3" />
                                 }
 
                             </Row>
@@ -100,16 +151,30 @@ class PainelPaciente extends React.Component {
                                             Data:
                                         </Label>
                                         <Row>
-                                            <Col className="pr-md-1" md="10">
+                                            <Col className="pr-md-1" md="8">
                                                 <Input
                                                     type="date"
-                                                    name="date"
-                                                    id="exampleDate"
+                                                    name="filtroDataColeta"
+                                                    value={this.state.filtroDataColeta}
+                                                    onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
                                                 />
                                             </Col>
                                             <Col className="pr-md-1" md="2">
-                                                <Button className="btn-icon" color="info" size="sm">
+                                                <Button onClick={this.filtrarColetas} className="btn-icon" color="info" size="sm">
                                                     <i className="fa fa-search" />
+                                                </Button>
+                                            </Col>
+                                            <Col className="pr-md-1" md="2">
+                                                <Button onClick={() => {
+                                                    this.setState({ filtroDataColeta: 0 },
+                                                        () => {
+                                                            this.filtrarColetas()
+                                                        })
+                                                }}
+                                                    className="btn-icon"
+                                                    color="warning"
+                                                    size="sm">
+                                                    <i className="fa fa-times" />
                                                 </Button>
                                             </Col>
                                         </Row>
@@ -129,7 +194,7 @@ class PainelPaciente extends React.Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {this.state.glucosePaciente.map(glucose => (
+                                            {this.state.glucosePacienteFiltrado.map(glucose => (
                                                 <tr key={glucose._id}>
                                                     <td>{this.formataData(glucose.dataColeta)}</td>
                                                     <td>{glucose.horaColeta}</td>
@@ -155,14 +220,17 @@ class PainelPaciente extends React.Component {
                             <Col className="pr-md-1" md="12">
                                 <Row>
                                     <Col className="pr-md-1" md="3">
+
+
                                         <FormGroup>
                                             <Label>
                                                 Data inicial:
                                         </Label>
                                             <Input
                                                 type="date"
-                                                name="date"
-                                                id="exampleDate"
+                                                name="filtroDataInicial"
+                                                value={this.state.filtroDataInicial}
+                                                onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
                                             />
                                         </FormGroup>
                                     </Col>
@@ -175,12 +243,18 @@ class PainelPaciente extends React.Component {
                                                 <Col className="pr-md-1" md="10">
                                                     <Input
                                                         type="date"
-                                                        name="date"
-                                                        id="exampleDate"
+                                                        name="filtroDataFinal"
+                                                        value={this.state.filtroDataFinal}
+                                                        onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
                                                     />
                                                 </Col>
                                                 <Col className="pr-md-1" md="2">
-                                                    <Button className="btn-icon" color="info" size="sm">
+                                                    <Button
+                                                        className="btn-icon"
+                                                        color="info"
+                                                        size="sm"
+                                                        onClick={this.filtrarEvolucaoGlicemia}
+                                                    >
                                                         <i className="fa fa-search" />
                                                     </Button>
                                                 </Col>
@@ -193,7 +267,7 @@ class PainelPaciente extends React.Component {
 
                                 <div className="chart-area">
                                     <Line
-                                        data={chartExample2.data}
+                                        data={this.state.lineChart.data}
                                         options={chartExample2.options}
                                     />
                                 </div>
@@ -205,7 +279,7 @@ class PainelPaciente extends React.Component {
                 </div>
                 {this.state.width < 910
                     ? <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
-                        <Link to={"/admin/Form_glicemia/"+ this._idPaciente}>
+                        <Link to={"/admin/Form_glicemia/" + this._idPaciente}>
                             <Button renderAs="button" size="lg" className="btn-round btn-icon" color="warning">
                                 <i className="fa fa-tint"></i>
                             </Button>
