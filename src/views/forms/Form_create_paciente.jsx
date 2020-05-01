@@ -174,9 +174,9 @@ class Form_create_paciente extends React.Component {
         })
             .then(response => {
                 let url;
-                if(this.state.redirectUrl === '/admin/Form_glicemia/0'){
+                if (this.state.redirectUrl === '/admin/Form_glicemia/0') {
                     url = '/admin/Form_glicemia/' + response.data.paciente._id
-                }else {
+                } else {
                     url = this.state.redirectUrl
                 }
 
@@ -433,7 +433,7 @@ class Form_create_paciente extends React.Component {
                                                         <label>PLANO DE COLETA</label>
                                                         <FormGroup check>
                                                             <Row className="mb-4">
-                                                                <Col>
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -442,13 +442,13 @@ class Form_create_paciente extends React.Component {
                                                                             checked={this.state.form.planoAplicacao[0]}
                                                                             onChange={this.updateCheckedAplicacao}
                                                                         />
-                    1h
-                    <span className="form-check-sign">
+                                                                        1h
+                                                                        <span className="form-check-sign">
                                                                             <span className="check"></span>
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col>
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -462,7 +462,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col>
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -476,7 +476,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2" >
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -490,7 +490,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col>
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -504,7 +504,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -518,7 +518,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -532,7 +532,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -546,7 +546,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -560,7 +560,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col>
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -574,7 +574,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -588,7 +588,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -602,7 +602,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -616,7 +616,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -630,7 +630,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -644,7 +644,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col>
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -658,7 +658,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -672,7 +672,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col>
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -686,7 +686,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col>
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -700,7 +700,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -714,7 +714,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -728,7 +728,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -742,7 +742,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col >
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
@@ -756,7 +756,7 @@ class Form_create_paciente extends React.Component {
                                                                         </span>
                                                                     </Label>
                                                                 </Col>
-                                                                <Col>
+                                                                <Col md="2">
                                                                     <Label className="form-check-label">
                                                                         <Input
                                                                             className="form-check-input checkPlano"
