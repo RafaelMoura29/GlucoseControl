@@ -18,8 +18,12 @@ class Sobre extends React.Component {
             <>
                 <div className="content">
                     <Card >
-                        <CardBody>
-                           <h1>Página sobre</h1>
+                        <CardBody style={{textAlign:'justify'}}>
+                           <h1>SOBRE</h1>
+                           <p className="mb-3" style={{fontSize:'1.2em'}}>Glycemic Control Online ou apenas GLYCON é uma aplicação web para auxiliar no controle de glicemias de pacientes internados em Unidades de Terapia Intensiva. </p>
+                           <p className="mb-3" style={{fontSize:'1.2em'}}>Ele foi desenvolvido para ajudar a equipe médica no acompanhamento dos níveis glicêmicos dos pacientes e até mesmo apresentar indicadores que possam auxiliar a equipe em algumas tomadas de decisão.</p>
+                           <p className="mb-3" style={{fontSize:'1.2em'}}>Possui uma interface simples e intuitiva que permite o registo dos dados do paciente, sua situação atual, e principalmente os valores das suas glicemias durante toda a sua internação. Além dos registros, tais dados podem ser consultados inclusive em forma de gráficos para uma melhor avaliação.</p>
+                           <p className="mb-3" style={{fontSize:'1.2em'}}>Seu desenvolvimento tem cunho acadêmico, onde será utilizado como Trabalho de Conclusão de Curso dos alunos Rafael Moura e Vitor Ribeiro, sob a orientação do professor Tiago Segato e auxílio técnico do Dr. Sérgio Fernandes.</p>
                         </CardBody>
                     </Card>
                 </div>
