@@ -173,10 +173,18 @@ class Form_create_paciente extends React.Component {
             "createDate": dataCriacao
         })
             .then(response => {
+                let url;
+                if(this.state.redirectUrl === '/admin/Form_glicemia/0'){
+                    url = '/admin/Form_glicemia/' + response.data.paciente._id
+                }else {
+                    url = this.state.redirectUrl
+                }
+
                 this.setState({
                     LoadingSpinner: false,
                     ModalMessager: true,
-                    ModalMessagerText: 'Dados Gravados Com Sucesso'
+                    ModalMessagerText: 'Dados Gravados Com Sucesso',
+                    redirectUrl: url
                 });
 
             })
@@ -255,7 +263,7 @@ class Form_create_paciente extends React.Component {
                 redirectUrl: null
             });
         }
-        
+
         //Monta a string do plano de aplicação
         let planoAplicacao = form.planoAplicacao.reduce((acumulador, hora, index) => (
             hora === true ? acumulador + (index + 1) + "#" : acumulador + ''
@@ -286,16 +294,6 @@ class Form_create_paciente extends React.Component {
                     >
                         <ModalHeader toggle={this.toggleMessager}></ModalHeader>
                     </ModalMessager>
-
-                    <ModalPlanoAplicacao
-                        modal={this.state.modal}
-                        click={this.verificarPreenchimentoForm}
-                        clickColeta={this.verificarPreenchimentoForm}
-                        toggle={this.togglePlanoAplicacao}
-                        planoAplicacao={this.state.form.planoAplicacao}
-                        planoAplicacaoChange={this.updateCheckedAplicacao}
-                        textBtn={this.state.textBtnRequest}
-                    />
 
                     <Row>
                         <Col md="12">
@@ -403,7 +401,8 @@ class Form_create_paciente extends React.Component {
                                                             />
                                                         </FormGroup>
                                                     </Col>
-                                                    <Col md="12">
+
+                                                    <Col className="mb-4" md="12">
                                                         <FormGroup check inline className="form-check-radio">
                                                             <Label className="form-check-label">
                                                                 <Input
@@ -416,6 +415,7 @@ class Form_create_paciente extends React.Component {
                                                                     <span className="form-check-sign" />
                                                             </Label>
                                                         </FormGroup>
+
                                                         <FormGroup check inline className="form-check-radio">
                                                             <Label className="form-check-label">
                                                                 <Input
@@ -428,6 +428,354 @@ class Form_create_paciente extends React.Component {
                                                             </Label>
                                                         </FormGroup>
                                                     </Col>
+
+                                                    <Col md="12">
+                                                        <label>PLANO DE COLETA</label>
+                                                        <FormGroup check>
+                                                            <Row className="mb-4">
+                                                                <Col>
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="0"
+                                                                            checked={this.state.form.planoAplicacao[0]}
+                                                                            onChange={this.updateCheckedAplicacao}
+                                                                        />
+                    1h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col>
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="1"
+                                                                            checked={this.state.form.planoAplicacao[1]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    2h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col>
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="2"
+                                                                            checked={this.state.form.planoAplicacao[2]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    3h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="3"
+                                                                            checked={this.state.form.planoAplicacao[3]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    4h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col>
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="4"
+                                                                            checked={this.state.form.planoAplicacao[4]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    5h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="5"
+                                                                            checked={this.state.form.planoAplicacao[5]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    6h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="6"
+                                                                            checked={this.state.form.planoAplicacao[6]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    7h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="7"
+                                                                            checked={this.state.form.planoAplicacao[7]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    8h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="8"
+                                                                            checked={this.state.form.planoAplicacao[8]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    9h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col>
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="9"
+                                                                            checked={this.state.form.planoAplicacao[9]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    10h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="10"
+                                                                            checked={this.state.form.planoAplicacao[10]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    11h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="11"
+                                                                            checked={this.state.form.planoAplicacao[11]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    12h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="12"
+                                                                            checked={this.state.form.planoAplicacao[12]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    13h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="13"
+                                                                            checked={this.state.form.planoAplicacao[13]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    14h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="14"
+                                                                            checked={this.state.form.planoAplicacao[14]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    15h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col>
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="15"
+                                                                            checked={this.state.form.planoAplicacao[15]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    16h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="16"
+                                                                            checked={this.state.form.planoAplicacao[16]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    17h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col>
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="17"
+                                                                            checked={this.state.form.planoAplicacao[17]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    18h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col>
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="18"
+                                                                            checked={this.state.form.planoAplicacao[18]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    19h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="19"
+                                                                            checked={this.state.form.planoAplicacao[19]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    20h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="20"
+                                                                            checked={this.state.form.planoAplicacao[20]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    21h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="21"
+                                                                            checked={this.state.form.planoAplicacao[21]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    22h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col >
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="22"
+                                                                            checked={this.state.form.planoAplicacao[22]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    23h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+                                                                <Col>
+                                                                    <Label className="form-check-label">
+                                                                        <Input
+                                                                            className="form-check-input checkPlano"
+                                                                            type="checkbox"
+                                                                            name="23"
+                                                                            checked={this.state.form.planoAplicacao[23]}
+                                                                            onChange={this.updateCheckedAplicacao} />
+                    24h
+                    <span className="form-check-sign">
+                                                                            <span className="check"></span>
+                                                                        </span>
+                                                                    </Label>
+                                                                </Col>
+
+                                                            </Row>
+
+                                                        </FormGroup>
+                                                    </Col>
+
                                                 </Row>
                                             </Col>
                                             <Col className="pr-md-1" md="6">
@@ -541,9 +889,14 @@ class Form_create_paciente extends React.Component {
                                     </Form>
                                 </CardBody>
                                 <CardFooter>
-                                    <Button className="btn-fill" color="info" type="submit" onClick={this.togglePlanoAplicacao}>
-                                        PLANO COLETA
-                                    </Button>
+                                    <div className="text-center">
+                                        <Button className="btn-fill" color="info" type="submit" onClick={this.verificarPreenchimentoForm}>
+                                            {this.state.textBtnRequest} PACIENTE
+                                        </Button>
+                                        <Button className="btn-fill" color="warning" name="btnColeta" type="submit" onClick={this.verificarPreenchimentoForm}>
+                                            {this.state.textBtnRequest} E FAZER COLETA
+                                        </Button>
+                                    </div>
                                 </CardFooter>
                             </Card>
                         </Col>

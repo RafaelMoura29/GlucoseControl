@@ -25,7 +25,7 @@ class ModalPlanoAplicacao extends React.Component {
       <Modal isOpen={this.props.modal}  fade={true} toggle={this.props.toggle}>
         <ModalBody style={{ backgroundColor: '#1e1e2f' }}>
           <ModalHeader toggle={this.props.toggle}></ModalHeader>
-          <h3 className="text-center mb-4">Plano inicial de aplicação</h3>
+          <h3 className="text-center mb-4">Plano de Coleta</h3>
           <CardText style={{ color: '#aaa' }}>
             Plano inicial de aplicações sugeridos pelo sistema.
             Caso desese alterar selecione os novos horários e

@@ -42,7 +42,8 @@ class PainelPaciente extends React.Component {
             filtroDataColeta: 0,
             filtroDataInicial: "2000-03-28",
             filtroDataFinal: dataInternacao,
-            lineChart: lineChart
+            lineChart: lineChart,
+            nomePaciente: ''
         };
         this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this._idPaciente = "";
@@ -54,6 +55,23 @@ class PainelPaciente extends React.Component {
         const { match: { params } } = this.props;
         this._idPaciente = params._idPaciente;
         this.getListGlucose();
+        this.getPaciente()
+
+        //Setando a data atual como data final no filtro do gráfico
+        let dateTime = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+        let dataAtual = dateTime.split(" ")[0].split("/")
+        dataAtual = dataAtual[2] + '-' + dataAtual[1] + '-' + dataAtual[0]
+        this.setState({filtroDataFinal: dataAtual})
+    }
+
+    getPaciente() {
+        axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + this._idPaciente)
+            .then((data) => {
+                const paciente = data.data.paciente[0]
+                console.log(paciente)
+                let dataInternacao = paciente.dataHoraInternacao.split(" ")[0]
+                this.setState({nomePaciente: paciente.nome, filtroDataInicial: dataInternacao})
+            })
     }
 
     formataData(data) {
@@ -124,7 +142,7 @@ class PainelPaciente extends React.Component {
                         <CardBody>
                             <Row>
                                 <Col className="pr-md-1" md="10">
-                                    <h3 className="title">Coletas de Nome paciente</h3>
+                                    <h3 className="title">Coletas de {this.state.nomePaciente}</h3>
                                 </Col>
                                 {
                                     this.state.width > 910
@@ -181,7 +199,7 @@ class PainelPaciente extends React.Component {
                             <Row>
                                 <Col md="12">
 
-                                    <Table responsive>
+                                    <Table>
                                         <thead>
                                             <tr>
                                                 <th>Data</th>

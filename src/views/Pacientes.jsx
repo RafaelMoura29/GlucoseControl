@@ -143,7 +143,7 @@ class Pacientes extends React.Component {
                                 </Row>
                             </Form>
 
-                            <Table responsive>
+                            <Table>
                                 <thead>
                                     <tr>
                                         <th></th>
