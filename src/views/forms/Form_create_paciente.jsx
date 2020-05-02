@@ -43,6 +43,8 @@ class Form_create_paciente extends React.Component {
             textBtnRequest: '',
             requestType: '',
             form: {
+                peso: '',
+                altura: '',
                 nome: '',
                 prontuario: '',
                 dataNascimento: '',
@@ -70,6 +72,7 @@ class Form_create_paciente extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.state)
         this.setState({ LoadingSpinner: true, modal: false, });
         const { match: { params } } = this.props;
         if (params._idPaciente !== '0') {
@@ -99,6 +102,8 @@ class Form_create_paciente extends React.Component {
                     paciente.planoAplicacao.split("#").map(hora => (
                         state.form.planoAplicacao[parseInt(hora) - 1] = true
                     ))
+                    state.form.peso = paciente.peso
+                    state.form.altura = paciente.altura
                     this.setState(state)
                 })
                 .finally(e => {
@@ -128,7 +133,9 @@ class Form_create_paciente extends React.Component {
     updateInputValue = (event) => {
         let state = this.state
         state.form[event.target.name] = event.target.value
-        this.setState(state)
+        this.setState(state, () => {
+            console.log(this.state)
+        })
     }
 
     updateCheckValue = (event) => {
@@ -169,7 +176,9 @@ class Form_create_paciente extends React.Component {
             "observacoes": form.observacoes,
             "estadoPaciente": form.alta ? "alta" : "internado",
             "planoAplicacao": planoAplicacao,
-            "createDate": dataCriacao
+            "createDate": dataCriacao,
+            "peso": form.peso,
+            "altura": form.altura
         })
             .then(response => {
                 let url;
@@ -220,7 +229,9 @@ class Form_create_paciente extends React.Component {
                     "observacoes": form.observacoes,
                     "estadoPaciente": form.alta ? "alta" : "internado",
                     "planoAplicacao": planoAplicacao,
-                    "updateDate": dataAtualizacao
+                    "updateDate": dataAtualizacao,
+                    "peso": form.peso,
+                    "altura": form.altura
                 }
             }
         ).then(response => {
@@ -350,8 +361,8 @@ class Form_create_paciente extends React.Component {
                                                                 type="select"
                                                                 onChange={this.updateInputValue}
                                                                 value={this.state.form.sexo}>
-                                                                <option style={{backgroundColor:'#27293d'}}>Masculino</option>
-                                                                <option style={{backgroundColor:'#27293d'}}>Feminino</option>
+                                                                <option style={{ backgroundColor: '#27293d' }}>Masculino</option>
+                                                                <option style={{ backgroundColor: '#27293d' }}>Feminino</option>
                                                             </Input>
                                                         </FormGroup>
                                                     </Col>
@@ -364,13 +375,13 @@ class Form_create_paciente extends React.Component {
                                                                 name="tipoInternacao"
                                                                 onChange={this.updateInputValue}
                                                                 value={this.state.form.tipoInternacao}>
-                                                                <option style={{backgroundColor:'#27293d'}}>clínica</option>
-                                                                <option style={{backgroundColor:'#27293d'}}>cirurgica de urgência</option>
-                                                                <option style={{backgroundColor:'#27293d'}}>cirurgica eletiva</option>
-                                                                <option style={{backgroundColor:'#27293d'}}>sindorme coronariana aguda</option>
-                                                                <option style={{backgroundColor:'#27293d'}}>acidente vascular encefálico</option>
-                                                                <option style={{backgroundColor:'#27293d'}}>trauma</option>
-                                                                <option style={{backgroundColor:'#27293d'}}>oncológica</option>
+                                                                <option style={{ backgroundColor: '#27293d' }}>clínica</option>
+                                                                <option style={{ backgroundColor: '#27293d' }}>cirurgica de urgência</option>
+                                                                <option style={{ backgroundColor: '#27293d' }}>cirurgica eletiva</option>
+                                                                <option style={{ backgroundColor: '#27293d' }}>sindorme coronariana aguda</option>
+                                                                <option style={{ backgroundColor: '#27293d' }}>acidente vascular encefálico</option>
+                                                                <option style={{ backgroundColor: '#27293d' }}>trauma</option>
+                                                                <option style={{ backgroundColor: '#27293d' }}>oncológica</option>
                                                             </Input>
                                                         </FormGroup>
                                                     </Col>
@@ -401,6 +412,32 @@ class Form_create_paciente extends React.Component {
                                                         </FormGroup>
                                                     </Col>
 
+                                                    <Col className="pr-md-1" md="6">
+                                                        <FormGroup>
+                                                            <label>ALTURA (M)</label>
+                                                            <Input
+                                                                type="number"
+                                                                name="altura"
+                                                                placeholder="1.75"
+                                                                onChange={this.updateInputValue}
+                                                                value={this.state.form.altura}
+                                                            />
+                                                        </FormGroup>
+                                                    </Col>
+
+                                                    <Col className="pr-md-1" md="6">
+                                                        <FormGroup>
+                                                            <label>PESO (KG)</label>
+                                                            <Input
+                                                                type="number"
+                                                                placeholder="67.75"
+                                                                name="peso"
+                                                                onChange={this.updateInputValue}
+                                                                value={this.state.form.peso}
+                                                            />
+                                                        </FormGroup>
+                                                    </Col>
+                                                    
                                                     <Col className="mb-4" md="12">
                                                         <FormGroup check inline className="form-check-radio">
                                                             <Label className="form-check-label">
@@ -785,11 +822,11 @@ class Form_create_paciente extends React.Component {
                                                         name="diabetes"
                                                         onChange={this.updateInputValue}
                                                         value={this.state.form.diabetes}>
-                                                        <option style={{backgroundColor:'#27293d'}}>Não se aplica</option>
-                                                        <option style={{backgroundColor:'#27293d'}}>controle domiciliar dietético</option>
-                                                        <option style={{backgroundColor:'#27293d'}}>controle domiciliar com hipoglicemiante oral</option>
-                                                        <option style={{backgroundColor:'#27293d'}}>controle domiciliar com insulina</option>
-                                                        <option style={{backgroundColor:'#27293d'}}>controle domiciliar medicamentoso misto</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Não se aplica</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>controle domiciliar dietético</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>controle domiciliar com hipoglicemiante oral</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>controle domiciliar com insulina</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>controle domiciliar medicamentoso misto</option>
                                                     </Input>
                                                 </FormGroup>
 
@@ -801,11 +838,11 @@ class Form_create_paciente extends React.Component {
                                                         onChange={this.updateInputValue}
                                                         value={this.state.form.insuficienciaRenal}
                                                     >
-                                                        <option style={{backgroundColor:'#27293d'}}>Não se aplica</option>
-                                                        <option style={{backgroundColor:'#27293d'}}>crônica dialítica</option>
-                                                        <option style={{backgroundColor:'#27293d'}}>crônica não dialítica</option>
-                                                        <option style={{backgroundColor:'#27293d'}}>aguda dialítica</option>
-                                                        <option style={{backgroundColor:'#27293d'}}>aguda não dialítica</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Não se aplica</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>crônica dialítica</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>crônica não dialítica</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>aguda dialítica</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>aguda não dialítica</option>
                                                     </Input>
                                                 </FormGroup>
 
@@ -817,9 +854,9 @@ class Form_create_paciente extends React.Component {
                                                         onChange={this.updateInputValue}
                                                         value={this.state.form.corticoide}
                                                     >
-                                                        <option style={{backgroundColor:'#27293d'}}>Não se aplica</option>
-                                                        <option style={{backgroundColor:'#27293d'}}>a mais de 7 dias</option>
-                                                        <option style={{backgroundColor:'#27293d'}}>menos de 7 dias</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Não se aplica</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>a mais de 7 dias</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>menos de 7 dias</option>
                                                     </Input>
                                                 </FormGroup>
 
