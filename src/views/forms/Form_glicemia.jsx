@@ -203,7 +203,7 @@ class Form_glicemia extends React.Component {
                                                         <label>VALOR GLICEMIA</label>
                                                         <Input
                                                             placeholder="valor glicemia"
-                                                            type="text"
+                                                            type="number"
                                                             id="inputValorGlicemiaGlicose"
                                                         />
                                                     </FormGroup>
