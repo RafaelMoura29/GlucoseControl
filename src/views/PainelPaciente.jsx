@@ -126,7 +126,7 @@ class PainelPaciente extends React.Component {
         let glucoseFiltrada = state.glucosePaciente.filter(glucose => {
             return glucose.dataColeta >= state.filtroDataInicial && glucose.dataColeta <= state.filtroDataFinal
         })
-        
+
         const dadosGlicemia = glucoseFiltrada.map(glucose => glucose.valorGlicemia)
         const labelsColeta = glucoseFiltrada.map(glucose => this.formataData(glucose.dataColeta) + "-" + glucose.horaColeta)
         state.lineChart.dados = dadosGlicemia
@@ -295,7 +295,7 @@ class PainelPaciente extends React.Component {
                 {this.state.width < 910
                     ? <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
                         <Link to={"/admin/Form_glicemia/" + this._idPaciente}>
-                            <Button renderAs="button" size="lg" className="btn-round btn-icon" color="warning">
+                            <Button  size="lg" className="btn-round btn-icon" color="warning">
                                 <i className="fa fa-tint"></i>
                             </Button>
                         </Link>
