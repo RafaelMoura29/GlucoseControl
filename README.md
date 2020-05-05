@@ -1,30 +1,40 @@
-# BlackBook 
-### Link para o projeto em produção - (https://blackbookapplication.herokuapp.com/admin/dashboard)
+# GLYCON
+
+### Glycemic Control Online ou apenas GLYCON é uma aplicação web para auxiliar no controle de glicemias de pacientes internados em Unidades de Terapia Intensiva.
+  
+Você pode acessar o projeto em produção com o link a seguir
+[GLYCON](https://glucosecontrolapplication.herokuapp.com/)
 
 ## Primeiros passos
 
-Clone o repositório
+### Clone o repositório
+
 ```sh
-git clone https://github.com/RafaelMoura29/react-blackbook.git
+
+git clone https://github.com/RafaelMoura29/GlucoseControl.git
+
 ```
 
-Entre na pasta do projeto
+### Entre na pasta do projeto
+
 ```sh
-cd react-blackbook
+
+cd GlucoseControl
+
 ```
 
-Instale as dependências do projeto
-usando npm:
+### Instale as dependências do projeto usando npm
+
 ```sh
+
 npm install
+
 ```
 
-usando yarn:
-```sh
-yarn add install
-```
+### Inicie o projeto
 
-Inicie o projeto
 ```sh
+
 npm start
+
 ```
