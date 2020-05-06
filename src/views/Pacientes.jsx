@@ -78,7 +78,7 @@ class Pacientes extends React.Component {
         this.setState(state)
     }
 
-    //Aciona a atualização do tamanho das telas
+    //Desativa event listener quando a página é fechada
     componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
     }

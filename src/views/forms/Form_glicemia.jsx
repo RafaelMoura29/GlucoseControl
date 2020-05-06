@@ -29,6 +29,19 @@ class Form_glicemia extends React.Component {
             LoadingSpinner: false,
             ModalMessager: false,
             ModalMessagerText: "",
+            form: {
+                prontuario: '',
+                paciente: '',
+                dataHoraInternacao: '',
+                dataColeta: '',
+                valorGlicemia: '',
+                tipo: '',
+                tipoAlimentacao: '',
+                hora: '',
+                horaColeta: '',
+                observacoes: '',
+                _idPaciente: ''
+            }
         };
         this._idPaciente = "";
     }
@@ -39,11 +52,7 @@ class Form_glicemia extends React.Component {
         this.getPaciente()
     }
 
-    toggleMessager = () => {
-        this.setState({
-            ModalMessager: !this.state.ModalMessager
-        });
-    }
+    toggleMessager = () => this.setState({ ModalMessager: !this.state.ModalMessager });
 
     formataDataHora(data) {
         let dataHora = data.split(" ");
@@ -55,12 +64,15 @@ class Form_glicemia extends React.Component {
     }
 
     getPaciente = () => {
-        axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + this._idPaciente )
-            .then( (response) => {
+        axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + this._idPaciente)
+            .then((response) => {
                 const paciente = response.data.paciente[0]
-                document.getElementById("inputProntuarioGlicose").value = paciente.prontuario
-                document.getElementById("inputPacienteGlicose").value = paciente.nome
-                document.getElementById("inputHoraGlicose").value = this.formataDataHora(paciente.dataHoraInternacao)
+                this.setState({form:{
+                    ...this.state.form,
+                    prontuario: paciente.prontuario,
+                    paciente: paciente.nome,
+                    dataHoraInternacao: paciente.dataHoraInternacao
+                }})
             })
 
     }
@@ -68,15 +80,15 @@ class Form_glicemia extends React.Component {
     saveGlicose = () => {
         this.setState({ LoadingSpinner: true });
 
-        if (document.getElementById("inputProntuarioGlicose").value === "" ||
-            document.getElementById("inputHoraGlicose").value === "" ||
-            document.getElementById("inputPacienteGlicose").value === "" ||
-            document.getElementById("inputDataColetaGlicose").value === "" ||
-            document.getElementById("inputHoraColetaGlicose").value === "" ||
-            document.getElementById("inputValorGlicemiaGlicose").value === "" ||
-            document.getElementById("inputTipoGlicose").value === "" ||
-            document.getElementById("inputTipoAlimentacaoGlicose").value === "" ||
-            document.getElementById("inputObservacoesGlicose").value === ""
+        let form = this.state.form
+
+        if (
+            form.dataColeta === '' ||
+            form.horaColeta === '' ||
+            form.valorGlicemia === '' ||
+            form.tipo === '' ||
+            form.tipoAlimentacao === '' ||
+            form.observacoes === ''
         ) {
             return this.setState({
                 LoadingSpinner: false,
@@ -84,29 +96,33 @@ class Form_glicemia extends React.Component {
                 ModalMessagerText: 'Preencha todos os campos!',
             });
         }
+
         axios.post("https://glucosecontrolapp.herokuapp.com/glucose", {
-            "prontuario": document.getElementById("inputProntuarioGlicose").value,
-            "paciente": document.getElementById("inputPacienteGlicose").value,
-            "dataColeta": document.getElementById("inputDataColetaGlicose").value,
-            "valorGlicemia": document.getElementById("inputValorGlicemiaGlicose").value,
-            "tipo": document.getElementById("inputTipoGlicose").value,
-            "tipoAlimentacao": document.getElementById("inputTipoAlimentacaoGlicose").value,
-            "hora": document.getElementById("inputHoraGlicose").value,
-            "horaColeta": document.getElementById("inputHoraColetaGlicose").value,
-            "observacoes": document.getElementById("inputObservacoesGlicose").value,
+            "prontuario": form.prontuario,
+            "paciente": form.paciente,
+            "hora": form.dataHoraInternacao,
+            "dataColeta": form.dataColeta,
+            "horaColeta": form.horaColeta,
+            "valorGlicemia": form.valorGlicemia,
+            "tipo": form.tipo,
+            "tipoAlimentacao": form.tipoAlimentacao,
+            "observacoes": form.observacoes,
             "_idPaciente": this._idPaciente
         })
             .then(response => {
-                document.getElementById("inputDataColetaGlicose").value = ""
-                document.getElementById("inputHoraColetaGlicose").value = ""
-                document.getElementById("inputValorGlicemiaGlicose").value = ""
-                document.getElementById("inputTipoGlicose").value = "Capilar"
-                document.getElementById("inputTipoAlimentacaoGlicose").value = "Zero"
-                document.getElementById("inputObservacoesGlicose").value = ""
                 this.setState({
                     LoadingSpinner: false,
                     ModalMessager: true,
-                    ModalMessagerText: 'Dados Gravados Com Sucesso'
+                    ModalMessagerText: 'Dados Gravados Com Sucesso',
+                    form:{
+                        ...this.state.form,
+                        dataColeta: '',
+                        horaColeta: '',
+                        valorGlicemia: '',
+                        tipo: '',
+                        tipoAlimentacao: '',
+                        observacoes: ''
+                    }
                 });
             })
             .catch(error => {
@@ -116,8 +132,14 @@ class Form_glicemia extends React.Component {
                     ModalMessagerText: 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
                 });
             })
-            
     }
+
+    handleChange = (event) => {
+        let form = this.state.form
+        form[event.target.name] = event.target.value
+        this.setState(form)
+    }
+
     render() {
         return (
             <>
@@ -150,7 +172,8 @@ class Form_glicemia extends React.Component {
                                                         <Input
                                                             placeholder="Prontuário"
                                                             type="text"
-                                                            id="inputProntuarioGlicose"
+                                                            name="prontuario"
+                                                            value={this.state.form.prontuario}
                                                             disabled
                                                         />
                                                     </FormGroup>
@@ -161,7 +184,8 @@ class Form_glicemia extends React.Component {
                                                         <Input
                                                             placeholder="Data/Hora"
                                                             type="text"
-                                                            id="inputHoraGlicose"
+                                                            name="dataHoraInternacao"
+                                                            value={this.state.form.dataHoraInternacao}
                                                             disabled
                                                         />
                                                     </FormGroup>
@@ -172,7 +196,8 @@ class Form_glicemia extends React.Component {
                                                         <Input
                                                             placeholder="Paciente"
                                                             type="text"
-                                                            id="inputPacienteGlicose"
+                                                            name="paciente"
+                                                            value={this.state.form.paciente}
                                                             disabled
                                                         />
                                                     </FormGroup>
@@ -184,7 +209,9 @@ class Form_glicemia extends React.Component {
                                                         <Input
                                                             type="date"
                                                             placeholder="Data coleta"
-                                                            id="inputDataColetaGlicose"
+                                                            value={this.state.form.dataColeta}
+                                                            onChange={this.handleChange}
+                                                            name="dataColeta"
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -194,7 +221,9 @@ class Form_glicemia extends React.Component {
                                                         <Input
                                                             placeholder="Hora coleta"
                                                             type="time"
-                                                            id="inputHoraColetaGlicose"
+                                                            name="horaColeta"
+                                                            value={this.state.form.horaColeta}
+                                                            onChange={this.handleChange}
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -204,7 +233,9 @@ class Form_glicemia extends React.Component {
                                                         <Input
                                                             placeholder="valor glicemia"
                                                             type="number"
-                                                            id="inputValorGlicemiaGlicose"
+                                                            value={this.state.form.valorGlicemia}
+                                                            onChange={this.handleChange}
+                                                            name="valorGlicemia"
                                                         />
                                                     </FormGroup>
                                                 </Col>
@@ -214,14 +245,24 @@ class Form_glicemia extends React.Component {
 
                                             <FormGroup>
                                                 <label>TIPO</label>
-                                                <Input type="select" name="select" id="inputTipoGlicose">
+                                                <Input 
+                                                    type="select" 
+                                                    name="tipo" 
+                                                    value={this.state.form.tipo}
+                                                    onChange={this.handleChange}
+                                                >
                                                     <option>Capilar</option>
                                                     <option>Bioquímica</option>
                                                 </Input>
                                             </FormGroup>
                                             <FormGroup>
                                                 <label>TIPO ALIMENTAÇÃO</label>
-                                                <Input type="select" name="select" id="inputTipoAlimentacaoGlicose">
+                                                <Input 
+                                                    type="select" 
+                                                    name="tipoAlimentacao" 
+                                                    value={this.state.form.tipoAlimentacao}
+                                                    onChange={this.handleChange}
+                                                >
                                                     <option>Zero</option>
                                                     <option>Oral líquida</option>
                                                     <option>Oral pastosa</option>
@@ -233,7 +274,13 @@ class Form_glicemia extends React.Component {
                                             </FormGroup>
                                             <FormGroup>
                                                 <Label for="exampleText">Observações</Label>
-                                                <Input type="textarea" name="text" id="inputObservacoesGlicose" placeholder="Observações" />
+                                                <Input 
+                                                    type="textarea" 
+                                                    name="observacoes" 
+                                                    placeholder="Observações" 
+                                                    value={this.state.form.observacoes}
+                                                    onChange={this.handleChange}
+                                                />
                                             </FormGroup>
                                         </Col>
                                     </Row>
