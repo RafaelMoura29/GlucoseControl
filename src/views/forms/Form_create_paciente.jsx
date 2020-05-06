@@ -492,8 +492,8 @@ class Form_create_paciente extends React.Component {
                                                                             name="1"
                                                                             checked={this.state.form.planoAplicacao[1]}
                                                                             onChange={this.updateCheckedAplicacao} />
-                    2h
-                    <span className="form-check-sign">
+                                                                            2h
+                                                                            <span className="form-check-sign">
                                                                             <span className="check"></span>
                                                                         </span>
                                                                     </Label>
@@ -506,8 +506,8 @@ class Form_create_paciente extends React.Component {
                                                                             name="2"
                                                                             checked={this.state.form.planoAplicacao[2]}
                                                                             onChange={this.updateCheckedAplicacao} />
-                    3h
-                    <span className="form-check-sign">
+                                                                            3h
+                                                                            <span className="form-check-sign">
                                                                             <span className="check"></span>
                                                                         </span>
                                                                     </Label>
@@ -520,8 +520,8 @@ class Form_create_paciente extends React.Component {
                                                                             name="3"
                                                                             checked={this.state.form.planoAplicacao[3]}
                                                                             onChange={this.updateCheckedAplicacao} />
-                    4h
-                    <span className="form-check-sign">
+                                                                            4h
+                                                                            <span className="form-check-sign">
                                                                             <span className="check"></span>
                                                                         </span>
                                                                     </Label>
@@ -534,8 +534,8 @@ class Form_create_paciente extends React.Component {
                                                                             name="4"
                                                                             checked={this.state.form.planoAplicacao[4]}
                                                                             onChange={this.updateCheckedAplicacao} />
-                    5h
-                    <span className="form-check-sign">
+                                                                            5h
+                                                                            <span className="form-check-sign">
                                                                             <span className="check"></span>
                                                                         </span>
                                                                     </Label>
@@ -548,8 +548,8 @@ class Form_create_paciente extends React.Component {
                                                                             name="5"
                                                                             checked={this.state.form.planoAplicacao[5]}
                                                                             onChange={this.updateCheckedAplicacao} />
-                    6h
-                    <span className="form-check-sign">
+                                                                            6h
+                                                                            <span className="form-check-sign">
                                                                             <span className="check"></span>
                                                                         </span>
                                                                     </Label>
@@ -562,8 +562,8 @@ class Form_create_paciente extends React.Component {
                                                                             name="6"
                                                                             checked={this.state.form.planoAplicacao[6]}
                                                                             onChange={this.updateCheckedAplicacao} />
-                    7h
-                    <span className="form-check-sign">
+                                                                            7h
+                                                                            <span className="form-check-sign">
                                                                             <span className="check"></span>
                                                                         </span>
                                                                     </Label>
@@ -576,8 +576,8 @@ class Form_create_paciente extends React.Component {
                                                                             name="7"
                                                                             checked={this.state.form.planoAplicacao[7]}
                                                                             onChange={this.updateCheckedAplicacao} />
-                    8h
-                    <span className="form-check-sign">
+                                                                            8h
+                                                                            <span className="form-check-sign">
                                                                             <span className="check"></span>
                                                                         </span>
                                                                     </Label>
