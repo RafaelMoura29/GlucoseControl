@@ -150,7 +150,7 @@ class PainelPaciente extends React.Component {
                                         <Col className="pr-md-1" md="2">
                                             <Link to={"/admin/Form_glicemia/" + this._idPaciente}>
                                                 <Button className="btn-fill" color="warning" type="submit">
-                                                    Coleta
+                                                    COLETA
                                             </Button>
                                             </Link>
                                         </Col>

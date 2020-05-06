@@ -251,8 +251,8 @@ class Form_glicemia extends React.Component {
                                                     value={this.state.form.tipo}
                                                     onChange={this.handleChange}
                                                 >
-                                                    <option>Capilar</option>
-                                                    <option>Bioquímica</option>
+                                                    <option style={{backgroundColor:'#27293d'}}>Capilar</option>
+                                                    <option style={{backgroundColor:'#27293d'}}>Bioquímica</option>
                                                 </Input>
                                             </FormGroup>
                                             <FormGroup>
@@ -263,13 +263,13 @@ class Form_glicemia extends React.Component {
                                                     value={this.state.form.tipoAlimentacao}
                                                     onChange={this.handleChange}
                                                 >
-                                                    <option>Zero</option>
-                                                    <option>Oral líquida</option>
-                                                    <option>Oral pastosa</option>
-                                                    <option>Oral completa</option>
-                                                    <option>Interal intermitente</option>
-                                                    <option>Interal contínua</option>
-                                                    <option>Parenteral</option>
+                                                    <option style={{backgroundColor:'#27293d'}}>Zero</option>
+                                                    <option style={{backgroundColor:'#27293d'}}>Oral líquida</option>
+                                                    <option style={{backgroundColor:'#27293d'}}>Oral pastosa</option>
+                                                    <option style={{backgroundColor:'#27293d'}}>Oral completa</option>
+                                                    <option style={{backgroundColor:'#27293d'}}>Interal intermitente</option>
+                                                    <option style={{backgroundColor:'#27293d'}}>Interal contínua</option>
+                                                    <option style={{backgroundColor:'#27293d'}}>Parenteral</option>
                                                 </Input>
                                             </FormGroup>
                                             <FormGroup>
