@@ -132,7 +132,7 @@ class Pacientes extends React.Component {
                                                     NOVO</Button>
                                             </Link>
                                         </Col>
-                                        : <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
+                                        : <div style={{ position: 'fixed', bottom: 16, right: 16, zIndex:1001 }}>
                                             <Link to="/admin/form_create_paciente/0">
                                                 <Button size="lg" className="btn-round btn-icon" color="info">
                                                     <i className="tim-icons icon-simple-add" />
