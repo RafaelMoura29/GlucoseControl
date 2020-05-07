@@ -72,7 +72,6 @@ class Form_create_paciente extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.state)
         this.setState({ LoadingSpinner: true, modal: false, });
         const { match: { params } } = this.props;
         if (params._idPaciente !== '0') {
@@ -133,9 +132,7 @@ class Form_create_paciente extends React.Component {
     updateInputValue = (event) => {
         let state = this.state
         state.form[event.target.name] = event.target.value
-        this.setState(state, () => {
-            console.log(this.state)
-        })
+        this.setState(state)
     }
 
     updateCheckValue = (event) => {
@@ -262,9 +259,10 @@ class Form_create_paciente extends React.Component {
         this.setState({ LoadingSpinner: true, modal: false, redirectUrl: url });
 
         let form = this.state.form
+        delete form.observacoes
 
         //Verifica se o formulário está preenchido
-        const formNaoEstaPreenchido = Object.values(form).some((value) => value === "")
+        const formNaoEstaPreenchido = Object.values(form).some( value => value === "")
         if (formNaoEstaPreenchido) {
             return this.setState({
                 LoadingSpinner: false,

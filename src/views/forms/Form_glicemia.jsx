@@ -46,8 +46,8 @@ class Form_glicemia extends React.Component {
                 dataHoraInternacao: '',
                 dataColeta: data,
                 valorGlicemia: '',
-                tipo: '',
-                tipoAlimentacao: '',
+                tipo: 'Bioquímica',
+                tipoAlimentacao: 'Zero',
                 hora: '',
                 horaColeta: hora,
                 observacoes: '',
@@ -98,8 +98,7 @@ class Form_glicemia extends React.Component {
             form.horaColeta === '' ||
             form.valorGlicemia === '' ||
             form.tipo === '' ||
-            form.tipoAlimentacao === '' ||
-            form.observacoes === ''
+            form.tipoAlimentacao === ''
         ) {
             return this.setState({
                 LoadingSpinner: false,
