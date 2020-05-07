@@ -22,6 +22,17 @@ const axios = require('axios');
 
 class Form_glicemia extends React.Component {
     constructor(props) {
+
+        let dateTime = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+        //Separa data da hora
+        dateTime = dateTime.split(" ")
+        //Separa mes, dia e ano
+        let data = dateTime[0].split("/")
+        //Ajustando formato da data
+        data = data[2] + "-" + data[1] + "-" + data[0]
+        //Hora atual
+        let hora = dateTime[1].substring(0, 5)
+
         super(props);
         this.state = {
             modal: false,
@@ -33,12 +44,12 @@ class Form_glicemia extends React.Component {
                 prontuario: '',
                 paciente: '',
                 dataHoraInternacao: '',
-                dataColeta: '',
+                dataColeta: data,
                 valorGlicemia: '',
                 tipo: '',
                 tipoAlimentacao: '',
                 hora: '',
-                horaColeta: '',
+                horaColeta: hora,
                 observacoes: '',
                 _idPaciente: ''
             }
