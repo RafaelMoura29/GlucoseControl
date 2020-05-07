@@ -48,7 +48,7 @@ class Form_create_paciente extends React.Component {
                 nome: '',
                 prontuario: '',
                 dataNascimento: '',
-                sexo: 'Masculino',
+                sexo: '',
                 tipoInternacao: 'Clínica',
                 dataInternacao: dataInternacao,
                 horaInternacao: horaInternacao,
@@ -359,6 +359,7 @@ class Form_create_paciente extends React.Component {
                                                                 type="select"
                                                                 onChange={this.updateInputValue}
                                                                 value={this.state.form.sexo}>
+                                                                <option style={{ backgroundColor: '#27293d' }}></option>
                                                                 <option style={{ backgroundColor: '#27293d' }}>Masculino</option>
                                                                 <option style={{ backgroundColor: '#27293d' }}>Feminino</option>
                                                             </Input>
