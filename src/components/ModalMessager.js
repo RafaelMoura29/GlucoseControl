@@ -23,9 +23,6 @@ const ModalMessager = ({ children, visible, text, toggle }) => (
       <CardText style={{ color: '#ddd' }}>
         {text}
       </CardText>
-      <Button className="btn-fill" color="success" type="submit" onClick={toggle}>
-        OK
-      </Button>
     </ModalBody>
   </Modal>
 

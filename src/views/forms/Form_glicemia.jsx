@@ -63,7 +63,10 @@ class Form_glicemia extends React.Component {
         this.getPaciente()
     }
 
-    toggleMessager = () => this.setState({ ModalMessager: !this.state.ModalMessager });
+    toggleMessager = () => {
+        document.location.href = '/admin/PainelPaciente/' + this._idPaciente
+        this.setState({ ModalMessager: !this.state.ModalMessager });
+    }
 
     formataDataHora(data) {
         let dataHora = data.split(" ");
@@ -158,6 +161,7 @@ class Form_glicemia extends React.Component {
                         visible={this.state.ModalMessager}
                         text={this.state.ModalMessagerText}
                         toggle={() => {
+                            
                             this.setState({
                                 ModalMessager: false,
                             });

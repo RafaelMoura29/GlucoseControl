@@ -124,6 +124,7 @@ class Form_create_paciente extends React.Component {
     }
 
     toggleMessager = () => {
+        document.location.href = this.state.redirectUrl
         this.setState({
             ModalMessager: !this.state.ModalMessager
         });
