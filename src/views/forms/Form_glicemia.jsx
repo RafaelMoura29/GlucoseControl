@@ -45,7 +45,7 @@ class Form_glicemia extends React.Component {
                 paciente: '',
                 dataHoraInternacao: '',
                 dataColeta: data,
-                valorGlicemia: '',
+                valorGlicemia: 110,
                 tipo: 'Bioquímica',
                 tipoAlimentacao: 'Zero',
                 hora: '',
