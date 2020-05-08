@@ -43,8 +43,8 @@ class Form_create_paciente extends React.Component {
             textBtnRequest: '',
             requestType: '',
             form: {
-                peso: '',
-                altura: '',
+                peso: 70.5,
+                altura: 170,
                 nome: '',
                 prontuario: '',
                 dataNascimento: '',
@@ -124,10 +124,10 @@ class Form_create_paciente extends React.Component {
     }
 
     toggleMessager = () => {
-        document.location.href = this.state.redirectUrl
-        this.setState({
-            ModalMessager: !this.state.ModalMessager
-        });
+        if (this.state.redirectUrl !== null) {
+            document.location.href = this.state.redirectUrl
+        }
+        this.setState({ModalMessager: !this.state.ModalMessager});
     }
 
     updateInputValue = (event) => {
@@ -262,8 +262,26 @@ class Form_create_paciente extends React.Component {
         let form = this.state.form
         delete form.observacoes
 
+        if (form.altura < 0) {
+            return this.setState({
+                LoadingSpinner: false,
+                ModalMessager: true,
+                ModalMessagerText: 'Preencha o campo altura com um valor válido!',
+                redirectUrl: null
+            });
+        }
+
+        if (form.peso < 0) {
+            return this.setState({
+                LoadingSpinner: false,
+                ModalMessager: true,
+                ModalMessagerText: 'Preencha o campo peso com um valor válido!',
+                redirectUrl: null
+            });
+        }
+
         //Verifica se o formulário está preenchido
-        const formNaoEstaPreenchido = Object.values(form).some( value => value === "")
+        const formNaoEstaPreenchido = Object.values(form).some(value => value === "")
         if (formNaoEstaPreenchido) {
             return this.setState({
                 LoadingSpinner: false,
@@ -285,6 +303,14 @@ class Form_create_paciente extends React.Component {
         }
     }
 
+    toggleModalMesseger = () => {
+        console.log(this.state.redirectUrl)
+        if (this.state.redirectUrl !== null) {
+            return document.location.href = this.state.redirectUrl
+        }
+        return this.setState({ ModalMessager: false })
+    }
+
     render() {
         return (
             <>
@@ -294,12 +320,7 @@ class Form_create_paciente extends React.Component {
                     <ModalMessager
                         visible={this.state.ModalMessager}
                         text={this.state.ModalMessagerText}
-                        toggle={() => {
-                            if (this.state.redirectUrl) {
-                                return document.location.href = this.state.redirectUrl
-                            }
-                            return this.setState({ ModalMessager: false })
-                        }}
+                        toggle={this.toggleModalMesseger}
                     >
                         <ModalHeader toggle={this.toggleMessager}></ModalHeader>
                     </ModalMessager>
@@ -414,11 +435,13 @@ class Form_create_paciente extends React.Component {
 
                                                     <Col className="pr-md-1" md="6">
                                                         <FormGroup>
-                                                            <label>ALTURA (M)</label>
+                                                            <label>ALTURA (CM)</label>
                                                             <Input
+                                                                min={0}
+                                                                max={300}
                                                                 type="number"
                                                                 name="altura"
-                                                                placeholder="1.75"
+                                                                placeholder="170"
                                                                 onChange={this.updateInputValue}
                                                                 value={this.state.form.altura}
                                                             />
@@ -429,15 +452,17 @@ class Form_create_paciente extends React.Component {
                                                         <FormGroup>
                                                             <label>PESO (KG)</label>
                                                             <Input
+                                                                min={0}
+                                                                max={300}
                                                                 type="number"
-                                                                placeholder="67.75"
+                                                                placeholder="70,5"
                                                                 name="peso"
                                                                 onChange={this.updateInputValue}
                                                                 value={this.state.form.peso}
                                                             />
                                                         </FormGroup>
                                                     </Col>
-                                                    
+
                                                     <Col className="mb-4" md="12">
                                                         <FormGroup check inline className="form-check-radio">
                                                             <Label className="form-check-label">
