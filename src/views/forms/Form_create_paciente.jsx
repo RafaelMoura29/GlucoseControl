@@ -295,7 +295,6 @@ class Form_create_paciente extends React.Component {
             form.dataInternacao === '' ||
             form.horaInternacao === '' ||
             form.alta === '' ||
-            planoAplicacao === '' ||
             form.peso === '' ||
             form.altura === '' ||
             form.instabilidadeHemodinamica === '' ||
