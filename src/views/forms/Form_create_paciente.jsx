@@ -127,13 +127,16 @@ class Form_create_paciente extends React.Component {
         if (this.state.redirectUrl !== null) {
             document.location.href = this.state.redirectUrl
         }
-        this.setState({ModalMessager: !this.state.ModalMessager});
+        this.setState({ ModalMessager: !this.state.ModalMessager });
     }
 
     updateInputValue = (event) => {
-        let state = this.state
-        state.form[event.target.name] = event.target.value
-        this.setState(state)
+        this.setState({
+            form: {
+                ...this.state.form,
+                [event.target.name]: event.target.value
+            }
+        })
     }
 
     updateCheckValue = (event) => {
@@ -233,7 +236,6 @@ class Form_create_paciente extends React.Component {
                 }
             }
         ).then(response => {
-            //Limpando campos
             this.setState({
                 LoadingSpinner: false,
                 ModalMessager: true,
@@ -251,7 +253,7 @@ class Form_create_paciente extends React.Component {
     }
 
     verificarPreenchimentoForm = (event) => {
-
+        console.log(this.state.form.dataNascimento)
         //Url para redirecionamento após salvar/atualizar paciente
         let url = event.target.name === 'btnColeta'
             ? '/admin/Form_glicemia/' + this.state.idPaciente
@@ -298,9 +300,9 @@ class Form_create_paciente extends React.Component {
 
         if (this.state.requestType === "post") {
             this.salvarPaciente(planoAplicacao)
-        } else {
-            this.atualizarPaciente(planoAplicacao)
         }
+        this.atualizarPaciente(planoAplicacao)
+
     }
 
     toggleModalMesseger = () => {
@@ -308,7 +310,7 @@ class Form_create_paciente extends React.Component {
         if (this.state.redirectUrl !== null) {
             return document.location.href = this.state.redirectUrl
         }
-        return this.setState({ ModalMessager: false })
+        this.setState({ ModalMessager: false })
     }
 
     render() {
@@ -364,6 +366,7 @@ class Form_create_paciente extends React.Component {
                                                         <FormGroup>
                                                             <label>DATA NASCIMENTO</label>
                                                             <Input
+                                                                pattern="\d{2}/\d{2}/\d{4}"
                                                                 type="date"
                                                                 name="dataNascimento"
                                                                 placeholder="datetime placeholder"
