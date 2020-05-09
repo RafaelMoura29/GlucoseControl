@@ -57,10 +57,10 @@ class Form_create_paciente extends React.Component {
                 diabetes: 'Não se aplica',
                 insuficienciaRenal: 'Não se aplica',
                 corticoide: 'Não se aplica',
-                infeccao: false,
-                sepse: false,
-                sindromeDesconfortoRespiratorio: false,
                 observacoes: '',
+                instabilidadeHemodinamica: 'Ignorado',
+                infeccao: 'Ignorado',
+                sindromeDesconfortoRespiratorio: 'Ignorado',
                 planoAplicacao: [
                     false, false, false, false, false, false,
                     false, false, false, false, false, false,
@@ -94,10 +94,10 @@ class Form_create_paciente extends React.Component {
                     state.form.diabetes = paciente.diabetes
                     state.form.insuficienciaRenal = paciente.insuficienciaRenal
                     state.form.corticoide = paciente.corticoide
-                    state.form.infeccao = 'true' === paciente.infeccao
-                    state.form.sepse = 'true' === paciente.sepse
-                    state.form.sindromeDesconfortoRespiratorio = 'true' === paciente.sindromeDesconfortoRespiratorio
                     state.form.observacoes = paciente.observacoes
+                    state.form.instabilidadeHemodinamica = paciente.instabilidadeHemodinamica
+                    state.form.infeccao = paciente.infeccao
+                    state.form.sindromeDesconfortoRespiratorio = paciente.sindromeDesconfortoRespiratorio
                     paciente.planoAplicacao.split("#").map(hora => (
                         state.form.planoAplicacao[parseInt(hora) - 1] = true
                     ))
@@ -160,6 +160,7 @@ class Form_create_paciente extends React.Component {
 
         let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
         let form = this.state.form
+
         //Gravando paciente
         axios.post("https://glucosecontrolapp.herokuapp.com/paciente", {
             "prontuario": form.prontuario,
@@ -169,9 +170,6 @@ class Form_create_paciente extends React.Component {
             "diabetes": form.diabetes,
             "insuficienciaRenal": form.insuficienciaRenal,
             "corticoide": form.corticoide,
-            "infeccao": form.infeccao,
-            "sepse": form.sepse,
-            "sindromeDesconfortoRespiratorio": form.sindromeDesconfortoRespiratorio,
             "sexo": form.sexo,
             "dataHoraInternacao": form.dataInternacao + " " + form.horaInternacao,
             "observacoes": form.observacoes,
@@ -179,7 +177,11 @@ class Form_create_paciente extends React.Component {
             "planoAplicacao": planoAplicacao,
             "createDate": dataCriacao,
             "peso": form.peso,
-            "altura": form.altura
+            "altura": form.altura,
+            "instabilidadeHemodinamica": form.instabilidadeHemodinamica,
+            "infeccao": form.infeccao,
+            "sindromeDesconfortoRespiratorio": form.sindromeDesconfortoRespiratorio,
+            "imc": form.peso/((form.altura / 100) * (form.altura / 100))
         })
             .then(response => {
                 let url;
@@ -222,9 +224,6 @@ class Form_create_paciente extends React.Component {
                     "diabetes": form.diabetes,
                     "insuficienciaRenal": form.insuficienciaRenal,
                     "corticoide": form.corticoide,
-                    "infeccao": form.infeccao,
-                    "sepse": form.sepse,
-                    "sindromeDesconfortoRespiratorio": form.sindromeDesconfortoRespiratorio,
                     "sexo": form.sexo,
                     "dataHoraInternacao": form.dataInternacao + " " + form.horaInternacao,
                     "observacoes": form.observacoes,
@@ -232,7 +231,11 @@ class Form_create_paciente extends React.Component {
                     "planoAplicacao": planoAplicacao,
                     "updateDate": dataAtualizacao,
                     "peso": form.peso,
-                    "altura": form.altura
+                    "altura": form.altura,
+                    "instabilidadeHemodinamica": form.instabilidadeHemodinamica,
+                    "infeccao": form.infeccao,
+                    "sindromeDesconfortoRespiratorio": form.sindromeDesconfortoRespiratorio,
+                    "imc": form.peso/((form.altura / 100) * (form.altura / 100))
                 }
             }
         ).then(response => {
@@ -253,7 +256,6 @@ class Form_create_paciente extends React.Component {
     }
 
     verificarPreenchimentoForm = (event) => {
-        console.log(this.state.form.dataNascimento)
         //Url para redirecionamento após salvar/atualizar paciente
         let url = event.target.name === 'btnColeta'
             ? '/admin/Form_glicemia/' + this.state.idPaciente
@@ -262,7 +264,6 @@ class Form_create_paciente extends React.Component {
         this.setState({ LoadingSpinner: true, modal: false, redirectUrl: url });
 
         let form = this.state.form
-        delete form.observacoes
 
         if (form.altura < 0) {
             return this.setState({
@@ -283,8 +284,23 @@ class Form_create_paciente extends React.Component {
         }
 
         //Verifica se o formulário está preenchido
-        const formNaoEstaPreenchido = Object.values(form).some(value => value === "")
-        if (formNaoEstaPreenchido) {
+        if (form.prontuario === '' ||
+            form.nome === '' ||
+            form.dataNascimento === '' ||
+            form.tipoInternacao === '' ||
+            form.diabetes === '' ||
+            form.insuficienciaRenal === '' ||
+            form.corticoide === '' ||
+            form.sexo === '' ||
+            form.dataInternacao === '' ||
+            form.horaInternacao === '' ||
+            form.alta === '' ||
+            planoAplicacao === '' ||
+            form.peso === '' ||
+            form.altura === '' ||
+            form.instabilidadeHemodinamica === '' ||
+            form.infeccao === '' ||
+            form.sindromeDesconfortoRespiratorio === '') {
             return this.setState({
                 LoadingSpinner: false,
                 ModalMessager: true,
@@ -306,7 +322,6 @@ class Form_create_paciente extends React.Component {
     }
 
     toggleModalMesseger = () => {
-        console.log(this.state.redirectUrl)
         if (this.state.redirectUrl !== null) {
             return document.location.href = this.state.redirectUrl
         }
@@ -891,55 +906,46 @@ class Form_create_paciente extends React.Component {
                                                     </Input>
                                                 </FormGroup>
 
-                                                <FormGroup check>
-                                                    <Row>
-                                                        <Col md="4">
-                                                            <Label className="form-check-label">
-                                                                <Input
-                                                                    className="form-check-input"
-                                                                    name="infeccao"
-                                                                    type="checkbox"
-                                                                    onChange={this.updateCheckValue}
-                                                                    checked={this.state.form.infeccao}
-                                                                />
-                                                                    INFECÇÃO
-                                                                    <span className="form-check-sign">
-                                                                    <span className="check"></span>
-                                                                </span>
-                                                            </Label>
-                                                        </Col>
-                                                        <Col md="4">
-                                                            <Label className="form-check-label">
-                                                                <Input
-                                                                    className="form-check-input"
-                                                                    name="sepse"
-                                                                    type="checkbox"
-                                                                    onChange={this.updateCheckValue}
-                                                                    checked={this.state.form.sepse}
-                                                                />
-                                                                    SEPSE
-                                                                    <span className="form-check-sign">
-                                                                    <span className="check"></span>
-                                                                </span>
-                                                            </Label>
-                                                        </Col>
-                                                        <Col md="4">
-                                                            <Label className="form-check-label">
-                                                                <Input
-                                                                    className="form-check-input"
-                                                                    name="sindromeDesconfortoRespiratorio"
-                                                                    type="checkbox"
-                                                                    onChange={this.updateCheckValue}
-                                                                    checked={this.state.form.sindromeDesconfortoRespiratorio}
-                                                                />
-                                                                    SÍDROME DE DESCONFORTO RESPIRATÓRIO
-                                                                    <span className="form-check-sign">
-                                                                    <span className="check"></span>
-                                                                </span>
-                                                            </Label>
-                                                        </Col>
-                                                    </Row>
+                                                <FormGroup>
+                                                    <Label for="exampleText">INSTABILIDADE HEMODINÂMICA</Label>
+                                                    <Input
+                                                        type="select"
+                                                        name="instabilidadeHemodinamica"
+                                                        onChange={this.updateInputValue}
+                                                        value={this.state.form.instabilidadeHemodinamica}>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Não tem</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Sim - Controlado sem drogas vasoativas</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Sim - Controlado com drogas </option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Sim - Descontrolado apesar das drogas</option>
+                                                    </Input>
+                                                </FormGroup>
 
+                                                <FormGroup>
+                                                    <Label for="exampleText">INFECÇÃO</Label>
+                                                    <Input
+                                                        type="select"
+                                                        name="infeccao"
+                                                        onChange={this.updateInputValue}
+                                                        value={this.state.form.infeccao}>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Não tem</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Infecção simples</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Sepse</option>
+                                                    </Input>
+                                                </FormGroup>
+
+                                                <FormGroup>
+                                                    <Label for="exampleText">SÍDROME DE DESCONFORTO RESPIRATÓRIO</Label>
+                                                    <Input
+                                                        type="select"
+                                                        name="sindromeDesconfortoRespiratorio"
+                                                        onChange={this.updateInputValue}
+                                                        value={this.state.form.sindromeDesconfortoRespiratorio}>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Não tem</option>
+                                                        <option style={{ backgroundColor: '#27293d' }}>Possui</option>
+                                                    </Input>
                                                 </FormGroup>
 
                                                 <FormGroup>
