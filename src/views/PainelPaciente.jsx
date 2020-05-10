@@ -76,8 +76,7 @@ class PainelPaciente extends React.Component {
 
     formataData(data) {
         let a = data.substring(0, 10).split("-");
-        data = a[2] + "/" + a[1] + "/" + a[0];
-        return data;
+        return a[2] + "/" + a[1] + "/" + a[0];
     }
 
     async getListGlucose() {
