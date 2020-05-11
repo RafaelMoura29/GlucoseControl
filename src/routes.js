@@ -1,5 +1,5 @@
 import Form_glicemia from "views/forms/Form_glicemia.jsx";
-import Pacientes from "views/Pacientes.jsx";
+import Pacientes from "views/pacientes/Pacientes.jsx";
 import Form_create_paciente from "views/forms/Form_create_paciente.jsx";
 import PainelPaciente from "views/PainelPaciente.jsx";
 import Ajuda from "views/Ajuda.jsx";

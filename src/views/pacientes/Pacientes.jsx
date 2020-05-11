@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import LoadingSpinner from '../components/LoadingSpinner.js'
-// reactstrap components
+import LoadingSpinner from '../../components/LoadingSpinner.js'
+import './style.css'
 import {
     Button,
     Row,
@@ -147,7 +147,6 @@ class Pacientes extends React.Component {
                                 <thead>
                                     <tr>
                                         <th></th>
-
                                         <th>Prontuário</th>
                                         <th>Nome</th>
                                         <th>Data Internação</th>
