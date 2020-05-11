@@ -1,10 +1,10 @@
-import Form_glicemia from "views/forms/Form_glicemia.jsx";
-import Pacientes from "views/pacientes/Pacientes.jsx";
-import Form_create_paciente from "views/forms/Form_create_paciente.jsx";
-import PainelPaciente from "views/PainelPaciente.jsx";
-import Ajuda from "views/Ajuda.jsx";
-import Contato from "views/Contato.jsx";
-import Sobre from "views/Sobre.jsx";
+import Form_glicemia from "views/formColeta";
+import Pacientes from "views/pacientes";
+import Form_create_paciente from "views/formPaciente";
+import PainelPaciente from "views/painelPaciente";
+import Ajuda from "views/ajuda";
+import Contato from "views/contato";
+import Sobre from "views/sobre";
 
 var routes = [
   {

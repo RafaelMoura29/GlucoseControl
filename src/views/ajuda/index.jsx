@@ -1,8 +1,9 @@
 import React from "react";
-import img1 from "../assets/img/imgs_ajuda/img1.png"
-import img2 from "../assets/img/imgs_ajuda/img2.png"
-import img3 from "../assets/img/imgs_ajuda/img3.png"
-import img4 from "../assets/img/imgs_ajuda/img4.png"
+import img1 from "../../assets/img/imgs_ajuda/img1.png"
+import img2 from "../../assets/img/imgs_ajuda/img2.png"
+import img3 from "../../assets/img/imgs_ajuda/img3.png"
+import img4 from "../../assets/img/imgs_ajuda/img4.png"
+import './style.css'
 
 import {
     Card,

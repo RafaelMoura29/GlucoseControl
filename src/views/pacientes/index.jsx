@@ -154,11 +154,11 @@ class Pacientes extends React.Component {
                                 <tbody id="tableBody">
                                     {this.state.pacienteFiltrados.map(paciente =>
 
-                                        <tr 
-                                            key={paciente._id} 
+                                        <tr
+                                            key={paciente._id}
                                             className="trListPaciente"
                                             onClick={() => document.location.href = '/admin/PainelPaciente/' + paciente._id}
-                                            >
+                                        >
                                             <td>{paciente.prontuario}</td>
                                             <td>{paciente.nome}</td>
                                             <td>{paciente.dataHoraInternacao}</td>

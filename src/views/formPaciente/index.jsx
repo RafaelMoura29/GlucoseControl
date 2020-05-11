@@ -1,6 +1,7 @@
 import React from "react";
 import LoadingSpinner from '../../components/LoadingSpinner.js'
 import ModalMessager from '../../components/ModalMessager.js'
+import './style.css'
 
 // reactstrap components
 import {
