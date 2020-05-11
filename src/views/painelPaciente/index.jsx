@@ -60,7 +60,7 @@ class PainelPaciente extends React.Component {
         let dateTime = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
         let dataAtual = dateTime.split(" ")[0].split("/")
         dataAtual = dataAtual[2] + '-' + dataAtual[1] + '-' + dataAtual[0]
-        this.setState({filtroDataFinal: dataAtual})
+        this.setState({ filtroDataFinal: dataAtual })
 
         this.getListGlucose();
         this.getPaciente()
@@ -71,7 +71,7 @@ class PainelPaciente extends React.Component {
             .then((data) => {
                 const paciente = data.data.paciente[0]
                 let dataInternacao = paciente.dataHoraInternacao.split(" ")[0]
-                this.setState({nomePaciente: paciente.nome, filtroDataInicial: dataInternacao})
+                this.setState({ nomePaciente: paciente.nome, filtroDataInicial: dataInternacao })
             })
     }
 
@@ -89,7 +89,7 @@ class PainelPaciente extends React.Component {
                     glucosePacienteFiltrado: response.data.glucose
                 }, () => {
                     this.filtrarEvolucaoGlicemia()
-        
+
                 })
 
             })
@@ -141,61 +141,75 @@ class PainelPaciente extends React.Component {
                     <Card >
                         <CardBody>
                             <Row>
-                                <Col className="pr-md-1" md="10">
+                                <Col className="pr-md-1" md="7">
+                                    <h3 className="title">COLETAS e APLICAÇÕES</h3>
+                                </Col>
+
+                                <Col className="pr-md-1" md="5">
                                     <h3 className="title">Coletas de {this.state.nomePaciente}</h3>
                                 </Col>
-                                {
-                                    this.state.width > 910
-                                        ?
-                                        <Col className="pr-md-1" md="2">
-                                            <Link to={"/admin/Form_glicemia/" + this._idPaciente}>
-                                                <Button className="btn-fill" color="warning" type="submit">
-                                                    COLETA
-                                            </Button>
-                                            </Link>
-                                        </Col>
-                                        :
-                                        <Col className="pr-md-1" md="3" />
-                                }
-
                             </Row>
+
                             <Row>
-                                <Col className="pr-md-1" md="3">
+                                <Col md="2">
                                     <FormGroup>
-                                        <Label>
-                                            Data:
-                                        </Label>
-                                        <Row>
-                                            <Col className="pr-md-1" md="8">
-                                                <Input
-                                                    type="date"
-                                                    name="filtroDataColeta"
-                                                    value={this.state.filtroDataColeta}
-                                                    onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
-                                                />
-                                            </Col>
-                                            <Col className="pr-md-1" md="2">
-                                                <Button onClick={this.filtrarColetas} className="btn-icon" color="info" size="sm">
-                                                    <i className="fa fa-search" />
-                                                </Button>
-                                            </Col>
-                                            <Col className="pr-md-1" md="2">
-                                                <Button onClick={() => {
-                                                    this.setState({ filtroDataColeta: 0 },
-                                                        () => {
-                                                            this.filtrarColetas()
-                                                        })
-                                                }}
-                                                    className="btn-icon"
-                                                    color="warning"
-                                                    size="sm">
-                                                    <i className="fa fa-times" />
-                                                </Button>
-                                            </Col>
-                                        </Row>
+                                        <Input
+                                            type="date"
+                                            name="filtroDataColeta"
+                                            value={this.state.filtroDataColeta}
+                                            onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
+                                        />
                                     </FormGroup>
                                 </Col>
+
+                                <Col md="3">
+
+                                    <FormGroup>
+                                        <Input
+                                            type="select"
+                                            name="tipoInternacaoFiltro"
+                                        >
+                                            <option style={{ backgroundColor: '#27293d' }} value="todos">Todos</option>
+                                            <option style={{ backgroundColor: '#27293d' }} value="internado">Internado</option>
+                                            <option style={{ backgroundColor: '#27293d' }} value="alta">Alta</option>
+                                        </Input>
+                                    </FormGroup>
+                                </Col>
+
+
+                                <Col md="2">
+                                    <Button onClick={this.filtrarColetas} className="btn-icon" color="info" size="sm">
+                                        <i className="fa fa-search" />
+                                    </Button>
+                                    <Button onClick={() => {
+                                        this.setState({ filtroDataColeta: 0 },
+                                            () => {
+                                                this.filtrarColetas()
+                                            })
+                                    }}
+                                        className="btn-icon"
+                                        color="warning"
+                                        size="sm">
+                                        <i className="fa fa-times" />
+                                    </Button>
+                                </Col>
+
+                                <Col md="5">
+
+                                    <Link to={"/admin/Form_glicemia/" + this._idPaciente}>
+                                        <Button className="btn-fill" color="warning" type="submit">
+                                            COLETA
+                                        </Button>
+                                    </Link>
+
+                                    <Link to={"/admin/Form_glicemia/" + this._idPaciente}>
+                                        <Button className="btn-fill" color="success" type="submit">
+                                            COLETA
+                                        </Button>
+                                    </Link>
+                                </Col>
                             </Row>
+
                             <Row>
                                 <Col md="12">
 
@@ -292,18 +306,6 @@ class PainelPaciente extends React.Component {
                     </Card>
 
                 </div>
-                {this.state.width < 910
-                    ? <div style={{ position: 'fixed', bottom: 16, right: 16 }}>
-                        <Link to={"/admin/Form_glicemia/" + this._idPaciente}>
-                            <Button  size="lg" className="btn-round btn-icon" color="warning">
-                                <i className="fa fa-tint"></i>
-                            </Button>
-                        </Link>
-                    </div>
-                    : <div />
-                }
-
-
             </>
         );
     }
