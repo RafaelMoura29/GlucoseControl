@@ -105,9 +105,9 @@ class Pacientes extends React.Component {
                                                 name="tipoInternacaoFiltro"
                                                 onChange={this.updateInputValueAndFilter}
                                             >
-                                                <option style={{backgroundColor:'#27293d'}} value="todos">Todos</option>
-                                                <option style={{backgroundColor:'#27293d'}} value="internado">Internado</option>
-                                                <option style={{backgroundColor:'#27293d'}} value="alta">Alta</option>
+                                                <option style={{ backgroundColor: '#27293d' }} value="todos">Todos</option>
+                                                <option style={{ backgroundColor: '#27293d' }} value="internado">Internado</option>
+                                                <option style={{ backgroundColor: '#27293d' }} value="alta">Alta</option>
                                             </Input>
                                         </FormGroup>
                                     </Col>
@@ -132,7 +132,7 @@ class Pacientes extends React.Component {
                                                     NOVO</Button>
                                             </Link>
                                         </Col>
-                                        : <div style={{ position: 'fixed', bottom: 16, right: 16, zIndex:1001 }}>
+                                        : <div style={{ position: 'fixed', bottom: 16, right: 16, zIndex: 1001 }}>
                                             <Link to="/admin/form_create_paciente/0">
                                                 <Button size="lg" className="btn-round btn-icon" color="info">
                                                     <i className="tim-icons icon-simple-add" />
@@ -146,36 +146,25 @@ class Pacientes extends React.Component {
                             <Table>
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>Prontuário</th>
                                         <th>Nome</th>
                                         <th>Data Internação</th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody id="tableBody">
                                     {this.state.pacienteFiltrados.map(paciente =>
-                                        <tr key={paciente._id}>
-                                            <th scope="row" className="text-left">
-                                                <Link to={'/admin/form_create_paciente/' + paciente._id}>
-                                                    <Button className="btn-icon" color="info" size="sm">
-                                                        <i className="fas fa-edit"></i>
-                                                    </Button>
-                                                </Link>
-                                            </th>
+
+                                        <tr 
+                                            key={paciente._id} 
+                                            className="trListPaciente"
+                                            onClick={() => document.location.href = '/admin/PainelPaciente/' + paciente._id}
+                                            >
                                             <td>{paciente.prontuario}</td>
                                             <td>{paciente.nome}</td>
                                             <td>{paciente.dataHoraInternacao}</td>
-                                            <th scope="row" className="text-right">
-                                                <Link to={'/admin/PainelPaciente/' + paciente._id}>
-                                                    <Button className="btn-icon" color="danger" size="sm">
-                                                        <i className="fa fa-tint"></i>
-                                                    </Button>
-                                                </Link>
-                                            </th>
                                         </tr>
-                                    )}
 
+                                    )}
                                 </tbody>
                             </Table>
                         </CardBody>
