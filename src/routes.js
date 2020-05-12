@@ -5,6 +5,7 @@ import PainelPaciente from "views/painelPaciente";
 import Ajuda from "views/ajuda";
 import Contato from "views/contato";
 import Sobre from "views/sobre";
+import FormAplicacao from "views/formAplicacao";
 
 var routes = [
   {
@@ -54,6 +55,13 @@ var routes = [
     name: "Ajuda",
     icon: "tim-icons icon-alert-circle-exc",
     component: Ajuda,
+    layout: "/admin",
+  },
+  {
+    path: "/FormAplicacao/:_idPaciente",
+    name: "FormAplicacao",
+    icon: "tim-icons icon-alert-circle-exc",
+    component: FormAplicacao,
     layout: "/admin",
   },
   

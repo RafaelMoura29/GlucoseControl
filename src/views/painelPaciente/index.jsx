@@ -186,7 +186,7 @@ class PainelPaciente extends React.Component {
                                             () => {
                                                 this.filtrarColetas()
                                             })
-                                    }}
+                                    }}  
                                         className="btn-icon"
                                         color="warning"
                                         size="sm">
@@ -198,13 +198,13 @@ class PainelPaciente extends React.Component {
 
                                     <Link to={"/admin/Form_glicemia/" + this._idPaciente}>
                                         <Button className="btn-fill" color="warning" type="submit">
-                                            COLETA
+                                            COLETAR
                                         </Button>
                                     </Link>
 
-                                    <Link to={"/admin/Form_glicemia/" + this._idPaciente}>
-                                        <Button className="btn-fill" color="success" type="submit">
-                                            COLETA
+                                    <Link to={"/admin/formAplicacao/" + this._idPaciente}>
+                                        <Button className="btn-fill btnAplicar" type="submit">
+                                            APLICAR
                                         </Button>
                                     </Link>
                                 </Col>
