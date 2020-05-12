@@ -147,6 +147,11 @@ class PainelPaciente extends React.Component {
 
                                 <Col className="pr-md-1" md="5">
                                     <h3 className="title">Coletas de {this.state.nomePaciente}</h3>
+                                    <Link to={'/admin/form_create_paciente/' + this._idPaciente}>
+                                        <Button className="btn-icon" color="info" size="sm">
+                                            <i className="fas fa-edit"></i>
+                                        </Button>
+                                    </Link>
                                 </Col>
                             </Row>
 
@@ -186,7 +191,7 @@ class PainelPaciente extends React.Component {
                                             () => {
                                                 this.filtrarColetas()
                                             })
-                                    }}  
+                                    }}
                                         className="btn-icon"
                                         color="warning"
                                         size="sm">
