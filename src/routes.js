@@ -37,6 +37,14 @@ var routes = [
     hideSidebar: true
   },
   {
+    path: "/FormAplicacao/:_idPaciente",
+    name: "FormAplicacao",
+    icon: "tim-icons icon-alert-circle-exc",
+    component: FormAplicacao,
+    layout: "/admin",
+    hideSidebar: true
+  },
+  {
     path: "/sobre",
     name: "Sobre",
     icon: "tim-icons icon-bulb-63",
@@ -57,13 +65,5 @@ var routes = [
     component: Ajuda,
     layout: "/admin",
   },
-  {
-    path: "/FormAplicacao/:_idPaciente",
-    name: "FormAplicacao",
-    icon: "tim-icons icon-alert-circle-exc",
-    component: FormAplicacao,
-    layout: "/admin",
-  },
-  
 ];
 export default routes;
