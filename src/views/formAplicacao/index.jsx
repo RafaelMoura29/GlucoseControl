@@ -24,6 +24,9 @@ class FormAplicacao extends React.Component {
   constructor(props) {
     super()
     this.state = {
+      LoadingSpinner: false,
+      ModalMessager: false,
+      ModalMessagerText: "",
       form: {
         prontuario: '',
         dataHoraInternacao: '',
@@ -33,14 +36,50 @@ class FormAplicacao extends React.Component {
         tipoAplicacao: 'de resgate',
         viaAdministracao: 'intravenosa',
         posologia: '',
-        observacoes: ''
-      }
+        observacoes: '',
+        droga: ''
+      },
+      nextPage: false
     }
+  }
+
+  formataDataHora(data) {
+    let dataHora = data.split(" ");
+    let hora = dataHora[1]
+    let dataFormatada = dataHora[0]
+    dataFormatada = dataFormatada.substring(0, 10).split("-");
+    dataFormatada = dataFormatada[2] + "/" + dataFormatada[1] + "/" + dataFormatada[0] + " " + hora;
+    return dataFormatada;
   }
 
   componentDidMount() {
     const { match: { params } } = this.props;
     this._idPaciente = params._idPaciente;
+    this.getPaciente()
+
+    let dateTime = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+    //Separa data da hora
+    dateTime = dateTime.split(" ")
+    //Separa mes, dia e ano
+    let data = dateTime[0].split("/")
+    //Ajustando formato da data
+    data = data[2] + "-" + data[1] + "-" + data[0]
+    //Hora atual
+    let hora = dateTime[1].substring(0, 5)
+    this.setState({
+      form: {
+        ...this.state.form,
+        dataAplicacao: data,
+        horaAplicacao: hora
+      }
+    })
+  }
+
+  toggleMessager = () => {
+    if (this.state.nextPage) {
+      document.location.href = '/admin/PainelPaciente/' + this._idPaciente
+    }
+    this.setState({ ModalMessager: !this.state.ModalMessager });
   }
 
   handleChange = (event) => {
@@ -52,10 +91,90 @@ class FormAplicacao extends React.Component {
     })
   }
 
+  salvarAplicacao = () => {
+    this.setState({ LoadingSpinner: true });
+
+    let form = this.state.form
+
+    if (
+      form.dataAplicacao === '' ||
+      form.horaAplicacao === '' ||
+      form.tipoAplicacao === '' ||
+      form.viaAdministracao === '' ||
+      form.droga === '' ||
+      form.posologia === ''
+    ) {
+      return this.setState({
+        LoadingSpinner: false,
+        ModalMessager: true,
+        ModalMessagerText: 'Preencha todos os campos!',
+      });
+    }
+
+    let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+    axios.post("https://glucosecontrolapp.herokuapp.com/aplicacao", {
+      prontuario: form.prontuario,
+      paciente: form.paciente,
+      dataAplicacao: form.dataAplicacao,
+      horaAplicacao: form.horaAplicacao,
+      tipoAplicacao: form.tipoAplicacao,
+      viaAdministracao: form.viaAdministracao,
+      droga: form.droga,
+      posologia: form.posologia,
+      observacoes: form.observacoes,
+      _idPaciente: this._idPaciente,
+      createDate: dataCriacao,
+      updateDate: dataCriacao
+    })
+      .then(response => {
+        console.log(response)
+        this.setState({
+          LoadingSpinner: false,
+          ModalMessager: true,
+          ModalMessagerText: 'Dados Gravados Com Sucesso',
+          form: {
+            ...this.state.form,
+            dataAplicacao: '',
+            horaAplicacao: '',
+            tipoAplicacao: 'de resgate',
+            viaAdministracao: 'intravenosa',
+            posologia: '',
+            observacoes: '',
+            droga: ''
+          },
+          nextPage: true
+        });
+      })
+      .catch(error => {
+        console.log(error)
+        this.setState({
+          LoadingSpinner: false,
+          ModalMessager: true,
+          ModalMessagerText: 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
+        });
+      })
+  }
+
+  getPaciente = () => {
+    axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + this._idPaciente)
+      .then((response) => {
+        const paciente = response.data.paciente[0]
+        this.setState({
+          form: {
+            ...this.state.form,
+            prontuario: paciente.prontuario,
+            paciente: paciente.nome,
+            dataHoraInternacao: paciente.dataHoraInternacao
+          }
+        })
+      })
+
+  }
+
   render() {
     let opcoesDroga = this.state.form.tipoAplicacao === 'de resgate'
-      ? ['Insulina Ultra Rápida', 'Insulina Regular', 'Glicose a 50%', 'Glicose a 25%']
-      : ['Insulina NPH', 'Insulina Lenta - Detemir', 'Insulina Ultra Lenta - Glargina']
+      ? ['', 'Insulina Ultra Rápida', 'Insulina Regular', 'Glicose a 50%', 'Glicose a 25%']
+      : ['', 'Insulina NPH', 'Insulina Lenta - Detemir', 'Insulina Ultra Lenta - Glargina']
 
     return (
       <>
@@ -189,13 +308,13 @@ class FormAplicacao extends React.Component {
                           <label>DROGA</label>
                           <Input
                             type="select"
-                            name="tipoAplicacao"
-                            value={this.state.form.tipoAplicacao}
+                            name="droga"
+                            value={this.state.form.droga}
                             onChange={this.handleChange}
                           >
                             {opcoesDroga.map((opcao, index) => (
                               <option key={index} style={{ backgroundColor: '#27293d' }} value={opcao}>{opcao}</option>
-                             ))}
+                            ))}
                           </Input>
                         </FormGroup>
                       </Col>
@@ -233,8 +352,8 @@ class FormAplicacao extends React.Component {
               </CardBody>
 
               <CardFooter>
-                <Button className="btn-fill" color="info" type="submit" onClick={this.saveGlicose}>
-                  SALVAR GLICEMIA
+                <Button className="btn-fill" color="info" type="submit" onClick={this.salvarAplicacao}>
+                  SALVAR APLICAÇÃO
                                 </Button>
               </CardFooter>
 
