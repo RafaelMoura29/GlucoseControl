@@ -208,7 +208,7 @@ class PainelPaciente extends React.Component {
                                     </Link>
 
                                     <Link to={"/admin/formAplicacao/" + this._idPaciente}>
-                                        <Button className="btn-fill btnAplicar" type="submit">
+                                        <Button className="btn-fill" color="success" type="submit">
                                             APLICAR
                                         </Button>
                                     </Link>

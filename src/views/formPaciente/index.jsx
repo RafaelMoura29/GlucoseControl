@@ -260,7 +260,9 @@ class Form_create_paciente extends React.Component {
         //Url para redirecionamento após salvar/atualizar paciente
         let url = event.target.name === 'btnColeta'
             ? '/admin/Form_glicemia/' + this.state.idPaciente
-            : '/admin/pacientes/'
+            : event.target.name === 'btnAplicacao' 
+                ? '/admin/formAplicacao/' + this.state.idPaciente 
+                :  '/admin/pacientes/'
 
         this.setState({ LoadingSpinner: true, modal: false, redirectUrl: url });
 
@@ -964,9 +966,12 @@ class Form_create_paciente extends React.Component {
                                 <CardFooter>
                                     <div className="text-center">
                                         <Button className="btn-fill" color="info" type="submit" onClick={this.verificarPreenchimentoForm}>
-                                            {this.state.textBtnRequest} PACIENTE
+                                            {this.state.textBtnRequest} 
                                         </Button>
                                         <Button className="btn-fill" color="warning" name="btnColeta" type="submit" onClick={this.verificarPreenchimentoForm}>
+                                            {this.state.textBtnRequest} E FAZER COLETA
+                                        </Button>
+                                        <Button className="btn-fill" color="success" name="btnAplicacao" type="submit" onClick={this.verificarPreenchimentoForm}>
                                             {this.state.textBtnRequest} E FAZER COLETA
                                         </Button>
                                     </div>
