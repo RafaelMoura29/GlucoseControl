@@ -2,28 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import LoadingSpinner from '../../components/LoadingSpinner.js'
 import './style.css'
-import {
-    Button,
-    Row,
-    Col,
-    Form,
-    FormGroup,
-    Input,
-    Table,
-    Card,
-    CardBody
-} from "reactstrap";
+import { Button, Row, Col, Form, FormGroup, Input, Table, Card, CardBody } from "reactstrap";
 
 const axios = require("axios");
 
 class Pacientes extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            bigChartData: "data1",
-            width: 0,
-            height: 0,
             pacientes: [],
             pacienteFiltrados: [],
             nomePacienteFiltro: "",
@@ -33,9 +19,8 @@ class Pacientes extends React.Component {
     }
 
     formataData(data) {
-        let a = data.substring(0, 10).split("-");
-        data = a[2] + "/" + a[1] + "/" + a[0];
-        return data;
+        let splitData = data.substring(0, 10).split("-");
+        return splitData[2] + "/" + splitData[1] + "/" + splitData[0];
     }
 
     //Fazendo requisição dos pacientes
@@ -43,21 +28,22 @@ class Pacientes extends React.Component {
         this.setState({ LoadingSpinner: true });
 
         axios.get("https://glucosecontrolapp.herokuapp.com/paciente")
-            .then(response => {
-                response.data.paciente.map(e => (
-                    e.dataHoraInternacao = this.formataData(e.dataHoraInternacao)
+            .then(({ data }) => {
+                let pacientes = data.paciente.map((paciente) => (
+                    {
+                        _id: paciente._id,
+                        nome: paciente.nome,
+                        prontuario: paciente.prontuario,
+                        dataInternacao: this.formataData(paciente.dataInternacao),
+                        statusPaciente: paciente.statusPaciente
+                    }
                 ))
-                this.setState({
-                    pacientes: response.data.paciente,
-                    pacienteFiltrados: response.data.paciente
-                });
+                this.setState({ pacientes, pacienteFiltrados: pacientes });
             })
             .finally(() => this.setState({ LoadingSpinner: false }))
     }
 
     componentDidMount() {
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
         this.getPacientes()
     }
 
@@ -70,22 +56,12 @@ class Pacientes extends React.Component {
             //se o nome digitado corresponder ao de um paciente retorna valor >= 0
             let valor = paciente.nome.toLowerCase().indexOf(state.nomePacienteFiltro)
             if ((valor !== -1 || state.nomePacienteFiltro === '') &&
-                (state.tipoInternacaoFiltro === "todos" || state.tipoInternacaoFiltro === paciente.estadoPaciente.toLowerCase())) {
+                (state.tipoInternacaoFiltro === "todos" || state.tipoInternacaoFiltro === paciente.statusPaciente.toLowerCase())) {
                 return paciente
             }
             return null;
         })
         this.setState(state)
-    }
-
-    //Desativa event listener quando a página é fechada
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-    }
-
-    //Atualiza velores da dimensão da tela
-    updateWindowDimensions = () => {
-        this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
     render() {
@@ -123,23 +99,13 @@ class Pacientes extends React.Component {
                                         </FormGroup>
                                     </Col>
                                     <Col md="3"></Col>
-                                    {/* Renderiza o botão personalizado add paciente de acordo com o tamanho da tela. */}
-                                    {this.state.width > 910
-                                        ? <Col className="pr-md-1" md="2">
-                                            <Link to="/admin/form_create_paciente/0">
-
-                                                <Button className="btn-fill" color="info" type="submit">
-                                                    NOVO</Button>
-                                            </Link>
-                                        </Col>
-                                        : <div style={{ position: 'fixed', bottom: 16, right: 16, zIndex: 1001 }}>
-                                            <Link to="/admin/form_create_paciente/0">
-                                                <Button size="lg" className="btn-round btn-icon" color="info">
-                                                    <i className="tim-icons icon-simple-add" />
-                                                </Button>
-                                            </Link>
-                                        </div>
-                                    }
+                                    <Col className="pr-md-1" md="2">
+                                        <Link to="/admin/form_create_paciente/0">
+                                            <Button className="btn-fill" color="info" type="submit">
+                                                NOVO
+                                            </Button>
+                                        </Link>
+                                    </Col>
                                 </Row>
                             </Form>
 
@@ -161,7 +127,7 @@ class Pacientes extends React.Component {
                                         >
                                             <td>{paciente.prontuario}</td>
                                             <td>{paciente.nome}</td>
-                                            <td>{paciente.dataHoraInternacao}</td>
+                                            <td>{paciente.dataInternacao}</td>
                                         </tr>
 
                                     )}
