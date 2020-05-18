@@ -119,7 +119,6 @@ class Pacientes extends React.Component {
                                 </thead>
                                 <tbody id="tableBody">
                                     {this.state.pacienteFiltrados.map(paciente =>
-
                                         <tr
                                             key={paciente._id}
                                             className="trListPaciente"
@@ -129,7 +128,6 @@ class Pacientes extends React.Component {
                                             <td>{paciente.nome}</td>
                                             <td>{paciente.dataInternacao}</td>
                                         </tr>
-
                                     )}
                                 </tbody>
                             </Table>
