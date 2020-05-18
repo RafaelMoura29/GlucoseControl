@@ -82,12 +82,14 @@ class Form_glicemia extends React.Component {
         axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + this._idPaciente)
             .then((response) => {
                 const paciente = response.data.paciente[0]
-                this.setState({form:{
-                    ...this.state.form,
-                    prontuario: paciente.prontuario,
-                    paciente: paciente.nome,
-                    dataHoraInternacao: paciente.dataHoraInternacao
-                }})
+                this.setState({
+                    form: {
+                        ...this.state.form,
+                        prontuario: paciente.prontuario,
+                        paciente: paciente.nome,
+                        dataHoraInternacao: paciente.dataInternacao + ' ' + paciente.horaInternacao
+                    }
+                })
             })
 
     }
@@ -110,17 +112,16 @@ class Form_glicemia extends React.Component {
                 ModalMessagerText: 'Preencha todos os campos!',
             });
         }
-
-        axios.post("https://glucosecontrolapp.herokuapp.com/glucose", {
-            "prontuario": form.prontuario,
-            "paciente": form.paciente,
-            "hora": form.dataHoraInternacao,
+        let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+        axios.post("https://glucosecontrolapp.herokuapp.com/glicemia", {
             "dataColeta": form.dataColeta,
             "horaColeta": form.horaColeta,
-            "valorGlicemia": form.valorGlicemia,
-            "tipo": form.tipo,
+            "tipoColeta": form.tipo,
             "tipoAlimentacao": form.tipoAlimentacao,
+            "valorGlicemia": form.valorGlicemia,
             "observacoes": form.observacoes,
+            "createDate": dataCriacao,
+            "updateDate": dataCriacao,
             "_idPaciente": this._idPaciente
         })
             .then(response => {
@@ -128,7 +129,7 @@ class Form_glicemia extends React.Component {
                     LoadingSpinner: false,
                     ModalMessager: true,
                     ModalMessagerText: 'Dados Gravados Com Sucesso',
-                    form:{
+                    form: {
                         ...this.state.form,
                         dataColeta: '',
                         horaColeta: '',
@@ -139,7 +140,8 @@ class Form_glicemia extends React.Component {
                     }
                 });
             })
-            .catch(error => {
+            .catch((error) => {
+                console.log(error)
                 this.setState({
                     LoadingSpinner: false,
                     ModalMessager: true,
@@ -162,7 +164,7 @@ class Form_glicemia extends React.Component {
                         visible={this.state.ModalMessager}
                         text={this.state.ModalMessagerText}
                         toggle={() => {
-                            
+
                             this.setState({
                                 ModalMessager: false,
                             });
@@ -260,39 +262,39 @@ class Form_glicemia extends React.Component {
 
                                             <FormGroup>
                                                 <label>TIPO</label>
-                                                <Input 
-                                                    type="select" 
-                                                    name="tipo" 
+                                                <Input
+                                                    type="select"
+                                                    name="tipo"
                                                     value={this.state.form.tipo}
                                                     onChange={this.handleChange}
                                                 >
-                                                    <option style={{backgroundColor:'#27293d'}}>Capilar</option>
-                                                    <option style={{backgroundColor:'#27293d'}}>Bioquímica</option>
+                                                    <option style={{ backgroundColor: '#27293d' }}>Capilar</option>
+                                                    <option style={{ backgroundColor: '#27293d' }}>Bioquímica</option>
                                                 </Input>
                                             </FormGroup>
                                             <FormGroup>
                                                 <label>TIPO ALIMENTAÇÃO</label>
-                                                <Input 
-                                                    type="select" 
-                                                    name="tipoAlimentacao" 
+                                                <Input
+                                                    type="select"
+                                                    name="tipoAlimentacao"
                                                     value={this.state.form.tipoAlimentacao}
                                                     onChange={this.handleChange}
                                                 >
-                                                    <option style={{backgroundColor:'#27293d'}}>Zero</option>
-                                                    <option style={{backgroundColor:'#27293d'}}>Oral líquida</option>
-                                                    <option style={{backgroundColor:'#27293d'}}>Oral pastosa</option>
-                                                    <option style={{backgroundColor:'#27293d'}}>Oral completa</option>
-                                                    <option style={{backgroundColor:'#27293d'}}>Interal intermitente</option>
-                                                    <option style={{backgroundColor:'#27293d'}}>Interal contínua</option>
-                                                    <option style={{backgroundColor:'#27293d'}}>Parenteral</option>
+                                                    <option style={{ backgroundColor: '#27293d' }}>Zero</option>
+                                                    <option style={{ backgroundColor: '#27293d' }}>Oral líquida</option>
+                                                    <option style={{ backgroundColor: '#27293d' }}>Oral pastosa</option>
+                                                    <option style={{ backgroundColor: '#27293d' }}>Oral completa</option>
+                                                    <option style={{ backgroundColor: '#27293d' }}>Interal intermitente</option>
+                                                    <option style={{ backgroundColor: '#27293d' }}>Interal contínua</option>
+                                                    <option style={{ backgroundColor: '#27293d' }}>Parenteral</option>
                                                 </Input>
                                             </FormGroup>
                                             <FormGroup>
                                                 <Label for="exampleText">Observações</Label>
-                                                <Input 
-                                                    type="textarea" 
-                                                    name="observacoes" 
-                                                    placeholder="Observações" 
+                                                <Input
+                                                    type="textarea"
+                                                    name="observacoes"
+                                                    placeholder="Observações"
                                                     value={this.state.form.observacoes}
                                                     onChange={this.handleChange}
                                                 />
