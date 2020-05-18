@@ -36,8 +36,7 @@ class PainelPaciente extends React.Component {
 
         super(props);
         this.state = {
-            width: 0,
-            height: 0,
+            glicemiaEAplicacoes: [],
             glucosePaciente: [],
             glucosePacienteFiltrado: [],
             filtroDataColeta: 0,
@@ -46,13 +45,10 @@ class PainelPaciente extends React.Component {
             lineChart: lineChart,
             nomePaciente: ''
         };
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this._idPaciente = "";
     }
 
     componentDidMount() {
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
         const { match: { params } } = this.props;
         this._idPaciente = params._idPaciente;
 
@@ -62,44 +58,28 @@ class PainelPaciente extends React.Component {
         dataAtual = dataAtual[2] + '-' + dataAtual[1] + '-' + dataAtual[0]
         this.setState({ filtroDataFinal: dataAtual })
 
-        this.getListGlucose();
         this.getPaciente()
     }
 
     getPaciente() {
         axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + this._idPaciente)
-            .then((data) => {
-                const paciente = data.data.paciente[0]
+            .then(({ data: { paciente } }) => {
+                paciente = paciente[0]
+                let glicemias = paciente.glicemia.map((glicemia) => ({ ...glicemia, procedimento: 'Coleta' }))
+                let aplicacoes = paciente.aplicacao.map((aplicacao) => ({ ...aplicacao, procedimento: 'Aplicação' }))
+                let glicemiaEAplicacoes = glicemias.concat(aplicacoes)
                 let dataInternacao = paciente.dataInternacao
-                this.setState({ nomePaciente: paciente.nome, filtroDataInicial: dataInternacao })
+                this.setState({
+                    nomePaciente: paciente.nome,
+                    filtroDataInicial: dataInternacao,
+                    glicemiaEAplicacoes
+                })
             })
     }
 
     formataData(data) {
         let a = data.substring(0, 10).split("-");
         return a[2] + "/" + a[1] + "/" + a[0];
-    }
-
-    async getListGlucose() {
-
-        axios.get("https://glucosecontrolapp.herokuapp.com/glucose?tagId=" + this._idPaciente)
-            .then(response => {
-                this.setState({
-                    glucosePaciente: response.data.glucose,
-                    glucosePacienteFiltrado: response.data.glucose
-                }, () => {
-                    this.filtrarEvolucaoGlicemia()
-                })
-
-            })
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-    }
-
-    updateWindowDimensions() {
-        this.setState({ width: window.innerWidth, height: window.innerHeight });
     }
 
     setBgChartData = (name) => {
@@ -179,7 +159,6 @@ class PainelPaciente extends React.Component {
                                         </Input>
                                     </FormGroup>
                                 </Col>
-
 
                                 <Col md="2">
                                     <Button onClick={this.filtrarColetas} className="btn-icon" color="info" size="sm">
