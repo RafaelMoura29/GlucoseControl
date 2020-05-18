@@ -70,7 +70,7 @@ class PainelPaciente extends React.Component {
         axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + this._idPaciente)
             .then((data) => {
                 const paciente = data.data.paciente[0]
-                let dataInternacao = paciente.dataHoraInternacao.split(" ")[0]
+                let dataInternacao = paciente.dataInternacao
                 this.setState({ nomePaciente: paciente.nome, filtroDataInicial: dataInternacao })
             })
     }
@@ -89,7 +89,6 @@ class PainelPaciente extends React.Component {
                     glucosePacienteFiltrado: response.data.glucose
                 }, () => {
                     this.filtrarEvolucaoGlicemia()
-
                 })
 
             })
