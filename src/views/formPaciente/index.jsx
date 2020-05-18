@@ -44,30 +44,32 @@ class Form_create_paciente extends React.Component {
       textBtnRequest: '',
       requestType: '',
       form: {
-        peso: 70.5,
-        altura: 170,
-        nome: '',
         prontuario: '',
+        nome: '',
         dataNascimento: '',
         sexo: '',
-        tipoInternacao: 'Clínica',
+        peso: 70.5,
+        altura: 170,
         dataInternacao: dataInternacao,
         horaInternacao: horaInternacao,
-        internado: true,
-        alta: false,
+        tipoInternacao: 'Clínica',
         diabetes: 'Não se aplica',
         insuficienciaRenal: 'Não se aplica',
         corticoide: 'Não se aplica',
-        observacoes: '',
-        instabilidadeHemodinamica: 'Ignorado',
         infeccao: 'Ignorado',
         sindromeDesconfortoRespiratorio: 'Ignorado',
+        instabilidadeHemodinamica: 'Ignorado',
+        internado: true,
+        alta: false,
         planoAplicacao: [
           false, false, false, false, false, false,
           false, false, false, false, false, false,
           false, false, false, false, false, false,
           false, false, false, false, false, false,
-        ]
+        ],
+        observacoes: '',
+        glicemia: [],
+        aplicacao: []
       }
     }
   }
@@ -77,33 +79,35 @@ class Form_create_paciente extends React.Component {
     const { match: { params } } = this.props;
     if (params._idPaciente !== '0') {
       axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + params._idPaciente)
-        .then(response => {
-          const paciente = response.data.paciente[0]
+        .then(({ data }) => {
+          const paciente = data.paciente[0]
           let state = this.state
           state.idPaciente = paciente._id
           state.textBtnRequest = 'ATUALIZAR'
           state.requestType = 'put'
-          state.form.nome = paciente.nome
           state.form.prontuario = paciente.prontuario
+          state.form.nome = paciente.nome
           state.form.dataNascimento = paciente.dataNascimento
           state.form.sexo = paciente.sexo
+          state.form.peso = paciente.peso
+          state.form.altura = paciente.altura
+          state.form.dataInternacao = paciente.dataInternacao
+          state.form.horaInternacao = paciente.horaInternacao
           state.form.tipoInternacao = paciente.tipoInternacao
-          state.form.dataInternacao = paciente.dataHoraInternacao.substr(0, 10)
-          state.form.horaInternacao = paciente.dataHoraInternacao.substr(11, 14)
-          state.form.internado = paciente.estadoPaciente !== 'alta'
-          state.form.alta = paciente.estadoPaciente === 'alta'
           state.form.diabetes = paciente.diabetes
           state.form.insuficienciaRenal = paciente.insuficienciaRenal
           state.form.corticoide = paciente.corticoide
-          state.form.observacoes = paciente.observacoes
-          state.form.instabilidadeHemodinamica = paciente.instabilidadeHemodinamica
           state.form.infeccao = paciente.infeccao
-          state.form.sindromeDesconfortoRespiratorio = paciente.sindromeDesconfortoRespiratorio
+          state.form.sindromeDesconfortoRespiratorio = paciente.sindromeDescRespiratorio
+          state.form.instabilidadeHemodinamica = paciente.instabilidadeHemodinamica
+          state.form.internado = paciente.estadoPaciente !== 'alta'
+          state.form.alta = paciente.estadoPaciente === 'alta'
           paciente.planoAplicacao.split("#").map(hora => (
             state.form.planoAplicacao[parseInt(hora) - 1] = true
           ))
-          state.form.peso = paciente.peso
-          state.form.altura = paciente.altura
+          state.form.observacoes = paciente.observacoes
+          state.form.glicemia = paciente.glicemia
+          state.form.aplicacao = paciente.aplicacao
           this.setState(state)
         })
         .finally((e) => this.setState({ LoadingSpinner: false }))
@@ -165,8 +169,8 @@ class Form_create_paciente extends React.Component {
       "peso": form.peso,
       "altura": form.altura,
       "imc": form.peso / ((form.altura / 100) * (form.altura / 100)),
-      "dataInternacao": form.dataInternacao, 
-      "horaInternacao": form.horaInternacao, 
+      "dataInternacao": form.dataInternacao,
+      "horaInternacao": form.horaInternacao,
       "tipoInternacao": form.tipoInternacao,
       "diabetes": form.diabetes,
       "insuficienciaRenal": form.insuficienciaRenal,
@@ -179,8 +183,8 @@ class Form_create_paciente extends React.Component {
       "observacoes": form.observacoes,
       "createDate": dataCriacao,
       "updateDate": dataCriacao,
-      "glucose":  [],
-	    "aplicacao":  []
+      "glicemia": form.glicemia,
+      "aplicacao": form.aplicacao
     })
       .then(response => {
         const url = this.state.redirectUrl === '/admin/Form_glicemia/0'
@@ -215,22 +219,25 @@ class Form_create_paciente extends React.Component {
           "prontuario": form.prontuario,
           "nome": form.nome,
           "dataNascimento": form.dataNascimento,
+          "sexo": form.sexo,
+          "peso": form.peso,
+          "altura": form.altura,
+          "imc": form.peso / ((form.altura / 100) * (form.altura / 100)),
+          "dataInternacao": form.dataInternacao, 
+          "horaInternacao": form.horaInternacao, 
           "tipoInternacao": form.tipoInternacao,
           "diabetes": form.diabetes,
           "insuficienciaRenal": form.insuficienciaRenal,
           "corticoide": form.corticoide,
-          "sexo": form.sexo,
-          "dataHoraInternacao": form.dataInternacao + " " + form.horaInternacao,
-          "observacoes": form.observacoes,
-          "estadoPaciente": form.alta ? "alta" : "internado",
-          "planoAplicacao": planoAplicacao,
-          "updateDate": dataAtualizacao,
-          "peso": form.peso,
-          "altura": form.altura,
-          "instabilidadeHemodinamica": form.instabilidadeHemodinamica,
           "infeccao": form.infeccao,
-          "sindromeDesconfortoRespiratorio": form.sindromeDesconfortoRespiratorio,
-          "imc": form.peso / ((form.altura / 100) * (form.altura / 100))
+          "sindromeDescRespiratorio": form.sindromeDesconfortoRespiratorio,
+          "instabilidadeHemodinamica": form.instabilidadeHemodinamica,
+          "statusPaciente": form.alta ? "alta" : "internado",
+          "planoAplicacao": planoAplicacao,
+          "observacoes": form.observacoes,
+          "updateDate": dataAtualizacao,
+          "glicemia":  form.glicemia,
+          "aplicacao":  form.aplicacao
         }
       }
     )
