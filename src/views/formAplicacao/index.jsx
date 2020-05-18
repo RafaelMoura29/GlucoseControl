@@ -113,8 +113,6 @@ class FormAplicacao extends React.Component {
 
     let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
     axios.post("https://glucosecontrolapp.herokuapp.com/aplicacao", {
-      prontuario: form.prontuario,
-      paciente: form.paciente,
       dataAplicacao: form.dataAplicacao,
       horaAplicacao: form.horaAplicacao,
       tipoAplicacao: form.tipoAplicacao,
@@ -122,9 +120,9 @@ class FormAplicacao extends React.Component {
       droga: form.droga,
       posologia: form.posologia,
       observacoes: form.observacoes,
-      _idPaciente: this._idPaciente,
       createDate: dataCriacao,
-      updateDate: dataCriacao
+      updateDate: dataCriacao,
+      _idPaciente: this._idPaciente,
     })
       .then(response => {
         console.log(response)
@@ -164,7 +162,7 @@ class FormAplicacao extends React.Component {
             ...this.state.form,
             prontuario: paciente.prontuario,
             paciente: paciente.nome,
-            dataHoraInternacao: paciente.dataHoraInternacao
+            dataHoraInternacao: paciente.dataInternacao + ' ' + paciente.horaInternacao
           }
         })
       })
@@ -354,7 +352,7 @@ class FormAplicacao extends React.Component {
               <CardFooter>
                 <Button className="btn-fill" color="info" type="submit" onClick={this.salvarAplicacao}>
                   SALVAR APLICAÇÃO
-                                </Button>
+                </Button>
               </CardFooter>
 
             </Card>
