@@ -69,6 +69,12 @@ class PainelPaciente extends React.Component {
                 let aplicacoes = paciente.aplicacao.map((aplicacao) => ({ ...aplicacao, procedimento: 'Aplicação' }))
                 let glicemiaEAplicacoes = glicemias.concat(aplicacoes)
                 let dataInternacao = paciente.dataInternacao
+                glicemiaEAplicacoes.sort((primeiroElemento, segundoElemento) => {
+                    let dateA = new Date(primeiroElemento.dataAplicacao || primeiroElemento.dataColeta)
+                    let dateB = new Date(segundoElemento.dataAplicacao || segundoElemento.dataColeta)
+                    return  dateB - dateA
+                })
+                console.log(glicemiaEAplicacoes)
                 this.setState({
                     nomePaciente: paciente.nome,
                     filtroDataInicial: dataInternacao,
@@ -201,17 +207,19 @@ class PainelPaciente extends React.Component {
                                             <tr>
                                                 <th>Data</th>
                                                 <th>Hora</th>
-                                                <th>Valor Glicemia</th>
+                                                <th>Procedimento</th>
                                                 <th>Tipo</th>
+                                                <th>Valor</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {this.state.glucosePacienteFiltrado.map(glucose => (
-                                                <tr key={glucose._id}>
-                                                    <td>{this.formataData(glucose.dataColeta)}</td>
-                                                    <td>{glucose.horaColeta}</td>
-                                                    <td>{glucose.valorGlicemia}</td>
-                                                    <td>{glucose.tipo}</td>
+                                            {this.state.glicemiaEAplicacoes.map((procedimento, index) => (
+                                                <tr key={index}>
+                                                    <td>{this.formataData(procedimento.dataColeta || procedimento.dataAplicacao)}</td>
+                                                    <td>{procedimento.horaColeta || procedimento.horaAplicacao}</td>
+                                                    <td>{procedimento.procedimento}</td>
+                                                    <td>{procedimento.tipoColeta || procedimento.tipoAplicacao}</td>
+                                                    <td>{procedimento.valorGlicemia || procedimento.posologia}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
@@ -225,8 +233,8 @@ class PainelPaciente extends React.Component {
                         <CardHeader>
                             <CardTitle tag="h3">
                                 <i className="fa fa-tint" />{" "}
-                    Evolução da glicemia
-                  </CardTitle>
+                                Evolução da glicemia
+                            </CardTitle>
                         </CardHeader>
                         <CardBody>
                             <Col className="pr-md-1" md="12">
@@ -275,6 +283,7 @@ class PainelPaciente extends React.Component {
                                     </Col>
                                 </Row>
                             </Col>
+
                             <Col className="pr-md-1" md="12">
 
                                 <div className="chart-area">
