@@ -37,13 +37,15 @@ class PainelPaciente extends React.Component {
         super(props);
         this.state = {
             glicemiaEAplicacoes: [],
+            glicemiaEAplicacoesFiltrados: [],
             glucosePaciente: [],
             glucosePacienteFiltrado: [],
             filtroDataColeta: 0,
             filtroDataInicial: "2000-03-28",
             filtroDataFinal: dataInternacao,
             lineChart: lineChart,
-            nomePaciente: ''
+            nomePaciente: '',
+            tipoInternacaoFiltro: 'Todos'
         };
         this._idPaciente = "";
     }
@@ -72,13 +74,13 @@ class PainelPaciente extends React.Component {
                 glicemiaEAplicacoes.sort((primeiroElemento, segundoElemento) => {
                     let dateA = new Date(primeiroElemento.dataAplicacao || primeiroElemento.dataColeta)
                     let dateB = new Date(segundoElemento.dataAplicacao || segundoElemento.dataColeta)
-                    return  dateB - dateA
+                    return dateB - dateA
                 })
-                console.log(glicemiaEAplicacoes)
                 this.setState({
                     nomePaciente: paciente.nome,
                     filtroDataInicial: dataInternacao,
-                    glicemiaEAplicacoes
+                    glicemiaEAplicacoes,
+                    glicemiaEAplicacoesFiltrados: glicemiaEAplicacoes
                 })
             })
     }
@@ -117,6 +119,27 @@ class PainelPaciente extends React.Component {
         state.lineChart.dados = dadosGlicemia
         state.lineChart.labels = labelsColeta
         this.setState(state)
+    }
+
+    handleFiltro = () => {
+        const dataFiltro = this.state.filtroDataColeta
+        const procedimento = this.state.tipoInternacaoFiltro
+        const procedimentosFiltrados = this.state.glicemiaEAplicacoes.filter((coletaAplicacao) => {
+            let data = coletaAplicacao.dataColeta || coletaAplicacao.dataAplicacao
+            return (coletaAplicacao.procedimento === procedimento || procedimento === "Todos") &&
+                (dataFiltro === 0 || data === dataFiltro)
+        })
+        this.setState({ glicemiaEAplicacoesFiltrados: procedimentosFiltrados })
+    }
+
+    handleChange = (e) => this.setState({ [e.target.name]: e.target.value })
+
+    dismissFiltros = () => {
+        this.setState({
+            filtroDataColeta: 0,
+            tipoInternacaoFiltro: 'Todos'
+        }, this.handleFiltro)
+        
     }
 
     render() {
@@ -158,24 +181,26 @@ class PainelPaciente extends React.Component {
                                         <Input
                                             type="select"
                                             name="tipoInternacaoFiltro"
+                                            value={this.state.tipoInternacaoFiltro}
+                                            onChange={this.handleChange}
                                         >
-                                            <option style={{ backgroundColor: '#27293d' }} value="todos">Todos</option>
-                                            <option style={{ backgroundColor: '#27293d' }} value="internado">Internado</option>
-                                            <option style={{ backgroundColor: '#27293d' }} value="alta">Alta</option>
+                                            <option style={{ backgroundColor: '#27293d' }} value="Todos">Todos</option>
+                                            <option style={{ backgroundColor: '#27293d' }} value="Coleta">Coleta</option>
+                                            <option style={{ backgroundColor: '#27293d' }} value="Aplicação">Aplicação</option>
                                         </Input>
                                     </FormGroup>
                                 </Col>
 
                                 <Col md="2">
-                                    <Button onClick={this.filtrarColetas} className="btn-icon" color="info" size="sm">
+                                    <Button
+                                        onClick={this.handleFiltro}
+                                        className="btn-icon"
+                                        color="info"
+                                        size="sm"
+                                    >
                                         <i className="fa fa-search" />
                                     </Button>
-                                    <Button onClick={() => {
-                                        this.setState({ filtroDataColeta: 0 },
-                                            () => {
-                                                this.filtrarColetas()
-                                            })
-                                    }}
+                                    <Button onClick={this.dismissFiltros}
                                         className="btn-icon"
                                         color="warning"
                                         size="sm">
@@ -213,7 +238,7 @@ class PainelPaciente extends React.Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {this.state.glicemiaEAplicacoes.map((procedimento, index) => (
+                                            {this.state.glicemiaEAplicacoesFiltrados.map((procedimento, index) => (
                                                 <tr key={index}>
                                                     <td>{this.formataData(procedimento.dataColeta || procedimento.dataAplicacao)}</td>
                                                     <td>{procedimento.horaColeta || procedimento.horaAplicacao}</td>
