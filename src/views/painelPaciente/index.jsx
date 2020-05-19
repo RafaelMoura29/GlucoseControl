@@ -26,14 +26,6 @@ const axios = require('axios');
 class PainelPaciente extends React.Component {
 
     constructor(props) {
-        let dateTime = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
-        //Separa data da hora
-        dateTime = dateTime.split(" ")
-        //Separa mes, dia e ano
-        let dataInternacao = dateTime[0].split("/")
-        //Ajustando formato da data
-        dataInternacao = dataInternacao[2] + "-" + dataInternacao[1] + "-" + dataInternacao[0]
-
         super(props);
         this.state = {
             glicemiaEAplicacoes: [],
@@ -42,7 +34,7 @@ class PainelPaciente extends React.Component {
             glucosePacienteFiltrado: [],
             filtroDataColeta: 0,
             filtroDataInicial: "2000-03-28",
-            filtroDataFinal: dataInternacao,
+            filtroDataFinal: new Date(),
             lineChart: lineChart,
             nomePaciente: '',
             tipoInternacaoFiltro: 'Todos'
@@ -94,33 +86,26 @@ class PainelPaciente extends React.Component {
         this.setState({
             bigChartData: name
         });
-    };
-
-    filtrarColetas = () => {
-        if (this.state.filtroDataColeta !== 0) {
-            let pacientesFiltrados = this.state.glucosePaciente.filter(glucose => {
-                return glucose.dataColeta === this.state.filtroDataColeta
-            })
-            this.setState({ glucosePacienteFiltrado: pacientesFiltrados })
-        } else {
-            this.setState({ glucosePacienteFiltrado: this.state.glucosePaciente })
-        }
     }
 
     filtrarEvolucaoGlicemia = () => {
         let state = this.state
 
-        let glucoseFiltrada = state.glucosePaciente.filter(glucose => {
-            return glucose.dataColeta >= state.filtroDataInicial && glucose.dataColeta <= state.filtroDataFinal
-        })
-
-        const dadosGlicemia = glucoseFiltrada.map(glucose => glucose.valorGlicemia)
-        const labelsColeta = glucoseFiltrada.map(glucose => this.formataData(glucose.dataColeta) + "-" + glucose.horaColeta)
-        state.lineChart.dados = dadosGlicemia
-        state.lineChart.labels = labelsColeta
-        this.setState(state)
+        let coletas = state.glicemiaEAplicacoes.filter((procedimento) => {
+            let data = procedimento.dataColeta || procedimento.dataAplicacao
+            return data >= state.filtroDataInicial && data <= state.filtroDataFinal && procedimento.procedimento === 'Coleta'
+        }).reverse()
+        console.log(coletas)
+        const dados = coletas.map((coleta) => coleta.valorGlicemia)
+        const labels = coletas.map((coleta) => coleta.dataColeta + ' ' + coleta.horaColeta)
+        state.lineChart.dados = dados
+        state.lineChart.labels = labels
+        this.setState(state) 
     }
 
+    /* 
+        Filtra listagem de coletas e aplicações
+    */
     handleFiltro = () => {
         const dataFiltro = this.state.filtroDataColeta
         const procedimento = this.state.tipoInternacaoFiltro
@@ -132,8 +117,14 @@ class PainelPaciente extends React.Component {
         this.setState({ glicemiaEAplicacoesFiltrados: procedimentosFiltrados })
     }
 
+    /* 
+        Modifica valor do campo
+    */
     handleChange = (e) => this.setState({ [e.target.name]: e.target.value })
 
+    /* 
+        Limpa filtros da listagem de coletas e aplicações
+    */
     dismissFiltros = () => {
         this.setState({
             filtroDataColeta: 0,
@@ -275,7 +266,7 @@ class PainelPaciente extends React.Component {
                                                 type="date"
                                                 name="filtroDataInicial"
                                                 value={this.state.filtroDataInicial}
-                                                onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
+                                                onChange={this.handleChange}
                                             />
                                         </FormGroup>
                                     </Col>
@@ -290,7 +281,7 @@ class PainelPaciente extends React.Component {
                                                         type="date"
                                                         name="filtroDataFinal"
                                                         value={this.state.filtroDataFinal}
-                                                        onChange={(e) => this.setState({ [e.target.name]: e.target.value })}
+                                                        onChange={this.handleChange}
                                                     />
                                                 </Col>
                                                 <Col className="pr-md-1" md="2">
