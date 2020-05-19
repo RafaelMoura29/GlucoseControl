@@ -53,6 +53,7 @@ class PainelPaciente extends React.Component {
         this.setState({ filtroDataFinal: dataAtual })
 
         this.getPaciente()
+        
     }
 
     getPaciente() {
@@ -63,9 +64,17 @@ class PainelPaciente extends React.Component {
                 let aplicacoes = paciente.aplicacao.map((aplicacao) => ({ ...aplicacao, procedimento: 'Aplicação' }))
                 let glicemiaEAplicacoes = glicemias.concat(aplicacoes)
                 let dataInternacao = paciente.dataInternacao
-                glicemiaEAplicacoes.sort((primeiroElemento, segundoElemento) => {
-                    let dateA = new Date(primeiroElemento.dataAplicacao || primeiroElemento.dataColeta)
-                    let dateB = new Date(segundoElemento.dataAplicacao || segundoElemento.dataColeta)
+                glicemiaEAplicacoes.sort((a, b) => {
+                    let auxA = a.procedimento === 'Coleta'
+                        ? a.dataColeta + ' ' + a.horaColeta
+                        : a.dataAplicacao + ' ' + a.horaAplicacao
+
+                    let auxB = b.procedimento === 'Coleta'
+                        ? b.dataColeta + ' ' + b.horaColeta
+                        : b.dataAplicacao + ' ' + b.horaAplicacao
+
+                    let dateA = new Date(auxA)
+                    let dateB = new Date(auxB)
                     return dateB - dateA
                 })
                 this.setState({
@@ -73,7 +82,7 @@ class PainelPaciente extends React.Component {
                     filtroDataInicial: dataInternacao,
                     glicemiaEAplicacoes,
                     glicemiaEAplicacoesFiltrados: glicemiaEAplicacoes
-                })
+                }, this.filtrarEvolucaoGlicemia)
             })
     }
 
@@ -90,17 +99,16 @@ class PainelPaciente extends React.Component {
 
     filtrarEvolucaoGlicemia = () => {
         let state = this.state
-
+        console.log(state)
         let coletas = state.glicemiaEAplicacoes.filter((procedimento) => {
             let data = procedimento.dataColeta || procedimento.dataAplicacao
             return data >= state.filtroDataInicial && data <= state.filtroDataFinal && procedimento.procedimento === 'Coleta'
         }).reverse()
-        console.log(coletas)
         const dados = coletas.map((coleta) => coleta.valorGlicemia)
-        const labels = coletas.map((coleta) => coleta.dataColeta + ' ' + coleta.horaColeta)
+        const labels = coletas.map((coleta) => this.formataData(coleta.dataColeta) + ' ' + coleta.horaColeta)
         state.lineChart.dados = dados
         state.lineChart.labels = labels
-        this.setState(state) 
+        this.setState(state)
     }
 
     /* 
@@ -130,7 +138,7 @@ class PainelPaciente extends React.Component {
             filtroDataColeta: 0,
             tipoInternacaoFiltro: 'Todos'
         }, this.handleFiltro)
-        
+
     }
 
     render() {
