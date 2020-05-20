@@ -53,7 +53,6 @@ class PainelPaciente extends React.Component {
         this.setState({ filtroDataFinal: dataAtual })
 
         this.getPaciente()
-        
     }
 
     getPaciente() {
@@ -91,15 +90,8 @@ class PainelPaciente extends React.Component {
         return a[2] + "/" + a[1] + "/" + a[0];
     }
 
-    setBgChartData = (name) => {
-        this.setState({
-            bigChartData: name
-        });
-    }
-
     filtrarEvolucaoGlicemia = () => {
         let state = this.state
-        console.log(state)
         let coletas = state.glicemiaEAplicacoes.filter((procedimento) => {
             let data = procedimento.dataColeta || procedimento.dataAplicacao
             return data >= state.filtroDataInicial && data <= state.filtroDataFinal && procedimento.procedimento === 'Coleta'
@@ -149,16 +141,19 @@ class PainelPaciente extends React.Component {
                         <CardBody>
                             <Row>
                                 <Col className="pr-md-1" md="7">
-                                    <h3 className="title">COLETAS e APLICAÇÕES</h3>
+                                    <h3 style={{fontSize: 25}}>COLETAS e APLICAÇÕES</h3>
                                 </Col>
 
-                                <Col className="pr-md-1" md="5">
-                                    <h3 className="title">Coletas de {this.state.nomePaciente}</h3>
-                                    <Link to={'/admin/form_create_paciente/' + this._idPaciente}>
+                                <Col className="pr-md-1" style={{textAlign:"right"}} md="5">
+                                    <h3 style={{fontSize: 18}}>
+                                        Coletas de {this.state.nomePaciente}
+                                    <Link style={{marginRight: 12, marginLeft: 12}} to={'/admin/form_create_paciente/' + this._idPaciente}>
                                         <Button className="btn-icon" color="info" size="sm">
                                             <i className="fas fa-edit"></i>
                                         </Button>
                                     </Link>
+                                    </h3>
+                                    
                                 </Col>
                             </Row>
 
