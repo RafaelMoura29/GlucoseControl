@@ -139,7 +139,7 @@ class PainelPaciente extends React.Component {
                 <div className="content">
                     <Card >
                         <CardBody>
-                            <Row>
+                            <Row >
                                 <Col className="pr-md-1" md="7">
                                     <h3 style={{fontSize: 25}}>COLETAS e APLICAÇÕES</h3>
                                 </Col>
@@ -157,8 +157,8 @@ class PainelPaciente extends React.Component {
                                 </Col>
                             </Row>
 
-                            <Row>
-                                <Col md="2">
+                            <Row className="mb-4" style={{display: 'flex', alignItems: 'stretch'}}>
+                                <Col md="3">
                                     <FormGroup>
                                         <Input
                                             type="date"
@@ -202,19 +202,19 @@ class PainelPaciente extends React.Component {
                                     </Button>
                                 </Col>
 
-                                <Col md="5">
+                                <Col md="4" >
+                                    <Link style={{float: "right", marginLeft: 12}} to={"/admin/formAplicacao/" + this._idPaciente}>
+                                        <Button className="btn-fill" color="success" type="submit">
+                                            APLICAR
+                                        </Button>
+                                    </Link>
 
-                                    <Link to={"/admin/Form_glicemia/" + this._idPaciente}>
+                                    <Link style={{float: "right"}} to={"/admin/Form_glicemia/" + this._idPaciente}>
                                         <Button className="btn-fill" color="warning" type="submit">
                                             COLETAR
                                         </Button>
                                     </Link>
 
-                                    <Link to={"/admin/formAplicacao/" + this._idPaciente}>
-                                        <Button className="btn-fill" color="success" type="submit">
-                                            APLICAR
-                                        </Button>
-                                    </Link>
                                 </Col>
                             </Row>
 
