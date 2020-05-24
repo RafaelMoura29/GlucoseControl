@@ -86,7 +86,7 @@ class Admin extends React.Component {
           routes[i].layout + routes[i].path 
         ) !== -1
       ) {
-        return routes[i].name;
+        return ''
       }
     }
     return "Brand";
