@@ -954,7 +954,7 @@ class Form_create_paciente extends React.Component {
                       {this.state.textBtnRequest} E FAZER COLETA
                                         </Button>
                     <Button className="btn-fill" color="success" name="btnAplicacao" type="submit" onClick={this.verificarPreenchimentoForm}>
-                      {this.state.textBtnRequest} E FAZER COLETA
+                      {this.state.textBtnRequest} E FAZER APLICAÇÃO
                                         </Button>
                   </div>
                 </CardFooter>
