@@ -53,9 +53,9 @@ class Form_create_paciente extends React.Component {
         dataInternacao: dataInternacao,
         horaInternacao: horaInternacao,
         tipoInternacao: 'Clínica',
-        diabetes: 'Não se aplica',
-        insuficienciaRenal: 'Não se aplica',
-        corticoide: 'Não se aplica',
+        diabetes: 'Ignorado',
+        insuficienciaRenal: 'Ignorado',
+        corticoide: 'Ignorado',
         infeccao: 'Ignorado',
         sindromeDesconfortoRespiratorio: 'Ignorado',
         instabilidadeHemodinamica: 'Ignorado',
@@ -849,12 +849,11 @@ class Form_create_paciente extends React.Component {
                             name="diabetes"
                             onChange={this.updateInputValue}
                             value={this.state.form.diabetes}>
-                            <option style={{ backgroundColor: '#27293d' }}>Não se aplica</option>
+                            <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
                             <option style={{ backgroundColor: '#27293d' }}>Controle domiciliar dietético</option>
                             <option style={{ backgroundColor: '#27293d' }}>Controle domiciliar com hipoglicemiante oral</option>
                             <option style={{ backgroundColor: '#27293d' }}>Controle domiciliar com insulina</option>
                             <option style={{ backgroundColor: '#27293d' }}>Controle domiciliar medicamentoso misto</option>
-                            <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
                             <option style={{ backgroundColor: '#27293d' }}>Não tem</option>
                           </Input>
                         </FormGroup>
@@ -867,12 +866,11 @@ class Form_create_paciente extends React.Component {
                             onChange={this.updateInputValue}
                             value={this.state.form.insuficienciaRenal}
                           >
-                            <option style={{ backgroundColor: '#27293d' }}>Não se aplica</option>
+                            <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
                             <option style={{ backgroundColor: '#27293d' }}>crônica dialítica</option>
                             <option style={{ backgroundColor: '#27293d' }}>crônica não dialítica</option>
                             <option style={{ backgroundColor: '#27293d' }}>aguda dialítica</option>
                             <option style={{ backgroundColor: '#27293d' }}>aguda não dialítica</option>
-                            <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
                             <option style={{ backgroundColor: '#27293d' }}>Não tem</option>
                           </Input>
                         </FormGroup>
@@ -885,10 +883,9 @@ class Form_create_paciente extends React.Component {
                             onChange={this.updateInputValue}
                             value={this.state.form.corticoide}
                           >
-                            <option style={{ backgroundColor: '#27293d' }}>Não se aplica</option>
+                            <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
                             <option style={{ backgroundColor: '#27293d' }}>a mais de 7 dias</option>
                             <option style={{ backgroundColor: '#27293d' }}>menos de 7 dias</option>
-                            <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
                             <option style={{ backgroundColor: '#27293d' }}>Não tem</option>
                           </Input>
                         </FormGroup>
@@ -901,10 +898,10 @@ class Form_create_paciente extends React.Component {
                             onChange={this.updateInputValue}
                             value={this.state.form.instabilidadeHemodinamica}>
                             <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
-                            <option style={{ backgroundColor: '#27293d' }}>Não tem</option>
                             <option style={{ backgroundColor: '#27293d' }}>Sim - Controlado sem drogas vasoativas</option>
                             <option style={{ backgroundColor: '#27293d' }}>Sim - Controlado com drogas </option>
                             <option style={{ backgroundColor: '#27293d' }}>Sim - Descontrolado apesar das drogas</option>
+                            <option style={{ backgroundColor: '#27293d' }}>Não tem</option>
                           </Input>
                         </FormGroup>
 
@@ -916,9 +913,9 @@ class Form_create_paciente extends React.Component {
                             onChange={this.updateInputValue}
                             value={this.state.form.infeccao}>
                             <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
-                            <option style={{ backgroundColor: '#27293d' }}>Não tem</option>
                             <option style={{ backgroundColor: '#27293d' }}>Infecção simples</option>
                             <option style={{ backgroundColor: '#27293d' }}>Sepse</option>
+                            <option style={{ backgroundColor: '#27293d' }}>Não tem</option>
                           </Input>
                         </FormGroup>
 
@@ -930,8 +927,8 @@ class Form_create_paciente extends React.Component {
                             onChange={this.updateInputValue}
                             value={this.state.form.sindromeDesconfortoRespiratorio}>
                             <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
-                            <option style={{ backgroundColor: '#27293d' }}>Não tem</option>
                             <option style={{ backgroundColor: '#27293d' }}>Possui</option>
+                            <option style={{ backgroundColor: '#27293d' }}>Não tem</option>
                           </Input>
                         </FormGroup>
 
