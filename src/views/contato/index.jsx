@@ -1,9 +1,12 @@
 import React from "react";
 import './style.css'
+import { Link } from "react-router-dom";
 
 import {
     Card,
-    CardBody
+    CardBody,
+    Row,
+    Col
 } from "reactstrap";
 
 class Contato extends React.Component {
@@ -12,6 +15,7 @@ class Contato extends React.Component {
         super(props);
         this.state = {
         };
+        console.log(props)
     }
 
     render() {
@@ -44,6 +48,19 @@ class Contato extends React.Component {
                             <p style={{ fontSize: '0.9em', color: "#aaa" }}>+55 61 9 9635-6968</p>
 
                         </CardBody>
+                        <Row
+                            style={{ marginBottom: 15, paddingLeft: 15 }}
+                        >
+                            <Col className="pr-md-1" md="2">
+                                <Link
+                                    style={{ color: '#ddd' }}
+                                    to={false}
+                                    onClick={() => this.props.history.goBack()}
+                                >
+                                    {"<- Voltar"}
+                                </Link>
+                            </Col>
+                        </Row>
                     </Card>
                 </div>
             </>

@@ -89,7 +89,7 @@ class Admin extends React.Component {
         return ''
       }
     }
-    return "Brand";
+    return "";
   };
   render() {
     return (

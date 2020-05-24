@@ -2,6 +2,7 @@ import React from "react";
 import LoadingSpinner from '../../components/LoadingSpinner.js'
 import ModalMessager from '../../components/ModalMessager.js'
 import './style.css'
+import { Link } from "react-router-dom";
 
 import {
   Card,
@@ -353,6 +354,13 @@ class FormAplicacao extends React.Component {
                 <Button className="btn-fill" color="info" type="submit" onClick={this.salvarAplicacao}>
                   SALVAR APLICAÇÃO
                 </Button>
+                <Link
+                  to={'/admin/PainelPaciente/' + this._idPaciente}
+                >
+                  <Button className="btn-fill" color="danger">
+                    CANCELAR
+                  </Button>
+                </Link>
               </CardFooter>
 
             </Card>

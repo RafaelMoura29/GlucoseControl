@@ -314,6 +314,19 @@ class PainelPaciente extends React.Component {
                             </Col>
 
                         </CardBody>
+                        <Row
+                            style={{ marginBottom: 15, paddingLeft: 15 }}
+                        >
+                            <Col className="pr-md-1" md="2">
+                                <Link
+                                    style={{ color: '#ddd' }}
+                                    to={false}
+                                    onClick={() => this.props.history.goBack()}
+                                >
+                                    {"<- Voltar"}
+                                </Link>
+                            </Col>
+                        </Row>
                     </Card>
 
                 </div>

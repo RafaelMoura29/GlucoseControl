@@ -4,10 +4,13 @@ import img2 from "../../assets/img/imgs_ajuda/img2.png"
 import img3 from "../../assets/img/imgs_ajuda/img3.png"
 import img4 from "../../assets/img/imgs_ajuda/img4.png"
 import './style.css'
+import { Link } from "react-router-dom";
 
 import {
     Card,
-    CardBody
+    CardBody,
+    Row,
+    Col
 } from "reactstrap";
 
 class Ajuda extends React.Component {
@@ -45,6 +48,19 @@ class Ajuda extends React.Component {
                             <p className="mb-3" style={{ fontSize: '0.9em', color: 'gray', textAlign: 'center' }}>Figura 4 – Tela de Coletas de Glicemia</p>
 
                         </CardBody>
+                        <Row
+                            style={{ marginBottom: 15, paddingLeft: 15 }}
+                        >
+                            <Col className="pr-md-1" md="2">
+                                <Link
+                                    style={{ color: '#ddd' }}
+                                    to={false}
+                                    onClick={() => this.props.history.goBack()}
+                                >
+                                    {"<- Voltar"}
+                                </Link>
+                            </Col>
+                        </Row>
                     </Card>
                 </div>
             </>

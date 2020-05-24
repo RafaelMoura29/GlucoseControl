@@ -3,6 +3,7 @@ import React from "react";
 import LoadingSpinner from '../../components/LoadingSpinner.js'
 import ModalMessager from '../../components/ModalMessager.js'
 import './style.css'
+import { Link } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -307,6 +308,13 @@ class Form_glicemia extends React.Component {
                                 <Button className="btn-fill" color="info" type="submit" onClick={this.saveGlicose}>
                                     SALVAR GLICEMIA
                                 </Button>
+                                <Link
+                                    to={'/admin/PainelPaciente/' + this._idPaciente}
+                                >
+                                    <Button className="btn-fill" color="danger">
+                                        CANCELAR
+                                    </Button>
+                                </Link>
                             </CardFooter>
                         </Card>
                     </Row>
