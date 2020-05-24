@@ -107,6 +107,7 @@ class PainelPaciente extends React.Component {
         Filtra listagem de coletas e aplicações
     */
     handleFiltro = () => {
+        console.log('b')
         const dataFiltro = this.state.filtroDataColeta
         const procedimento = this.state.tipoInternacaoFiltro
         const procedimentosFiltrados = this.state.glicemiaEAplicacoes.filter((coletaAplicacao) => {
@@ -146,7 +147,7 @@ class PainelPaciente extends React.Component {
 
                                 <Col className="pr-md-1" style={{textAlign:"right"}} md="5">
                                     <h3 style={{fontSize: 18}}>
-                                        Coletas de {this.state.nomePaciente}
+                                        {this.state.nomePaciente}
                                     <Link style={{marginRight: 12, marginLeft: 12}} to={'/admin/form_create_paciente/' + this._idPaciente}>
                                         <Button className="btn-icon" color="info" size="sm">
                                             <i className="fas fa-edit"></i>
@@ -304,7 +305,6 @@ class PainelPaciente extends React.Component {
                             </Col>
 
                             <Col className="pr-md-1" md="12">
-
                                 <div className="chart-area">
                                     <Line
                                         data={this.state.lineChart.data}
