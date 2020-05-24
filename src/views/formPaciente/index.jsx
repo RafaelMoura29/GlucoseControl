@@ -62,9 +62,9 @@ class Form_create_paciente extends React.Component {
         internado: true,
         alta: false,
         planoAplicacao: [
-          false, false, false, false, false, false,
-          false, false, false, false, false, false,
-          false, false, false, false, false, false,
+          false, false, false, false, false, true,
+          false, false, false, false, false, true,
+          false, false, false, false, false, true,
           false, false, false, false, false, false,
         ],
         observacoes: '',
@@ -102,6 +102,7 @@ class Form_create_paciente extends React.Component {
           state.form.instabilidadeHemodinamica = paciente.instabilidadeHemodinamica
           state.form.internado = paciente.estadoPaciente !== 'alta'
           state.form.alta = paciente.estadoPaciente === 'alta'
+          state.form.planoAplicacao = state.form.planoAplicacao.map((hora) => false)
           paciente.planoAplicacao.split("#").map(hora => (
             state.form.planoAplicacao[parseInt(hora) - 1] = true
           ))
