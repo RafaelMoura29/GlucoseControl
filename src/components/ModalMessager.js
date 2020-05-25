@@ -2,10 +2,12 @@ import React from 'react';
 import {
   Modal,
   ModalBody,
-  CardText
+  CardText,
+  Row,
+  Col
 } from "reactstrap";
 
-const ModalMessager = ({ children, visible, text, toggle }) => (
+const ModalMessager = ({ children, visible, text, textSecondary }) => (
   <Modal isOpen={visible} fade={false} style={{
     width: '300px',
     height: '300px',
@@ -22,6 +24,9 @@ const ModalMessager = ({ children, visible, text, toggle }) => (
       <CardText style={{ color: '#ddd' }}>
         {text}
       </CardText>
+      <blockquote className="blockquote text-center">
+        <p className="mb-0" style={{ color: '#ddd', fontSize: 13 }}>{textSecondary}</p>
+      </blockquote>
     </ModalBody>
   </Modal>
 
