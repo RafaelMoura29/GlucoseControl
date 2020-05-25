@@ -15,7 +15,7 @@ class Pacientes extends React.Component {
             nomePacienteFiltro: "",
             tipoInternacaoFiltro: "todos",
             LoadingSpinner: false
-        };
+        }
     }
 
     formataData(data) {

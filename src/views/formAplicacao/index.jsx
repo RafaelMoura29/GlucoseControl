@@ -352,15 +352,13 @@ class FormAplicacao extends React.Component {
                 <Button className="btn-fill" color="info" type="submit" onClick={this.salvarAplicacao}>
                   SALVAR APLICAÇÃO
                 </Button>
-                <Link
-                  to={'/admin/PainelPaciente/' + this._idPaciente}
+                <Button
+                  className="btn-fill" color="danger"
+                  onClick={() => this.props.histroy.push('/admin/PainelPaciente/')}
                 >
-                  <Button className="btn-fill" color="danger">
-                    CANCELAR
+                  CANCELAR
                   </Button>
-                </Link>
               </CardFooter>
-
             </Card>
           </Row>
         </div>

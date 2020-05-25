@@ -37,7 +37,7 @@ class Sobre extends React.Component {
                             <Col className="pr-md-1" md="2">
                                 <Link
                                     style={{ color: '#ddd' }}
-                                    to={false}
+                                    to={{}}
                                     onClick={() => this.props.history.goBack()}
                                 >
                                     {"<- Voltar"}
