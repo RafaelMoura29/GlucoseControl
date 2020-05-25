@@ -107,7 +107,6 @@ class PainelPaciente extends React.Component {
         Filtra listagem de coletas e aplicações
     */
     handleFiltro = () => {
-        console.log('b')
         const dataFiltro = this.state.filtroDataColeta
         const procedimento = this.state.tipoInternacaoFiltro
         const procedimentosFiltrados = this.state.glicemiaEAplicacoes.filter((coletaAplicacao) => {

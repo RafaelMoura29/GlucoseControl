@@ -78,7 +78,7 @@ class FormAplicacao extends React.Component {
 
   toggleMessager = () => {
     if (this.state.nextPage) {
-      document.location.href = '/admin/PainelPaciente/' + this._idPaciente
+      this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)
     }
     this.setState({ ModalMessager: !this.state.ModalMessager });
   }
@@ -126,7 +126,6 @@ class FormAplicacao extends React.Component {
       _idPaciente: this._idPaciente,
     })
       .then(response => {
-        console.log(response)
         this.setState({
           LoadingSpinner: false,
           ModalMessager: true,
@@ -145,7 +144,6 @@ class FormAplicacao extends React.Component {
         });
       })
       .catch(error => {
-        console.log(error)
         this.setState({
           LoadingSpinner: false,
           ModalMessager: true,

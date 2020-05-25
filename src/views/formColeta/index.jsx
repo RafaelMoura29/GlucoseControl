@@ -67,7 +67,7 @@ class Form_glicemia extends React.Component {
   }
 
   toggleMessager = () => {
-    document.location.href = '/admin/PainelPaciente/' + this._idPaciente
+    this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)
     this.setState({ ModalMessager: !this.state.ModalMessager });
   }
 

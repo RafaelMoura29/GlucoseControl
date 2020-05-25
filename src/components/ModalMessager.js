@@ -24,9 +24,11 @@ const ModalMessager = ({ children, visible, text, textSecondary }) => (
       <CardText style={{ color: '#ddd' }}>
         {text}
       </CardText>
-      <blockquote className="blockquote text-center">
-        <p className="mb-0" style={{ color: '#ddd', fontSize: 13 }}>{textSecondary}</p>
-      </blockquote>
+      {textSecondary &&
+        <blockquote className="blockquote text-center">
+          <p className="mb-0" style={{ color: '#ddd', fontSize: 13 }}>{textSecondary}</p>
+        </blockquote>
+      }
     </ModalBody>
   </Modal>
 

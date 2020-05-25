@@ -125,7 +125,7 @@ class Form_create_paciente extends React.Component {
 
   toggleMessager = () => {
     if (this.state.redirectUrl !== null) {
-      document.location.href = this.state.redirectUrl
+      this.props.history.push(this.state.redirectUrl)
     }
     this.setState({ ModalMessager: !this.state.ModalMessager });
   }
@@ -160,31 +160,6 @@ class Form_create_paciente extends React.Component {
 
     let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
     let form = this.state.form
-    console.log({
-      "prontuario": form.prontuario,
-      "nome": form.nome,
-      "dataNascimento": form.dataNascimento,
-      "sexo": form.sexo,
-      "peso": form.peso,
-      "altura": form.altura,
-      "imc": form.peso / ((form.altura / 100) * (form.altura / 100)),
-      "dataInternacao": form.dataInternacao,
-      "horaInternacao": form.horaInternacao,
-      "tipoInternacao": form.tipoInternacao,
-      "diabetes": form.diabetes,
-      "insuficienciaRenal": form.insuficienciaRenal,
-      "corticoide": form.corticoide,
-      "infeccao": form.infeccao,
-      "sindromeDescRespiratorio": form.sindromeDesconfortoRespiratorio,
-      "instabilidadeHemodinamica": form.instabilidadeHemodinamica,
-      "statusPaciente": form.alta ? "alta" : "internado",
-      "planoAplicacao": planoAplicacao,
-      "observacoes": form.observacoes,
-      "createDate": dataCriacao,
-      "updateDate": dataCriacao,
-      "glicemia": form.glicemia,
-      "aplicacao": form.aplicacao
-    })
     //Gravando paciente
     axios.post("https://glucosecontrolapp.herokuapp.com/paciente", {
       "prontuario": form.prontuario,
@@ -339,7 +314,7 @@ class Form_create_paciente extends React.Component {
 
   toggleModalMesseger = () => {
     if (this.state.redirectUrl !== null) {
-      return document.location.href = this.state.redirectUrl
+      return this.props.history.push(this.state.redirectUrl)
     }
     this.setState({ ModalMessager: false })
   }

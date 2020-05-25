@@ -122,7 +122,7 @@ class Pacientes extends React.Component {
                                         <tr
                                             key={paciente._id}
                                             className="trListPaciente"
-                                            onClick={() => document.location.href = '/admin/PainelPaciente/' + paciente._id}
+                                            onClick={() => this.props.history.push('/admin/PainelPaciente/' + paciente._id)}
                                         >
                                             <td>{paciente.prontuario}</td>
                                             <td>{paciente.nome}</td>
