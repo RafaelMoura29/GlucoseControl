@@ -160,7 +160,6 @@ class Form_create_paciente extends React.Component {
 
     let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
     let form = this.state.form
-
     //Gravando paciente
     axios.post("https://glucosecontrolapp.herokuapp.com/paciente", {
       "prontuario": form.prontuario,
@@ -187,9 +186,9 @@ class Form_create_paciente extends React.Component {
       "glicemia": form.glicemia,
       "aplicacao": form.aplicacao
     })
-      .then(response => {
+      .then(({data}) => {
         const url = this.state.redirectUrl === '/admin/Form_glicemia/0'
-          ? '/admin/Form_glicemia/' + response.data.paciente._id
+          ? '/admin/Form_glicemia/' + data._id
           : this.state.redirectUrl
 
         this.setState({
@@ -202,6 +201,7 @@ class Form_create_paciente extends React.Component {
       .catch(error => {
         this.setState({
           LoadingSpinner: false,
+          redirectUrl: null,
           ModalMessager: true,
           ModalMessagerText: 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
         });
@@ -224,8 +224,8 @@ class Form_create_paciente extends React.Component {
           "peso": form.peso,
           "altura": form.altura,
           "imc": form.peso / ((form.altura / 100) * (form.altura / 100)),
-          "dataInternacao": form.dataInternacao, 
-          "horaInternacao": form.horaInternacao, 
+          "dataInternacao": form.dataInternacao,
+          "horaInternacao": form.horaInternacao,
           "tipoInternacao": form.tipoInternacao,
           "diabetes": form.diabetes,
           "insuficienciaRenal": form.insuficienciaRenal,
@@ -237,15 +237,18 @@ class Form_create_paciente extends React.Component {
           "planoAplicacao": planoAplicacao,
           "observacoes": form.observacoes,
           "updateDate": dataAtualizacao,
-          "glicemia":  form.glicemia,
-          "aplicacao":  form.aplicacao
+          "glicemia": form.glicemia,
+          "aplicacao": form.aplicacao
         }
       }
     )
       .then(response => this.showOrHideMessager(false, true, 'Dados Gravados Com Sucesso', this.state.redirectUrl))
-      .catch(error => (
+      .catch(error => {
+        this.setState({
+          redirectUrl: null,
+        })
         this.showOrHideMessager(false, true, 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!')
-      ))
+      })
   }
 
   showOrHideMessager = (LoadingSpinner, ModalMessager, ModalMessagerText, redirectUrl = null) => {
@@ -304,8 +307,9 @@ class Form_create_paciente extends React.Component {
 
     if (this.state.requestType === "post") {
       this.salvarPaciente(planoAplicacao)
+    } else {
+      this.atualizarPaciente(planoAplicacao)
     }
-    this.atualizarPaciente(planoAplicacao)
   }
 
   toggleModalMesseger = () => {
@@ -956,11 +960,11 @@ class Form_create_paciente extends React.Component {
                     <Button className="btn-fill" color="success" name="btnAplicacao" type="submit" onClick={this.verificarPreenchimentoForm}>
                       {this.state.textBtnRequest} E FAZER APLICAÇÃO
                     </Button>
-                    <Button 
-                      className="btn-fill" 
-                      color="danger" 
+                    <Button
+                      className="btn-fill"
+                      color="danger"
                       onClick={() => this.props.history.goBack()}
-                      >
+                    >
                       CANCELAR
                     </Button>
                   </div>
