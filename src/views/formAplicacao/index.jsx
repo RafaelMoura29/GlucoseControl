@@ -173,7 +173,7 @@ class FormAplicacao extends React.Component {
   render() {
     let opcoesDroga = this.state.form.tipoAplicacao === 'de resgate'
       ? ['', 'Insulina Ultra Rápida', 'Insulina Regular', 'Glicose a 50%', 'Glicose a 25%']
-      : ['', 'Insulina NPH', 'Insulina Lenta - Detemir', 'Insulina Ultra Lenta - Glargina']
+      : ['', 'Insulina NPH', 'Insulina Lenta - Detemir', 'Insulina Ultra Lenta - Glargina', 'Insulina Ultra Rápida', 'Insulina Regular', 'Glicose a 50%', 'Glicose a 25%']
 
     return (
       <>
@@ -216,7 +216,7 @@ class FormAplicacao extends React.Component {
 
                         <Col className="pr-md-1" md="6">
                           <FormGroup>
-                            <label>DATA e HORA INTERNAÇÃO</label>
+                            <label>DATA/HORA INTERNAÇÃO</label>
                             <Input
                               placeholder="Data/Hora"
                               type="text"
