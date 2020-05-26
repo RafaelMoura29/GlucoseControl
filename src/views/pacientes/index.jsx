@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import LoadingSpinner from '../../components/LoadingSpinner.js'
 import './style.css'
 import { Button, Row, Col, Form, FormGroup, Input, Table, Card, CardBody } from "reactstrap";
-
-const axios = require("axios");
+import api from '../../variables/api'
 
 class Pacientes extends React.Component {
     constructor(props) {
@@ -27,7 +26,7 @@ class Pacientes extends React.Component {
     async getPacientes() {
         this.setState({ LoadingSpinner: true });
 
-        axios.get("https://glucosecontrolapp.herokuapp.com/paciente")
+        api.get("/paciente")
             .then(({ data }) => {
                 let pacientes = data.paciente.map((paciente) => (
                     {

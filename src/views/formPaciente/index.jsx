@@ -2,6 +2,7 @@ import React from "react";
 import LoadingSpinner from '../../components/LoadingSpinner.js'
 import ModalMessager from '../../components/ModalMessager.js'
 import './style.css'
+import api from '../../variables/api'
 
 // reactstrap components
 import {
@@ -78,7 +79,7 @@ class Form_create_paciente extends React.Component {
     this.setState({ LoadingSpinner: true, modal: false, });
     const { match: { params } } = this.props;
     if (params._idPaciente !== '0') {
-      axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + params._idPaciente)
+      api.get("/paciente?tagId=" + params._idPaciente)
         .then(({ data }) => {
           const paciente = data.paciente[0]
           let state = this.state
@@ -161,7 +162,7 @@ class Form_create_paciente extends React.Component {
     let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
     let form = this.state.form
     //Gravando paciente
-    axios.post("https://glucosecontrolapp.herokuapp.com/paciente", {
+    api.post("/paciente", {
       "prontuario": form.prontuario,
       "nome": form.nome,
       "dataNascimento": form.dataNascimento,
@@ -187,9 +188,12 @@ class Form_create_paciente extends React.Component {
       "aplicacao": form.aplicacao
     })
       .then(({data}) => {
+        console.log(data)
         const url = this.state.redirectUrl === '/admin/Form_glicemia/0'
           ? '/admin/Form_glicemia/' + data._id
-          : this.state.redirectUrl
+          : this.state.redirectUrl === '/admin/formAplicacao/0' 
+            ? '/admin/formAplicacao/' + data._id 
+            : this.state.redirectUrl
 
         this.setState({
           LoadingSpinner: false,
@@ -213,7 +217,7 @@ class Form_create_paciente extends React.Component {
     let dataAtualizacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
     let form = this.state.form
 
-    axios.put("https://glucosecontrolapp.herokuapp.com/paciente",
+    api.put("/paciente",
       {
         "_id": this.state.idPaciente,
         "dataUpdated": {

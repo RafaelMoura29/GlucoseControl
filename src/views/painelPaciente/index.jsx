@@ -2,6 +2,7 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import { Link } from "react-router-dom";
 import './style.css'
+import api from '../../variables/api'
 
 import {
     Card,
@@ -16,12 +17,11 @@ import {
     Input,
     Label
 } from "reactstrap";
+
 import {
     chartExample2,
     lineChart
 } from "variables/charts.jsx";
-
-const axios = require('axios');
 
 class PainelPaciente extends React.Component {
 
@@ -56,7 +56,7 @@ class PainelPaciente extends React.Component {
     }
 
     getPaciente() {
-        axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + this._idPaciente)
+        api.get("/paciente?tagId=" + this._idPaciente)
             .then(({ data: { paciente } }) => {
                 paciente = paciente[0]
                 let glicemias = paciente.glicemia.map((glicemia) => ({ ...glicemia, procedimento: 'Coleta' }))
