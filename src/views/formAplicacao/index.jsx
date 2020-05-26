@@ -352,9 +352,9 @@ class FormAplicacao extends React.Component {
                 <Button className="btn-fill" color="info" type="submit" onClick={this.salvarAplicacao}>
                   SALVAR APLICAÇÃO
                 </Button>
-                <Button
+                <Button 
                   className="btn-fill" color="danger"
-                  onClick={() => this.props.histroy.push('/admin/PainelPaciente/')}
+                  onClick={() => this.props.history.goBack()}
                 >
                   CANCELAR
                   </Button>
