@@ -22,7 +22,7 @@ import {
 class FormAplicacao extends React.Component {
 
   constructor(props) {
-    super()
+    super(props)
     this.state = {
       LoadingSpinner: false,
       ModalMessager: false,
