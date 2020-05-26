@@ -16,7 +16,6 @@ class Pacientes extends React.Component {
       tipoInternacaoFiltro: "todos",
       LoadingSpinner: false
     }
-    console.log(process.env.REACT_APP_API)
   }
 
   formataData(data) {
