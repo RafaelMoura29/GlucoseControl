@@ -124,7 +124,7 @@ class FormAplicacao extends React.Component {
       updateDate: dataCriacao,
       _idPaciente: this._idPaciente,
     })
-      .then(response => {
+      .then((response) => {
         this.setState({
           LoadingSpinner: false,
           ModalMessager: true,
@@ -142,7 +142,7 @@ class FormAplicacao extends React.Component {
           nextPage: true
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           LoadingSpinner: false,
           ModalMessager: true,
@@ -153,8 +153,8 @@ class FormAplicacao extends React.Component {
 
   getPaciente = () => {
     api.get("/paciente?tagId=" + this._idPaciente)
-      .then((response) => {
-        const paciente = response.data.paciente[0]
+      .then(({ data: { paciente } }) => {
+        paciente = paciente[0]
         this.setState({
           form: {
             ...this.state.form,
@@ -351,7 +351,7 @@ class FormAplicacao extends React.Component {
                 <Button className="btn-fill" color="info" type="submit" onClick={this.salvarAplicacao}>
                   SALVAR APLICAÇÃO
                 </Button>
-                <Button 
+                <Button
                   className="btn-fill" color="danger"
                   onClick={() => this.props.history.goBack()}
                 >

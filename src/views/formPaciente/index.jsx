@@ -186,7 +186,6 @@ class Form_create_paciente extends React.Component {
       "aplicacao": form.aplicacao
     })
       .then(({data}) => {
-        console.log(data)
         const url = this.state.redirectUrl === '/admin/Form_glicemia/0'
           ? '/admin/Form_glicemia/' + data._id
           : this.state.redirectUrl === '/admin/formAplicacao/0' 
@@ -200,7 +199,7 @@ class Form_create_paciente extends React.Component {
           redirectUrl: url
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           LoadingSpinner: false,
           redirectUrl: null,
