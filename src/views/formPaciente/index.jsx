@@ -19,8 +19,6 @@ import {
   ModalHeader
 } from "reactstrap";
 
-const axios = require('axios');
-
 class Form_create_paciente extends React.Component {
   constructor(props) {
     let dateTime = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });

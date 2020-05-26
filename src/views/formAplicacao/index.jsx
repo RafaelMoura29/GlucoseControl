@@ -2,6 +2,7 @@ import React from "react";
 import LoadingSpinner from '../../components/LoadingSpinner.js'
 import ModalMessager from '../../components/ModalMessager.js'
 import './style.css'
+import api from '../../variables/api'
 
 import {
   Card,
@@ -17,7 +18,6 @@ import {
   Form
 } from "reactstrap";
 
-const axios = require('axios');
 
 class FormAplicacao extends React.Component {
 
@@ -112,7 +112,7 @@ class FormAplicacao extends React.Component {
     }
 
     let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
-    axios.post("https://glucosecontrolapp.herokuapp.com/aplicacao", {
+    api.post("/aplicacao", {
       dataAplicacao: form.dataAplicacao,
       horaAplicacao: form.horaAplicacao,
       tipoAplicacao: form.tipoAplicacao,
@@ -152,7 +152,7 @@ class FormAplicacao extends React.Component {
   }
 
   getPaciente = () => {
-    axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + this._idPaciente)
+    api.get("/paciente?tagId=" + this._idPaciente)
       .then((response) => {
         const paciente = response.data.paciente[0]
         this.setState({

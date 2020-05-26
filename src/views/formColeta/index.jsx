@@ -4,6 +4,7 @@ import LoadingSpinner from '../../components/LoadingSpinner.js'
 import ModalMessager from '../../components/ModalMessager.js'
 import './style.css'
 import { Link } from "react-router-dom";
+import api from '../../variables/api'
 
 // reactstrap components
 import {
@@ -19,8 +20,6 @@ import {
   ModalHeader,
   Label,
 } from "reactstrap";
-
-const axios = require('axios');
 
 class Form_glicemia extends React.Component {
   constructor(props) {
@@ -81,7 +80,7 @@ class Form_glicemia extends React.Component {
   }
 
   getPaciente = () => {
-    axios.get("https://glucosecontrolapp.herokuapp.com/paciente?tagId=" + this._idPaciente)
+    api.get("/paciente?tagId=" + this._idPaciente)
       .then((response) => {
         const paciente = response.data.paciente[0]
         this.setState({
@@ -115,7 +114,7 @@ class Form_glicemia extends React.Component {
       });
     }
     let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
-    axios.post("https://glucosecontrolapp.herokuapp.com/glicemia", {
+    api.post("/glicemia", {
       "dataColeta": form.dataColeta,
       "horaColeta": form.horaColeta,
       "tipoColeta": form.tipo,
