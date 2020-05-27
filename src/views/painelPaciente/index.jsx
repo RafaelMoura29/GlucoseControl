@@ -204,7 +204,7 @@ class PainelPaciente extends React.Component {
 
                                 <Col md="4" >
                                     <Link style={{float: "right", marginLeft: 12}} to={"/admin/formAplicacao/" + this._idPaciente}>
-                                        <Button className="btn-fill" color="success" type="submit">
+                                        <Button className="btn-fill" id="btn-aplicar" type="submit">
                                             APLICAR
                                         </Button>
                                     </Link>

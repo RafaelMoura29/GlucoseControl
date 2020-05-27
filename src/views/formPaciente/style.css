@@ -1,7 +1,9 @@
-.btnAplicacao {
-    background: #1ebe9b !important;
+#btn-aplicar {
+    background: #20c997 !important;
 }
 
-.btnAplicacao:hover {
-    background-color: #1ebe9b !important;
+#btn-aplicar:hover {
+    background-color: #20c997 !important;
+    background-image: none !important;
 }
+

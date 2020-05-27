@@ -965,14 +965,14 @@ class Form_create_paciente extends React.Component {
                     <Button className="btn-fill" color="warning" name="btnColeta" type="submit" onClick={this.verificarPreenchimentoForm}>
                       {this.state.textBtnRequest} E COLETAR
                     </Button>
-                    <Button className="btn-fill" color="success" name="btnAplicacao" type="submit" onClick={this.verificarPreenchimentoForm}>
+                    <Button className="btn-fill" id="btn-aplicar" name="btnAplicacao" type="submit" onClick={this.verificarPreenchimentoForm}>
                       {this.state.textBtnRequest} E APLICAR
                     </Button>
                     <Button
                       className="btn-fill"
                       color="danger"
                       onClick={() => this.props.history.goBack()}
-                    >
+                    > 
                       CANCELAR
                     </Button>
                   </div>

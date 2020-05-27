@@ -74,14 +74,16 @@ class Sidebar extends React.Component {
           </a>
         );
         logoText = (
-          <a
-            href={logo.outterLink}
-            className="simple-text logo-normal"
-            target="_blank"
-            onClick={this.props.toggleSidebar}
-          >
-            {logo.text}
-          </a>
+          <Link to="/">
+            <a
+              href={logo.outterLink}
+              className="simple-text logo-normal"
+              target="_blank"
+              onClick={this.props.toggleSidebar}
+            >
+              {logo.text}
+            </a>
+          </Link>
         );
       } else {
         logoImg = (
@@ -117,7 +119,7 @@ class Sidebar extends React.Component {
             </div>
           ) : null}
           <Nav>
-          {routes.map((prop, key) => {
+            {routes.map((prop, key) => {
               if (prop.hideSidebar) return null;
               if (prop.redirect) return null;
               return (
