@@ -69,7 +69,13 @@ class Pacientes extends React.Component {
           <LoadingSpinner visible={this.state.LoadingSpinner} />
           <Card >
             <CardBody>
-              
+
+              <Row >
+                <Col className="pr-md-1" md="12">
+                  <h3 style={{ fontSize: 25 }}>PACIENTES</h3>
+                </Col>
+              </Row>
+
               <Form className="mb-4">
                 <Row>
                   <Col className="pr-md-1" md="2">

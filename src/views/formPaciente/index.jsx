@@ -185,11 +185,11 @@ class Form_create_paciente extends React.Component {
       "glicemia": form.glicemia,
       "aplicacao": form.aplicacao
     })
-      .then(({data}) => {
+      .then(({ data }) => {
         const url = this.state.redirectUrl === '/admin/Form_glicemia/0'
           ? '/admin/Form_glicemia/' + data._id
-          : this.state.redirectUrl === '/admin/formAplicacao/0' 
-            ? '/admin/formAplicacao/' + data._id 
+          : this.state.redirectUrl === '/admin/formAplicacao/0'
+            ? '/admin/formAplicacao/' + data._id
             : this.state.redirectUrl
 
         this.setState({
@@ -338,6 +338,13 @@ class Form_create_paciente extends React.Component {
             <Col md="12">
               <Card>
                 <CardBody>
+
+                  <Row >
+                    <Col className="pr-md-1" md="12">
+                      <h3 style={{ fontSize: 25 }}>CADASTRO PACIENTE</h3>
+                    </Col>
+                  </Row>
+
                   <Form>
                     <Row>
                       <Col className="pr-md-1" md="6">
@@ -956,10 +963,10 @@ class Form_create_paciente extends React.Component {
                       {this.state.textBtnRequest}
                     </Button>
                     <Button className="btn-fill" color="warning" name="btnColeta" type="submit" onClick={this.verificarPreenchimentoForm}>
-                      {this.state.textBtnRequest} E FAZER COLETA
+                      {this.state.textBtnRequest} E COLETAR
                     </Button>
                     <Button className="btn-fill" color="success" name="btnAplicacao" type="submit" onClick={this.verificarPreenchimentoForm}>
-                      {this.state.textBtnRequest} E FAZER APLICAÇÃO
+                      {this.state.textBtnRequest} E APLICAR
                     </Button>
                     <Button
                       className="btn-fill"
