@@ -19,8 +19,8 @@ class Pacientes extends React.Component {
   }
 
   formataData(data) {
-    let splitData = data.substring(0, 10).split("-");
-    return splitData[2] + "/" + splitData[1] + "/" + splitData[0];
+    let splitData = data.substring(0, 10).split("-")
+    return splitData[2] + "/" + splitData[1] + "/" + splitData[0]
   }
 
   //Fazendo requisição dos pacientes
@@ -36,7 +36,7 @@ class Pacientes extends React.Component {
           dataInternacao: this.formataData(paciente.dataInternacao),
           statusPaciente: paciente.statusPaciente
         }))
-        this.setState({ pacientes, pacienteFiltrados: pacientes });
+        this.setState({ pacientes, pacienteFiltrados: pacientes })
       })
       .finally(() => this.setState({ LoadingSpinner: false }))
   }

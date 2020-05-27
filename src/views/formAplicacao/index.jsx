@@ -353,7 +353,7 @@ class FormAplicacao extends React.Component {
                 </Button>
                 <Button
                   className="btn-fill" color="danger"
-                  onClick={() => this.props.history.goBack()}
+                  onClick={() => this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)}
                 >
                   CANCELAR
                   </Button>

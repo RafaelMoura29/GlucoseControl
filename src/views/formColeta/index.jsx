@@ -316,14 +316,13 @@ class Form_glicemia extends React.Component {
               <CardFooter>
                 <Button className="btn-fill" color="info" type="submit" onClick={this.saveGlicose}>
                   SALVAR GLICEMIA
-                                </Button>
-                <Link
-                  to={'/admin/PainelPaciente/' + this._idPaciente}
+                </Button>
+                <Button
+                  className="btn-fill" color="danger"
+                  onClick={() => this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)}
                 >
-                  <Button className="btn-fill" color="danger">
-                    CANCELAR
-                                    </Button>
-                </Link>
+                  CANCELAR
+                </Button>
               </CardFooter>
             </Card>
           </Row>
