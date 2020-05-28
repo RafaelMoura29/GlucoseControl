@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import LoadingSpinner from '../../components/LoadingSpinner.js'
-import './style.css'
-import { Button, Row, Col, Form, FormGroup, Input, Table, Card, CardBody } from "reactstrap";
+import { Row, Col, Card, CardBody } from "reactstrap";
 import api from '../../variables/api'
+import './style.css'
+import LoadingSpinner from '../../components/LoadingSpinner'
 import TabelaPacientes from './components/tabelaPacientes'
 import Filtros from './components/filtros'
 
@@ -12,9 +11,9 @@ class Pacientes extends React.Component {
     super(props);
     this.state = {
       pacientes: [],
-      pacienteFiltrados: [],
+      pacientesFiltrados: [],
       nomePacienteFiltro: "",
-      tipoInternacaoFiltro: "todos",
+      statusFiltro: "todos",
       LoadingSpinner: false
     }
   }
@@ -24,7 +23,9 @@ class Pacientes extends React.Component {
     return splitData[2] + "/" + splitData[1] + "/" + splitData[0]
   }
 
-  //Fazendo requisição dos pacientes
+  /* 
+    Fazendo requisição dos pacientes 
+  */
   async getPacientes() {
     this.setState({ LoadingSpinner: true });
 
@@ -37,7 +38,7 @@ class Pacientes extends React.Component {
           dataInternacao: this.formataData(paciente.dataInternacao),
           statusPaciente: paciente.statusPaciente
         }))
-        this.setState({ pacientes, pacienteFiltrados: pacientes })
+        this.setState({ pacientes, pacientesFiltrados: pacientes })
       })
       .finally(() => this.setState({ LoadingSpinner: false }))
   }
@@ -46,28 +47,29 @@ class Pacientes extends React.Component {
     this.getPacientes()
   }
 
-  //Atualiza o state do filtro e filtra os pacientes
+  /* 
+    Faz atualização dos valores dos campos filtros e atualiza listagem dos pacientes
+  */
   updateInputValueAndFilter = (event) => {
-    let state = this.state
-    state[event.target.name] = event.target.value.toLowerCase()
-
-    state.pacienteFiltrados = state.pacientes.filter(paciente => {
-      //se o nome digitado corresponder ao de um paciente retorna valor >= 0
-      let valor = paciente.nome.toLowerCase().indexOf(state.nomePacienteFiltro)
-      if ((valor !== -1 || state.nomePacienteFiltro === '') &&
-        (state.tipoInternacaoFiltro === "todos" || state.tipoInternacaoFiltro === paciente.statusPaciente.toLowerCase())) {
-        return paciente
+    this.setState({ [event.target.name]: event.target.value.toLowerCase() },
+      () => {
+        const { pacientes, nomePacienteFiltro, statusFiltro} = this.state
+        const pacientesFiltrados = pacientes.filter(({ nome, statusPaciente }) => {
+          let isFilterInName = nome.toLowerCase().indexOf(nomePacienteFiltro) !== -1 ? true : false
+          const nameFilterConditions = ( isFilterInName || nomePacienteFiltro === '')
+          const statusFilterConditions = statusFiltro === "todos" || statusFiltro === statusPaciente.toLowerCase()
+          return  nameFilterConditions && statusFilterConditions
+        })
+        this.setState({pacientesFiltrados})
       }
-      return null;
-    })
-    this.setState(state)
+    )
   }
 
   render() {
     return (
       <>
         <div className="content">
-          
+
           <LoadingSpinner visible={this.state.LoadingSpinner} />
 
           <Card >
@@ -80,13 +82,13 @@ class Pacientes extends React.Component {
               </Row>
 
               <Filtros
-                tipoInternacao={this.state.tipoInternacaoFiltro}
+                status={this.state.statusFiltro}
                 nomePaciente={this.state.nomePacienteFiltro}
                 toggleFiltro={this.updateInputValueAndFilter}
               />
 
               <TabelaPacientes
-                pacientes={this.state.pacienteFiltrados}
+                pacientes={this.state.pacientesFiltrados}
                 history={this.props.history}
               />
 

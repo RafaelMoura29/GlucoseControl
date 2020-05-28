@@ -3,15 +3,15 @@ import { Link } from "react-router-dom";
 import '../style.css'
 import { Col, FormGroup, Input, Form, Row, Button } from "reactstrap";
 
-const Filtros = ({ tipoInternacao, nomePaciente, toggleFiltro }) => (
+const Filtros = ({ status, nomePaciente, toggleFiltro }) => (
   <Form className="mb-4">
     <Row>
       <Col className="pr-md-1" md="2">
         <FormGroup>
           <Input
-            value={tipoInternacao}
+            value={status}
             type="select"
-            name="tipoInternacaoFiltro"
+            name="statusFiltro"
             onChange={toggleFiltro}
           > 
             <option value="todos">Todos</option>
