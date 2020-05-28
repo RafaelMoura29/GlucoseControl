@@ -5,6 +5,7 @@ import './style.css'
 import { Button, Row, Col, Form, FormGroup, Input, Table, Card, CardBody } from "reactstrap";
 import api from '../../variables/api'
 import TabelaPacientes from './components/tabelaPacientes'
+import Filtros from './components/filtros'
 
 class Pacientes extends React.Component {
   constructor(props) {
@@ -76,43 +77,11 @@ class Pacientes extends React.Component {
                 </Col>
               </Row>
 
-              <Form className="mb-4">
-                <Row>
-                  <Col className="pr-md-1" md="2">
-                    <FormGroup>
-                      <Input
-                        value={this.state.tipoInternacaoFiltro}
-                        type="select"
-                        name="tipoInternacaoFiltro"
-                        onChange={this.updateInputValueAndFilter}
-                      >
-                        <option style={{ backgroundColor: '#27293d' }} value="todos">Todos</option>
-                        <option style={{ backgroundColor: '#27293d' }} value="internado">Internado</option>
-                        <option style={{ backgroundColor: '#27293d' }} value="alta">Alta</option>
-                      </Input>
-                    </FormGroup>
-                  </Col>
-                  <Col className="pr-md-1" md="5">
-                    <FormGroup >
-                      <Input
-                        name="nomePacienteFiltro"
-                        placeholder="Paciente"
-                        type="text"
-                        onChange={this.updateInputValueAndFilter}
-                        value={this.state.nomePacienteFiltro}
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col md="3"></Col>
-                  <Col className="pr-md-1" md="2">
-                    <Link to="/admin/form_create_paciente/0">
-                      <Button className="btn-fill" color="info" type="submit">
-                        NOVO
-                      </Button>
-                    </Link>
-                  </Col>
-                </Row>
-              </Form>
+              <Filtros
+                tipoInternacao={this.state.tipoInternacaoFiltro}
+                nomePaciente={this.state.nomePacienteFiltro}
+                toggleFiltro={this.updateInputValueAndFilter}
+              />
 
               <TabelaPacientes
                 pacientes={this.state.pacienteFiltrados}
