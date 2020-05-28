@@ -13,10 +13,10 @@ const Filtros = ({ tipoInternacao, nomePaciente, toggleFiltro }) => (
             type="select"
             name="tipoInternacaoFiltro"
             onChange={toggleFiltro}
-          >
-            <option style={{ backgroundColor: '#27293d' }} value="todos">Todos</option>
-            <option style={{ backgroundColor: '#27293d' }} value="internado">Internado</option>
-            <option style={{ backgroundColor: '#27293d' }} value="alta">Alta</option>
+          > 
+            <option value="todos">Todos</option>
+            <option value="internado">Internado</option>
+            <option value="alta">Alta</option>
           </Input>
         </FormGroup>
       </Col>

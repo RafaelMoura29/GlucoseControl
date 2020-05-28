@@ -2,3 +2,11 @@
     cursor: pointer; 
     background: #363952;
 }
+
+option {
+    background-color: #27293d;
+  }
+
+  h3 {
+      font-size: 25;
+  }

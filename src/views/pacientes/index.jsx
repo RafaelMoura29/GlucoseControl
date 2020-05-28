@@ -67,13 +67,15 @@ class Pacientes extends React.Component {
     return (
       <>
         <div className="content">
+          
           <LoadingSpinner visible={this.state.LoadingSpinner} />
+
           <Card >
             <CardBody>
 
               <Row >
                 <Col className="pr-md-1" md="12">
-                  <h3 style={{ fontSize: 25 }}>PACIENTES</h3>
+                  <h3>PACIENTES</h3>
                 </Col>
               </Row>
 
