@@ -141,7 +141,7 @@ const FormularioAplicacao = ({
               <Label>POSOLOGIA</Label>
               <Input
                 placeholder="Posologia"
-                type="text"
+                type="number"
                 name="posologia"
                 value={posologia}
                 onChange={handleChange}

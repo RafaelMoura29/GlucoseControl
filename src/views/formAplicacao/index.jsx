@@ -39,38 +39,52 @@ class FormAplicacao extends React.Component {
     }
   }
 
-  formataDataHora(data) {
-    let dataHora = data.split(" ");
-    let hora = dataHora[1]
-    let dataFormatada = dataHora[0]
-    dataFormatada = dataFormatada.substring(0, 10).split("-");
-    dataFormatada = dataFormatada[2] + "/" + dataFormatada[1] + "/" + dataFormatada[0] + " " + hora;
-    return dataFormatada;
-  }
-
+  /* 
+    Seta data/hora atual e pega o id do paciente
+  */
   componentDidMount() {
-    const { match: { params } } = this.props;
-    this._idPaciente = params._idPaciente;
+    const { match: { params } } = this.props
+    this._idPaciente = params._idPaciente
     this.getPaciente()
 
-    let dateTime = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
-    //Separa data da hora
-    dateTime = dateTime.split(" ")
-    //Separa mes, dia e ano
-    let data = dateTime[0].split("/")
-    //Ajustando formato da data
-    data = data[2] + "-" + data[1] + "-" + data[0]
-    //Hora atual
-    let hora = dateTime[1].substring(0, 5)
+    const data = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })
+    const dateAux = data.slice(0, 10).split('/')
+
     this.setState({
       form: {
         ...this.state.form,
-        dataAplicacao: data,
-        horaAplicacao: hora
+        dataAplicacao: dateAux[2] + '-' + dateAux[1] + '-' + dateAux[0],
+        horaAplicacao: data.slice(11, 16)
       }
     })
   }
 
+  /* 
+    Request para pegar as informações do paciente
+  */
+  getPaciente = () => {
+    api.get("/paciente?tagId=" + this._idPaciente)
+      .then(({ data: { paciente } }) => {
+        paciente = paciente[0]
+        this.setState({
+          form: {
+            ...this.state.form,
+            prontuario: paciente.prontuario,
+            paciente: paciente.nome,
+            dataHoraInternacao: this.formataData(paciente.dataInternacao) + ' ' + paciente.horaInternacao
+          }
+        })
+      })
+  }
+
+  formataData(data) {
+    let splitData = data.substring(0, 10).split("-")
+    return splitData[2] + "/" + splitData[1] + "/" + splitData[0]
+  }
+  
+  /* 
+    Seta prox ação ao fechar o modal messager
+  */
   toggleMessager = () => {
     if (this.state.nextPage) {
       this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)
@@ -79,16 +93,14 @@ class FormAplicacao extends React.Component {
   }
 
   handleChange = (event) => {
-    this.setState({
-      form: {
-        ...this.state.form,
-        [event.target.name]: event.target.value
-      }
-    })
+    this.setState({ form: { ...this.state.form, [event.target.name]: event.target.value } })
   }
 
+  /* 
+    Verifica se todos campos estão preenchidos e salva a aplicação
+  */
   salvarAplicacao = () => {
-    this.setState({ LoadingSpinner: true });
+    this.setState({ LoadingSpinner: true })
 
     let form = this.state.form
 
@@ -104,10 +116,9 @@ class FormAplicacao extends React.Component {
         LoadingSpinner: false,
         ModalMessager: true,
         ModalMessagerText: 'Preencha todos os campos!',
-      });
+      })
     }
 
-    let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
     api.post("/aplicacao", {
       dataAplicacao: form.dataAplicacao,
       horaAplicacao: form.horaAplicacao,
@@ -116,8 +127,8 @@ class FormAplicacao extends React.Component {
       droga: form.droga,
       posologia: form.posologia,
       observacoes: form.observacoes,
-      createDate: dataCriacao,
-      updateDate: dataCriacao,
+      createDate: new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }),
+      updateDate: new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }),
       _idPaciente: this._idPaciente,
     })
       .then((response) => {
@@ -147,30 +158,10 @@ class FormAplicacao extends React.Component {
       })
   }
 
-  getPaciente = () => {
-    api.get("/paciente?tagId=" + this._idPaciente)
-      .then(({ data: { paciente } }) => {
-        paciente = paciente[0]
-        this.setState({
-          form: {
-            ...this.state.form,
-            prontuario: paciente.prontuario,
-            paciente: paciente.nome,
-            dataHoraInternacao: paciente.dataInternacao + ' ' + paciente.horaInternacao
-          }
-        })
-      })
-  }
-
-  toggleModalMessager = () => {
-    this.setState({
-      ModalMessager: false,
-    })
-  }
-
-  toggleCancelar = () => {
-    this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)
-  }
+  /* 
+    Volta para a página do paciente
+  */
+  toggleCancelar = () => this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)
 
   render() {
     let opcoesDroga = this.state.form.tipoAplicacao === 'de resgate'
@@ -184,7 +175,6 @@ class FormAplicacao extends React.Component {
           <ModalMessager
             visible={this.state.ModalMessager}
             text={this.state.ModalMessagerText}
-            toggle={this.toggleModalMessager}
           >
             <ModalHeader toggle={this.toggleMessager}></ModalHeader>
           </ModalMessager>
@@ -209,11 +199,11 @@ class FormAplicacao extends React.Component {
 
               </CardBody>
 
-              <FormFooter 
-                salvarAplicacao = {this.salvarAplicacao}
-                toggleCancelar = {this.toggleCancelar}
+              <FormFooter
+                salvarAplicacao={this.salvarAplicacao}
+                toggleCancelar={this.toggleCancelar}
               />
-              
+
             </Card>
           </Row>
         </div>
