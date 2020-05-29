@@ -1,6 +1,6 @@
 import React from "react";
 import LoadingSpinner from '../../components/LoadingSpinner.js'
-import ModalMessager from '../../components/ModalMessager.js'
+import ModalMessager from '../../components/ModalMessager/modalMessager'
 import './style.css'
 import api from '../../variables/api'
 

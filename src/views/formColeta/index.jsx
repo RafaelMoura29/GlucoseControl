@@ -1,9 +1,8 @@
 import React from "react";
 
 import LoadingSpinner from '../../components/LoadingSpinner.js'
-import ModalMessager from '../../components/ModalMessager.js'
+import ModalMessager from '../../components/ModalMessager/modalMessager'
 import './style.css'
-import { Link } from "react-router-dom";
 import api from '../../variables/api'
 
 // reactstrap components
