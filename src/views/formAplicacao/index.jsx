@@ -4,14 +4,13 @@ import ModalMessager from '../../components/ModalMessager.js'
 import './style.css'
 import api from '../../variables/api'
 import FormularioAplicacao from './components/form'
+import FormFooter from './components/formFooter'
 
 import {
   Card,
   CardBody,
   Row,
   Col,
-  Button,
-  CardFooter,
   ModalHeader,
 } from "reactstrap";
 
@@ -169,6 +168,10 @@ class FormAplicacao extends React.Component {
     })
   }
 
+  toggleCancelar = () => {
+    this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)
+  }
+
   render() {
     let opcoesDroga = this.state.form.tipoAplicacao === 'de resgate'
       ? ['', 'Insulina Ultra Rápida', 'Insulina Regular', 'Glicose a 50%', 'Glicose a 25%']
@@ -194,37 +197,23 @@ class FormAplicacao extends React.Component {
 
                 <Row >
                   <Col className="pr-md-1" md="12">
-                    <h3 style={{ fontSize: 25 }}>APLICAÇÃO</h3>
+                    <h3>APLICAÇÃO</h3>
                   </Col>
                 </Row>
 
                 <FormularioAplicacao
                   {...this.state.form}
-                  opcoesDroga= {opcoesDroga}
+                  opcoesDroga={opcoesDroga}
                   handleChange={this.handleChange}
                 />
 
               </CardBody>
 
-              <CardFooter>
-
-                <Button
-                  className="btn-fill"
-                  color="info"
-                  type="submit"
-                  onClick={this.salvarAplicacao}
-                >
-                  SALVAR
-                </Button>
-
-                <Button
-                  className="btn-fill"
-                  color="danger"
-                  onClick={() => this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)}
-                >
-                  CANCELAR
-                </Button>
-              </CardFooter>
+              <FormFooter 
+                salvarAplicacao = {this.salvarAplicacao}
+                toggleCancelar = {this.toggleCancelar}
+              />
+              
             </Card>
           </Row>
         </div>
