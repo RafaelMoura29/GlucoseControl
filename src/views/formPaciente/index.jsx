@@ -21,15 +21,8 @@ import {
 
 class Form_create_paciente extends React.Component {
   constructor(props) {
-    let dateTime = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
-    //Separa data da hora
-    dateTime = dateTime.split(" ")
-    //Separa mes, dia e ano
-    let dataInternacao = dateTime[0].split("/")
-    //Ajustando formato da data
-    dataInternacao = dataInternacao[2] + "-" + dataInternacao[1] + "-" + dataInternacao[0]
-    //Hora atual
-    let horaInternacao = dateTime[1].substring(0, 5)
+    const data = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })
+    const dateAux = data.slice(0, 10).split('/')
 
     super(props);
     this.state = {
@@ -49,8 +42,8 @@ class Form_create_paciente extends React.Component {
         sexo: '',
         peso: 70.5,
         altura: 170,
-        dataInternacao: dataInternacao,
-        horaInternacao: horaInternacao,
+        dataInternacao: dateAux[2] + '-' + dateAux[1] + '-' + dateAux[0],
+        horaInternacao: data.slice(11, 16),
         tipoInternacao: 'Clínica',
         diabetes: 'Ignorado',
         insuficienciaRenal: 'Ignorado',
@@ -74,7 +67,7 @@ class Form_create_paciente extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ LoadingSpinner: true, modal: false, });
+    this.setState({ LoadingSpinner: true, modal: false });
     const { match: { params } } = this.props;
     if (params._idPaciente !== '0') {
       api.get("/paciente?tagId=" + params._idPaciente)
@@ -120,8 +113,6 @@ class Form_create_paciente extends React.Component {
     }
   }
 
-  togglePlanoAplicacao = () => this.setState({ modal: !this.state.modal });
-
   toggleMessager = () => {
     if (this.state.redirectUrl !== null) {
       this.props.history.push(this.state.redirectUrl)
@@ -139,20 +130,16 @@ class Form_create_paciente extends React.Component {
   }
 
   updateCheckValue = (event) => {
-    let state = this.state
-    if (event.target.name === 'alta' || event.target.name === 'internado') {
-      state.form.alta = !this.state.form.alta
-      state.form.internado = !this.state.form.internado
-      return this.setState(state)
-    }
-    state.form[event.target.name] = event.target.checked
-    this.setState(state)
+    let form = this.state.form
+    form.alta = !form.alta
+    form.internado = !form.internado
+    this.setState(form)
   }
 
   updateCheckedAplicacao = (event) => {
-    let state = this.state
-    state.form.planoAplicacao[event.target.name] = event.target.checked
-    this.setState(state)
+    let form = this.state.form
+    form.planoAplicacao[event.target.name] = event.target.checked
+    this.setState(form)
   }
 
   salvarPaciente = (planoAplicacao) => {
@@ -258,7 +245,7 @@ class Form_create_paciente extends React.Component {
       ModalMessager: ModalMessager,
       ModalMessagerText: ModalMessagerText,
       redirectUrl: redirectUrl
-    });
+    })
   }
 
   verificarPreenchimentoForm = (event) => {
@@ -484,25 +471,27 @@ class Form_create_paciente extends React.Component {
                             <FormGroup check inline className="form-check-radio">
                               <Label className="form-check-label">
                                 <Input
+                                  radioGroup="statusPaciente"
                                   type="radio"
                                   name="internado"
                                   onChange={this.updateCheckValue}
                                   checked={this.state.form.internado}
                                 />
-                                                                    INTERNADO
-                                                                    <span className="form-check-sign" />
+                                INTERNADO
+                                <span className="form-check-sign" />
                               </Label>
                             </FormGroup>
 
                             <FormGroup check inline className="form-check-radio">
                               <Label className="form-check-label">
                                 <Input
+                                  radioGroup="statusPaciente"
                                   type="radio"
                                   name="alta"
                                   onChange={this.updateCheckValue}
                                   checked={this.state.form.alta} />
-                                                                    ALTA
-                                                                    <span className="form-check-sign"></span>
+                                  ALTA
+                                  <span className="form-check-sign"></span>
                               </Label>
                             </FormGroup>
                           </Col>
@@ -972,7 +961,7 @@ class Form_create_paciente extends React.Component {
                       className="btn-fill"
                       color="danger"
                       onClick={() => this.props.history.goBack()}
-                    > 
+                    >
                       CANCELAR
                     </Button>
                   </div>
