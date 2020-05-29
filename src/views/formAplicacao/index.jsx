@@ -3,6 +3,7 @@ import LoadingSpinner from '../../components/LoadingSpinner.js'
 import ModalMessager from '../../components/ModalMessager.js'
 import './style.css'
 import api from '../../variables/api'
+import FormularioAplicacao from './components/form'
 
 import {
   Card,
@@ -10,12 +11,8 @@ import {
   Row,
   Col,
   Button,
-  FormGroup,
-  Input,
-  Label,
   CardFooter,
   ModalHeader,
-  Form
 } from "reactstrap";
 
 
@@ -164,7 +161,12 @@ class FormAplicacao extends React.Component {
           }
         })
       })
+  }
 
+  toggleModalMessager = () => {
+    this.setState({
+      ModalMessager: false,
+    })
   }
 
   render() {
@@ -175,22 +177,18 @@ class FormAplicacao extends React.Component {
     return (
       <>
         <div className="content">
+
           <ModalMessager
             visible={this.state.ModalMessager}
             text={this.state.ModalMessagerText}
-            toggle={() => {
-
-              this.setState({
-                ModalMessager: false,
-              });
-            }}
+            toggle={this.toggleModalMessager}
           >
             <ModalHeader toggle={this.toggleMessager}></ModalHeader>
           </ModalMessager>
 
           <LoadingSpinner visible={this.state.LoadingSpinner} />
-          <Row>
 
+          <Row>
             <Card>
               <CardBody>
 
@@ -200,170 +198,32 @@ class FormAplicacao extends React.Component {
                   </Col>
                 </Row>
 
-                <Form>
-                  <Row>
-                    <Col className="pr-md-1" md="6">
-                      <Row>
+                <FormularioAplicacao
+                  {...this.state.form}
+                  opcoesDroga= {opcoesDroga}
+                  handleChange={this.handleChange}
+                />
 
-                        <Col className="pr-md-1" md="6">
-                          <FormGroup>
-                            <label>PRONTUÁRIO</label>
-                            <Input
-                              placeholder="Prontuário"
-                              type="text"
-                              name="prontuario"
-                              value={this.state.form.prontuario}
-                              disabled
-                            />
-                          </FormGroup>
-                        </Col>
-
-                        <Col className="pr-md-1" md="6">
-                          <FormGroup>
-                            <label>DATA/HORA INTERNAÇÃO</label>
-                            <Input
-                              placeholder="Data/Hora"
-                              type="text"
-                              name="dataHoraInternacao"
-                              value={this.state.form.dataHoraInternacao}
-                              disabled
-                            />
-                          </FormGroup>
-                        </Col>
-
-                        <Col className="pr-md-1" md="12">
-                          <FormGroup>
-                            <label>PACIENTE</label>
-                            <Input
-                              placeholder="Paciente"
-                              type="text"
-                              name="paciente"
-                              value={this.state.form.paciente}
-                              disabled
-                            />
-                          </FormGroup>
-                        </Col>
-
-                        <Col className="pr-md-1" md="6">
-                          <FormGroup>
-                            <label>DATA APLICAÇÃO</label>
-                            <Input
-                              type="date"
-                              placeholder="Data Aplicação"
-                              value={this.state.form.dataAplicacao}
-                              onChange={this.handleChange}
-                              name="dataAplicacao"
-                            />
-                          </FormGroup>
-                        </Col>
-
-                        <Col className="pr-md-1" md="6">
-                          <FormGroup>
-                            <label>HORA APLICAÇÃO</label>
-                            <Input
-                              placeholder="Hora Aplicação"
-                              type="time"
-                              name="horaAplicacao"
-                              value={this.state.form.horaAplicacao}
-                              onChange={this.handleChange}
-                            />
-                          </FormGroup>
-                        </Col>
-
-                        <Col className="pr-md-1" md="12">
-                          <FormGroup>
-                            <label>TIPO APLICAÇÃO</label>
-                            <Input
-                              type="select"
-                              name="tipoAplicacao"
-                              value={this.state.form.tipoAplicacao}
-                              onChange={this.handleChange}
-                            >
-                              <option style={{ backgroundColor: '#27293d' }} value="de resgate">De Resgate</option>
-                              <option style={{ backgroundColor: '#27293d' }} value="de horario">De Horário</option>
-                            </Input>
-                          </FormGroup>
-                        </Col>
-
-                      </Row>
-                    </Col>
-
-                    <Col className="pr-md-1" md="6">
-
-                      <Col className="pr-md-1" md="12">
-                        <FormGroup>
-                          <label>VIA ADMINISTRAÇÃO</label>
-                          <Input
-                            type="select"
-                            name="viaAdministracao"
-                            value={this.state.form.viaAdministracao}
-                            onChange={this.handleChange}
-                          >
-                            <option style={{ backgroundColor: '#27293d' }} value="intravenoso">Intravenoso</option>
-                            <option style={{ backgroundColor: '#27293d' }} value="sub cutaneo">Sub Cutâneo</option>
-                            <option style={{ backgroundColor: '#27293d' }} value="via oral">Via Oral</option>
-                          </Input>
-                        </FormGroup>
-                      </Col>
-
-                      <Col className="pr-md-1" md="12">
-                        <FormGroup>
-                          <label>DROGA</label>
-                          <Input
-                            type="select"
-                            name="droga"
-                            value={this.state.form.droga}
-                            onChange={this.handleChange}
-                          >
-                            {opcoesDroga.map((opcao, index) => (
-                              <option key={index} style={{ backgroundColor: '#27293d' }} value={opcao}>{opcao}</option>
-                            ))}
-                          </Input>
-                        </FormGroup>
-                      </Col>
-
-                      <Col className="pr-md-1" md="12">
-                        <FormGroup>
-                          <label>POSOLOGIA</label>
-                          <Input
-                            placeholder="Posologia"
-                            type="text"
-                            name="posologia"
-                            value={this.state.form.posologia}
-                            onChange={this.handleChange}
-                          />
-                        </FormGroup>
-                      </Col>
-
-                      <Col className="pr-md-1" md="12">
-                        <FormGroup>
-                          <Label>Observações</Label>
-                          <Input
-                            type="textarea"
-                            name="observacoes"
-                            placeholder="Observações"
-                            value={this.state.form.observacoes}
-                            onChange={this.handleChange}
-                          />
-                        </FormGroup>
-                      </Col>
-
-                    </Col>
-
-                  </Row>
-                </Form>
               </CardBody>
 
               <CardFooter>
-                <Button className="btn-fill" color="info" type="submit" onClick={this.salvarAplicacao}>
-                  SALVAR APLICAÇÃO
-                </Button>
+
                 <Button
-                  className="btn-fill" color="danger"
+                  className="btn-fill"
+                  color="info"
+                  type="submit"
+                  onClick={this.salvarAplicacao}
+                >
+                  SALVAR
+                </Button>
+
+                <Button
+                  className="btn-fill"
+                  color="danger"
                   onClick={() => this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)}
                 >
                   CANCELAR
-                  </Button>
+                </Button>
               </CardFooter>
             </Card>
           </Row>
