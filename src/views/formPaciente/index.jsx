@@ -121,12 +121,9 @@ class Form_create_paciente extends React.Component {
   }
 
   updateInputValue = (event) => {
-    this.setState({
-      form: {
-        ...this.state.form,
-        [event.target.name]: event.target.value
-      }
-    })
+    let state = this.state
+    state.form[event.target.name] = event.target.value
+    this.setState(state)
   }
 
   updateCheckValue = (event) => {
@@ -230,8 +227,8 @@ class Form_create_paciente extends React.Component {
         }
       }
     )
-      .then(response => this.showOrHideMessager(false, true, 'Dados Gravados Com Sucesso', this.state.redirectUrl))
-      .catch(error => {
+      .then((response) => this.showOrHideMessager(false, true, 'Dados Gravados Com Sucesso', this.state.redirectUrl))
+      .catch((error) => {
         this.setState({
           redirectUrl: null,
         })
@@ -249,14 +246,12 @@ class Form_create_paciente extends React.Component {
   }
 
   verificarPreenchimentoForm = (event) => {
-    //Url para redirecionamento após salvar/atualizar paciente
-    let url = event.target.name === 'btnColeta'
-      ? '/admin/Form_glicemia/' + this.state.idPaciente
-      : event.target.name === 'btnAplicacao'
-        ? '/admin/formAplicacao/' + this.state.idPaciente
-        : '/admin/pacientes/'
 
-    this.setState({ LoadingSpinner: true, modal: false, redirectUrl: url });
+    this.setState({ 
+      LoadingSpinner: true, 
+      modal: false, 
+      redirectUrl: event.target.value + this.state.idPaciente
+    });
 
     let form = this.state.form
 
@@ -974,6 +969,7 @@ class Form_create_paciente extends React.Component {
                       color="info"
                       type="submit"
                       onClick={this.verificarPreenchimentoForm}
+                      value="/admin/pacientes/"
                     >
                       {this.state.textBtnRequest}
                     </Button>
@@ -983,6 +979,7 @@ class Form_create_paciente extends React.Component {
                       name="btnColeta"
                       type="submit"
                       onClick={this.verificarPreenchimentoForm}
+                      value="/admin/Form_glicemia/"
                     >
                       {this.state.textBtnRequest} E COLETAR
                     </Button>
@@ -992,6 +989,7 @@ class Form_create_paciente extends React.Component {
                       name="btnAplicacao"
                       type="submit"
                       onClick={this.verificarPreenchimentoForm}
+                      value="/admin/formAplicacao/"
                     >
                       {this.state.textBtnRequest} E APLICAR
                     </Button>
