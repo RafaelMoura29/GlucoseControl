@@ -346,6 +346,7 @@ class Form_create_paciente extends React.Component {
                                 name="nome"
                                 onChange={this.updateInputValue}
                                 value={this.state.form.nome}
+                                invalid={!this.state.form.nome}
                               />
                             </FormGroup>
                           </Col>
@@ -359,6 +360,7 @@ class Form_create_paciente extends React.Component {
                                 name="prontuario"
                                 onChange={this.updateInputValue}
                                 value={this.state.form.prontuario}
+                                invalid={!this.state.form.prontuario}
                               />
                             </FormGroup>
                           </Col>
@@ -373,6 +375,7 @@ class Form_create_paciente extends React.Component {
                                 placeholder="datetime placeholder"
                                 onChange={this.updateInputValue}
                                 value={this.state.form.dataNascimento}
+                                invalid={!this.state.form.dataNascimento}
                               />
                             </FormGroup>
                           </Col>
@@ -384,7 +387,9 @@ class Form_create_paciente extends React.Component {
                                 name="sexo"
                                 type="select"
                                 onChange={this.updateInputValue}
-                                value={this.state.form.sexo}>
+                                value={this.state.form.sexo}
+                                invalid={!this.state.form.sexo}
+                              >
                                 <option style={{ backgroundColor: '#27293d' }}></option>
                                 <option style={{ backgroundColor: '#27293d' }}>Masculino</option>
                                 <option style={{ backgroundColor: '#27293d' }}>Feminino</option>
@@ -399,7 +404,9 @@ class Form_create_paciente extends React.Component {
                                 type="select"
                                 name="tipoInternacao"
                                 onChange={this.updateInputValue}
-                                value={this.state.form.tipoInternacao}>
+                                value={this.state.form.tipoInternacao}
+                                invalid={!this.state.form.tipoInternacao}
+                              >
                                 <option style={{ backgroundColor: '#27293d' }}>clínica</option>
                                 <option style={{ backgroundColor: '#27293d' }}>cirurgica de urgência</option>
                                 <option style={{ backgroundColor: '#27293d' }}>cirurgica eletiva</option>
@@ -420,6 +427,7 @@ class Form_create_paciente extends React.Component {
                                 placeholder="datetime placeholder"
                                 onChange={this.updateInputValue}
                                 value={this.state.form.dataInternacao}
+                                invalid={!this.state.form.dataInternacao}
                               />
                             </FormGroup>
                           </Col>
@@ -433,6 +441,7 @@ class Form_create_paciente extends React.Component {
                                 placeholder="datetime placeholder"
                                 onChange={this.updateInputValue}
                                 value={this.state.form.horaInternacao}
+                                invalid={!this.state.form.horaInternacao}
                               />
                             </FormGroup>
                           </Col>
@@ -448,6 +457,7 @@ class Form_create_paciente extends React.Component {
                                 placeholder="170"
                                 onChange={this.updateInputValue}
                                 value={this.state.form.altura}
+                                invalid={!this.state.form.altura}
                               />
                             </FormGroup>
                           </Col>
@@ -463,6 +473,7 @@ class Form_create_paciente extends React.Component {
                                 name="peso"
                                 onChange={this.updateInputValue}
                                 value={this.state.form.peso}
+                                invalid={!this.state.form.peso}
                               />
                             </FormGroup>
                           </Col>
@@ -509,8 +520,8 @@ class Form_create_paciente extends React.Component {
                                       checked={this.state.form.planoAplicacao[0]}
                                       onChange={this.updateCheckedAplicacao}
                                     />
-                                                                        1h
-                                                                        <span className="form-check-sign">
+                                      1h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -523,8 +534,8 @@ class Form_create_paciente extends React.Component {
                                       name="1"
                                       checked={this.state.form.planoAplicacao[1]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            2h
-                                                                            <span className="form-check-sign">
+                                      2h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -537,8 +548,8 @@ class Form_create_paciente extends React.Component {
                                       name="2"
                                       checked={this.state.form.planoAplicacao[2]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            3h
-                                                                            <span className="form-check-sign">
+                                      3h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -551,8 +562,8 @@ class Form_create_paciente extends React.Component {
                                       name="3"
                                       checked={this.state.form.planoAplicacao[3]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            4h
-                                                                            <span className="form-check-sign">
+                                      4h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -565,8 +576,8 @@ class Form_create_paciente extends React.Component {
                                       name="4"
                                       checked={this.state.form.planoAplicacao[4]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            5h
-                                                                            <span className="form-check-sign">
+                                      5h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -579,8 +590,8 @@ class Form_create_paciente extends React.Component {
                                       name="5"
                                       checked={this.state.form.planoAplicacao[5]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            6h
-                                                                            <span className="form-check-sign">
+                                      6h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -593,8 +604,8 @@ class Form_create_paciente extends React.Component {
                                       name="6"
                                       checked={this.state.form.planoAplicacao[6]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            7h
-                                                                            <span className="form-check-sign">
+                                      7h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -607,8 +618,8 @@ class Form_create_paciente extends React.Component {
                                       name="7"
                                       checked={this.state.form.planoAplicacao[7]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            8h
-                                                                            <span className="form-check-sign">
+                                      8h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -621,8 +632,8 @@ class Form_create_paciente extends React.Component {
                                       name="8"
                                       checked={this.state.form.planoAplicacao[8]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            9h
-                                                                            <span className="form-check-sign">
+                                      9h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -635,8 +646,8 @@ class Form_create_paciente extends React.Component {
                                       name="9"
                                       checked={this.state.form.planoAplicacao[9]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            10h
-                                                                            <span className="form-check-sign">
+                                      10h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -649,8 +660,8 @@ class Form_create_paciente extends React.Component {
                                       name="10"
                                       checked={this.state.form.planoAplicacao[10]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            11h
-                                                                            <span className="form-check-sign">
+                                      11h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -663,8 +674,8 @@ class Form_create_paciente extends React.Component {
                                       name="11"
                                       checked={this.state.form.planoAplicacao[11]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            12h
-                                                                            <span className="form-check-sign">
+                                      12h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -677,8 +688,8 @@ class Form_create_paciente extends React.Component {
                                       name="12"
                                       checked={this.state.form.planoAplicacao[12]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            13h
-                                                                            <span className="form-check-sign">
+                                      13h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -691,8 +702,8 @@ class Form_create_paciente extends React.Component {
                                       name="13"
                                       checked={this.state.form.planoAplicacao[13]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            14h
-                                                                            <span className="form-check-sign">
+                                      14h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -705,8 +716,8 @@ class Form_create_paciente extends React.Component {
                                       name="14"
                                       checked={this.state.form.planoAplicacao[14]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            15h
-                                                                            <span className="form-check-sign">
+                                      15h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -719,8 +730,8 @@ class Form_create_paciente extends React.Component {
                                       name="15"
                                       checked={this.state.form.planoAplicacao[15]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            16h
-                                                                            <span className="form-check-sign">
+                                      16h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -733,8 +744,8 @@ class Form_create_paciente extends React.Component {
                                       name="16"
                                       checked={this.state.form.planoAplicacao[16]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            17h
-                                                                            <span className="form-check-sign">
+                                      17h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -747,8 +758,8 @@ class Form_create_paciente extends React.Component {
                                       name="17"
                                       checked={this.state.form.planoAplicacao[17]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            18h
-                                                                            <span className="form-check-sign">
+                                      18h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -761,8 +772,8 @@ class Form_create_paciente extends React.Component {
                                       name="18"
                                       checked={this.state.form.planoAplicacao[18]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            19h
-                                                                            <span className="form-check-sign">
+                                      19h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -775,8 +786,8 @@ class Form_create_paciente extends React.Component {
                                       name="19"
                                       checked={this.state.form.planoAplicacao[19]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            20h
-                                                                            <span className="form-check-sign">
+                                      20h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -789,8 +800,8 @@ class Form_create_paciente extends React.Component {
                                       name="20"
                                       checked={this.state.form.planoAplicacao[20]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            21h
-                                                                            <span className="form-check-sign">
+                                      21h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -803,8 +814,8 @@ class Form_create_paciente extends React.Component {
                                       name="21"
                                       checked={this.state.form.planoAplicacao[21]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            22h
-                                                                            <span className="form-check-sign">
+                                      22h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -817,8 +828,8 @@ class Form_create_paciente extends React.Component {
                                       name="22"
                                       checked={this.state.form.planoAplicacao[22]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            23h
-                                                                            <span className="form-check-sign">
+                                      23h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -831,8 +842,8 @@ class Form_create_paciente extends React.Component {
                                       name="23"
                                       checked={this.state.form.planoAplicacao[23]}
                                       onChange={this.updateCheckedAplicacao} />
-                                                                            24h
-                                                                            <span className="form-check-sign">
+                                      24h
+                                      <span className="form-check-sign">
                                       <span className="check"></span>
                                     </span>
                                   </Label>
@@ -849,7 +860,9 @@ class Form_create_paciente extends React.Component {
                             type="select"
                             name="diabetes"
                             onChange={this.updateInputValue}
-                            value={this.state.form.diabetes}>
+                            value={this.state.form.diabetes}
+                            invalid={!this.state.form.diabetes}
+                          >
                             <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
                             <option style={{ backgroundColor: '#27293d' }}>Controle domiciliar dietético</option>
                             <option style={{ backgroundColor: '#27293d' }}>Controle domiciliar com hipoglicemiante oral</option>
@@ -866,6 +879,7 @@ class Form_create_paciente extends React.Component {
                             name="insuficienciaRenal"
                             onChange={this.updateInputValue}
                             value={this.state.form.insuficienciaRenal}
+                            invalid={!this.state.form.insuficienciaRenal}
                           >
                             <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
                             <option style={{ backgroundColor: '#27293d' }}>crônica dialítica</option>
@@ -883,6 +897,7 @@ class Form_create_paciente extends React.Component {
                             name="corticoide"
                             onChange={this.updateInputValue}
                             value={this.state.form.corticoide}
+                            invalid={!this.state.form.corticoide}
                           >
                             <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
                             <option style={{ backgroundColor: '#27293d' }}>a mais de 7 dias</option>
@@ -897,7 +912,9 @@ class Form_create_paciente extends React.Component {
                             type="select"
                             name="instabilidadeHemodinamica"
                             onChange={this.updateInputValue}
-                            value={this.state.form.instabilidadeHemodinamica}>
+                            value={this.state.form.instabilidadeHemodinamica}
+                            invalid={!this.state.form.instabilidadeHemodinamica}
+                          >
                             <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
                             <option style={{ backgroundColor: '#27293d' }}>Sim - Controlado sem drogas vasoativas</option>
                             <option style={{ backgroundColor: '#27293d' }}>Sim - Controlado com drogas </option>
@@ -912,7 +929,9 @@ class Form_create_paciente extends React.Component {
                             type="select"
                             name="infeccao"
                             onChange={this.updateInputValue}
-                            value={this.state.form.infeccao}>
+                            value={this.state.form.infeccao}
+                            invalid={!this.state.form.infeccao}
+                          >
                             <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
                             <option style={{ backgroundColor: '#27293d' }}>Infecção simples</option>
                             <option style={{ backgroundColor: '#27293d' }}>Sepse</option>
@@ -926,7 +945,9 @@ class Form_create_paciente extends React.Component {
                             type="select"
                             name="sindromeDesconfortoRespiratorio"
                             onChange={this.updateInputValue}
-                            value={this.state.form.sindromeDesconfortoRespiratorio}>
+                            value={this.state.form.sindromeDesconfortoRespiratorio}
+                            invalid={!this.state.form.sindromeDesconfortoRespiratorio}
+                          >
                             <option style={{ backgroundColor: '#27293d' }}>Ignorado</option>
                             <option style={{ backgroundColor: '#27293d' }}>Possui</option>
                             <option style={{ backgroundColor: '#27293d' }}>Não tem</option>
