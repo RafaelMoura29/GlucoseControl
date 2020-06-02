@@ -170,18 +170,12 @@ class Form_create_paciente extends React.Component {
       "aplicacao": form.aplicacao
     })
       .then(({ data }) => {
-        const url = this.state.redirectUrl === '/admin/Form_glicemia/0'
-          ? '/admin/Form_glicemia/' + data._id
-          : this.state.redirectUrl === '/admin/formAplicacao/0'
-            ? '/admin/formAplicacao/' + data._id
-            : this.state.redirectUrl
-
         this.setState({
           LoadingSpinner: false,
           ModalMessager: true,
           ModalMessagerText: 'Dados Gravados Com Sucesso',
-          redirectUrl: url
-        });
+          redirectUrl: this.state.redirectUrl + data._id
+        })
       })
       .catch((error) => {
         this.setState({
@@ -227,7 +221,9 @@ class Form_create_paciente extends React.Component {
         }
       }
     )
-      .then((response) => this.showOrHideMessager(false, true, 'Dados Gravados Com Sucesso', this.state.redirectUrl))
+      .then((response) => {
+        this.showOrHideMessager(false, true, 'Dados Gravados Com Sucesso', this.state.redirectUrl + this.state.idPaciente)
+      })
       .catch((error) => {
         this.setState({
           redirectUrl: null,
@@ -250,8 +246,8 @@ class Form_create_paciente extends React.Component {
     this.setState({ 
       LoadingSpinner: true, 
       modal: false, 
-      redirectUrl: event.target.value + this.state.idPaciente
-    });
+      redirectUrl: event.target.value
+    })
 
     let form = this.state.form
 
