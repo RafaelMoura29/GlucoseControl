@@ -49,14 +49,14 @@ class Form_create_paciente extends React.Component {
         insuficienciaRenal: 'Ignorado',
         corticoide: 'Ignorado',
         infeccao: 'Ignorado',
-        sindromeDesconfortoRespiratorio: 'Ignorado',
+        sindromeDescRespiratorio: 'Ignorado',
         instabilidadeHemodinamica: 'Ignorado',
         internado: true,
         alta: false,
         planoAplicacao: [
-          false, false, false, false, false, true,
-          false, false, false, false, false, true,
-          false, false, false, false, false, true,
+          false, false, false, false, false, false,
+          false, false, false, false, false, false,
+          false, false, false, false, false, false,
           false, false, false, false, false, false,
         ],
         observacoes: '',
@@ -67,49 +67,49 @@ class Form_create_paciente extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ LoadingSpinner: true, modal: false });
-    const { match: { params } } = this.props;
+    this.setState({ LoadingSpinner: true, modal: false })
+    const { match: { params } } = this.props
     if (params._idPaciente !== '0') {
       api.get("/paciente?tagId=" + params._idPaciente)
         .then(({ data }) => {
-          const paciente = data.paciente[0]
-          let state = this.state
-          state.idPaciente = paciente._id
-          state.textBtnRequest = 'ATUALIZAR'
-          state.requestType = 'put'
-          state.form.prontuario = paciente.prontuario
-          state.form.nome = paciente.nome
-          state.form.dataNascimento = paciente.dataNascimento
-          state.form.sexo = paciente.sexo
-          state.form.peso = paciente.peso
-          state.form.altura = paciente.altura
-          state.form.dataInternacao = paciente.dataInternacao
-          state.form.horaInternacao = paciente.horaInternacao
-          state.form.tipoInternacao = paciente.tipoInternacao
-          state.form.diabetes = paciente.diabetes
-          state.form.insuficienciaRenal = paciente.insuficienciaRenal
-          state.form.corticoide = paciente.corticoide
-          state.form.infeccao = paciente.infeccao
-          state.form.sindromeDesconfortoRespiratorio = paciente.sindromeDescRespiratorio
-          state.form.instabilidadeHemodinamica = paciente.instabilidadeHemodinamica
-          state.form.internado = paciente.estadoPaciente !== 'alta'
-          state.form.alta = paciente.estadoPaciente === 'alta'
-          state.form.planoAplicacao = state.form.planoAplicacao.map((hora) => false)
-          paciente.planoAplicacao.split("#").map(hora => (
-            state.form.planoAplicacao[parseInt(hora) - 1] = true
+          const {_id, statusPaciente, planoAplicacao, ...paciente} = data.paciente[0]
+
+          let statePlanoAplicacao = this.state.form.planoAplicacao
+          planoAplicacao.split("#").map(hora => (
+            statePlanoAplicacao[parseInt(hora) - 1] = true
           ))
-          state.form.observacoes = paciente.observacoes
-          state.form.glicemia = paciente.glicemia
-          state.form.aplicacao = paciente.aplicacao
-          this.setState(state)
+
+          this.setState({
+            form: {
+              ...paciente,
+              internado: statusPaciente === 'internado',
+              alta: statusPaciente === 'alta',
+              planoAplicacao: statePlanoAplicacao
+            },
+            idPaciente: _id,
+            textBtnRequest: 'ATUALIZAR',
+            requestType: 'put'
+          })
+
         })
-        .finally((e) => this.setState({ LoadingSpinner: false }))
+        .finally((e) => {
+          this.setState({ LoadingSpinner: false })
+        })
     } else {
       this.setState({
         LoadingSpinner: false,
         textBtnRequest: "SALVAR",
-        requestType: 'post'
-      });
+        requestType: 'post',
+        form: {
+          ...this.state.form,
+          planoAplicacao: [
+            false, false, false, false, false, true,
+            false, false, false, false, false, true,
+            false, false, false, false, false, true,
+            false, false, false, false, false, false,
+          ]
+        }
+      })
     }
   }
 
@@ -162,7 +162,7 @@ class Form_create_paciente extends React.Component {
       "insuficienciaRenal": form.insuficienciaRenal,
       "corticoide": form.corticoide,
       "infeccao": form.infeccao,
-      "sindromeDescRespiratorio": form.sindromeDesconfortoRespiratorio,
+      "sindromeDescRespiratorio": form.sindromeDescRespiratorio,
       "instabilidadeHemodinamica": form.instabilidadeHemodinamica,
       "statusPaciente": form.alta ? "alta" : "internado",
       "planoAplicacao": planoAplicacao,
@@ -219,7 +219,7 @@ class Form_create_paciente extends React.Component {
           "insuficienciaRenal": form.insuficienciaRenal,
           "corticoide": form.corticoide,
           "infeccao": form.infeccao,
-          "sindromeDescRespiratorio": form.sindromeDesconfortoRespiratorio,
+          "sindromeDescRespiratorio": form.sindromeDescRespiratorio,
           "instabilidadeHemodinamica": form.instabilidadeHemodinamica,
           "statusPaciente": form.alta ? "alta" : "internado",
           "planoAplicacao": planoAplicacao,
@@ -284,7 +284,7 @@ class Form_create_paciente extends React.Component {
       form.altura === '' ||
       form.instabilidadeHemodinamica === '' ||
       form.infeccao === '' ||
-      form.sindromeDesconfortoRespiratorio === '') {
+      form.sindromeDescRespiratorio === '') {
       return this.showOrHideMessager(false, true, 'Preencha todos os campos!')
     }
 
@@ -943,10 +943,10 @@ class Form_create_paciente extends React.Component {
                           <Label for="exampleText">SÍDROME DE DESCONFORTO RESPIRATÓRIO</Label>
                           <Input
                             type="select"
-                            name="sindromeDesconfortoRespiratorio"
+                            name="sindromeDescRespiratorio"
                             onChange={this.updateInputValue}
-                            value={this.state.form.sindromeDesconfortoRespiratorio}
-                            invalid={!this.state.form.sindromeDesconfortoRespiratorio}
+                            value={this.state.form.sindromeDescRespiratorio}
+                            invalid={!this.state.form.sindromeDescRespiratorio}
                           >
                             <option >Ignorado</option>
                             <option >Possui</option>
@@ -969,13 +969,30 @@ class Form_create_paciente extends React.Component {
                 </CardBody>
                 <CardFooter>
                   <div className="text-center">
-                    <Button className="btn-fill" color="info" type="submit" onClick={this.verificarPreenchimentoForm}>
+                    <Button
+                      className="btn-fill"
+                      color="info"
+                      type="submit"
+                      onClick={this.verificarPreenchimentoForm}
+                    >
                       {this.state.textBtnRequest}
                     </Button>
-                    <Button className="btn-fill" color="warning" name="btnColeta" type="submit" onClick={this.verificarPreenchimentoForm}>
+                    <Button
+                      className="btn-fill"
+                      color="warning"
+                      name="btnColeta"
+                      type="submit"
+                      onClick={this.verificarPreenchimentoForm}
+                    >
                       {this.state.textBtnRequest} E COLETAR
                     </Button>
-                    <Button className="btn-fill" id="btn-aplicar" name="btnAplicacao" type="submit" onClick={this.verificarPreenchimentoForm}>
+                    <Button
+                      className="btn-fill"
+                      id="btn-aplicar"
+                      name="btnAplicacao"
+                      type="submit"
+                      onClick={this.verificarPreenchimentoForm}
+                    >
                       {this.state.textBtnRequest} E APLICAR
                     </Button>
                     <Button
