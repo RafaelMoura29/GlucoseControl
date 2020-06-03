@@ -26,8 +26,6 @@ const FormularioPaciente = ({
   alta,
   planoAplicacao,
   observacoes,
-  glicemia,
-  aplicacao,
   updateCheckValue,
   updateCheckedAplicacao,
   verificarPreenchimentoForm,
@@ -200,8 +198,8 @@ const FormularioPaciente = ({
                             onChange={updateCheckValue}
                             checked={internado}
                           />
-                                INTERNADO
-                                <span className="form-check-sign" />
+                          INTERNADO
+                          <span className="form-check-sign" />
                         </Label>
                       </FormGroup>
 
@@ -213,8 +211,8 @@ const FormularioPaciente = ({
                             name="alta"
                             onChange={updateCheckValue}
                             checked={alta} />
-                                  ALTA
-                                  <span className="form-check-sign"></span>
+                            ALTA
+                            <span className="form-check-sign"></span>
                         </Label>
                       </FormGroup>
                     </Col>

@@ -6,19 +6,7 @@ import api from '../../variables/api'
 import FormularioPaciente from './components/form'
 
 // reactstrap components
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  FormGroup,
-  Form,
-  Input,
-  Row,
-  Col,
-  Label,
-  ModalHeader
-} from "reactstrap";
+import { ModalHeader } from "reactstrap";
 
 class Form_create_paciente extends React.Component {
   constructor(props) {
@@ -139,33 +127,19 @@ class Form_create_paciente extends React.Component {
 
     let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
     let form = this.state.form
+    const { alta, internado, ...dadosPaciente } = form
+
     //Gravando paciente
     api.post("/paciente", {
-      "prontuario": form.prontuario,
-      "nome": form.nome,
-      "dataNascimento": form.dataNascimento,
-      "sexo": form.sexo,
-      "peso": form.peso,
-      "altura": form.altura,
-      "imc": form.peso / ((form.altura / 100) * (form.altura / 100)),
-      "dataInternacao": form.dataInternacao,
-      "horaInternacao": form.horaInternacao,
-      "tipoInternacao": form.tipoInternacao,
-      "diabetes": form.diabetes,
-      "insuficienciaRenal": form.insuficienciaRenal,
-      "corticoide": form.corticoide,
-      "infeccao": form.infeccao,
-      "sindromeDescRespiratorio": form.sindromeDescRespiratorio,
-      "instabilidadeHemodinamica": form.instabilidadeHemodinamica,
+      ...dadosPaciente,
       "statusPaciente": form.alta ? "alta" : "internado",
+      "imc": form.peso / ((form.altura / 100) * (form.altura / 100)),
       "planoAplicacao": planoAplicacao,
-      "observacoes": form.observacoes,
       "createDate": dataCriacao,
       "updateDate": dataCriacao,
-      "glicemia": form.glicemia,
-      "aplicacao": form.aplicacao
     })
       .then(({ data }) => {
+        console.log(data)
         this.setState({
           LoadingSpinner: false,
           ModalMessager: true,
@@ -287,13 +261,6 @@ class Form_create_paciente extends React.Component {
     }
   }
 
-  toggleModalMesseger = () => {
-    if (this.state.redirectUrl !== null) {
-      return this.props.history.push(this.state.redirectUrl)
-    }
-    this.setState({ ModalMessager: false })
-  }
-
   render() {
     return (
       <>
@@ -303,9 +270,8 @@ class Form_create_paciente extends React.Component {
           <ModalMessager
             visible={this.state.ModalMessager}
             text={this.state.ModalMessagerText}
-            toggle={this.toggleModalMesseger}
           >
-            <ModalHeader toggle={this.toggleMessager}></ModalHeader>
+            <ModalHeader toggle={this.toggleMessager} />
           </ModalMessager>
 
           <FormularioPaciente
