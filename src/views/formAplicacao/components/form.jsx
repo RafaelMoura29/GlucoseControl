@@ -69,6 +69,7 @@ const FormularioAplicacao = ({
                   value={dataAplicacao}
                   onChange={handleChange}
                   name="dataAplicacao"
+                  invalid={!dataAplicacao}
                 />
               </FormGroup>
             </Col>
@@ -82,6 +83,7 @@ const FormularioAplicacao = ({
                   name="horaAplicacao"
                   value={horaAplicacao}
                   onChange={handleChange}
+                  invalid={!horaAplicacao}
                 />
               </FormGroup>
             </Col>
@@ -128,7 +130,8 @@ const FormularioAplicacao = ({
                 name="droga"
                 value={droga}
                 onChange={handleChange}
-              >
+                invalid={!droga}
+                >
                 {opcoesDroga.map((opcao, index) => (
                   <option key={index} value={opcao}>{opcao}</option>
                 ))}
@@ -145,6 +148,7 @@ const FormularioAplicacao = ({
                 name="posologia"
                 value={posologia}
                 onChange={handleChange}
+                invalid={!posologia}
               />
             </FormGroup>
           </Col>

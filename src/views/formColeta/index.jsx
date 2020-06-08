@@ -235,8 +235,8 @@ class Form_glicemia extends React.Component {
                             />
                           </FormGroup>
                         </Col>
-                        <Col className="pr-md-1" md="6">
 
+                        <Col className="pr-md-1" md="6">
                           <FormGroup>
                             <label>DATA COLETA</label>
                             <Input
@@ -245,9 +245,11 @@ class Form_glicemia extends React.Component {
                               value={this.state.form.dataColeta}
                               onChange={this.handleChange}
                               name="dataColeta"
+                              invalid={!this.state.form.dataColeta}
                             />
                           </FormGroup>
                         </Col>
+
                         <Col className="pr-md-1" md="6">
                           <FormGroup>
                             <label>HORA COLETA</label>
@@ -257,6 +259,7 @@ class Form_glicemia extends React.Component {
                               name="horaColeta"
                               value={this.state.form.horaColeta}
                               onChange={this.handleChange}
+                              invalid={!this.state.form.horaColeta}
                             />
                           </FormGroup>
                         </Col>
@@ -269,6 +272,7 @@ class Form_glicemia extends React.Component {
                               value={this.state.form.valorGlicemia}
                               onChange={this.handleChange}
                               name="valorGlicemia"
+                              invalid={!this.state.form.valorGlicemia}
                             />
                           </FormGroup>
                         </Col>

@@ -385,7 +385,7 @@ const FormularioPaciente = ({
                 value="/admin/Form_glicemia/"
               >
                 {requestType === 'post' ? 'SALVAR' : 'ATUALIZAR'} E COLETAR
-                    </Button>
+              </Button>
               <Button
                 className="btn-fill"
                 id="btn-aplicar"
@@ -395,7 +395,7 @@ const FormularioPaciente = ({
                 value="/admin/formAplicacao/"
               >
                 {requestType === 'post' ? 'SALVAR' : 'ATUALIZAR'} E APLICAR
-                    </Button>
+              </Button>
               <Button
                 className="btn-fill"
                 color="danger"
