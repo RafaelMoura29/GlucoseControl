@@ -29,7 +29,8 @@ const FormularioPaciente = ({
   updateCheckValue,
   updateCheckedAplicacao,
   verificarPreenchimentoForm,
-  requestType
+  requestType,
+  history
 }) => (
     <Row>
       <Col md="12">
@@ -398,10 +399,10 @@ const FormularioPaciente = ({
               <Button
                 className="btn-fill"
                 color="danger"
-                onClick={() => this.props.history.goBack()}
+                onClick={() => history.goBack()}
               >
                 CANCELAR
-                    </Button>
+              </Button>
             </div>
           </CardFooter>
         </Card>

@@ -281,6 +281,7 @@ class Form_create_paciente extends React.Component {
             updateCheckedAplicacao={this.updateCheckedAplicacao}
             verificarPreenchimentoForm={this.verificarPreenchimentoForm}
             requestType={this.state.requestType}
+            history={this.props.history}
           />
 
         </div>
