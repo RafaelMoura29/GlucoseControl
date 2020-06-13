@@ -18,12 +18,13 @@ class Login extends React.Component {
   render() {
     return (
       <>
-        <Row style={{ margin: 0, padding: '25px 10px 17px 25px' }}>
-          <Col md="6">
-          <img src={imgLogo} alt="" height="76" width="257" />
+        <Row id="row-navbar">
 
+          <Col md="6">
+            <img src={imgLogo} alt="" height="73" width="245" />
           </Col>
-          <Col md="6" style={{textAlign: "right"}}>
+
+          <Col id="col-navbar-links" md="6">
             <Link style={{ marginRight: 12, marginLeft: 12, color: '#ddd' }} to={'#'}>
               Sobre
             </Link>
@@ -34,11 +35,12 @@ class Login extends React.Component {
               Ajuda
             </Link>
             <Link style={{ marginRight: 12, marginLeft: 12 }} to={'#'}>
-              <Button color="primary" style={{ background: '#a564e9', fontWeight: 'unset' }}>
+              <Button id="btn-assinar" color="primary">
                 Assinar
               </Button>
             </Link>
           </Col>
+          
         </Row>
       </>
     );
