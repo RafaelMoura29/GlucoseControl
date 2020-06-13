@@ -2,7 +2,7 @@ import React from "react";
 import './style.css'
 
 import { Link } from "react-router-dom";
-import { Row, Col, Button, Container } from "reactstrap";
+import { Row, Col, Button, Input, Label, Container } from "reactstrap";
 import imgLogo from "../../assets/img/GLYCON-bco.png"
 
 class Login extends React.Component {
@@ -40,7 +40,50 @@ class Login extends React.Component {
               </Button>
             </Link>
           </Col>
-          
+
+        </Row>
+
+        <Row style={{ margin: 0, padding: '25px 10px 17px 25px' }}>
+
+          <Col md="8" style={{ height: '100%' }}>
+
+          </Col>
+
+          <Col md="4" style={{ height: '100%', flexGrow: 1, marginTop: 25 }}>
+
+            <Container className="themed-container" fluid={true} >
+              <p style={{ color: '#ddd', textAlign: 'justify', fontSize: '1.2em' }}>
+                Caso já seja nosso parceiro e tenha um plano de assinatura, basta acessar com seu e-mail e senha.
+              </p>
+            </Container>
+
+            <Container className="themed-container" fluid={true} style={{ marginTop: 35 }} >
+
+              <Label style={{color: '#ddd', marginBottom: 25}}>
+                LOGIN
+              </Label>
+
+              <Input type="text" placeholder="Usuário" style={{marginBottom: 25}} />
+
+              <Input type="text" placeholder="Senha" style={{marginBottom: 25}} />
+
+            </Container>
+
+            <Container className="themed-container" fluid={true} style={{marginBottom: 25}} >
+              <Button style={{ width: '100%' }} color="primary">
+                LOGIN
+              </Button>
+            </Container>
+
+            <Container className="themed-container text-center" fluid={true} style={{marginBottom: 10}} >
+              <Link to="#">Ainda não tenho uma conta</Link>
+            </Container>
+
+            <Container className="themed-container text-center" fluid={true}>
+              <Link to="#">Esqueci minha senha</Link>
+            </Container>
+          </Col>
+
         </Row>
       </>
     );
