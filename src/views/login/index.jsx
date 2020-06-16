@@ -49,7 +49,7 @@ class Login extends React.Component {
 
           </Col>
 
-          <Col md="4" style={{ height: '100%', flexGrow: 1, marginTop: 25 }}>
+          <Col md="4" style={{ height: '100%', flexGrow: 1, marginTop: 15 }}>
 
             <Container className="themed-container" fluid={true} >
               <p style={{ color: '#ddd', textAlign: 'justify', fontSize: '1.2em' }}>
@@ -59,7 +59,7 @@ class Login extends React.Component {
 
             <Container className="themed-container" fluid={true} style={{ marginTop: 35 }} >
 
-              <Label style={{color: '#ddd', marginBottom: 25}}>
+              <Label style={{color: '#ddd', marginBottom: 25, fontSize: 22}}>
                 LOGIN
               </Label>
 
@@ -70,20 +70,20 @@ class Login extends React.Component {
             </Container>
 
             <Container className="themed-container" fluid={true} style={{marginBottom: 25}} >
-              <Button style={{ width: '100%' }} color="primary">
+              <Button id="btn-login" color="primary">
                 LOGIN
               </Button>
             </Container>
 
             <Container className="themed-container text-center" fluid={true} style={{marginBottom: 10}} >
-              <Link to="#">Ainda não tenho uma conta</Link>
+              <Link to="#" className="secondary-link">Ainda não tenho uma conta</Link>
             </Container>
 
             <Container className="themed-container text-center" fluid={true}>
-              <Link to="#">Esqueci minha senha</Link>
+              <Link to="#" className="secondary-link">Esqueci minha senha</Link>
             </Container>
           </Col>
-
+ 
         </Row>
       </>
     );
