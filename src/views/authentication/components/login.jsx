@@ -29,11 +29,11 @@ const Login = () => (
     </Container>
 
     <Container className="themed-container text-center" fluid={true} style={{ marginBottom: 10 }} >
-      <Link to="#" className="secondary-link">Ainda não tenho uma conta</Link>
+      <Link to="/authentication/register" className="secondary-link">Ainda não tenho uma conta</Link>
     </Container>
 
     <Container className="themed-container text-center" fluid={true}>
-      <Link to="#" className="secondary-link">Esqueci minha senha</Link>
+      <Link to="/authentication/recoverPassword" className="secondary-link">Esqueci minha senha</Link>
     </Container>
   </>
 )

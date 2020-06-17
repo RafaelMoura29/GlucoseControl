@@ -7,6 +7,7 @@ import { Row, Col, Button, Input, Label, Container } from "reactstrap";
 import imgLogo from "../../assets/img/GLYCON-bco.png"
 import Login from './components/login'
 import Register from './components/register'
+import RecoverPassword from './components/recoverPassword'
 
 class Authentication extends React.Component {
 
@@ -57,7 +58,8 @@ class Authentication extends React.Component {
             <Switch>
               <Route path="/authentication/login" component={Login} />
               <Route path="/authentication/register" component={Register} />
-      <Redirect from="/authentication" to="/authentication/login" />
+              <Route path="/authentication/recoverPassword" component={RecoverPassword} />
+              <Redirect from="/authentication" to="/authentication/login" />
             </Switch>
           </Col>
 
