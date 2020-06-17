@@ -6,7 +6,7 @@ import Ajuda from "views/ajuda";
 import Contato from "views/contato";
 import Sobre from "views/sobre";
 import FormAplicacao from "views/formAplicacao";
-import Login from 'views/login'
+import Authentication from 'views/authentication'
 
 var routes = [
   {
@@ -46,10 +46,10 @@ var routes = [
     hideSidebar: true
   },
   {
-    path: "/login",
-    name: "login",
+    path: "/authentication",
+    name: "authentication",
     icon: "tim-icons icon-alert-circle-exc",
-    component: Login,
+    component: Authentication,
     layout: "none",
     hideSidebar: true
   },
