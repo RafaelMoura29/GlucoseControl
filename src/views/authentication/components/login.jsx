@@ -1,31 +1,31 @@
 import React from 'react'
 import { Button, Input, Label, Container } from "reactstrap";
-import { Router, Route, Switch, Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => (
   <>
     <Container className="themed-container" fluid={true} >
       <p style={{ color: '#ddd', textAlign: 'justify', fontSize: '1.2em' }}>
         Caso já seja nosso parceiro e tenha um plano de assinatura, basta acessar com seu e-mail e senha.
-              </p>
+      </p>
     </Container>
 
     <Container className="themed-container" fluid={true} style={{ marginTop: 35 }} >
 
       <Label style={{ color: '#ddd', marginBottom: 25, fontSize: 22 }}>
         LOGIN
-              </Label>
+      </Label>
 
       <Input type="text" placeholder="Usuário" style={{ marginBottom: 25 }} />
 
-      <Input type="text" placeholder="Senha" style={{ marginBottom: 25 }} />
+      <Input type="password" placeholder="Senha" style={{ marginBottom: 25 }} />
 
     </Container>
 
     <Container className="themed-container" fluid={true} style={{ marginBottom: 25 }} >
       <Button id="btn-login" color="primary">
         LOGIN
-              </Button>
+      </Button>
     </Container>
 
     <Container className="themed-container text-center" fluid={true} style={{ marginBottom: 10 }} >
