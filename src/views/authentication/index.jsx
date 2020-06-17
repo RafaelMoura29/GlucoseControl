@@ -6,6 +6,7 @@ import { Router, Route, Switch, Redirect, Link } from "react-router-dom";
 import { Row, Col, Button, Input, Label, Container } from "reactstrap";
 import imgLogo from "../../assets/img/GLYCON-bco.png"
 import Login from './components/login'
+import Register from './components/register'
 
 class Authentication extends React.Component {
 
@@ -54,9 +55,10 @@ class Authentication extends React.Component {
           <Col md="4" style={{ height: '100%', flexGrow: 1, marginTop: 15 }}>
 
             <Switch>
-              <Route  path="/authentication/login" component={Login} />
+              <Route path="/authentication/login" component={Login} />
+              <Route path="/authentication/register" component={Register} />
+      <Redirect from="/authentication" to="/authentication/login" />
             </Switch>
-            
           </Col>
 
         </Row>
