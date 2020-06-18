@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Input, Label, Container } from "reactstrap";
 import { Link } from "react-router-dom";
 
-const Login = () => (
+const Login = ({ emailLogin, senhaLogin, handleChange, handleLogin }) => (
   <>
     <Container className="themed-container" fluid={true} >
       <p style={{ color: '#ddd', textAlign: 'justify', fontSize: '1.2em' }}>
@@ -16,14 +16,14 @@ const Login = () => (
         LOGIN
       </Label>
 
-      <Input type="text" placeholder="Usuário" style={{ marginBottom: 25 }} />
+      <Input type="email" placeholder="E-mail" name="emailLogin" value={emailLogin} onChange={handleChange} style={{ marginBottom: 25 }} />
 
-      <Input type="password" placeholder="Senha" style={{ marginBottom: 25 }} />
+      <Input type="password" placeholder="Senha" name="senhaLogin" value={senhaLogin} onChange={handleChange} style={{ marginBottom: 25 }} />
 
     </Container>
 
     <Container className="themed-container" fluid={true} style={{ marginBottom: 25 }} >
-      <Button id="btn-login" color="primary">
+      <Button id="btn-login" color="primary" onClick={handleLogin} >
         LOGIN
       </Button>
     </Container>
