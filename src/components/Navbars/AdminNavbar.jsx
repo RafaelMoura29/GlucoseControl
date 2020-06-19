@@ -1,15 +1,29 @@
+/*!
+=========================================================
+* Black Dashboard React v1.0.0
+=========================================================
+* Product Page: https://www.creative-tim.com/product/black-dashboard-react
+* Copyright 2019 Creative Tim (https://www.creative-tim.com)
+* Licensed under MIT (https://github.com/creativetimofficial/black-dashboard-react/blob/master/LICENSE.md)
+* Coded by Creative Tim
+=========================================================
+* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+*/
 import React from "react";
-
+// nodejs library that concatenates classes
 import classNames from "classnames";
 
-
+// reactstrap components
 import {
   Collapse,
   DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
   UncontrolledDropdown,
   Input,
   NavbarBrand,
   Navbar,
+  NavLink,
   Nav,
   Container,
   Modal
@@ -41,7 +55,11 @@ class AdminNavbar extends React.Component {
         color: "navbar-transparent"
       });
     }
-  };
+  }
+  logout = () => {
+    localStorage.removeItem("TOKEN")
+    this.props.history.push('/')
+  }
   // this function opens and closes the collapse on small devices
   toggleCollapse = () => {
     if (this.state.collapseOpen) {
@@ -91,18 +109,44 @@ class AdminNavbar extends React.Component {
                 {this.props.brandText}
               </NavbarBrand>
             </div>
-
+            <button
+              aria-expanded={false}
+              aria-label="Toggle navigation"
+              className="navbar-toggler"
+              data-target="#navigation"
+              data-toggle="collapse"
+              id="navigation"
+              type="button"
+              onClick={this.toggleCollapse}
+            >
+              <span className="navbar-toggler-bar navbar-kebab" />
+              <span className="navbar-toggler-bar navbar-kebab" />
+              <span className="navbar-toggler-bar navbar-kebab" />
+            </button>
             <Collapse navbar isOpen={this.state.collapseOpen}>
               <Nav className="ml-auto" navbar>
-                <UncontrolledDropdown >
+                <UncontrolledDropdown nav>
                   <DropdownToggle
+                    caret
+                    color="default"
+                    data-toggle="dropdown"
                     nav
+                    onClick={e => e.preventDefault()}
                   >
                     <div className="photo">
+                      <img alt="..." src={require("assets/img/anime3.png")} />
                     </div>
+                    <b className="caret d-none d-lg-block d-xl-block" />
+                    <p className="d-lg-none">Log out</p>
                   </DropdownToggle>
-
+                  <DropdownMenu className="dropdown-navbar" right tag="ul">
+                    <DropdownItem divider tag="li" />
+                    <NavLink tag="li" onClick={this.logout}>
+                      <DropdownItem className="nav-item">Log out</DropdownItem>
+                    </NavLink>
+                  </DropdownMenu>
                 </UncontrolledDropdown>
+                <li className="separator d-lg-none" />
               </Nav>
             </Collapse>
           </Container>
@@ -129,5 +173,4 @@ class AdminNavbar extends React.Component {
     );
   }
 }
-
 export default AdminNavbar;

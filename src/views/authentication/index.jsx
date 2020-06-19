@@ -35,13 +35,13 @@ class Authentication extends React.Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleLogin = () => {
+  handleLogin = (event) => {
+    event.preventDefault()
     const { emailLogin, senhaLogin } = this.state
 
     api.post('/login', { email: emailLogin, senha: senhaLogin })
       .then(({ data }) => {
         localStorage.setItem('TOKEN', data.token )
-        console.log(data)
         this.props.history.push('/admin/pacientes')
       })
       .catch((error) => {
