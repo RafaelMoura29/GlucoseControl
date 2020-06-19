@@ -2,22 +2,33 @@ import React from "react";
 import './style.css'
 
 
-import { Router, Route, Switch, Redirect, Link } from "react-router-dom";
-import { Row, Col, Button, Input, Label, Container } from "reactstrap";
+import {  Route, Switch, Redirect, Link } from "react-router-dom";
+import { Row, Col, Button } from "reactstrap";
 import imgLogo from "../../assets/img/GLYCON-bco.png"
 import Login from './components/login'
 import Register from './components/register'
 import RecoverPassword from './components/recoverPassword'
 import api from '../../variables/api'
 
+import checkAuthentication from '../../services/authentication'
+
+
 class Authentication extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      emailLogin: 'cu',
+      emailLogin: '',
       senhaLogin: ''
     }
+  }
+
+  componentDidMount(){
+    checkAuthentication(this.props.history)
+  }
+
+  componentDidUpdate(){
+    checkAuthentication(this.props.history)
   }
 
   handleChange = (event) => {
@@ -25,15 +36,16 @@ class Authentication extends React.Component {
   }
 
   handleLogin = () => {
-    api.post('/login', {
-      email: this.state.emailLogin,
-      password: this.state.senhaLogin
-    })
-      .then(({data}) => {
+    const { emailLogin, senhaLogin } = this.state
+
+    api.post('/login', { email: emailLogin, senha: senhaLogin })
+      .then(({ data }) => {
+        localStorage.setItem('TOKEN', data.token )
         console.log(data)
+        this.props.history.push('/admin/pacientes')
       })
       .catch((error) => {
-        console.log(error)
+        alert("Ocorreu um erro")
       })
   }
 
