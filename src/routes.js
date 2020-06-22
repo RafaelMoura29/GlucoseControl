@@ -7,6 +7,7 @@ import Contato from "views/contato";
 import Sobre from "views/sobre";
 import FormAplicacao from "views/formAplicacao";
 import Authentication from 'views/authentication'
+import FormUsuario from 'views/formUsuario'
 
 var routes = [
   {
@@ -74,6 +75,13 @@ var routes = [
     component: Ajuda,
     layout: "/admin",
   },
+  {
+    path: '/formUsuario',
+    name: 'formUsuario',
+    icon: 'tim-icons icon-alert-circle-exc',
+    component: FormUsuario,
+    layout: '/admin'
+  }
   
 ];
 export default routes;
