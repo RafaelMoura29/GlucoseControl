@@ -6,7 +6,7 @@ const api = axios.create({ baseURL: process.env.REACT_APP_API })
 api.interceptors.request.use(async config => {
     const token = localStorage.getItem("TOKEN")
     if (token) {
-        config.headers.Authorization = token
+        config.headers.token = token
     }
     return config
 })
