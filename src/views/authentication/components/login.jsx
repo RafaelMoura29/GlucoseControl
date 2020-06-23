@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Input, Label, Container } from "reactstrap";
 import { Link } from "react-router-dom";
 
-const Login = ({ emailLogin, senhaLogin, handleChange, handleLogin }) => (
+const Login = ({ emailLogin, senhaLogin, handleChange, handleLogin, isLoggingIn, errorMessage }) => (
   <>
     <Container className="themed-container" fluid={true} >
       <p style={{ color: '#ddd', textAlign: 'justify', fontSize: '1.2em' }}>
@@ -34,22 +34,18 @@ const Login = ({ emailLogin, senhaLogin, handleChange, handleLogin }) => (
           name="senhaLogin"
           value={senhaLogin}
           onChange={handleChange}
-          style={{ marginBottom: 25 }}
+          
         />
+        <p className="mt-2" style={{ marginBottom: 20, color:"#fd5d93" }}>{errorMessage}</p>
 
       </Container>
 
       <Container className="themed-container" fluid={true} style={{ marginBottom: 25 }} >
-        <Button id="btn-login"  type="submit" color="primary" >
-          LOGIN
+        <Button id="btn-login"  type="submit" color="primary" disabled={isLoggingIn}>
+          { isLoggingIn ? <><i className="fa fa-spinner fa-spin" /> Carregando </>  : <> LOGIN </> }
         </Button>
       </Container>
     </form>
-
-
-    <Container className="themed-container text-center" fluid={true} style={{ marginBottom: 10 }} >
-      <Link to="/authentication/register" className="secondary-link">Ainda não tenho uma conta</Link>
-    </Container>
 
     <Container className="themed-container text-center" fluid={true}>
       <Link to="/authentication/recoverPassword" className="secondary-link">Esqueci minha senha</Link>

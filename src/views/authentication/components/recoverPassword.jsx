@@ -28,10 +28,6 @@ const RecoverPassword = () => (
       </Button>
     </Container>
 
-    <Container className="themed-container text-center" fluid={true} style={{ marginBottom: 10 }} >
-      <Link to="/authentication/register" className="secondary-link">Ainda não tenho uma conta</Link>
-    </Container>
-
     <Container className="themed-container text-center" fluid={true}>
       <Link to="/authentication/login" className="secondary-link">Fazer login</Link>
     </Container>

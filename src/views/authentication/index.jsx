@@ -2,7 +2,7 @@ import React from "react";
 import './style.css'
 
 
-import {  Route, Switch, Redirect, Link } from "react-router-dom";
+import { Route, Switch, Redirect, Link } from "react-router-dom";
 import { Row, Col, Button } from "reactstrap";
 import imgLogo from "../../assets/img/GLYCON-bco.png"
 import Login from './components/login'
@@ -19,15 +19,17 @@ class Authentication extends React.Component {
     super(props);
     this.state = {
       emailLogin: '',
-      senhaLogin: ''
+      senhaLogin: '',
+      isLoggingIn: false,
+      errorMessage: ''
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     checkAuthentication(this.props.history)
   }
 
-  componentDidUpdate(){
+  componentDidUpdate() {
     checkAuthentication(this.props.history)
   }
 
@@ -37,15 +39,16 @@ class Authentication extends React.Component {
 
   handleLogin = (event) => {
     event.preventDefault()
+    this.setState({ isLoggingIn: true })
     const { emailLogin, senhaLogin } = this.state
 
     api.post('/login', { email: emailLogin, senha: senhaLogin })
       .then(({ data }) => {
-        localStorage.setItem('TOKEN', data.token )
+        localStorage.setItem('TOKEN', data.token)
         this.props.history.push('/admin/pacientes')
       })
       .catch((error) => {
-        alert("Ocorreu um erro")
+        this.setState({ isLoggingIn: false, errorMessage: error.response.data })
       })
   }
 
@@ -86,7 +89,18 @@ class Authentication extends React.Component {
           <Col md="4" style={{ height: '100%', flexGrow: 1, marginTop: 15 }}>
 
             <Switch>
-              <Route path="/authentication/login" render={() => <Login handleLogin={this.handleLogin} handleChange={this.handleChange} emailLogin={this.state.emailLogin} senhaLogin={this.state.senhaLogin} />} />
+              <Route
+                path="/authentication/login"
+                render={() => <Login handleLogin={this.handleLogin}
+                  handleChange={this.handleChange}
+                  emailLogin={this.state.emailLogin}
+                  isLoggingIn={this.state.isLoggingIn}
+                  senhaLogin={this.state.senhaLogin}
+                  errorMessage={this.state.errorMessage}
+                />}
+
+              />
+
               <Route path="/authentication/register" component={Register} />
               <Route path="/authentication/recoverPassword" component={RecoverPassword} />
               <Redirect from="/authentication" to="/authentication/login" />
