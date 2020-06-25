@@ -176,7 +176,7 @@ class Form_glicemia extends React.Component {
 
               this.setState({
                 ModalMessager: false,
-              });
+              })
             }}
           >
             <ModalHeader toggle={this.toggleMessager}></ModalHeader>

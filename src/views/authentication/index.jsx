@@ -5,6 +5,7 @@ import './style.css'
 import { Route, Switch, Redirect, Link } from "react-router-dom";
 import { Row, Col, Button } from "reactstrap";
 import imgLogo from "../../assets/img/GLYCON-bco.png"
+import imgHome from '../../assets/img/img-home.png'
 import Login from './components/login'
 import Register from './components/register'
 import RecoverPassword from './components/recoverPassword'
@@ -80,13 +81,13 @@ class Authentication extends React.Component {
 
         </Row>
 
-        <Row style={{ margin: 0, padding: '25px 10px 17px 25px' }}>
+        <Row style={{ margin: 0}}>
 
-          <Col md="8" style={{ height: '100%' }}>
-
+          <Col md="8" style={{ height: '100%', marginTop: 30, paddingLeft: '25px' }}>
+            <img src={imgHome} alt="" />
           </Col>
 
-          <Col md="4" style={{ height: '100%', flexGrow: 1, marginTop: 15 }}>
+          <Col md="4" style={{ height: '100%', flexGrow: 1, marginTop: 50 }}>
 
             <Switch>
               <Route
