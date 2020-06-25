@@ -147,14 +147,14 @@ class Form_glicemia extends React.Component {
           ModalMessager: true,
           ModalMessagerText: 'Dados Gravados Com Sucesso!',
           ModalMessagerTextSecondary: modalText
-        });
+        })
       })
       .catch((error) => {
         this.setState({
           LoadingSpinner: false,
           ModalMessager: true,
           ModalMessagerText: 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
-        });
+        })
       })
   }
 

@@ -23,9 +23,9 @@ class FormUsuario extends React.Component {
     super(props)
     this.state = {
       formNome: '',
-      formUnidade: '',
+      formUnidade: 'HRAN',
       formEmail: '',
-      formPerfil: '',
+      formPerfil: 'Médico',
       formSenha: '',
       loadingSpinner: false,
       modalMessager: false,
@@ -39,8 +39,35 @@ class FormUsuario extends React.Component {
 
   handleLogin = (event) => {
     event.preventDefault()
-    //this.setState({loadingSpinner: true})
-    this.setState({modalMessager: true, modalMessagerText: 'Mensagem'})
+    this.setState({ loadingSpinner: true })
+    const { formNome, formUnidade, formEmail, formPerfil, formSenha } = this.state
+
+    api.post('/register', {
+      email: formEmail,
+      nome: formNome,
+      senha: formSenha,
+      unidade: formUnidade,
+      perfil: formPerfil
+    })
+      .then((response) => {
+        this.setState({
+          loadingSpinner: false,
+          modalMessager: true,
+          modalMessagerText: 'Dados Gravados Com Sucesso!',
+          formNome: '',
+          formUnidade: 'HRAN',
+          formEmail: '',
+          formPerfil: 'Médico',
+          formSenha: '',
+        })
+      })
+      .catch((error) => {
+        this.setState({
+          loadingSpinner: false,
+          modalMessager: true,
+          modalMessagerText: error.response.data
+        })
+      })
   }
 
   render() {
@@ -53,7 +80,7 @@ class FormUsuario extends React.Component {
             visible={modalMessager}
             text={modalMessagerText}
           >
-            <ModalHeader toggle={this.toggleModalMessager}/>
+            <ModalHeader toggle={this.toggleModalMessager} />
           </ModalMessager>
 
           <LoadingSpinner visible={this.state.loadingSpinner} />
@@ -86,14 +113,15 @@ class FormUsuario extends React.Component {
                     <Col className="pr-md-1" md="6">
                       <label>UNIDADE</label>
                       <Input
-                        placeholder="Prontuário"
-                        type="text"
+                        type="select"
                         name="formUnidade"
-                        value={formUnidade}
                         onChange={this.handleChange}
+                        value={formUnidade}
                         invalid={!formUnidade}
-                        required
-                      />
+                      >
+                        <option>HRAN</option>
+                        <option>segundo</option>
+                      </Input>
                     </Col>
 
                     <Col className="pr-md-1" md="6">
@@ -112,14 +140,15 @@ class FormUsuario extends React.Component {
                     <Col className="pr-md-1" md="6">
                       <label>PERFIL</label>
                       <Input
-                        placeholder="Prontuário"
-                        type="text"
+                        type="select"
                         name="formPerfil"
-                        value={formPerfil}
                         onChange={this.handleChange}
+                        value={formPerfil}
                         invalid={!formPerfil}
-                        required
-                      />
+                      >
+                        <option>Médico</option>
+                        <option>Enfermeiro</option>
+                      </Input>
                     </Col>
 
                     <Col className="pr-md-1" md="6">
@@ -132,6 +161,7 @@ class FormUsuario extends React.Component {
                         onChange={this.handleChange}
                         invalid={!formSenha}
                         required
+                        minLength={9}
                       />
                     </Col>
 
