@@ -11,4 +11,11 @@ api.interceptors.request.use(async config => {
     return config
 })
 
+api.interceptors.response.use( undefined, (error) => {
+    if(!error.response.data.auth){
+        localStorage.removeItem("TOKEN")
+        window.location.href = "/";
+    }
+})
+
 export default api;

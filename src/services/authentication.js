@@ -3,7 +3,6 @@ const checkAuthentication = (history) => {
   const TOKEN = localStorage.getItem("TOKEN")
   const paginaAtual = history.location.pathname
   const paginaLogin = '/authentication/login'
-console.log()
   if (TOKEN === null && paginaAtual !== paginaLogin) {
     if(paginaAtual === '/authentication/recoverPassword') return 
     history.push('/')

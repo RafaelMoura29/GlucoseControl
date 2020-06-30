@@ -120,7 +120,6 @@ class FormUsuario extends React.Component {
                         invalid={!formUnidade}
                       >
                         <option>HRAN</option>
-                        <option>segundo</option>
                       </Input>
                     </Col>
 
