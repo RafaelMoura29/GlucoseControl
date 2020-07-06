@@ -1,0 +1,53 @@
+#row-navbar{
+    margin: 0;
+    padding: 25px 10px 17px 25px;
+}
+
+.link-navbar{
+    margin-right: 12 !important;
+    margin-left: 12 !important;
+    color: '#ddd' !important;
+}
+
+#col-navbar-links{
+    text-align: right;
+}
+
+#btn-assinar{
+    background: #a564e9;
+    font-weight: unset;
+}
+
+#btn-assinar:hover{
+    background-color: #a564e9;
+    background-image: none !important;
+}
+
+#btn-assinar:focus{
+    background-color: #a564e9 !important;
+    background-image: none !important;
+}
+
+#btn-login{
+    width: 100%;
+    background: #a564e9;
+    font-weight: unset;
+}
+
+#btn-login:hover{
+    background-image: none !important;
+    background-color: #a564e9;
+}
+
+#btn-login:focus{
+    background-color: #a564e9 !important;
+    background-image: none !important;
+}
+
+.secondary-link{
+    color: #ddd;
+}
+
+.secondary-link:hover{
+    color: #fff;
+}

@@ -10,6 +10,8 @@ import routes from "routes.js";
 
 import logo from "assets/img/react-logo.png";
 
+import checkAuthentication from '../../services/authentication'
+
 var ps;
 
 class Admin extends React.Component {
@@ -22,6 +24,7 @@ class Admin extends React.Component {
     };
   }
   componentDidMount() {
+    checkAuthentication(this.props.history)
     if (navigator.platform.indexOf("Win") > -1) {
       document.documentElement.className += " perfect-scrollbar-on";
       document.documentElement.classList.remove("perfect-scrollbar-off");
@@ -40,6 +43,7 @@ class Admin extends React.Component {
     }
   }
   componentDidUpdate(e) {
+    checkAuthentication(this.props.history)
     if (e.history.action === "PUSH") {
       if (navigator.platform.indexOf("Win") > -1) {
         let tables = document.querySelectorAll(".table-responsive");

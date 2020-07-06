@@ -1,23 +1,18 @@
 import React from "react";
 import LoadingSpinner from '../../components/LoadingSpinner.js'
-import ModalMessager from '../../components/ModalMessager.js'
+import ModalMessager from '../../components/ModalMessager/modalMessager'
 import './style.css'
 import api from '../../variables/api'
+import FormularioAplicacao from './components/form'
+import FormFooter from './components/formFooter'
 
 import {
   Card,
   CardBody,
   Row,
   Col,
-  Button,
-  FormGroup,
-  Input,
-  Label,
-  CardFooter,
   ModalHeader,
-  Form
 } from "reactstrap";
-
 
 class FormAplicacao extends React.Component {
 
@@ -43,38 +38,52 @@ class FormAplicacao extends React.Component {
     }
   }
 
-  formataDataHora(data) {
-    let dataHora = data.split(" ");
-    let hora = dataHora[1]
-    let dataFormatada = dataHora[0]
-    dataFormatada = dataFormatada.substring(0, 10).split("-");
-    dataFormatada = dataFormatada[2] + "/" + dataFormatada[1] + "/" + dataFormatada[0] + " " + hora;
-    return dataFormatada;
-  }
-
+  /* 
+    Seta data/hora atual e pega o id do paciente
+  */
   componentDidMount() {
-    const { match: { params } } = this.props;
-    this._idPaciente = params._idPaciente;
+    const { match: { params } } = this.props
+    this._idPaciente = params._idPaciente
     this.getPaciente()
 
-    let dateTime = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
-    //Separa data da hora
-    dateTime = dateTime.split(" ")
-    //Separa mes, dia e ano
-    let data = dateTime[0].split("/")
-    //Ajustando formato da data
-    data = data[2] + "-" + data[1] + "-" + data[0]
-    //Hora atual
-    let hora = dateTime[1].substring(0, 5)
+    const data = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })
+    const dateAux = data.slice(0, 10).split('/')
+
     this.setState({
       form: {
         ...this.state.form,
-        dataAplicacao: data,
-        horaAplicacao: hora
+        dataAplicacao: dateAux[2] + '-' + dateAux[1] + '-' + dateAux[0],
+        horaAplicacao: data.slice(11, 16)
       }
     })
   }
 
+  /* 
+    Request para pegar as informações do paciente
+  */
+  getPaciente = () => {
+    api.get("/paciente?tagId=" + this._idPaciente)
+      .then(({ data: { paciente } }) => {
+        paciente = paciente[0]
+        this.setState({
+          form: {
+            ...this.state.form,
+            prontuario: paciente.prontuario,
+            paciente: paciente.nome,
+            dataHoraInternacao: this.formataData(paciente.dataInternacao) + ' ' + paciente.horaInternacao
+          }
+        })
+      })
+  }
+
+  formataData(data) {
+    let splitData = data.substring(0, 10).split("-")
+    return splitData[2] + "/" + splitData[1] + "/" + splitData[0]
+  }
+  
+  /* 
+    Seta prox ação ao fechar o modal messager
+  */
   toggleMessager = () => {
     if (this.state.nextPage) {
       this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)
@@ -83,16 +92,14 @@ class FormAplicacao extends React.Component {
   }
 
   handleChange = (event) => {
-    this.setState({
-      form: {
-        ...this.state.form,
-        [event.target.name]: event.target.value
-      }
-    })
+    this.setState({ form: { ...this.state.form, [event.target.name]: event.target.value } })
   }
 
+  /* 
+    Verifica se todos campos estão preenchidos e salva a aplicação
+  */
   salvarAplicacao = () => {
-    this.setState({ LoadingSpinner: true });
+    this.setState({ LoadingSpinner: true })
 
     let form = this.state.form
 
@@ -108,10 +115,9 @@ class FormAplicacao extends React.Component {
         LoadingSpinner: false,
         ModalMessager: true,
         ModalMessagerText: 'Preencha todos os campos!',
-      });
+      })
     }
 
-    let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
     api.post("/aplicacao", {
       dataAplicacao: form.dataAplicacao,
       horaAplicacao: form.horaAplicacao,
@@ -120,8 +126,8 @@ class FormAplicacao extends React.Component {
       droga: form.droga,
       posologia: form.posologia,
       observacoes: form.observacoes,
-      createDate: dataCriacao,
-      updateDate: dataCriacao,
+      createDate: new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }),
+      updateDate: new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }),
       _idPaciente: this._idPaciente,
     })
       .then((response) => {
@@ -151,21 +157,10 @@ class FormAplicacao extends React.Component {
       })
   }
 
-  getPaciente = () => {
-    api.get("/paciente?tagId=" + this._idPaciente)
-      .then(({ data: { paciente } }) => {
-        paciente = paciente[0]
-        this.setState({
-          form: {
-            ...this.state.form,
-            prontuario: paciente.prontuario,
-            paciente: paciente.nome,
-            dataHoraInternacao: paciente.dataInternacao + ' ' + paciente.horaInternacao
-          }
-        })
-      })
-
-  }
+  /* 
+    Volta para a página do paciente
+  */
+  toggleCancelar = () => this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)
 
   render() {
     let opcoesDroga = this.state.form.tipoAplicacao === 'de resgate'
@@ -175,196 +170,39 @@ class FormAplicacao extends React.Component {
     return (
       <>
         <div className="content">
+
           <ModalMessager
             visible={this.state.ModalMessager}
             text={this.state.ModalMessagerText}
-            toggle={() => {
-
-              this.setState({
-                ModalMessager: false,
-              });
-            }}
           >
             <ModalHeader toggle={this.toggleMessager}></ModalHeader>
           </ModalMessager>
 
           <LoadingSpinner visible={this.state.LoadingSpinner} />
-          <Row>
 
+          <Row>
             <Card>
               <CardBody>
 
                 <Row >
                   <Col className="pr-md-1" md="12">
-                    <h3 style={{ fontSize: 25 }}>APLICAÇÃO</h3>
+                    <h3>APLICAÇÃO</h3>
                   </Col>
                 </Row>
 
-                <Form>
-                  <Row>
-                    <Col className="pr-md-1" md="6">
-                      <Row>
+                <FormularioAplicacao
+                  {...this.state.form}
+                  opcoesDroga={opcoesDroga}
+                  handleChange={this.handleChange}
+                />
 
-                        <Col className="pr-md-1" md="6">
-                          <FormGroup>
-                            <label>PRONTUÁRIO</label>
-                            <Input
-                              placeholder="Prontuário"
-                              type="text"
-                              name="prontuario"
-                              value={this.state.form.prontuario}
-                              disabled
-                            />
-                          </FormGroup>
-                        </Col>
-
-                        <Col className="pr-md-1" md="6">
-                          <FormGroup>
-                            <label>DATA/HORA INTERNAÇÃO</label>
-                            <Input
-                              placeholder="Data/Hora"
-                              type="text"
-                              name="dataHoraInternacao"
-                              value={this.state.form.dataHoraInternacao}
-                              disabled
-                            />
-                          </FormGroup>
-                        </Col>
-
-                        <Col className="pr-md-1" md="12">
-                          <FormGroup>
-                            <label>PACIENTE</label>
-                            <Input
-                              placeholder="Paciente"
-                              type="text"
-                              name="paciente"
-                              value={this.state.form.paciente}
-                              disabled
-                            />
-                          </FormGroup>
-                        </Col>
-
-                        <Col className="pr-md-1" md="6">
-                          <FormGroup>
-                            <label>DATA APLICAÇÃO</label>
-                            <Input
-                              type="date"
-                              placeholder="Data Aplicação"
-                              value={this.state.form.dataAplicacao}
-                              onChange={this.handleChange}
-                              name="dataAplicacao"
-                            />
-                          </FormGroup>
-                        </Col>
-
-                        <Col className="pr-md-1" md="6">
-                          <FormGroup>
-                            <label>HORA APLICAÇÃO</label>
-                            <Input
-                              placeholder="Hora Aplicação"
-                              type="time"
-                              name="horaAplicacao"
-                              value={this.state.form.horaAplicacao}
-                              onChange={this.handleChange}
-                            />
-                          </FormGroup>
-                        </Col>
-
-                        <Col className="pr-md-1" md="12">
-                          <FormGroup>
-                            <label>TIPO APLICAÇÃO</label>
-                            <Input
-                              type="select"
-                              name="tipoAplicacao"
-                              value={this.state.form.tipoAplicacao}
-                              onChange={this.handleChange}
-                            >
-                              <option style={{ backgroundColor: '#27293d' }} value="de resgate">De Resgate</option>
-                              <option style={{ backgroundColor: '#27293d' }} value="de horario">De Horário</option>
-                            </Input>
-                          </FormGroup>
-                        </Col>
-
-                      </Row>
-                    </Col>
-
-                    <Col className="pr-md-1" md="6">
-
-                      <Col className="pr-md-1" md="12">
-                        <FormGroup>
-                          <label>VIA ADMINISTRAÇÃO</label>
-                          <Input
-                            type="select"
-                            name="viaAdministracao"
-                            value={this.state.form.viaAdministracao}
-                            onChange={this.handleChange}
-                          >
-                            <option style={{ backgroundColor: '#27293d' }} value="intravenoso">Intravenoso</option>
-                            <option style={{ backgroundColor: '#27293d' }} value="sub cutaneo">Sub Cutâneo</option>
-                            <option style={{ backgroundColor: '#27293d' }} value="via oral">Via Oral</option>
-                          </Input>
-                        </FormGroup>
-                      </Col>
-
-                      <Col className="pr-md-1" md="12">
-                        <FormGroup>
-                          <label>DROGA</label>
-                          <Input
-                            type="select"
-                            name="droga"
-                            value={this.state.form.droga}
-                            onChange={this.handleChange}
-                          >
-                            {opcoesDroga.map((opcao, index) => (
-                              <option key={index} style={{ backgroundColor: '#27293d' }} value={opcao}>{opcao}</option>
-                            ))}
-                          </Input>
-                        </FormGroup>
-                      </Col>
-
-                      <Col className="pr-md-1" md="12">
-                        <FormGroup>
-                          <label>POSOLOGIA</label>
-                          <Input
-                            placeholder="Posologia"
-                            type="text"
-                            name="posologia"
-                            value={this.state.form.posologia}
-                            onChange={this.handleChange}
-                          />
-                        </FormGroup>
-                      </Col>
-
-                      <Col className="pr-md-1" md="12">
-                        <FormGroup>
-                          <Label>Observações</Label>
-                          <Input
-                            type="textarea"
-                            name="observacoes"
-                            placeholder="Observações"
-                            value={this.state.form.observacoes}
-                            onChange={this.handleChange}
-                          />
-                        </FormGroup>
-                      </Col>
-
-                    </Col>
-
-                  </Row>
-                </Form>
               </CardBody>
 
-              <CardFooter>
-                <Button className="btn-fill" color="info" type="submit" onClick={this.salvarAplicacao}>
-                  SALVAR APLICAÇÃO
-                </Button>
-                <Button
-                  className="btn-fill" color="danger"
-                  onClick={() => this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)}
-                >
-                  CANCELAR
-                  </Button>
-              </CardFooter>
+              <FormFooter
+                salvarAplicacao={this.salvarAplicacao}
+                toggleCancelar={this.toggleCancelar}
+              />
+
             </Card>
           </Row>
         </div>

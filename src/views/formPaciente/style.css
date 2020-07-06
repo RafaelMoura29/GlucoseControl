@@ -7,3 +7,10 @@
     background-image: none !important;
 }
 
+option {
+    background-color: #27293d;
+}
+
+#titulo-form{
+    font-size: 25;
+}

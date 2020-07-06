@@ -6,6 +6,8 @@ import Ajuda from "views/ajuda";
 import Contato from "views/contato";
 import Sobre from "views/sobre";
 import FormAplicacao from "views/formAplicacao";
+import Authentication from 'views/authentication'
+import FormUsuario from 'views/formUsuario'
 
 var routes = [
   {
@@ -45,6 +47,14 @@ var routes = [
     hideSidebar: true
   },
   {
+    path: "/authentication",
+    name: "authentication",
+    icon: "tim-icons icon-alert-circle-exc",
+    component: Authentication,
+    layout: "none",
+    hideSidebar: true
+  },
+  {
     path: "/sobre",
     name: "Sobre",
     icon: "tim-icons icon-bulb-63",
@@ -65,5 +75,13 @@ var routes = [
     component: Ajuda,
     layout: "/admin",
   },
+  {
+    path: '/formUsuario',
+    name: 'formUsuario',
+    icon: 'tim-icons icon-alert-circle-exc',
+    component: FormUsuario,
+    layout: '/admin'
+  }
+  
 ];
 export default routes;

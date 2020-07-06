@@ -1,9 +1,8 @@
 import React from "react";
 
 import LoadingSpinner from '../../components/LoadingSpinner.js'
-import ModalMessager from '../../components/ModalMessager.js'
+import ModalMessager from '../../components/ModalMessager/modalMessager'
 import './style.css'
-import { Link } from "react-router-dom";
 import api from '../../variables/api'
 
 // reactstrap components
@@ -148,14 +147,14 @@ class Form_glicemia extends React.Component {
           ModalMessager: true,
           ModalMessagerText: 'Dados Gravados Com Sucesso!',
           ModalMessagerTextSecondary: modalText
-        });
+        })
       })
       .catch((error) => {
         this.setState({
           LoadingSpinner: false,
           ModalMessager: true,
           ModalMessagerText: 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
-        });
+        })
       })
   }
 
@@ -177,7 +176,7 @@ class Form_glicemia extends React.Component {
 
               this.setState({
                 ModalMessager: false,
-              });
+              })
             }}
           >
             <ModalHeader toggle={this.toggleMessager}></ModalHeader>
@@ -236,8 +235,8 @@ class Form_glicemia extends React.Component {
                             />
                           </FormGroup>
                         </Col>
-                        <Col className="pr-md-1" md="6">
 
+                        <Col className="pr-md-1" md="6">
                           <FormGroup>
                             <label>DATA COLETA</label>
                             <Input
@@ -246,9 +245,11 @@ class Form_glicemia extends React.Component {
                               value={this.state.form.dataColeta}
                               onChange={this.handleChange}
                               name="dataColeta"
+                              invalid={!this.state.form.dataColeta}
                             />
                           </FormGroup>
                         </Col>
+
                         <Col className="pr-md-1" md="6">
                           <FormGroup>
                             <label>HORA COLETA</label>
@@ -258,6 +259,7 @@ class Form_glicemia extends React.Component {
                               name="horaColeta"
                               value={this.state.form.horaColeta}
                               onChange={this.handleChange}
+                              invalid={!this.state.form.horaColeta}
                             />
                           </FormGroup>
                         </Col>
@@ -270,6 +272,7 @@ class Form_glicemia extends React.Component {
                               value={this.state.form.valorGlicemia}
                               onChange={this.handleChange}
                               name="valorGlicemia"
+                              invalid={!this.state.form.valorGlicemia}
                             />
                           </FormGroup>
                         </Col>
