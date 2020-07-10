@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react'
 
-import { Button, Input, Label, Container } from "reactstrap";
+import { Button, Input, Label, Container } from 'reactstrap'
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 const ChangePassword = ({
   changePassword,
   confirmChangePassword,
   isChangingPassword,
   handleChange,
-  handleChangePassword,
+  handleChangePassword
 }) => (
   <>
     <form onSubmit={handleChangePassword} action="POST">
@@ -18,12 +18,14 @@ const ChangePassword = ({
         fluid={true}
         style={{ marginTop: 5 }}
       >
-        <Label style={{ color: "#ddd", marginBottom: 25, fontSize: 22 }}>
+        <Label style={{ color: '#ddd', marginBottom: 25, fontSize: 22 }}>
           MUDAR SENHA
         </Label>
 
         <Input
           type="password"
+          minLength={8}
+          required
           placeholder="Senha"
           value={changePassword}
           name="changePassword"
@@ -33,8 +35,10 @@ const ChangePassword = ({
 
         <Input
           type="password"
+          minLength={8}
+          required
           placeholder="Confirmar Senha"
-          name={confirmChangePassword}
+          name="confirmChangePassword"
           value={confirmChangePassword}
           onChange={handleChange}
           style={{ marginBottom: 25 }}
@@ -49,7 +53,7 @@ const ChangePassword = ({
         <Button id="btn-login" color="primary">
           {isChangingPassword ? (
             <>
-              <i className="fa fa-spinner fa-spin" /> Carregando{" "}
+              <i className="fa fa-spinner fa-spin" /> Carregando{' '}
             </>
           ) : (
             <> MUDAR SENHA </>
@@ -68,6 +72,6 @@ const ChangePassword = ({
       </Link>
     </Container>
   </>
-);
+)
 
-export default ChangePassword;
+export default ChangePassword
