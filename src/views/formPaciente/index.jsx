@@ -139,7 +139,6 @@ class Form_create_paciente extends React.Component {
       "updateDate": dataCriacao,
     })
       .then(({ data }) => {
-        console.log(data)
         this.setState({
           LoadingSpinner: false,
           ModalMessager: true,

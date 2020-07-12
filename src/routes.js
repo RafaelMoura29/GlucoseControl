@@ -55,6 +55,13 @@ var routes = [
     hideSidebar: true
   },
   {
+    path: '/formUsuario',
+    name: 'Cadastrar Usuário',
+    icon: 'tim-icons icon-badge',
+    component: FormUsuario,
+    layout: '/admin'
+  },
+  {
     path: "/sobre",
     name: "Sobre",
     icon: "tim-icons icon-bulb-63",
@@ -74,14 +81,6 @@ var routes = [
     icon: "tim-icons icon-alert-circle-exc",
     component: Ajuda,
     layout: "/admin",
-  },
-  {
-    path: '/formUsuario',
-    name: 'formUsuario',
-    icon: 'tim-icons icon-alert-circle-exc',
-    component: FormUsuario,
-    layout: '/admin'
   }
-  
-];
+]
 export default routes;
