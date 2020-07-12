@@ -24,7 +24,8 @@ class Authentication extends React.Component {
       recoverPasswordEmail: '',
       changePassword: '',
       confirmChangePassword: '',
-      isChangingPassword: false
+      isChangingPassword: false,
+      changePasswordErrorMessage: ''
     }
   }
 
@@ -47,7 +48,7 @@ class Authentication extends React.Component {
 
     api
       .post('/login', { email: emailLogin, senha: senhaLogin })
-      .then(({data}) => {
+      .then(({ data }) => {
         localStorage.setItem('TOKEN', data.token)
         this.props.history.push('/admin/pacientes')
       })
@@ -82,13 +83,13 @@ class Authentication extends React.Component {
 
   handleChangePassword = event => {
     event.preventDefault()
-    this.setState({ isChangingPassword: true })
+    this.setState({ isChangingPassword: true, changePasswordErrorMessage: '' })
 
     const token = this.props.location.pathname.split('changePassword/')[1]
     const { changePassword, confirmChangePassword } = this.state
 
     if (changePassword !== confirmChangePassword) {
-      alert('As senhas não são iguais!')
+      return this.setState({changePasswordErrorMessage: 'As senhas não são iguais!', isChangingPassword: false })
     }
 
     api
@@ -99,12 +100,10 @@ class Authentication extends React.Component {
       })
       .then(response => {
         alert('Senha alterada com sucesso!')
+        this.setState({ isChangingPassword: false })
       })
       .catch(error => {
-        alert('Ocorreu um erro!')
-      })
-      .finally(() => {
-        this.setState({ isChangingPassword: false })
+        return this.setState({changePasswordErrorMessage: 'Ocorreu um erro! tente novamente em instantes.', isChangingPassword: false })
       })
   }
 
@@ -176,6 +175,7 @@ class Authentication extends React.Component {
                     isChangingPassword={this.state.isChangingPassword}
                     handleChange={this.handleChange}
                     handleChangePassword={this.handleChangePassword}
+                    changePasswordErrorMessage={this.state.changePasswordErrorMessage}
                   />
                 )}
               />

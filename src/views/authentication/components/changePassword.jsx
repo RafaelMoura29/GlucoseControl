@@ -9,7 +9,8 @@ const ChangePassword = ({
   confirmChangePassword,
   isChangingPassword,
   handleChange,
-  handleChangePassword
+  handleChangePassword,
+  changePasswordErrorMessage
 }) => (
   <>
     <form onSubmit={handleChangePassword} action="POST">
@@ -43,6 +44,7 @@ const ChangePassword = ({
           onChange={handleChange}
           style={{ marginBottom: 25 }}
         />
+        <p className="mt-2" style={{ marginBottom: 20, color:"#fd5d93" }}>{changePasswordErrorMessage}</p>
       </Container>
 
       <Container
@@ -50,7 +52,7 @@ const ChangePassword = ({
         fluid={true}
         style={{ marginBottom: 25 }}
       >
-        <Button id="btn-login" color="primary">
+        <Button id="btn-login" color="primary" disabled={isChangingPassword}>
           {isChangingPassword ? (
             <>
               <i className="fa fa-spinner fa-spin" /> Carregando{' '}

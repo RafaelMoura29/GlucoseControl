@@ -42,7 +42,7 @@ const RecoverPassword = ({
         fluid={true}
         style={{ marginBottom: 25 }}
       >
-        <Button id="btn-login" color="primary">
+        <Button id="btn-login" color="primary" disabled={isSendingEmail}>
           {isSendingEmail ? (
             <>
               <i className="fa fa-spinner fa-spin" /> Carregando{' '}
