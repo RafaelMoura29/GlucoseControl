@@ -2,8 +2,7 @@ const checkAuthentication = (history) => {
   const TOKEN = localStorage.getItem("TOKEN");
   const paginaAtual = history.location.pathname;
   const paginaLogin = "/authentication/login";
-  
-  console.log(paginaAtual.includes("/authentication/changePassword"));
+
   if (TOKEN === null && paginaAtual !== paginaLogin) {
     if (
       paginaAtual === "/authentication/recoverPassword" ||

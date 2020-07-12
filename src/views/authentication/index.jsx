@@ -42,19 +42,19 @@ class Authentication extends React.Component {
 
   handleLogin = event => {
     event.preventDefault()
-    this.setState({ isLoggingIn: true })
+    this.setState({ isLoggingIn: true, errorMessage: '' })
     const { emailLogin, senhaLogin } = this.state
 
     api
       .post('/login', { email: emailLogin, senha: senhaLogin })
-      .then(({ data }) => {
+      .then(({data}) => {
         localStorage.setItem('TOKEN', data.token)
         this.props.history.push('/admin/pacientes')
       })
       .catch(error => {
         this.setState({
           isLoggingIn: false,
-          errorMessage: 'Confira se os dados informados estão corretos e tente novamente!'
+          errorMessage: error.response.data
         })
       })
   }
@@ -70,7 +70,6 @@ class Authentication extends React.Component {
     api
       .post('/recoverPassword', { email: recoverPasswordEmail, url })
       .then(response => {
-        console.log(response)
         alert('E-mail para recuperação da senha enviado com sucesso!')
       })
       .catch(error => {
