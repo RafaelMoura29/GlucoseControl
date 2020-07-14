@@ -1,6 +1,14 @@
 import React from 'react'
 
-import { Button, Input, Label, Container } from 'reactstrap'
+import {
+  Button,
+  Input,
+  Label,
+  Container,
+  Modal,
+  ModalBody,
+  ModalFooter
+} from 'reactstrap'
 
 import { Link } from 'react-router-dom'
 
@@ -11,6 +19,24 @@ const RecoverPassword = ({
   handleSendEmail
 }) => (
   <>
+
+    <Modal
+      isOpen={/* this.state.modalDemo */ true}
+      toggle={() => {}}
+      className="text-center"
+    >
+      <ModalBody>
+        <p>E-mail com link para recuperação da senha enviado com sucesso!</p>
+      </ModalBody>
+      <ModalFooter
+        className="d-flex justify-content-center"
+      >
+        <Button color="secondary" onClick={() => {}}>
+          ENTENDI
+        </Button>
+      </ModalFooter>
+    </Modal>
+
     <Container className="themed-container" fluid={true}>
       <p style={{ color: '#ddd', textAlign: 'justify', fontSize: '1.2em' }}>
         Utilize o e-mail cadastrado para recuperar a senha.
