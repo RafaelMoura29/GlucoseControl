@@ -29,7 +29,7 @@ class PainelPaciente extends React.Component {
       glucosePaciente: [],
       glucosePacienteFiltrado: [],
       filtroDataColeta: 0,
-      filtroDataInicial: '2000-03-28',
+      filtroDataInicial: '2000-10-10',
       filtroDataFinal: new Date(),
       lineChart: lineChart,
       nomePaciente: '',
@@ -45,13 +45,14 @@ class PainelPaciente extends React.Component {
     this._idPaciente = params._idPaciente
 
     //Setando a data atual como data final no filtro do gráfico
-    let dateTime = new Date().toLocaleString('pt-BR', {
-      timeZone: 'America/Sao_Paulo'
-    })
-    let dataAtual = dateTime.split(' ')[0].split('/')
-    dataAtual = dataAtual[2] + '-' + dataAtual[1] + '-' + dataAtual[0]
+    let dateTime = new Date()
+    let dataAtual =
+      dateTime.getFullYear() +
+      '-' +
+      String(dateTime.getMonth() + 1).padStart(2, '0') +
+      '-' +
+      dateTime.getDate()
     this.setState({ filtroDataFinal: dataAtual })
-
     this.getPaciente()
   }
 
@@ -60,31 +61,39 @@ class PainelPaciente extends React.Component {
       .get('/paciente?tagId=' + this._idPaciente)
       .then(({ data: { paciente } }) => {
         paciente = paciente[0]
+        console.log(paciente)
         let glicemias = paciente.glicemia.map(glicemia => ({
           ...glicemia,
+          dataHoraColeta: new Date(glicemia.dataHoraColeta),
           procedimento: 'Coleta'
         }))
         let aplicacoes = paciente.aplicacao.map(aplicacao => ({
           ...aplicacao,
+          dataHoraAplicacao: new Date(aplicacao.dataHoraAplicacao),
           procedimento: 'Aplicação'
         }))
         let glicemiaEAplicacoes = glicemias.concat(aplicacoes)
-        let dataInternacao = paciente.dataInternacao
+
+        let dataInternacao = new Date(paciente.dataHoraInternacao)
+        dataInternacao =
+          dataInternacao.getFullYear() +
+          '-' +
+          String(dataInternacao.getMonth() + 1).padStart(2, '0') +
+          '-' +
+          dataInternacao.getDate()
+
         glicemiaEAplicacoes.sort((a, b) => {
           let auxA =
-            a.procedimento === 'Coleta'
-              ? a.dataColeta + ' ' + a.horaColeta
-              : a.dataAplicacao + ' ' + a.horaAplicacao
+            a.procedimento === 'Coleta' ? a.dataHoraColeta : a.dataHoraAplicacao
 
           let auxB =
-            b.procedimento === 'Coleta'
-              ? b.dataColeta + ' ' + b.horaColeta
-              : b.dataAplicacao + ' ' + b.horaAplicacao
+            b.procedimento === 'Coleta' ? b.dataHoraColeta : b.dataHoraAplicacao
 
           let dateA = new Date(auxA)
           let dateB = new Date(auxB)
           return dateB - dateA
         })
+
         this.setState(
           {
             nomePaciente: paciente.nome,
@@ -97,16 +106,11 @@ class PainelPaciente extends React.Component {
       })
   }
 
-  formataData(data) {
-    let a = data.substring(0, 10).split('-')
-    return a[2] + '/' + a[1] + '/' + a[0]
-  }
-
   filtrarEvolucaoGlicemia = () => {
     let state = this.state
     let coletas = state.glicemiaEAplicacoes
       .filter(procedimento => {
-        let data = procedimento.dataColeta || procedimento.dataAplicacao
+        let data = procedimento.dataHoraColeta || procedimento.dataHoraAplicacao
         return (
           data >= state.filtroDataInicial &&
           data <= state.filtroDataFinal &&
@@ -115,9 +119,7 @@ class PainelPaciente extends React.Component {
       })
       .reverse()
     const dados = coletas.map(coleta => coleta.valorGlicemia)
-    const labels = coletas.map(
-      coleta => this.formataData(coleta.dataColeta) + ' ' + coleta.horaColeta
-    )
+    const labels = coletas.map(coleta => coleta.dataHoraColeta)
     state.lineChart.dados = dados
     state.lineChart.labels = labels
     this.setState(state)
@@ -131,7 +133,8 @@ class PainelPaciente extends React.Component {
     const procedimento = this.state.tipoInternacaoFiltro
     const procedimentosFiltrados = this.state.glicemiaEAplicacoes.filter(
       coletaAplicacao => {
-        let data = coletaAplicacao.dataColeta || coletaAplicacao.dataAplicacao
+        let data =
+          coletaAplicacao.dataHoraColeta || coletaAplicacao.dataHoraAplicacao
         return (
           (coletaAplicacao.procedimento === procedimento ||
             procedimento === 'Todos') &&
@@ -142,14 +145,8 @@ class PainelPaciente extends React.Component {
     this.setState({ glicemiaEAplicacoesFiltrados: procedimentosFiltrados })
   }
 
-  /*
-        Modifica valor do campo
-    */
   handleChange = e => this.setState({ [e.target.name]: e.target.value })
 
-  /*
-        Limpa filtros da listagem de coletas e aplicações
-    */
   dismissFiltros = () => {
     this.setState(
       {
@@ -287,29 +284,30 @@ class PainelPaciente extends React.Component {
                     </thead>
                     <tbody>
                       {this.state.glicemiaEAplicacoesFiltrados.map(
-                        (procedimento, index) => (
-                          <tr key={index}>
-                            <td>
-                              {this.formataData(
-                                procedimento.dataColeta ||
-                                  procedimento.dataAplicacao
-                              )}
-                            </td>
-                            <td>
-                              {procedimento.horaColeta ||
-                                procedimento.horaAplicacao}
-                            </td>
-                            <td>{procedimento.procedimento}</td>
-                            <td>
-                              {procedimento.tipoColeta ||
-                                procedimento.tipoAplicacao}
-                            </td>
-                            <td>
-                              {procedimento.valorGlicemia ||
-                                procedimento.posologia}
-                            </td>
-                          </tr>
-                        )
+                        (procedimento, index) => {
+                          let dataHoraProcedimento =
+                            procedimento.dataHoraColeta ||
+                            procedimento.dataHoraAplicacao
+                          return (
+                            <tr key={index}>
+                              <td>
+                                {dataHoraProcedimento.toLocaleDateString()}
+                              </td>
+                              <td>
+                                {dataHoraProcedimento.toLocaleTimeString()}
+                              </td>
+                              <td>{procedimento.procedimento}</td>
+                              <td>
+                                {procedimento.tipoColeta ||
+                                  procedimento.tipoAplicacao}
+                              </td>
+                              <td>
+                                {procedimento.valorGlicemia ||
+                                  procedimento.posologia}
+                              </td>
+                            </tr>
+                          )
+                        }
                       )}
                     </tbody>
                   </Table>

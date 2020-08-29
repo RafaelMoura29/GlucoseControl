@@ -18,9 +18,6 @@ class Pacientes extends React.Component {
     }
   }
 
-  /*
-    Fazendo requisição dos pacientes
-  */
   async getPacientes() {
     this.setState({ LoadingSpinner: true })
 
@@ -29,7 +26,12 @@ class Pacientes extends React.Component {
       .then(({ data: { paciente } }) => {
         let pacientes = paciente.map(paciente => {
           let dataInternacao = new Date(paciente.dataHoraInternacao)
-          dataInternacao = dataInternacao.getDate() + '/' + dataInternacao.getMonth() + '/' + dataInternacao.getFullYear()
+          dataInternacao =
+            dataInternacao.getDate() +
+            '/' +
+            dataInternacao.getMonth() +
+            '/' +
+            dataInternacao.getFullYear()
           return {
             _id: paciente._id,
             nome: paciente.nome,
