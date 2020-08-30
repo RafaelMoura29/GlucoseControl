@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import LoadingSpinner from '../../components/LoadingSpinner.js'
 import ModalMessager from '../../components/ModalMessager/modalMessager'
 import './style.css'
@@ -6,14 +6,16 @@ import api from '../../variables/api'
 import FormularioPaciente from './components/form'
 
 // reactstrap components
-import { ModalHeader } from "reactstrap";
+import { ModalHeader } from 'reactstrap'
 
 class Form_create_paciente extends React.Component {
   constructor(props) {
-    const data = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })
+    const data = new Date().toLocaleString('pt-BR', {
+      timeZone: 'America/Sao_Paulo'
+    })
     const dateAux = data.slice(0, 10).split('/')
 
-    super(props);
+    super(props)
     this.state = {
       LoadingSpinner: false,
       ModalMessager: false,
@@ -40,10 +42,30 @@ class Form_create_paciente extends React.Component {
         internado: true,
         alta: false,
         planoAplicacao: [
-          false, false, false, false, false, false,
-          false, false, false, false, false, false,
-          false, false, false, false, false, false,
-          false, false, false, false, false, false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false,
+          false
         ],
         observacoes: '',
         glicemia: [],
@@ -54,20 +76,36 @@ class Form_create_paciente extends React.Component {
 
   componentDidMount() {
     this.setState({ LoadingSpinner: true, modal: false })
-    const { match: { params } } = this.props
+    const {
+      match: { params }
+    } = this.props
     if (params._idPaciente !== '0') {
-      api.get("/paciente?tagId=" + params._idPaciente)
+      api
+        .get('/paciente?tagId=' + params._idPaciente)
         .then(({ data }) => {
-          const { _id, statusPaciente, planoAplicacao, ...paciente } = data.paciente[0]
+          const {
+            _id,
+            statusPaciente,
+            planoAplicacao,
+            ...paciente
+          } = data.paciente[0]
 
           let statePlanoAplicacao = this.state.form.planoAplicacao
-          planoAplicacao.split("#").map(hora => (
-            statePlanoAplicacao[parseInt(hora) - 1] = true
-          ))
-
+          planoAplicacao
+            .split('#')
+            .map(hora => (statePlanoAplicacao[parseInt(hora) - 1] = true))
+          console.log(paciente)
+          let dt = new Date(paciente.dataHoraInternacao)
           this.setState({
             form: {
               ...paciente,
+              dataInternacao:
+                dt.getFullYear() +
+                '-' +
+                String(dt.getMonth() + 1).padStart(2, '0') +
+                '-' +
+                dt.getDate(),
+              horaInternacao: dt.toLocaleTimeString(),
               internado: statusPaciente === 'internado',
               alta: statusPaciente === 'alta',
               planoAplicacao: statePlanoAplicacao
@@ -75,9 +113,8 @@ class Form_create_paciente extends React.Component {
             idPaciente: _id,
             requestType: 'put'
           })
-
         })
-        .finally((e) => {
+        .finally(e => {
           this.setState({ LoadingSpinner: false })
         })
     } else {
@@ -87,10 +124,30 @@ class Form_create_paciente extends React.Component {
         form: {
           ...this.state.form,
           planoAplicacao: [
-            false, false, false, false, false, true,
-            false, false, false, false, false, true,
-            false, false, false, false, false, true,
-            false, false, false, false, false, false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
           ]
         }
       })
@@ -101,44 +158,46 @@ class Form_create_paciente extends React.Component {
     if (this.state.redirectUrl !== null) {
       this.props.history.push(this.state.redirectUrl)
     }
-    this.setState({ ModalMessager: !this.state.ModalMessager });
+    this.setState({ ModalMessager: !this.state.ModalMessager })
   }
 
-  updateInputValue = (event) => {
+  updateInputValue = event => {
     let state = this.state
     state.form[event.target.name] = event.target.value
     this.setState(state)
   }
 
-  updateCheckValue = (event) => {
+  updateCheckValue = event => {
     let form = this.state.form
     form.alta = !form.alta
     form.internado = !form.internado
     this.setState(form)
   }
 
-  updateCheckedAplicacao = (event) => {
+  updateCheckedAplicacao = event => {
     let form = this.state.form
     form.planoAplicacao[event.target.name] = event.target.checked
     this.setState(form)
   }
 
-  salvarPaciente = (planoAplicacao) => {
-
-    let dataCriacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+  salvarPaciente = planoAplicacao => {
+    let dataCriacao = new Date()
     let form = this.state.form
-    const { alta, internado, ...dadosPaciente } = form
+    const { alta, internado, dataInternacao, horaInternacao, ...dadosPaciente } = form
 
     //Gravando paciente
-    api.post("/paciente", {
-      ...dadosPaciente,
-      "statusPaciente": form.alta ? "alta" : "internado",
-      "imc": form.peso / ((form.altura / 100) * (form.altura / 100)),
-      "planoAplicacao": planoAplicacao,
-      "createDate": dataCriacao,
-      "updateDate": dataCriacao,
-    })
+    api
+      .post('/paciente', {
+        ...dadosPaciente,
+        dataHoraInternacao: dataInternacao + ' ' + horaInternacao,
+        statusPaciente: form.alta ? 'alta' : 'internado',
+        imc: form.peso / ((form.altura / 100) * (form.altura / 100)),
+        planoAplicacao: planoAplicacao,
+        createDate: dataCriacao,
+        updateDate: dataCriacao
+      })
       .then(({ data }) => {
+        console.log(data)
         this.setState({
           LoadingSpinner: false,
           ModalMessager: true,
@@ -146,62 +205,77 @@ class Form_create_paciente extends React.Component {
           redirectUrl: this.state.redirectUrl + data._id
         })
       })
-      .catch((error) => {
+      .catch(error => {
+        console.log(error)
         this.setState({
           LoadingSpinner: false,
           redirectUrl: null,
           ModalMessager: true,
-          ModalMessagerText: 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
-        });
+          ModalMessagerText:
+            'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
+        })
       })
   }
 
-  atualizarPaciente = (planoAplicacao) => {
-
-    let dataAtualizacao = new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" });
+  atualizarPaciente = planoAplicacao => {
+    let dataAtualizacao = new Date()
     let form = this.state.form
 
-    api.put("/paciente",
-      {
-        "_id": this.state.idPaciente,
-        "dataUpdated": {
-          "prontuario": form.prontuario,
-          "nome": form.nome,
-          "dataNascimento": form.dataNascimento,
-          "sexo": form.sexo,
-          "peso": form.peso,
-          "altura": form.altura,
-          "imc": form.peso / ((form.altura / 100) * (form.altura / 100)),
-          "dataInternacao": form.dataInternacao,
-          "horaInternacao": form.horaInternacao,
-          "tipoInternacao": form.tipoInternacao,
-          "diabetes": form.diabetes,
-          "insuficienciaRenal": form.insuficienciaRenal,
-          "corticoide": form.corticoide,
-          "infeccao": form.infeccao,
-          "sindromeDescRespiratorio": form.sindromeDescRespiratorio,
-          "instabilidadeHemodinamica": form.instabilidadeHemodinamica,
-          "statusPaciente": form.alta ? "alta" : "internado",
-          "planoAplicacao": planoAplicacao,
-          "observacoes": form.observacoes,
-          "updateDate": dataAtualizacao,
-          "glicemia": form.glicemia,
-          "aplicacao": form.aplicacao
+    api
+      .put('/paciente', {
+        _id: this.state.idPaciente,
+        dataUpdated: {
+          prontuario: form.prontuario,
+          nome: form.nome,
+          dataNascimento: form.dataNascimento,
+          sexo: form.sexo,
+          peso: form.peso,
+          altura: form.altura,
+          imc: form.peso / ((form.altura / 100) * (form.altura / 100)),
+          dataHoraInternacao: form.dataInternacao + ' ' + form.horaInternacao,
+          tipoInternacao: form.tipoInternacao,
+          diabetes: form.diabetes,
+          insuficienciaRenal: form.insuficienciaRenal,
+          corticoide: form.corticoide,
+          infeccao: form.infeccao,
+          sindromeDescRespiratorio: form.sindromeDescRespiratorio,
+          instabilidadeHemodinamica: form.instabilidadeHemodinamica,
+          statusPaciente: form.alta ? 'alta' : 'internado',
+          planoAplicacao: planoAplicacao,
+          observacoes: form.observacoes,
+          updateDate: dataAtualizacao,
+          glicemia: form.glicemia,
+          aplicacao: form.aplicacao
         }
-      }
-    )
-      .then((response) => {
-        this.showOrHideMessager(false, true, 'Dados Gravados Com Sucesso', this.state.redirectUrl + this.state.idPaciente)
       })
-      .catch((error) => {
+      .then(response => {
+        console.log(response)
+        this.showOrHideMessager(
+          false,
+          true,
+          'Dados Gravados Com Sucesso',
+          this.state.redirectUrl + this.state.idPaciente
+        )
+      })
+      .catch(error => {
+        console.log(error)
         this.setState({
-          redirectUrl: null,
+          redirectUrl: null
         })
-        this.showOrHideMessager(false, true, 'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!')
+        this.showOrHideMessager(
+          false,
+          true,
+          'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
+        )
       })
   }
 
-  showOrHideMessager = (LoadingSpinner, ModalMessager, ModalMessagerText, redirectUrl = null) => {
+  showOrHideMessager = (
+    LoadingSpinner,
+    ModalMessager,
+    ModalMessagerText,
+    redirectUrl = null
+  ) => {
     this.setState({
       LoadingSpinner: LoadingSpinner,
       ModalMessager: ModalMessager,
@@ -210,8 +284,7 @@ class Form_create_paciente extends React.Component {
     })
   }
 
-  verificarPreenchimentoForm = (event) => {
-
+  verificarPreenchimentoForm = event => {
     this.setState({
       LoadingSpinner: true,
       modal: false,
@@ -221,15 +294,24 @@ class Form_create_paciente extends React.Component {
     let form = this.state.form
 
     if (form.altura < 0) {
-      return this.showOrHideMessager(false, true, 'Preencha o campo altura com um valor válido!')
+      return this.showOrHideMessager(
+        false,
+        true,
+        'Preencha o campo altura com um valor válido!'
+      )
     }
 
     if (form.peso < 0) {
-      return this.showOrHideMessager(false, true, 'Preencha o campo peso com um valor válido!')
+      return this.showOrHideMessager(
+        false,
+        true,
+        'Preencha o campo peso com um valor válido!'
+      )
     }
 
     //Verifica se o formulário está preenchido
-    if (form.prontuario === '' ||
+    if (
+      form.prontuario === '' ||
       form.nome === '' ||
       form.dataNascimento === '' ||
       form.tipoInternacao === '' ||
@@ -244,16 +326,21 @@ class Form_create_paciente extends React.Component {
       form.altura === '' ||
       form.instabilidadeHemodinamica === '' ||
       form.infeccao === '' ||
-      form.sindromeDescRespiratorio === '') {
+      form.sindromeDescRespiratorio === ''
+    ) {
       return this.showOrHideMessager(false, true, 'Preencha todos os campos!')
     }
 
     //Monta a string do plano de aplicação
-    let planoAplicacao = form.planoAplicacao.reduce((acumulador, hora, index) => (
-      hora === true ? acumulador + (index + 1) + "#" : acumulador + ''
-    ), '').slice(0, -1)
+    let planoAplicacao = form.planoAplicacao
+      .reduce(
+        (acumulador, hora, index) =>
+          hora === true ? acumulador + (index + 1) + '#' : acumulador + '',
+        ''
+      )
+      .slice(0, -1)
 
-    if (this.state.requestType === "post") {
+    if (this.state.requestType === 'post') {
       this.salvarPaciente(planoAplicacao)
     } else {
       this.atualizarPaciente(planoAplicacao)
@@ -282,11 +369,10 @@ class Form_create_paciente extends React.Component {
             requestType={this.state.requestType}
             history={this.props.history}
           />
-
         </div>
       </>
-    );
+    )
   }
 }
 
-export default Form_create_paciente;
+export default Form_create_paciente

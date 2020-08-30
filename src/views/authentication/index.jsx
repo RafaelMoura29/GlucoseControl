@@ -5,11 +5,7 @@ import { Route, Switch, Redirect, Link } from 'react-router-dom'
 import {
   Row,
   Col,
-  Button,
-  Alert,
-  Modal,
-  ModalBody,
-  ModalFooter
+  Button
 } from 'reactstrap'
 import imgLogo from '../../assets/img/GLYCON-bco.png'
 import imgHome from '../../assets/img/img-home.png'
