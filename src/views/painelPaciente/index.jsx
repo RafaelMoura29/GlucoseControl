@@ -61,7 +61,6 @@ class PainelPaciente extends React.Component {
       .get('/paciente?tagId=' + this._idPaciente)
       .then(({ data: { paciente } }) => {
         paciente = paciente[0]
-        console.log(paciente)
         let glicemias = paciente.glicemia.map(glicemia => ({
           ...glicemia,
           dataHoraColeta: new Date(glicemia.dataHoraColeta),
@@ -111,6 +110,12 @@ class PainelPaciente extends React.Component {
     let coletas = state.glicemiaEAplicacoes
       .filter(procedimento => {
         let data = procedimento.dataHoraColeta || procedimento.dataHoraAplicacao
+        data =
+          data.getFullYear() +
+          '-' +
+          String(data.getMonth() + 1).padStart(2, '0') +
+          '-' +
+          data.getDate()
         return (
           data >= state.filtroDataInicial &&
           data <= state.filtroDataFinal &&
@@ -119,15 +124,12 @@ class PainelPaciente extends React.Component {
       })
       .reverse()
     const dados = coletas.map(coleta => coleta.valorGlicemia)
-    const labels = coletas.map(coleta => coleta.dataHoraColeta)
+    const labels = coletas.map(({ dataHoraColeta }) => dataHoraColeta.toLocaleDateString())
     state.lineChart.dados = dados
     state.lineChart.labels = labels
     this.setState(state)
   }
 
-  /*
-        Filtra listagem de coletas e aplicações
-    */
   handleFiltro = () => {
     const dataFiltro = this.state.filtroDataColeta
     const procedimento = this.state.tipoInternacaoFiltro
