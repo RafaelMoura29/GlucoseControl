@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react'
 import '../style.css'
-import { Table } from "reactstrap";
+import { Table } from 'reactstrap'
 
-const TabelaPacientes = ({pacientes, history}) => (
+const TabelaPacientes = ({ pacientes, history }) => (
   <Table>
     <thead>
       <tr>
@@ -12,7 +12,7 @@ const TabelaPacientes = ({pacientes, history}) => (
       </tr>
     </thead>
     <tbody id="tableBody">
-      {pacientes.map(paciente =>
+      {pacientes.map(paciente => (
         <tr
           key={paciente._id}
           className="trListPaciente"
@@ -22,9 +22,9 @@ const TabelaPacientes = ({pacientes, history}) => (
           <td>{paciente.nome}</td>
           <td>{paciente.dataInternacao}</td>
         </tr>
-      )}
+      ))}
     </tbody>
   </Table>
 )
 
-export default TabelaPacientes;
+export default TabelaPacientes

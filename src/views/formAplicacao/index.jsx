@@ -38,7 +38,7 @@ class FormAplicacao extends React.Component {
     }
   }
 
-  /* 
+  /*
     Seta data/hora atual e pega o id do paciente
   */
   componentDidMount() {
@@ -58,19 +58,21 @@ class FormAplicacao extends React.Component {
     })
   }
 
-  /* 
+  /*
     Request para pegar as informações do paciente
   */
   getPaciente = () => {
     api.get("/paciente?tagId=" + this._idPaciente)
       .then(({ data: { paciente } }) => {
         paciente = paciente[0]
+        let dt = new Date(paciente.dataHoraInternacao)
         this.setState({
           form: {
             ...this.state.form,
             prontuario: paciente.prontuario,
             paciente: paciente.nome,
-            dataHoraInternacao: this.formataData(paciente.dataInternacao) + ' ' + paciente.horaInternacao
+            dataHoraInternacao:
+              dt.toLocaleDateString() + ' ' + dt.toLocaleTimeString()
           }
         })
       })
@@ -80,8 +82,8 @@ class FormAplicacao extends React.Component {
     let splitData = data.substring(0, 10).split("-")
     return splitData[2] + "/" + splitData[1] + "/" + splitData[0]
   }
-  
-  /* 
+
+  /*
     Seta prox ação ao fechar o modal messager
   */
   toggleMessager = () => {
@@ -95,7 +97,7 @@ class FormAplicacao extends React.Component {
     this.setState({ form: { ...this.state.form, [event.target.name]: event.target.value } })
   }
 
-  /* 
+  /*
     Verifica se todos campos estão preenchidos e salva a aplicação
   */
   salvarAplicacao = () => {
@@ -119,18 +121,16 @@ class FormAplicacao extends React.Component {
     }
 
     api.post("/aplicacao", {
-      dataAplicacao: form.dataAplicacao,
-      horaAplicacao: form.horaAplicacao,
+      dataHoraAplicacao: form.dataAplicacao + ' ' + form.horaAplicacao,
       tipoAplicacao: form.tipoAplicacao,
       viaAdministracao: form.viaAdministracao,
       droga: form.droga,
       posologia: form.posologia,
       observacoes: form.observacoes,
-      createDate: new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }),
-      updateDate: new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" }),
       _idPaciente: this._idPaciente,
     })
       .then((response) => {
+        console.log(response)
         this.setState({
           LoadingSpinner: false,
           ModalMessager: true,
@@ -157,9 +157,6 @@ class FormAplicacao extends React.Component {
       })
   }
 
-  /* 
-    Volta para a página do paciente
-  */
   toggleCancelar = () => this.props.history.push('/admin/PainelPaciente/' + this._idPaciente)
 
   render() {

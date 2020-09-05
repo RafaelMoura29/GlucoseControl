@@ -1,8 +1,8 @@
 import React from "react";
-import img1 from "../../assets/img/imgs_ajuda/img1.png"
+/* import img1 from "../../assets/img/imgs_ajuda/img1.png"
 import img2 from "../../assets/img/imgs_ajuda/img2.png"
 import img3 from "../../assets/img/imgs_ajuda/img3.png"
-import img4 from "../../assets/img/imgs_ajuda/img4.png"
+import img4 from "../../assets/img/imgs_ajuda/img4.png" */
 import './style.css'
 import { Link } from "react-router-dom";
 
@@ -38,7 +38,7 @@ class Ajuda extends React.Component {
                   </iframe>
                 </Col>
               </Row>
-{/* 
+{/*
               <p className="mb-3" style={{ fontSize: '1.2em', textAlign: 'justify' }}>Desenvolvemos o GLYCON para ser o mais simples e intuitivo o possível, mas caso tenha alguma dúvida em relação a sua utilização pode entrar em contato conosco ou seguir as orientações abaixo.</p>
               <p className="mb-3" style={{ fontSize: '1.2em', textAlign: 'justify' }}>Na tela principal (figura 1), são listados todos os pacientes já cadastrados, caso deseje consultar ou alterar seus dados basta clicar no ícone editar (botão azul contendo o ícone de um lápis), caso deseje inserir um novo paciente, basta clicar no botão NOVO e para fazer uma nova coleta de glicemia é só clicar no botão coleta (representado pelo ícone de uma gota de sangue e de cor vermelha).</p>
               <img src={img1} alt="" />

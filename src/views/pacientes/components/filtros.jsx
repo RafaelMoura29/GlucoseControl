@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 import '../style.css'
-import { Col, FormGroup, Input, Form, Row, Button } from "reactstrap";
+import { Col, FormGroup, Input, Form, Row, Button } from 'reactstrap'
 
 const Filtros = ({ status, nomePaciente, toggleFiltro }) => (
   <Form className="mb-4">
@@ -13,7 +13,7 @@ const Filtros = ({ status, nomePaciente, toggleFiltro }) => (
             type="select"
             name="statusFiltro"
             onChange={toggleFiltro}
-          > 
+          >
             <option value="todos">Todos</option>
             <option value="internado">Internado</option>
             <option value="alta">Alta</option>
@@ -21,7 +21,7 @@ const Filtros = ({ status, nomePaciente, toggleFiltro }) => (
         </FormGroup>
       </Col>
       <Col className="pr-md-1" md="5">
-        <FormGroup >
+        <FormGroup>
           <Input
             name="nomePacienteFiltro"
             placeholder="Paciente"
@@ -41,7 +41,6 @@ const Filtros = ({ status, nomePaciente, toggleFiltro }) => (
       </Col>
     </Row>
   </Form>
-
 )
 
-export default Filtros;
+export default Filtros
