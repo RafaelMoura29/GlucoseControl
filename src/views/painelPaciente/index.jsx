@@ -15,7 +15,9 @@ import {
   CardHeader,
   FormGroup,
   Input,
-  Label
+  Label,
+  //UncontrolledPopover,
+//PopoverBody
 } from 'reactstrap'
 
 import { chartExample2, lineChart } from 'variables/charts.jsx'
@@ -172,7 +174,19 @@ class PainelPaciente extends React.Component {
 
                 <Col className="pr-md-1" style={{ textAlign: 'right' }} md="5">
                   <h3 style={{ fontSize: 18 }}>
+                  {this.state.nomePaciente}
+                    {/* <Button color="default" id="popoverButton" type="button">
                     {this.state.nomePaciente}
+        </Button>
+        <UncontrolledPopover placement="bottom" target="popoverButton">
+          <PopoverBody >
+            <p style={{color: '#000'}}><span>algo</span> <span>algo 2</span></p>
+            <p><span>algo</span> <span>algo 2</span></p>
+            <p><span>algo</span> <span>algo 2</span></p>
+            <p><span>algo</span> <span>algo 2</span></p>
+            <Button>clicar</Button>
+          </PopoverBody>
+        </UncontrolledPopover> */}
                     <Link
                       style={{ marginRight: 12, marginLeft: 12 }}
                       to={'/admin/form_create_paciente/' + this._idPaciente}
