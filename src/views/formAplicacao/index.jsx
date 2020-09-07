@@ -110,25 +110,11 @@ class FormAplicacao extends React.Component {
   /*
     Verifica se todos campos estão preenchidos e salva a aplicação
   */
-  salvarAplicacao = () => {
+  salvarAplicacao = event => {
+    event.preventDefault()
     this.setState({ LoadingSpinner: true })
 
     let form = this.state.form
-
-    if (
-      form.dataAplicacao === '' ||
-      form.horaAplicacao === '' ||
-      form.tipoAplicacao === '' ||
-      form.viaAdministracao === '' ||
-      form.droga === '' ||
-      form.posologia === ''
-    ) {
-      return this.setState({
-        LoadingSpinner: false,
-        ModalMessager: true,
-        ModalMessagerText: 'Preencha todos os campos!'
-      })
-    }
 
     api
       .post('/aplicacao', {
@@ -207,14 +193,14 @@ class FormAplicacao extends React.Component {
 
           <Row>
             <Card>
-              <CardBody>
-                <Row>
-                  <Col className="pr-md-1" md="12">
-                    <h3>APLICAÇÃO</h3>
-                  </Col>
-                </Row>
+              <Form onSubmit={this.salvarAplicacao} action="POST">
+                <CardBody>
+                  <Row>
+                    <Col className="pr-md-1" md="12">
+                      <h3>APLICAÇÃO</h3>
+                    </Col>
+                  </Row>
 
-                <Form>
                   <Row>
                     <Col className="pr-md-1" md="6">
                       <Row>
@@ -227,6 +213,7 @@ class FormAplicacao extends React.Component {
                               name="prontuario"
                               value={this.state.form.prontuario}
                               disabled
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -240,6 +227,7 @@ class FormAplicacao extends React.Component {
                               name="dataHoraInternacao"
                               value={this.state.form.dataHoraInternacao}
                               disabled
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -253,6 +241,7 @@ class FormAplicacao extends React.Component {
                               name="paciente"
                               value={this.state.form.paciente}
                               disabled
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -266,7 +255,7 @@ class FormAplicacao extends React.Component {
                               value={this.state.form.dataAplicacao}
                               onChange={this.handleChange}
                               name="dataAplicacao"
-                              invalid={!this.state.form.dataAplicacao}
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -280,7 +269,7 @@ class FormAplicacao extends React.Component {
                               name="horaAplicacao"
                               value={this.state.form.horaAplicacao}
                               onChange={this.handleChange}
-                              invalid={!this.state.form.horaAplicacao}
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -293,6 +282,7 @@ class FormAplicacao extends React.Component {
                               name="tipoAplicacao"
                               value={this.state.form.tipoAplicacao}
                               onChange={this.handleChange}
+                              required
                             >
                               <option value="de resgate">De Resgate</option>
                               <option value="de horario">De Horário</option>
@@ -311,6 +301,7 @@ class FormAplicacao extends React.Component {
                             name="viaAdministracao"
                             value={this.state.form.viaAdministracao}
                             onChange={this.handleChange}
+                            required
                           >
                             <option value="intravenoso">Intravenoso</option>
                             <option value="sub cutaneo">Sub Cutâneo</option>
@@ -327,7 +318,7 @@ class FormAplicacao extends React.Component {
                             name="droga"
                             value={this.state.form.droga}
                             onChange={this.handleChange}
-                            invalid={!this.state.form.droga}
+                            required
                           >
                             {opcoesDroga.map((opcao, index) => (
                               <option key={index} value={opcao}>
@@ -347,7 +338,7 @@ class FormAplicacao extends React.Component {
                             name="posologia"
                             value={this.state.form.posologia}
                             onChange={this.handleChange}
-                            invalid={!this.state.form.posologia}
+                            required
                           />
                         </FormGroup>
                       </Col>
@@ -366,27 +357,26 @@ class FormAplicacao extends React.Component {
                       </Col>
                     </Col>
                   </Row>
-                </Form>
-              </CardBody>
+                </CardBody>
 
-              <CardFooter>
-                <Button
-                  className="btn-fill"
-                  color="info"
-                  type="submit"
-                  onClick={this.salvarAplicacao}
-                >
-                  SALVAR
-                </Button>
+                <CardFooter>
+                  <Button
+                    className="btn-fill"
+                    color="info"
+                    type="submit"
+                  >
+                    SALVAR
+                  </Button>
 
-                <Button
-                  className="btn-fill"
-                  color="danger"
-                  onClick={this.toggleCancelar}
-                >
-                  CANCELAR
-                </Button>
-              </CardFooter>
+                  <Button
+                    className="btn-fill"
+                    color="danger"
+                    onClick={this.toggleCancelar}
+                  >
+                    CANCELAR
+                  </Button>
+                </CardFooter>
+              </Form>
             </Card>
           </Row>
         </div>
