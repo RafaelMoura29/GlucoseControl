@@ -30,11 +30,13 @@ const FormularioPaciente = ({
   updateCheckedAplicacao,
   verificarPreenchimentoForm,
   requestType,
-  history
+  history,
+  setRedirectUrl
 }) => (
     <Row>
       <Col md="12">
         <Card>
+          <Form onSubmit={verificarPreenchimentoForm}>
           <CardBody>
 
             <Row >
@@ -43,7 +45,6 @@ const FormularioPaciente = ({
               </Col>
             </Row>
 
-            <Form>
               <Row>
                 <Col className="pr-md-1" md="6">
                   <Row>
@@ -57,7 +58,7 @@ const FormularioPaciente = ({
                           name="nome"
                           onChange={updateInputValue}
                           value={nome}
-                          invalid={!nome}
+                          required
                         />
                       </FormGroup>
                     </Col>
@@ -71,7 +72,7 @@ const FormularioPaciente = ({
                           name="prontuario"
                           onChange={updateInputValue}
                           value={prontuario}
-                          invalid={!prontuario}
+                          required
                         />
                       </FormGroup>
                     </Col>
@@ -86,7 +87,7 @@ const FormularioPaciente = ({
                           placeholder="datetime placeholder"
                           onChange={updateInputValue}
                           value={dataNascimento}
-                          invalid={!dataNascimento}
+                          required
                         />
                       </FormGroup>
                     </Col>
@@ -99,7 +100,7 @@ const FormularioPaciente = ({
                           type="select"
                           onChange={updateInputValue}
                           value={sexo}
-                          invalid={!sexo}
+                          required
                         >
                           <option ></option>
                           <option >Masculino</option>
@@ -116,7 +117,7 @@ const FormularioPaciente = ({
                           name="tipoInternacao"
                           onChange={updateInputValue}
                           value={tipoInternacao}
-                          invalid={!tipoInternacao}
+                          required
                         >
                           <option >clínica</option>
                           <option >cirurgica de urgência</option>
@@ -138,7 +139,7 @@ const FormularioPaciente = ({
                           placeholder="datetime placeholder"
                           onChange={updateInputValue}
                           value={dataInternacao}
-                          invalid={!dataInternacao}
+                          required
                         />
                       </FormGroup>
                     </Col>
@@ -152,7 +153,7 @@ const FormularioPaciente = ({
                           placeholder="datetime placeholder"
                           onChange={updateInputValue}
                           value={horaInternacao}
-                          invalid={!horaInternacao}
+                          required
                         />
                       </FormGroup>
                     </Col>
@@ -168,7 +169,7 @@ const FormularioPaciente = ({
                           placeholder="170"
                           onChange={updateInputValue}
                           value={altura}
-                          invalid={!altura}
+                          required
                         />
                       </FormGroup>
                     </Col>
@@ -180,11 +181,12 @@ const FormularioPaciente = ({
                           min={0}
                           max={300}
                           type="number"
+                          step="0.01"
                           placeholder="70,5"
                           name="peso"
                           onChange={updateInputValue}
                           value={peso}
-                          invalid={!peso}
+                          required
                         />
                       </FormGroup>
                     </Col>
@@ -259,7 +261,7 @@ const FormularioPaciente = ({
                       name="diabetes"
                       onChange={updateInputValue}
                       value={diabetes}
-                      invalid={!diabetes}
+                      required
                     >
                       <option >Ignorado</option>
                       <option >Controle domiciliar dietético</option>
@@ -277,7 +279,7 @@ const FormularioPaciente = ({
                       name="insuficienciaRenal"
                       onChange={updateInputValue}
                       value={insuficienciaRenal}
-                      invalid={!insuficienciaRenal}
+                      required
                     >
                       <option >Ignorado</option>
                       <option >crônica dialítica</option>
@@ -295,7 +297,7 @@ const FormularioPaciente = ({
                       name="corticoide"
                       onChange={updateInputValue}
                       value={corticoide}
-                      invalid={!corticoide}
+                      required
                     >
                       <option >Ignorado</option>
                       <option >a mais de 7 dias</option>
@@ -311,7 +313,7 @@ const FormularioPaciente = ({
                       name="instabilidadeHemodinamica"
                       onChange={updateInputValue}
                       value={instabilidadeHemodinamica}
-                      invalid={!instabilidadeHemodinamica}
+                      required
                     >
                       <option >Ignorado</option>
                       <option >Sim - Controlado sem drogas vasoativas</option>
@@ -328,7 +330,7 @@ const FormularioPaciente = ({
                       name="infeccao"
                       onChange={updateInputValue}
                       value={infeccao}
-                      invalid={!infeccao}
+                      required
                     >
                       <option >Ignorado</option>
                       <option >Infecção simples</option>
@@ -344,7 +346,7 @@ const FormularioPaciente = ({
                       name="sindromeDescRespiratorio"
                       onChange={updateInputValue}
                       value={sindromeDescRespiratorio}
-                      invalid={!sindromeDescRespiratorio}
+                      required
                     >
                       <option >Ignorado</option>
                       <option >Possui</option>
@@ -363,7 +365,7 @@ const FormularioPaciente = ({
                   </FormGroup>
                 </Col>
               </Row>
-            </Form>
+
           </CardBody>
           <CardFooter>
             <div className="text-center">
@@ -371,8 +373,7 @@ const FormularioPaciente = ({
                 className="btn-fill"
                 color="info"
                 type="submit"
-                onClick={verificarPreenchimentoForm}
-                value="/admin/pacientes/"
+                onClick={() => setRedirectUrl("/admin/pacientes/")}
               >
                 {requestType === 'post' ? 'SALVAR' : 'ATUALIZAR'}
               </Button>
@@ -381,8 +382,7 @@ const FormularioPaciente = ({
                 color="warning"
                 name="btnColeta"
                 type="submit"
-                onClick={verificarPreenchimentoForm}
-                value="/admin/Form_glicemia/"
+                onClick={() => setRedirectUrl("/admin/Form_glicemia/")}
               >
                 {requestType === 'post' ? 'SALVAR' : 'ATUALIZAR'} E COLETAR
               </Button>
@@ -391,8 +391,7 @@ const FormularioPaciente = ({
                 id="btn-aplicar"
                 name="btnAplicacao"
                 type="submit"
-                onClick={verificarPreenchimentoForm}
-                value="/admin/formAplicacao/"
+                onClick={() => setRedirectUrl("/admin/formAplicacao/")}
               >
                 {requestType === 'post' ? 'SALVAR' : 'ATUALIZAR'} E APLICAR
               </Button>
@@ -405,6 +404,7 @@ const FormularioPaciente = ({
               </Button>
             </div>
           </CardFooter>
+          </Form>
         </Card>
       </Col>
     </Row>

@@ -96,15 +96,22 @@ class Form_create_paciente extends React.Component {
             .map(hora => (statePlanoAplicacao[parseInt(hora) - 1] = true))
           console.log(paciente)
           let dt = new Date(paciente.dataHoraInternacao)
+          let dataNascimento = new Date(paciente.dataNascimento)
+          dataNascimento = dataNascimento.getFullYear() +
+          '-' +
+          String(dataNascimento.getMonth() + 1).padStart(2, '0') +
+          '-' +
+          String(dataNascimento.getDate() + 1).padStart(2, '0')
           this.setState({
             form: {
               ...paciente,
+              dataNascimento,
               dataInternacao:
-                dt.getFullYear() +
-                '-' +
-                String(dt.getMonth() + 1).padStart(2, '0') +
-                '-' +
-                dt.getDate(),
+              dt.getFullYear() +
+              '-' +
+              String(dt.getMonth() + 1).padStart(2, '0') +
+              '-' +
+              String(dt.getDate() + 1).padStart(2, '0'),
               horaInternacao: dt.toLocaleTimeString(),
               internado: statusPaciente === 'internado',
               alta: statusPaciente === 'alta',
@@ -285,51 +292,14 @@ class Form_create_paciente extends React.Component {
   }
 
   verificarPreenchimentoForm = event => {
+    event.preventDefault()
+
     this.setState({
       LoadingSpinner: true,
-      modal: false,
-      redirectUrl: event.target.value
+      modal: false
     })
 
     let form = this.state.form
-
-    if (form.altura < 0) {
-      return this.showOrHideMessager(
-        false,
-        true,
-        'Preencha o campo altura com um valor válido!'
-      )
-    }
-
-    if (form.peso < 0) {
-      return this.showOrHideMessager(
-        false,
-        true,
-        'Preencha o campo peso com um valor válido!'
-      )
-    }
-
-    //Verifica se o formulário está preenchido
-    if (
-      form.prontuario === '' ||
-      form.nome === '' ||
-      form.dataNascimento === '' ||
-      form.tipoInternacao === '' ||
-      form.diabetes === '' ||
-      form.insuficienciaRenal === '' ||
-      form.corticoide === '' ||
-      form.sexo === '' ||
-      form.dataInternacao === '' ||
-      form.horaInternacao === '' ||
-      form.alta === '' ||
-      form.peso === '' ||
-      form.altura === '' ||
-      form.instabilidadeHemodinamica === '' ||
-      form.infeccao === '' ||
-      form.sindromeDescRespiratorio === ''
-    ) {
-      return this.showOrHideMessager(false, true, 'Preencha todos os campos!')
-    }
 
     //Monta a string do plano de aplicação
     let planoAplicacao = form.planoAplicacao
@@ -346,6 +316,8 @@ class Form_create_paciente extends React.Component {
       this.atualizarPaciente(planoAplicacao)
     }
   }
+
+  setRedirectUrl = (redirectUrl) => this.setState({redirectUrl})
 
   render() {
     return (
@@ -368,6 +340,7 @@ class Form_create_paciente extends React.Component {
             verificarPreenchimentoForm={this.verificarPreenchimentoForm}
             requestType={this.state.requestType}
             history={this.props.history}
+            setRedirectUrl={this.setRedirectUrl}
           />
         </div>
       </>
