@@ -2,7 +2,6 @@ import React from 'react'
 import { Row, Col, Card, CardBody } from 'reactstrap'
 import api from '../../variables/api'
 import './style.css'
-import LoadingSpinner from '../../components/LoadingSpinner'
 import TabelaPacientes from './components/tabelaPacientes'
 import Filtros from './components/filtros'
 
@@ -14,12 +13,13 @@ class Pacientes extends React.Component {
       pacientesFiltrados: [],
       nomePacienteFiltro: '',
       statusFiltro: 'todos',
-      LoadingSpinner: false
+      LoadingSpinner: false,
+      isLoading: true
     }
   }
 
   async getPacientes() {
-    this.setState({ LoadingSpinner: true })
+    this.setState({ isLoading: true })
 
     api
       .get('/paciente')
@@ -47,7 +47,7 @@ class Pacientes extends React.Component {
           'Ocorreu um erro ao caregar os pacientes! Tente novamente em instantes.'
         )
       })
-      .finally(() => this.setState({ LoadingSpinner: false }))
+      .finally(() => this.setState({ isLoading: false }))
   }
 
   componentDidMount() {
@@ -58,6 +58,7 @@ class Pacientes extends React.Component {
     Faz atualização dos valores dos campos filtros e atualiza listagem dos pacientes
   */
   updateInputValueAndFilter = event => {
+    this.setState({ isLoading: true })
     this.setState(
       { [event.target.name]: event.target.value.toLowerCase() },
       () => {
@@ -76,17 +77,16 @@ class Pacientes extends React.Component {
             return nameFilterConditions && statusFilterConditions
           }
         )
-        this.setState({ pacientesFiltrados })
+        this.setState({ pacientesFiltrados, isLoading: false })
       }
     )
   }
 
   render() {
+    console.log(this.state.isLoading)
     return (
       <>
         <div className="content">
-          <LoadingSpinner visible={this.state.LoadingSpinner} />
-
           <Card>
             <CardBody>
               <Row>
@@ -104,6 +104,7 @@ class Pacientes extends React.Component {
               <TabelaPacientes
                 pacientes={this.state.pacientesFiltrados}
                 history={this.props.history}
+                isLoading={this.state.isLoading}
               />
             </CardBody>
           </Card>
