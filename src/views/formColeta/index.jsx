@@ -36,8 +36,6 @@ class Form_glicemia extends React.Component {
     super(props)
     this.state = {
       modal: false,
-      fade: true,
-      LoadingSpinner: false,
       ModalMessager: false,
       ModalMessagerText: '',
       ModalMessagerTextSecondary: '',

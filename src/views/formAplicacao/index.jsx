@@ -1,5 +1,4 @@
 import React from 'react'
-import LoadingSpinner from '../../components/LoadingSpinner.js'
 import ModalMessager from '../../components/ModalMessager/modalMessager'
 import './style.css'
 import api from '../../variables/api'
@@ -22,9 +21,9 @@ class FormAplicacao extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      LoadingSpinner: false,
       ModalMessager: false,
       ModalMessagerText: '',
+      isLoading: false,
       form: {
         prontuario: '',
         dataHoraInternacao: '',
@@ -86,11 +85,6 @@ class FormAplicacao extends React.Component {
       })
   }
 
-  formataData(data) {
-    let splitData = data.substring(0, 10).split('-')
-    return splitData[2] + '/' + splitData[1] + '/' + splitData[0]
-  }
-
   /*
     Seta prox ação ao fechar o modal messager
   */
@@ -112,7 +106,7 @@ class FormAplicacao extends React.Component {
   */
   salvarAplicacao = event => {
     event.preventDefault()
-    this.setState({ LoadingSpinner: true })
+    this.setState({ isLoading: true })
 
     let form = this.state.form
 
@@ -129,7 +123,7 @@ class FormAplicacao extends React.Component {
       .then(response => {
         console.log(response)
         this.setState({
-          LoadingSpinner: false,
+          isLoading: false,
           ModalMessager: true,
           ModalMessagerText: 'Dados Gravados Com Sucesso',
           form: {
@@ -147,7 +141,7 @@ class FormAplicacao extends React.Component {
       })
       .catch(error => {
         this.setState({
-          LoadingSpinner: false,
+          isLoading: false,
           ModalMessager: true,
           ModalMessagerText:
             'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
@@ -188,8 +182,6 @@ class FormAplicacao extends React.Component {
           >
             <ModalHeader toggle={this.toggleMessager}></ModalHeader>
           </ModalMessager>
-
-          <LoadingSpinner visible={this.state.LoadingSpinner} />
 
           <Row>
             <Card>
@@ -364,14 +356,22 @@ class FormAplicacao extends React.Component {
                     className="btn-fill"
                     color="info"
                     type="submit"
+                    disabled={this.state.isLoading}
                   >
-                    SALVAR
+                    {this.state.isLoading ? (
+                      <>
+                        <i className="fa fa-spinner fa-spin" /> Carregando{' '}
+                      </>
+                    ) : (
+                      <> SALVAR </>
+                    )}
                   </Button>
 
                   <Button
                     className="btn-fill"
                     color="danger"
                     onClick={this.toggleCancelar}
+                    disabled={this.state.isLoading}
                   >
                     CANCELAR
                   </Button>
