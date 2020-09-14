@@ -1,6 +1,5 @@
 import React from 'react'
 
-import LoadingSpinner from '../../components/LoadingSpinner.js'
 import ModalMessager from '../../components/ModalMessager/modalMessager'
 import './style.css'
 import api from '../../variables/api'
@@ -42,6 +41,7 @@ class Form_glicemia extends React.Component {
       ModalMessager: false,
       ModalMessagerText: '',
       ModalMessagerTextSecondary: '',
+      isLoading: false,
       form: {
         prontuario: '',
         paciente: '',
@@ -91,7 +91,7 @@ class Form_glicemia extends React.Component {
 
   saveGlicose = event => {
     event.preventDefault()
-    this.setState({ LoadingSpinner: true })
+    this.setState({ isLoading: true })
     let form = this.state.form
 
     api
@@ -123,7 +123,7 @@ class Form_glicemia extends React.Component {
         }
 
         this.setState({
-          LoadingSpinner: false,
+          isLoading: false,
           ModalMessager: true,
           ModalMessagerText: 'Dados Gravados Com Sucesso!',
           ModalMessagerTextSecondary: modalText
@@ -131,7 +131,7 @@ class Form_glicemia extends React.Component {
       })
       .catch(error => {
         this.setState({
-          LoadingSpinner: false,
+          isLoading: false,
           ModalMessager: true,
           ModalMessagerText:
             'Ocorreu um erro ao salvar a coleta. Tente novamente mais tarde!'
@@ -162,7 +162,6 @@ class Form_glicemia extends React.Component {
             <ModalHeader toggle={this.toggleMessager}></ModalHeader>
           </ModalMessager>
 
-          <LoadingSpinner visible={this.state.LoadingSpinner} />
           <Row>
             <Card>
               <Form onSubmit={this.saveGlicose} action="POST">
@@ -322,14 +321,17 @@ class Form_glicemia extends React.Component {
                   </Row>
                 </CardBody>
                 <CardFooter>
-                  <Button
-                    className="btn-fill"
-                    color="info"
-                    type="submit"
-                  >
-                    SALVAR GLICEMIA
+                  <Button disabled={this.state.isLoading} className="btn-fill" color="info" type="submit">
+                    {this.state.isLoading ? (
+                      <>
+                        <i className="fa fa-spinner fa-spin" /> Carregando{' '}
+                      </>
+                    ) : (
+                      <> SALVAR GLICEMIA </>
+                    )}
                   </Button>
                   <Button
+                    disabled={this.state.isLoading}
                     className="btn-fill"
                     color="danger"
                     onClick={() =>
