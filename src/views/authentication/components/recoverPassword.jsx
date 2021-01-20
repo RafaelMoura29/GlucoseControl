@@ -20,8 +20,8 @@ const RecoverPassword = ({
 }) => (
   <>
 
-    <Modal
-      isOpen={/* this.state.modalDemo */ true}
+    {/* <Modal
+      isOpen={true}
       toggle={() => {}}
       className="text-center"
     >
@@ -35,7 +35,7 @@ const RecoverPassword = ({
           ENTENDI
         </Button>
       </ModalFooter>
-    </Modal>
+    </Modal> */}
 
     <Container className="themed-container" fluid={true}>
       <p style={{ color: '#ddd', textAlign: 'justify', fontSize: '1.2em' }}>
