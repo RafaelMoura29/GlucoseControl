@@ -1,6 +1,5 @@
 import React from 'react'
 
-import LoadingSpinner from '../../components/LoadingSpinner.js'
 import ModalMessager from '../../components/ModalMessager/modalMessager'
 import './style.css'
 import api from '../../variables/api'
@@ -37,11 +36,10 @@ class Form_glicemia extends React.Component {
     super(props)
     this.state = {
       modal: false,
-      fade: true,
-      LoadingSpinner: false,
       ModalMessager: false,
       ModalMessagerText: '',
       ModalMessagerTextSecondary: '',
+      isLoading: false,
       form: {
         prontuario: '',
         paciente: '',
@@ -89,24 +87,10 @@ class Form_glicemia extends React.Component {
       })
   }
 
-  saveGlicose = () => {
-    this.setState({ LoadingSpinner: true })
-
+  saveGlicose = event => {
+    event.preventDefault()
+    this.setState({ isLoading: true })
     let form = this.state.form
-
-    if (
-      form.dataColeta === '' ||
-      form.horaColeta === '' ||
-      form.valorGlicemia === '' ||
-      form.tipo === '' ||
-      form.tipoAlimentacao === ''
-    ) {
-      return this.setState({
-        LoadingSpinner: false,
-        ModalMessager: true,
-        ModalMessagerText: 'Preencha todos os campos!'
-      })
-    }
 
     api
       .post('/glicemia', {
@@ -137,7 +121,7 @@ class Form_glicemia extends React.Component {
         }
 
         this.setState({
-          LoadingSpinner: false,
+          isLoading: false,
           ModalMessager: true,
           ModalMessagerText: 'Dados Gravados Com Sucesso!',
           ModalMessagerTextSecondary: modalText
@@ -145,10 +129,10 @@ class Form_glicemia extends React.Component {
       })
       .catch(error => {
         this.setState({
-          LoadingSpinner: false,
+          isLoading: false,
           ModalMessager: true,
           ModalMessagerText:
-            'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
+            'Ocorreu um erro ao salvar a coleta. Tente novamente mais tarde!'
         })
       })
   }
@@ -176,17 +160,16 @@ class Form_glicemia extends React.Component {
             <ModalHeader toggle={this.toggleMessager}></ModalHeader>
           </ModalMessager>
 
-          <LoadingSpinner visible={this.state.LoadingSpinner} />
           <Row>
             <Card>
-              <CardBody>
-                <Row>
-                  <Col className="pr-md-1" md="12">
-                    <h3 style={{ fontSize: 25 }}>COLETA GLICEMIA</h3>
-                  </Col>
-                </Row>
+              <Form onSubmit={this.saveGlicose} action="POST">
+                <CardBody>
+                  <Row>
+                    <Col className="pr-md-1" md="12">
+                      <h3 style={{ fontSize: 25 }}>COLETA GLICEMIA</h3>
+                    </Col>
+                  </Row>
 
-                <Form>
                   <Row>
                     <Col className="pr-md-1" md="6">
                       <Row>
@@ -199,6 +182,7 @@ class Form_glicemia extends React.Component {
                               name="prontuario"
                               value={this.state.form.prontuario}
                               disabled
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -211,6 +195,7 @@ class Form_glicemia extends React.Component {
                               name="dataHoraInternacao"
                               value={this.state.form.dataHoraInternacao}
                               disabled
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -223,6 +208,7 @@ class Form_glicemia extends React.Component {
                               name="paciente"
                               value={this.state.form.paciente}
                               disabled
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -236,7 +222,7 @@ class Form_glicemia extends React.Component {
                               value={this.state.form.dataColeta}
                               onChange={this.handleChange}
                               name="dataColeta"
-                              invalid={!this.state.form.dataColeta}
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -250,7 +236,7 @@ class Form_glicemia extends React.Component {
                               name="horaColeta"
                               value={this.state.form.horaColeta}
                               onChange={this.handleChange}
-                              invalid={!this.state.form.horaColeta}
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -263,7 +249,7 @@ class Form_glicemia extends React.Component {
                               value={this.state.form.valorGlicemia}
                               onChange={this.handleChange}
                               name="valorGlicemia"
-                              invalid={!this.state.form.valorGlicemia}
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -277,6 +263,7 @@ class Form_glicemia extends React.Component {
                           name="tipo"
                           value={this.state.form.tipo}
                           onChange={this.handleChange}
+                          required
                         >
                           <option style={{ backgroundColor: '#27293d' }}>
                             Capilar
@@ -293,6 +280,7 @@ class Form_glicemia extends React.Component {
                           name="tipoAlimentacao"
                           value={this.state.form.tipoAlimentacao}
                           onChange={this.handleChange}
+                          required
                         >
                           <option style={{ backgroundColor: '#27293d' }}>
                             Zero
@@ -329,29 +317,31 @@ class Form_glicemia extends React.Component {
                       </FormGroup>
                     </Col>
                   </Row>
-                </Form>
-              </CardBody>
-              <CardFooter>
-                <Button
-                  className="btn-fill"
-                  color="info"
-                  type="submit"
-                  onClick={this.saveGlicose}
-                >
-                  SALVAR GLICEMIA
-                </Button>
-                <Button
-                  className="btn-fill"
-                  color="danger"
-                  onClick={() =>
-                    this.props.history.push(
-                      '/admin/PainelPaciente/' + this._idPaciente
-                    )
-                  }
-                >
-                  CANCELAR
-                </Button>
-              </CardFooter>
+                </CardBody>
+                <CardFooter>
+                  <Button disabled={this.state.isLoading} className="btn-fill" color="info" type="submit">
+                    {this.state.isLoading ? (
+                      <>
+                        <i className="fa fa-spinner fa-spin" /> Carregando{' '}
+                      </>
+                    ) : (
+                      <> SALVAR GLICEMIA </>
+                    )}
+                  </Button>
+                  <Button
+                    disabled={this.state.isLoading}
+                    className="btn-fill"
+                    color="danger"
+                    onClick={() =>
+                      this.props.history.push(
+                        '/admin/PainelPaciente/' + this._idPaciente
+                      )
+                    }
+                  >
+                    CANCELAR
+                  </Button>
+                </CardFooter>
+              </Form>
             </Card>
           </Row>
         </div>

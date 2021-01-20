@@ -37,7 +37,7 @@ class FormUsuario extends React.Component {
 
   toggleModalMessager = () => this.setState({ modalMessager: false })
 
-  handleLogin = (event) => {
+  registerUser = (event) => {
     event.preventDefault()
     this.setState({ loadingSpinner: true })
     const { formNome, formUnidade, formEmail, formPerfil, formSenha } = this.state
@@ -94,7 +94,7 @@ class FormUsuario extends React.Component {
                     <h3 style={{ fontSize: 25 }}>CADASTRAR USUÁRIO</h3>
                   </Col>
                 </Row>
-                <Form onSubmit={this.handleLogin}>
+                <Form onSubmit={this.registerUser}>
 
                   <Row>
                     <Col className="pr-md-1" md="6">
@@ -105,7 +105,6 @@ class FormUsuario extends React.Component {
                         name="formNome"
                         value={formNome}
                         onChange={this.handleChange}
-                        invalid={!formNome}
                         required
                       />
                     </Col>
@@ -117,7 +116,7 @@ class FormUsuario extends React.Component {
                         name="formUnidade"
                         onChange={this.handleChange}
                         value={formUnidade}
-                        invalid={!formUnidade}
+                        required
                       >
                         <option>HRAN</option>
                       </Input>
@@ -131,7 +130,6 @@ class FormUsuario extends React.Component {
                         name="formEmail"
                         value={formEmail}
                         onChange={this.handleChange}
-                        invalid={!formEmail}
                         required
                       />
                     </Col>
@@ -143,7 +141,7 @@ class FormUsuario extends React.Component {
                         name="formPerfil"
                         onChange={this.handleChange}
                         value={formPerfil}
-                        invalid={!formPerfil}
+                        required
                       >
                         <option>Médico</option>
                         <option>Enfermeiro</option>
@@ -158,7 +156,6 @@ class FormUsuario extends React.Component {
                         name="formSenha"
                         value={formSenha}
                         onChange={this.handleChange}
-                        invalid={!formSenha}
                         required
                         minLength={9}
                       />

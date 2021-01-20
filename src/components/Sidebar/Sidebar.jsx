@@ -75,14 +75,13 @@ class Sidebar extends React.Component {
         );
         logoText = (
           <Link to="/">
-            <a
-              href={logo.outterLink}
+            <span
               className="simple-text logo-normal"
               target="_blank"
               onClick={this.props.toggleSidebar}
             >
               {logo.text}
-            </a>
+            </span>
           </Link>
         );
       } else {
