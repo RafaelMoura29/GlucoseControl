@@ -1,7 +1,7 @@
 # GLYCON
 
-### Glycemic Control Online ou apenas GLYCON é uma aplicação web para auxiliar no controle de glicemias de pacientes internados em Unidades de Terapia Intensiva.
-  
+### Glycemic Control Online ou apenas GLYCON é uma aplicação web para auxiliar no controle de glicemias de pacientes internados em Unidades de Terapia Intensiva. 
+
 Você pode acessar o projeto em produção com o link a seguir
 [GLYCON](https://glucosecontrolapplication.herokuapp.com/)
 

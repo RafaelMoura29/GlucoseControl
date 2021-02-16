@@ -131,30 +131,9 @@ class Form_create_paciente extends React.Component {
         form: {
           ...this.state.form,
           planoAplicacao: [
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            false,
-            false,
-            false,
-            false,
-            true,
-            false,
-            false,
-            false,
-            false,
-            false,
-            false
+            false, false, false, false, false, true, false, false, 
+            false, false, false, true, false, false,false, false, false, 
+            true, false, false, false, false, false, false
           ]
         }
       })
