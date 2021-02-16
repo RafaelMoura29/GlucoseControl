@@ -184,7 +184,7 @@ class Pacientes extends React.Component {
             
             <ModalFooter className="d-flex justify-content-center">
               <Button type="submit" color="secondary" className="w-100" disabled={this.state.isSimulatingPatients} onClick={() => {}}>
-                { this.state.isSimulatingPatients ? <><i className="fa fa-spinner fa-spin" /> Carregando </>  : <> LOGIN </> }
+                { this.state.isSimulatingPatients ? <><i className="fa fa-spinner fa-spin" /> Carregando </>  : <> SIMULAR </> }
               </Button>
             </ModalFooter>
           </form>
