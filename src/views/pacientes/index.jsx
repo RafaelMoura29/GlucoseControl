@@ -1,11 +1,13 @@
 import React from 'react'
-import { Row, Col, Card, CardBody } from 'reactstrap'
+import { Row, Col, Card, CardBody, Modal, ModalBody, ModalFooter, Button, ModalHeader, FormGroup, Input } from 'reactstrap'
 import api from '../../variables/api'
 import './style.css'
 import TabelaPacientes from './components/tabelaPacientes'
 import Filtros from './components/filtros'
+import axios from 'axios'
 
 class Pacientes extends React.Component {
+
   constructor(props) {
     super(props)
     this.state = {
@@ -14,8 +16,12 @@ class Pacientes extends React.Component {
       nomePacienteFiltro: '',
       statusFiltro: 'todos',
       LoadingSpinner: false,
-      isLoading: true
+      isLoading: true,
+      modalDemo: false,
+      qtdPacientesSimulados: 0,
+      isSimulatingPatients: false
     }
+    this.toggleModal = this.toggleModal.bind(this);
   }
 
   async getPacientes() {
@@ -54,6 +60,34 @@ class Pacientes extends React.Component {
     this.getPacientes()
   }
 
+  toggleModal(){
+    this.setState({
+        modalDemo: !this.state.modalDemo
+    });
+  }
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
+  simularPacientes = (event) => {
+    this.setState({ isSimulatingPatients: true })
+    event.preventDefault()
+    let qtdPacientes = this.state.qtdPacientesSimulados
+    axios.post(`https://patientsimulator.herokuapp.com/patient/${qtdPacientes}`)
+      .then((response) => {
+        this.getPacientes()
+        alert("Pacientes simulados com sucesso!")
+      })
+      .catch((error) => {
+        alert("Ocorreu um erro ao simular novos pacientes! Tente novamente em instantes.")
+      })
+      .finally(() => {
+        this.setState({ isSimulatingPatients: false })
+        this.toggleModal()
+      })
+  }  
+  
   /*
     Faz atualização dos valores dos campos filtros e atualiza listagem dos pacientes
   */
@@ -83,7 +117,6 @@ class Pacientes extends React.Component {
   }
 
   render() {
-    console.log(this.state.isLoading)
     return (
       <>
         <div className="content">
@@ -99,6 +132,7 @@ class Pacientes extends React.Component {
                 status={this.state.statusFiltro}
                 nomePaciente={this.state.nomePacienteFiltro}
                 toggleFiltro={this.updateInputValueAndFilter}
+                toggleModal={this.toggleModal}
               />
 
               <TabelaPacientes
@@ -109,6 +143,53 @@ class Pacientes extends React.Component {
             </CardBody>
           </Card>
         </div>
+
+        <Modal isOpen={this.state.modalDemo} className="text-center">
+          
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalLongTitle">
+              Simular pacientes
+            </h5>
+            <button
+              type="button"
+              className="close"
+              data-dismiss="modal"
+              aria-hidden="true"
+              onClick={this.toggleModal}
+            >
+              <i className="tim-icons icon-simple-remove" />
+            </button>
+          </div>
+
+          <form onSubmit={this.simularPacientes}>
+            <ModalBody>
+              <Row>
+
+                <Col md="12">
+                  <FormGroup className="text-left">
+                    <label>Quantidade de pacientes</label>
+                    <Input
+                      style={{ color: '#111' }}
+                      name="qtdPacientesSimulados"
+                      value={this.state.qtdPacientesSimulados}
+                      onChange={this.handleChange}
+                      type="number"
+                      required
+                    />
+                  </FormGroup>
+                </Col>
+
+              </Row>
+            </ModalBody>
+            
+            <ModalFooter className="d-flex justify-content-center">
+              <Button type="submit" color="secondary" className="w-100" disabled={this.state.isSimulatingPatients} onClick={() => {}}>
+                { this.state.isSimulatingPatients ? <><i className="fa fa-spinner fa-spin" /> Carregando </>  : <> LOGIN </> }
+              </Button>
+            </ModalFooter>
+          </form>
+
+        </Modal>
       </>
     )
   }

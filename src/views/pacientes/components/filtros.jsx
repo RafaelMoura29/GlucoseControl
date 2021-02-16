@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import '../style.css'
 import { Col, FormGroup, Input, Form, Row, Button } from 'reactstrap'
 
-const Filtros = ({ status, nomePaciente, toggleFiltro }) => (
+const Filtros = ({ status, nomePaciente, toggleFiltro, toggleModal }) => (
   <Form className="mb-4">
     <Row>
       <Col className="pr-md-1" md="2">
@@ -31,13 +31,18 @@ const Filtros = ({ status, nomePaciente, toggleFiltro }) => (
           />
         </FormGroup>
       </Col>
-      <Col md="3"></Col>
+      <Col md="1"></Col>
       <Col className="pr-md-1" md="2">
         <Link to="/admin/form_create_paciente/0">
           <Button className="btn-fill" color="info" type="submit">
             NOVO
           </Button>
         </Link>
+      </Col>
+      <Col md="2">
+        <Button color="success" type="button" onClick={toggleModal}>
+          SIMULAR
+        </Button>
       </Col>
     </Row>
   </Form>
