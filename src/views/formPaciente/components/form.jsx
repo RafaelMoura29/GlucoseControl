@@ -504,27 +504,9 @@ const FormularioPaciente = ({
                 className="btn-fill"
                 color="info"
                 type="submit"
-                onClick={() => setRedirectUrl('/admin/pacientes/')}
+                onClick={() => setRedirectUrl('/admin/PainelPaciente/')}
               >
                 {requestType === 'post' ? 'SALVAR' : 'ATUALIZAR'}
-              </Button>
-              <Button
-                className="btn-fill"
-                color="warning"
-                name="btnColeta"
-                type="submit"
-                onClick={() => setRedirectUrl('/admin/Form_glicemia/')}
-              >
-                {requestType === 'post' ? 'SALVAR' : 'ATUALIZAR'} E COLETAR
-              </Button>
-              <Button
-                className="btn-fill"
-                id="btn-aplicar"
-                name="btnAplicacao"
-                type="submit"
-                onClick={() => setRedirectUrl('/admin/formAplicacao/')}
-              >
-                {requestType === 'post' ? 'SALVAR' : 'ATUALIZAR'} E APLICAR
               </Button>
               <Button
                 className="btn-fill"
