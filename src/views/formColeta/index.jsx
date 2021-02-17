@@ -105,26 +105,10 @@ class Form_glicemia extends React.Component {
         let modalText = ''
         const glicemia = form.valorGlicemia
 
-        if (glicemia >= 0 && glicemia <= 80) {
-          modalText = 'aplicar 4 ampolas de glicose a 50% IV'
-        } else if (glicemia >= 81 && glicemia <= 180) {
-          modalText = 'Manter a observação'
-        } else if (glicemia >= 181 && glicemia <= 250) {
-          modalText = 'Aplicar 2 Unidades de insulina regular SC'
-        } else if (glicemia >= 251 && glicemia <= 300) {
-          modalText = 'Aplicar 4 Unidades de insulina regular SC'
-        } else if (glicemia >= 301 && glicemia <= 350) {
-          modalText = 'Aplicar 6 Unidades de insulina regular SC'
-        } else if (glicemia > 350) {
-          modalText =
-            'Aplicar 8 Unidades de insulina regular SC e comunicar o plantonista.'
-        }
-
         this.setState({
           isLoading: false,
           ModalMessager: true,
           ModalMessagerText: 'Dados Gravados Com Sucesso!',
-          ModalMessagerTextSecondary: modalText
         })
       })
       .catch(error => {
@@ -150,7 +134,6 @@ class Form_glicemia extends React.Component {
           <ModalMessager
             visible={this.state.ModalMessager}
             text={this.state.ModalMessagerText}
-            textSecondary={this.state.ModalMessagerTextSecondary}
             toggle={() => {
               this.setState({
                 ModalMessager: false
