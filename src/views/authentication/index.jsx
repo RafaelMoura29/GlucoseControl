@@ -8,7 +8,7 @@ import {
   Button
 } from 'reactstrap'
 import imgLogo from '../../assets/img/GLYCON-bco.png'
-import imgHome from '../../assets/img/img-home.png'
+import imgHome from '../../assets/img/capa.svg'
 import Login from './components/login'
 import ChangePassword from './components/changePassword'
 import RecoverPassword from './components/recoverPassword'
@@ -124,7 +124,7 @@ class Authentication extends React.Component {
       <>
         <Row id="row-navbar">
           <Col md="6">
-            <img src={imgLogo} alt="" height="73" width="245" />
+            <img src={imgLogo} alt="Imagem com texto escrito 'GLYCON'" height="73" width="245" />
           </Col>
 
           <Col id="col-navbar-links" md="6">
@@ -147,8 +147,8 @@ class Authentication extends React.Component {
               Ajuda
             </Link>
             <Link style={{ marginRight: 12, marginLeft: 12 }} to={'#'}>
-              <Button id="btn-assinar" color="primary">
-                Assinar
+              <Button id="btn-solicitar" color="info">
+                SOLICITAR
               </Button>
             </Link>
           </Col>
@@ -157,9 +157,9 @@ class Authentication extends React.Component {
         <Row style={{ margin: 0 }}>
           <Col
             md="8"
-            style={{ height: '100%', marginTop: 30, paddingLeft: '25px' }}
+            style={{ height: '100%', marginTop: 80,   display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           >
-            <img src={imgHome} alt="" />
+            <img src={imgHome} id="mainImage" alt="Imagem com desenho de dois médicos" />
           </Col>
 
           <Col md="4" style={{ height: '100%', flexGrow: 1, marginTop: 50 }}>

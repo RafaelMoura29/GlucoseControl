@@ -56,7 +56,7 @@ var routes = [
   },
   {
     path: '/formUsuario',
-    name: 'Cadastrar Usuário',
+    name: 'Usuários',
     icon: 'tim-icons icon-badge',
     component: FormUsuario,
     layout: '/admin'
@@ -64,7 +64,7 @@ var routes = [
   {
     path: "/sobre",
     name: "Sobre",
-    icon: "tim-icons icon-bulb-63",
+    icon: "tim-icons icon-alert-circle-exc",
     component: Sobre,
     layout: "/admin",
   },

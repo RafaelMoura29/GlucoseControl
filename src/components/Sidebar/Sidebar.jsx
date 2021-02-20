@@ -147,7 +147,7 @@ class Sidebar extends React.Component {
             })}
               <li onClick={this.logout}>
                 <a className="nav-link" aria-current="page" href="#">
-                  <i className="tim-icons icon-single-02"></i>
+                  <i className="tim-icons icon-button-power"></i>
                   <p>SAIR</p>
                 </a>
               </li>
