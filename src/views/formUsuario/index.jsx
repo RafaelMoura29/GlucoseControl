@@ -100,7 +100,7 @@ class FormUsuario extends React.Component {
                     <Col className="pr-md-1" md="6">
                       <label>NOME</label>
                       <Input
-                        placeholder="Prontuário"
+                        placeholder="NOME"
                         type="text"
                         name="formNome"
                         value={formNome}
@@ -123,9 +123,9 @@ class FormUsuario extends React.Component {
                     </Col>
 
                     <Col className="pr-md-1" md="6">
-                      <label>E-mail</label>
+                      <label>E-MAIL</label>
                       <Input
-                        placeholder="Prontuário"
+                        placeholder="E-MAIL"
                         type="email"
                         name="formEmail"
                         value={formEmail}
@@ -151,7 +151,7 @@ class FormUsuario extends React.Component {
                     <Col className="pr-md-1" md="6">
                       <label>SENHA</label>
                       <Input
-                        placeholder="Prontuário"
+                        placeholder="SENHA"
                         type="password"
                         name="formSenha"
                         value={formSenha}

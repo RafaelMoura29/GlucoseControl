@@ -13,24 +13,26 @@
     text-align: right;
 }
 
-#btn-assinar{
-    background: #a564e9;
+#btn-solicitar{
+    background: #47a0f6;
+    color: #e8f3fe;
     font-weight: unset;
 }
 
-#btn-assinar:hover{
+#btn-solicitar:hover{
     background-color: #a564e9;
     background-image: none !important;
 }
 
-#btn-assinar:focus{
+#btn-solicitar:focus{
     background-color: #a564e9 !important;
     background-image: none !important;
 }
 
 #btn-login{
     width: 100%;
-    background: #a564e9;
+    background: #47a0f6;
+    color: #e8f3fe;
     font-weight: unset;
 }
 
@@ -50,4 +52,9 @@
 
 .secondary-link:hover{
     color: #fff;
+}
+
+#mainImage{
+    height: 360px;
+    margin-right:90px;
 }

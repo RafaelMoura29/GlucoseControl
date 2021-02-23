@@ -54,6 +54,10 @@ class Sidebar extends React.Component {
   linkOnClick = () => {
     document.documentElement.classList.remove("nav-open");
   };
+  logout = () => {
+    localStorage.removeItem("TOKEN")
+    this.props.history.push('/')
+  }
   render() {
     const { bgColor, routes, rtlActive, logo } = this.props;
     let logoImg = null;
@@ -141,6 +145,12 @@ class Sidebar extends React.Component {
                 </li>
               );
             })}
+              <li onClick={this.logout}>
+                <a className="nav-link" aria-current="page" href="#">
+                  <i className="tim-icons icon-button-power"></i>
+                  <p>SAIR</p>
+                </a>
+              </li>
           </Nav>
         </div>
       </div>

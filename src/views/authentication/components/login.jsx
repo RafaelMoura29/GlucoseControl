@@ -6,7 +6,7 @@ const Login = ({ emailLogin, senhaLogin, handleChange, handleLogin, isLoggingIn,
   <>
     <Container className="themed-container" fluid={true} >
       <p style={{ color: '#ddd', textAlign: 'justify', fontSize: '1.2em' }}>
-        Caso já seja nosso parceiro e tenha um plano de assinatura, basta acessar com seu e-mail e senha.
+        Caso ainda não tenha permissão para uso do Glycon em sua UTI, faça a solicitação clicando no botão acima!
       </p>
     </Container>
     <form onSubmit={handleLogin} action="POST">
@@ -41,7 +41,7 @@ const Login = ({ emailLogin, senhaLogin, handleChange, handleLogin, isLoggingIn,
       </Container>
 
       <Container className="themed-container" fluid={true} style={{ marginBottom: 25 }} >
-        <Button id="btn-login"  type="submit" color="primary" disabled={isLoggingIn}>
+        <Button id="btn-login"  type="submit" color="info" disabled={isLoggingIn}>
           { isLoggingIn ? <><i className="fa fa-spinner fa-spin" /> Carregando </>  : <> LOGIN </> }
         </Button>
       </Container>
