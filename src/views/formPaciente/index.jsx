@@ -73,7 +73,6 @@ class Form_create_paciente extends React.Component {
           planoAplicacao
             .split('#')
             .map(hora => (statePlanoAplicacao[parseInt(hora) - 1] = true))
-          console.log(paciente)
           let dt = new Date(paciente.dataHoraInternacao)
           let dataNascimento = new Date(paciente.dataNascimento)
           dataNascimento = dataNascimento.getFullYear() +
@@ -149,7 +148,6 @@ class Form_create_paciente extends React.Component {
     let dataCriacao = new Date()
     let form = this.state.form
     const { alta, internado, dataInternacao, horaInternacao, ...dadosPaciente } = form
-
     //Gravando paciente
     api
       .post('/paciente', {
@@ -162,7 +160,6 @@ class Form_create_paciente extends React.Component {
         updateDate: dataCriacao
       })
       .then(({ data }) => {
-        console.log(data)
         this.setState({
           LoadingSpinner: false,
           ModalMessager: true,
@@ -171,7 +168,6 @@ class Form_create_paciente extends React.Component {
         })
       })
       .catch(error => {
-        console.log(error)
         this.setState({
           LoadingSpinner: false,
           redirectUrl: null,
@@ -185,7 +181,6 @@ class Form_create_paciente extends React.Component {
   atualizarPaciente = planoAplicacao => {
     let dataAtualizacao = new Date()
     let form = this.state.form
-
     api
       .put('/paciente', {
         _id: this.state.idPaciente,
@@ -212,9 +207,8 @@ class Form_create_paciente extends React.Component {
           glicemia: form.glicemia,
           aplicacao: form.aplicacao
         }
-      })
+      }) 
       .then(response => {
-        console.log(response)
         this.showOrHideMessager(
           false,
           true,
@@ -223,7 +217,6 @@ class Form_create_paciente extends React.Component {
         )
       })
       .catch(error => {
-        console.log(error)
         this.setState({
           redirectUrl: null
         })
@@ -233,6 +226,7 @@ class Form_create_paciente extends React.Component {
           'Ocorreu um erro ao tentar salvar o paciente. Tente novamente mais tarde!'
         )
       })
+
   }
 
   showOrHideMessager = (

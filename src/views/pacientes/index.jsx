@@ -35,7 +35,7 @@ class Pacientes extends React.Component {
           dataInternacao =
             dataInternacao.getDate() +
             '/' +
-            dataInternacao.getMonth() +
+            (dataInternacao.getMonth() + 1) +
             '/' +
             dataInternacao.getFullYear()
           return {
