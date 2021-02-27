@@ -35,8 +35,8 @@ const TabelaPacientes = ({ pacientes, history, isLoading }) => (
                 <td>{paciente.nome}</td>
                 <td>{paciente.dataInternacao}</td>
                 <td className="td-recomendacao">
-                  <p className="p-recomendacao">
-                    {paciente.recomendacao !== undefined ? paciente.recomendacao : "Paciente não possui recomendação"}
+                  <p className="p-recomendacao" style={{borderColor: paciente.recomendacao.color}}>
+                    {paciente.recomendacao !== undefined ? paciente.recomendacao.text : "Paciente não possui recomendação"}
                   </p>
                 </td>
               </tr>
