@@ -9,6 +9,7 @@ const TabelaPacientes = ({ pacientes, history, isLoading }) => (
         <th>Prontuário</th>
         <th>Nome</th>
         <th>Data Internação</th>
+        <th>Recomendação</th>
       </tr>
     </thead>
     <tbody id="tableBody">
@@ -21,22 +22,27 @@ const TabelaPacientes = ({ pacientes, history, isLoading }) => (
           </tr>
         </>
       ) : (
-        <>
-          {pacientes.map(paciente => (
-            <tr
-              key={paciente._id}
-              className="trListPaciente"
-              onClick={() =>
-                history.push('/admin/PainelPaciente/' + paciente._id)
-              }
-            >
-              <td>{paciente.prontuario}</td>
-              <td>{paciente.nome}</td>
-              <td>{paciente.dataInternacao}</td>
-            </tr>
-          ))}
-        </>
-      )}
+          <>
+            {pacientes.map(paciente => (
+              <tr
+                key={paciente._id}
+                className="trListPaciente"
+                onClick={() =>
+                  history.push('/admin/PainelPaciente/' + paciente._id)
+                }
+              >
+                <td>{paciente.prontuario}</td>
+                <td>{paciente.nome}</td>
+                <td>{paciente.dataInternacao}</td>
+                <td className="td-recomendacao">
+                  <p className="p-recomendacao">
+                    {paciente.recomendacao !== undefined ? paciente.recomendacao : "Paciente não possui recomendação"}
+                  </p>
+                </td>
+              </tr>
+            ))}
+          </>
+        )}
     </tbody>
   </Table>
 )

@@ -43,9 +43,11 @@ class Pacientes extends React.Component {
             nome: paciente.nome,
             prontuario: paciente.prontuario,
             dataInternacao: dataInternacao,
-            statusPaciente: paciente.statusPaciente
+            statusPaciente: paciente.statusPaciente,
+            recomendacao: paciente.recomendacao
           }
         })
+        console.log(paciente)
         this.setState({ pacientes, pacientesFiltrados: pacientes })
       })
       .catch(error => {
