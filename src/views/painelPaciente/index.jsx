@@ -95,6 +95,13 @@ class PainelPaciente extends React.Component {
           return dateB - dateA
         })
 
+        glicemiaEAplicacoes = glicemiaEAplicacoes.map(e => {
+          if(e.procedimento === "Coleta"){
+            e.valorGlicemia =  parseInt(e.valorGlicemia)
+          }
+          return e  
+        })
+
         this.setState(
           {
             nomePaciente: paciente.nome,
