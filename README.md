@@ -31,28 +31,28 @@ Diminuição do tempo de internação dos pacientes
 
 #### Front-end
 
-React.js
+- React.js
 
 #### Back-end
 
-Express.js
+- Express.js
 
 #### Banco de dados
 
-MongoDB
+- MongoDB
 
 #### Deploy
 
-Heroku
+-  Heroku
 
 ## 6. INTEGRANTES (Equipe responsável pelo projeto)
 
 Orientadores
-Tiago Segato
-Sérgio Fernandes
+- Tiago Segato
+- Sérgio Fernandes
 
 Desenvolvedor
-Rafael Moura
+- Rafael Moura
 
 ## 7. SOLUÇÃO PARA PROBLEMAS IDENTIFICADOS (Grupo de entregas/Componentes que garantem que o projeto foi concluído)
 
