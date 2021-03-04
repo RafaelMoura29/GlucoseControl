@@ -58,30 +58,30 @@ class Pacientes extends React.Component {
   }
 
   setRecomendacao = (recomendacao) => {
-    if(recomendacao === "Paciente necessita de coleta!"){
+    if(recomendacao === "Paciente necessita de coleta!" || recomendacao === "PREVISÃO (4h): Paciente necessita de coleta!"){
       return {text: recomendacao, color: "red"}
     }
-    else if(recomendacao === "Aplicar 4 ampolas de glicose a 50% IV"){
+    else if(recomendacao === "Aplicar 4 ampolas de glicose a 50% IV" || recomendacao === "PREVISÃO (4h): Aplicar 4 ampolas de glicose a 50% IV"){
       return {text: recomendacao, color: "#428dd9"}
     }
-    else if(recomendacao === "Aplicar 2 ampolas de glicose a 50% IV"){
+    else if(recomendacao === "Aplicar 2 ampolas de glicose a 50% IV" || recomendacao === "PREVISÃO (4h): Aplicar 2 ampolas de glicose a 50% IV"){
       return {text: recomendacao, color: "#1fa68c"}
     }
-    else if(recomendacao === "Manter observação"){
+    else if(recomendacao === "Manter observação" || recomendacao === "PREVISÃO (4h): Manter observação"){
       return {text: recomendacao, color: "#858691"}
     }
-    else if(recomendacao === "Aplicar 2 unidade de insulina regular SC"){
+    else if(recomendacao === "Aplicar 2 unidade de insulina regular SC" || recomendacao === "PREVISÃO (4h): Aplicar 2 unidade de insulina regular SC"){
       return {text: recomendacao, color: "#c4b84e"}
     }
-    else if(recomendacao === "Aplicar 4 unidade de insulina regular SC"){
+    else if(recomendacao === "Aplicar 4 unidade de insulina regular SC" || recomendacao === "PREVISÃO (4h): Aplicar 4 unidade de insulina regular SC"){
       return {text: recomendacao, color: "#d69934"}
-    } 
+    }
     else if(recomendacao === "Aplicar 6 unidade de insulina regular SC"){
       return {text: recomendacao, color: "#ef7161"}
     }
     else if(recomendacao === "Glicemia Inválida!"){
       return {text: recomendacao, color: "#ab3323"}
-    }else if(recomendacao === "Manter observação"){
+    }else if(recomendacao === "Manter observação" || recomendacao === "PREVISÃO (4h): Manter observação"){
       return {text: recomendacao, color: "#428dd9"}
     }else{
       return {text: "Sem recomendação", color: "#ab3323"}
@@ -118,8 +118,8 @@ class Pacientes extends React.Component {
         this.setState({ isSimulatingPatients: false })
         this.toggleModal()
       })
-  }  
-  
+  }
+
   /*
     Faz atualização dos valores dos campos filtros e atualiza listagem dos pacientes
   */
@@ -177,7 +177,7 @@ class Pacientes extends React.Component {
         </div>
 
         <Modal isOpen={this.state.modalDemo} className="text-center">
-          
+
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLongTitle">
               Simular pacientes
@@ -213,7 +213,7 @@ class Pacientes extends React.Component {
 
               </Row>
             </ModalBody>
-            
+
             <ModalFooter className="d-flex justify-content-center">
               <Button type="submit" color="secondary" className="w-100" disabled={this.state.isSimulatingPatients} onClick={() => {}}>
                 { this.state.isSimulatingPatients ? <><i className="fa fa-spinner fa-spin" /> Carregando </>  : <> SIMULAR </> }
