@@ -27,7 +27,7 @@ Diminuição do tempo de internação dos pacientes
 - VSCode
 - GitBash
 
-## 5. FERRAMENTAS PARA O DESENVOLVIMENTO (Frameworks: Front-end, Web App, versionador de código, Web Deploy, BD, entre outros)
+## 5. FERRAMENTAS PARA O DESENVOLVIMENTO
 
 #### Front-end
 
@@ -45,6 +45,10 @@ Diminuição do tempo de internação dos pacientes
 
 -  Heroku
 
+#### Versionador de código
+
+- Git
+
 ## 6. INTEGRANTES (Equipe responsável pelo projeto)
 
 Orientadores
@@ -54,7 +58,7 @@ Orientadores
 Desenvolvedor
 - Rafael Moura
 
-## 7. SOLUÇÃO PARA PROBLEMAS IDENTIFICADOS (Grupo de entregas/Componentes que garantem que o projeto foi concluído)
+## 7. SOLUÇÃO PARA PROBLEMAS IDENTIFICADOS
 
 - Cadastro paciente
 - Listagem pacientes
@@ -69,7 +73,7 @@ Desenvolvedor
 
 - Javascript
 
-## 9. TECNOLOGIAS (App: Postman, AngularJS, Vue.js, ReacJS, Node.js, entre outras.)
+## 9. TECNOLOGIAS
 
 - React.js
 - Express.js
