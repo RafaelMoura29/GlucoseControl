@@ -2,10 +2,25 @@
 
 ## 1. TEMA INTEGRADOR (Tema do Projeto - PITCH)
 
+Uma aplicação web para auxiliar no monitoramento da glicemia de pacientes internados em UTIs
+
 ## 2. MOTIVAÇÃO (Justificativa)
 
+O mercado demanda por softwares que possam auxiliar no tratamento de pacientes internados em UTIs
+
+Dificuldade dos profissionais de saúde em tratar o grande volume de dados
+
+Falta de padronização na coleta desses dados
+
+Falta do controle glicêmico
+
 ## 3. VISÃO DE NEGÓCIO (Benefícios)
-A plataforma
+
+Definição de um método de tratamento de pacientes em UTIs
+
+Aumento da eficiência e eficácia no tratamento de pacientes internados em UTIs.
+
+Diminuição do tempo de internação dos pacientes
 
 ## 4. AMBIENTE DE DESENVOLVIMENTO (IDE)
 
@@ -14,26 +29,41 @@ A plataforma
 
 ## 5. FERRAMENTAS PARA O DESENVOLVIMENTO (Frameworks: Front-end, Web App, versionador de código, Web Deploy, BD, entre outros)
 
-#### Front-end:
-React.j
+#### Front-end
 
-#### Back-end:
+React.js
+
+#### Back-end
+
 Express.js
 
-#### Banco de dados:
+#### Banco de dados
+
 MongoDB
 
-#### Deploy:
+#### Deploy
+
 Heroku
+
 ## 6. INTEGRANTES (Equipe responsável pelo projeto)
+
 Orientadores
 Tiago Segato
 Sérgio Fernandes
 
-Desenvolvedores
+Desenvolvedor
 Rafael Moura
-Vitor Ribeiro
+
 ## 7. SOLUÇÃO PARA PROBLEMAS IDENTIFICADOS (Grupo de entregas/Componentes que garantem que o projeto foi concluído)
+
+- Cadastro paciente
+- Listagem pacientes
+- Tela monitoramento paciente
+- Cadastro da coletas de glicemia do paciente
+- Cadastro de aplicações no paciente
+- Listagem de coletas e aplicações do paciente
+- Gráfico evolução coletas do paciente
+
 
 ## 8. LINGUAGENS DE PROGRAMAÇÃO
 
@@ -41,52 +71,13 @@ Vitor Ribeiro
 
 ## 9. TECNOLOGIAS (App: Postman, AngularJS, Vue.js, ReacJS, Node.js, entre outras.)
 
-- VSCode
-- Node.js
 - React.js
 - Express.js
 - Mongoose.js
+- Node.js
 - MongoDB
 - Heroku
 - Git
 - Insominia
 - GitBash
-
-### Glycemic Control Online ou apenas GLYCON é uma aplicação web para auxiliar no controle de glicemias de pacientes internados em Unidades de Terapia Intensiva.
-
-Você pode acessar o projeto em produção com o link a seguir
-[GLYCON](https://glucosecontrolapplication.herokuapp.com/)
-
-## Primeiros passos
-
-### Clone o repositório
-
-```sh
-
-git clone https://github.com/RafaelMoura29/GlucoseControl.git
-
-```
-
-### Entre na pasta do projeto
-
-```sh
-
-cd GlucoseControl
-
-```
-
-### Instale as dependências do projeto usando npm
-
-```sh
-
-npm install
-
-```
-
-### Inicie o projeto
-
-```sh
-
-npm start
-
-```
+- VSCode
