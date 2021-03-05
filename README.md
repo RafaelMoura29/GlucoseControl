@@ -1,10 +1,10 @@
 # GLYCON
 
-## 1. TEMA INTEGRADOR (Tema do Projeto - PITCH)
+## 1. TEMA INTEGRADOR
 
 Uma aplicação web para auxiliar no monitoramento da glicemia de pacientes internados em UTIs
 
-## 2. MOTIVAÇÃO (Justificativa)
+## 2. MOTIVAÇÃO
 
 O mercado demanda por softwares que possam auxiliar no tratamento de pacientes internados em UTIs
 
@@ -14,7 +14,7 @@ Falta de padronização na coleta desses dados
 
 Falta do controle glicêmico
 
-## 3. VISÃO DE NEGÓCIO (Benefícios)
+## 3. VISÃO DE NEGÓCIO
 
 Definição de um método de tratamento de pacientes em UTIs
 
@@ -22,7 +22,7 @@ Aumento da eficiência e eficácia no tratamento de pacientes internados em UTIs
 
 Diminuição do tempo de internação dos pacientes
 
-## 4. AMBIENTE DE DESENVOLVIMENTO (IDE)
+## 4. AMBIENTE DE DESENVOLVIMENTO
 
 - VSCode
 - GitBash
@@ -49,7 +49,7 @@ Diminuição do tempo de internação dos pacientes
 
 - Git
 
-## 6. INTEGRANTES (Equipe responsável pelo projeto)
+## 6. INTEGRANTES
 
 Orientadores
 - Tiago Segato
