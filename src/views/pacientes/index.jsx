@@ -58,33 +58,32 @@ class Pacientes extends React.Component {
   }
 
   setRecomendacao = (recomendacao) => {
-    if(recomendacao === "Paciente necessita de coleta!" || recomendacao === "PREVISÃO (4h): Paciente necessita de coleta!"){
-      return {text: recomendacao, color: "red"}
+    if(recomendacao === "Glicose: 4 AMP - 50% IV" || recomendacao === "Glicose: 4 AMP - 50% IV (Prev. 4h)"){
+      return {text: recomendacao, color: "#FD7664"}
     }
-    else if(recomendacao === "Aplicar 4 ampolas de glicose a 50% IV" || recomendacao === "PREVISÃO (4h): Aplicar 4 ampolas de glicose a 50% IV"){
-      return {text: recomendacao, color: "#428dd9"}
+    else if(recomendacao === "Glicose: 2 AMP - 50% IV" || recomendacao === "Glicose: 2 AMP - 50% IV (Prev. 4h)"){
+      return {text: recomendacao, color: "#E2A134"}
     }
-    else if(recomendacao === "Aplicar 2 ampolas de glicose a 50% IV" || recomendacao === "PREVISÃO (4h): Aplicar 2 ampolas de glicose a 50% IV"){
-      return {text: recomendacao, color: "#1fa68c"}
+    else if(recomendacao === "Manter Observação" || recomendacao === "Manter Observação (Prev. 4h)"){
+      return {text: recomendacao, color: "#1EBE9B"}
     }
-    else if(recomendacao === "Manter observação" || recomendacao === "PREVISÃO (4h): Manter observação"){
-      return {text: recomendacao, color: "#858691"}
+    else if(recomendacao === "Insulina Regular: 2 UN - SC" || recomendacao === "Insulina Regular: 2 UN - SC (Prev. 4h)"){
+      return {text: recomendacao, color: "#CFC24F"}
     }
-    else if(recomendacao === "Aplicar 2 unidade de insulina regular SC" || recomendacao === "PREVISÃO (4h): Aplicar 2 unidade de insulina regular SC"){
-      return {text: recomendacao, color: "#c4b84e"}
+    else if(recomendacao === "Insulina Regular: 4 UN - SC" || recomendacao === "Insulina Regular: 4 UN - SC (Prev. 4h)"){
+      return {text: recomendacao, color: "#E2A134"}
     }
-    else if(recomendacao === "Aplicar 4 unidade de insulina regular SC" || recomendacao === "PREVISÃO (4h): Aplicar 4 unidade de insulina regular SC"){
-      return {text: recomendacao, color: "#d69934"}
+    else if(recomendacao === "Insulina Regular: 6 UN - SC" || recomendacao === "Insulina Regular: 6 UN - SC (Prev. 4h)"){
+      return {text: recomendacao, color: "#FD7664"}
     }
-    else if(recomendacao === "Aplicar 6 unidade de insulina regular SC"){
-      return {text: recomendacao, color: "#ef7161"}
+    else if(recomendacao === "Coleta de Necessária"){
+      return {text: recomendacao, color: "#47A0F6"}
     }
     else if(recomendacao === "Glicemia Inválida!"){
-      return {text: recomendacao, color: "#ab3323"}
-    }else if(recomendacao === "Manter observação" || recomendacao === "PREVISÃO (4h): Manter observação"){
-      return {text: recomendacao, color: "#428dd9"}
-    }else{
-      return {text: "Sem recomendação", color: "#ab3323"}
+      return {text: recomendacao, color: "#ef7161"}
+    }
+    else{
+      return {text: "Sem recomendação", color: "#CFC24F"}
     }
   }
 
