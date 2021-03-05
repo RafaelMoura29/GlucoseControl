@@ -6,21 +6,21 @@ Uma aplicação web para auxiliar no monitoramento da glicemia de pacientes inte
 
 ## 2. MOTIVAÇÃO
 
-O mercado demanda por softwares que possam auxiliar no tratamento de pacientes internados em UTIs
+- O mercado demanda por softwares que possam auxiliar no tratamento de pacientes internados em UTIs
 
-Dificuldade dos profissionais de saúde em tratar o grande volume de dados
+- Dificuldade dos profissionais de saúde em tratar o grande volume de dados
 
-Falta de padronização na coleta desses dados
+- Falta de padronização na coleta desses dados
 
-Falta do controle glicêmico
+- Falta do controle glicêmico
 
 ## 3. VISÃO DE NEGÓCIO
 
-Definição de um método de tratamento de pacientes em UTIs
+- Definição de um método de tratamento de pacientes em UTIs
 
-Aumento da eficiência e eficácia no tratamento de pacientes internados em UTIs.
+- Aumento da eficiência e eficácia no tratamento de pacientes internados em UTIs.
 
-Diminuição do tempo de internação dos pacientes
+- Diminuição do tempo de internação dos pacientes
 
 ## 4. AMBIENTE DE DESENVOLVIMENTO
 
