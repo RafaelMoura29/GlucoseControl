@@ -2,7 +2,7 @@
 
 ## 1. TEMA INTEGRADOR
 
-Uma aplicação web para auxiliar no monitoramento da glicemia de pacientes internados em UTIs
+Uma aplicação web desenvolvida para auxiliar no monitoramento da glicemia de pacientes internados em UTIs
 
 ## 2. MOTIVAÇÃO
 
