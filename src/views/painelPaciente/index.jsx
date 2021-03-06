@@ -16,6 +16,7 @@ import {
   FormGroup,
   Input,
   Label,
+  Alert
   //UncontrolledPopover,
 //PopoverBody
 } from 'reactstrap'
@@ -35,7 +36,9 @@ class PainelPaciente extends React.Component {
       filtroDataFinal: new Date(),
       lineChart: lineChart,
       nomePaciente: '',
-      tipoInternacaoFiltro: 'Todos'
+      tipoInternacaoFiltro: 'Todos',
+      successMessage: null,
+      timeout: null
     }
     this._idPaciente = ''
   }
@@ -46,6 +49,19 @@ class PainelPaciente extends React.Component {
     } = this.props
     this._idPaciente = params._idPaciente
 
+    let successMessage = null
+    if (this.props.location.search) {
+      let type = this.props.location.search.split("=")[1]
+
+      window.history.replaceState({}, document.title,  `/admin/PainelPaciente/${this._idPaciente}`);
+
+      if (type === 'coleta') {
+        successMessage = 'Coleta salva com sucesso!'
+      } else if (type === 'aplicacao') {
+        successMessage = 'Aplicação salva com sucesso!'        
+      }
+    } 
+    let timeout = setTimeout(this.cancelTimeout, 3000);
     //Setando a data atual como data final no filtro do gráfico
     let dateTime = new Date()
     let dataAtual =
@@ -54,8 +70,13 @@ class PainelPaciente extends React.Component {
       String(dateTime.getMonth() + 1).padStart(2, '0') +
       '-' +
       dateTime.getDate()
-    this.setState({ filtroDataFinal: dataAtual })
+    this.setState({ filtroDataFinal: dataAtual, successMessage, timeout})
     this.getPaciente()
+  }
+
+  cancelTimeout = () => {
+    this.setState({successMessage: null})
+    clearTimeout(this.state.timeout);
   }
 
   getPaciente() {
@@ -409,6 +430,10 @@ class PainelPaciente extends React.Component {
             </Row>
           </Card>
         </div>
+
+        {this.state.successMessage &&
+        <Alert color="success" id="alertSuccess">{this.state.successMessage}</Alert>
+        }
       </>
     )
   }
