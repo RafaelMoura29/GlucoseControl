@@ -121,23 +121,7 @@ class FormAplicacao extends React.Component {
         _idPaciente: this._idPaciente
       })
       .then(response => {
-        console.log(response)
-        this.setState({
-          isLoading: false,
-          ModalMessager: true,
-          ModalMessagerText: 'Dados Gravados Com Sucesso',
-          form: {
-            ...this.state.form,
-            dataAplicacao: '',
-            horaAplicacao: '',
-            tipoAplicacao: 'de resgate',
-            viaAdministracao: 'intravenosa',
-            posologia: '',
-            observacoes: '',
-            droga: ''
-          },
-          nextPage: true
-        })
+        this.props.history.push(`/admin/PainelPaciente/${this._idPaciente}?success_message=aplicacao`)
       })
       .catch(error => {
         this.setState({

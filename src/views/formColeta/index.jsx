@@ -105,11 +105,7 @@ class Form_glicemia extends React.Component {
         let modalText = ''
         const glicemia = form.valorGlicemia
 
-        this.setState({
-          isLoading: false,
-          ModalMessager: true,
-          ModalMessagerText: 'Dados Gravados Com Sucesso!',
-        })
+        this.props.history.push(`/admin/PainelPaciente/${this._idPaciente}?success_message=coleta`)
       })
       .catch(error => {
         this.setState({
