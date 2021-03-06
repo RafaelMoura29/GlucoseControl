@@ -24,3 +24,22 @@ h3 {
     margin: 0px;
     padding: 0px;
 }
+
+#buttonSimulatePatient{
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    display:block;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    text-align:center;
+    padding: 0;
+    margin: 0 20px 20px 0;
+    background-color: #0098f0 !important;
+    background-image: none !important;
+}
+
+#iconSimulatePatient{
+    font-size: 20px;
+}
