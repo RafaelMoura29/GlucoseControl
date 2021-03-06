@@ -221,6 +221,9 @@ class Pacientes extends React.Component {
           </form>
 
         </Modal>
+        <Button color="success" id="buttonSimulatePatient" type="button" onClick={this.toggleModal}>
+          <i className="tim-icons icon-badge" id="iconSimulatePatient"></i>
+        </Button>
       </>
     )
   }
