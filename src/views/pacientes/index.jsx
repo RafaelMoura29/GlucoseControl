@@ -83,7 +83,7 @@ class Pacientes extends React.Component {
       return {text: recomendacao, color: "#ef7161"}
     }
     else{
-      return {text: "Sem recomendação", color: "#CFC24F"}
+      return {text: "Sem recomendação", color: "#d1f0ff"}
     }
   }
 
@@ -175,7 +175,7 @@ class Pacientes extends React.Component {
           </Card>
         </div>
 
-        <Modal isOpen={this.state.modalDemo} className="text-center">
+        <Modal isOpen={this.state.modalDemo} className="text-center" style={{backgroundColor:'red'}}>
 
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLongTitle">
@@ -193,14 +193,14 @@ class Pacientes extends React.Component {
           </div>
 
           <form onSubmit={this.simularPacientes}>
-            <ModalBody>
+            <ModalBody className="modal-body">
               <Row>
 
                 <Col md="12">
                   <FormGroup className="text-left">
                     <label>Quantidade de pacientes</label>
                     <Input
-                      style={{ color: '#111' }}
+                      style={{ color: '#ddd' }}
                       name="qtdPacientesSimulados"
                       value={this.state.qtdPacientesSimulados}
                       onChange={this.handleChange}
@@ -213,7 +213,7 @@ class Pacientes extends React.Component {
               </Row>
             </ModalBody>
 
-            <ModalFooter className="d-flex justify-content-center">
+            <ModalFooter className="d-flex justify-content-center modal-footer">
               <Button type="submit" color="secondary" className="w-100" disabled={this.state.isSimulatingPatients} onClick={() => {}}>
                 { this.state.isSimulatingPatients ? <><i className="fa fa-spinner fa-spin" /> Carregando </>  : <> SIMULAR </> }
               </Button>

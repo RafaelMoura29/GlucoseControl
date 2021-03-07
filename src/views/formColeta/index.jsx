@@ -46,12 +46,14 @@ class Form_glicemia extends React.Component {
         dataHoraInternacao: '',
         dataColeta: data,
         valorGlicemia: 110,
-        tipo: 'Bioquímica',
+        tipo: 'Capilar',
         tipoAlimentacao: 'Zero',
         hora: '',
         horaColeta: hora,
         observacoes: '',
-        _idPaciente: ''
+        _idPaciente: '',
+        ultimaAlimentacao: '0 horas atrás',
+        diabetes: ''
       }
     }
     this._idPaciente = ''
@@ -75,11 +77,13 @@ class Form_glicemia extends React.Component {
       .get('/paciente?tagId=' + this._idPaciente)
       .then(({ data: { paciente } }) => {
         let dt = new Date(paciente[0].dataHoraInternacao)
+        console.log(paciente)
         this.setState({
           form: {
             ...this.state.form,
             prontuario: paciente[0].prontuario,
             paciente: paciente[0].nome,
+            diabetes: paciente[0].diabetes,
             dataHoraInternacao:
               dt.toLocaleDateString() + ' ' + dt.toLocaleTimeString()
           }
@@ -91,7 +95,7 @@ class Form_glicemia extends React.Component {
     event.preventDefault()
     this.setState({ isLoading: true })
     let form = this.state.form
-
+  
     api
       .post('/glicemia', {
         dataHoraColeta: form.dataColeta + ' ' + form.horaColeta,
@@ -99,7 +103,9 @@ class Form_glicemia extends React.Component {
         tipoAlimentacao: form.tipoAlimentacao,
         valorGlicemia: form.valorGlicemia,
         observacoes: form.observacoes,
-        _idPaciente: this._idPaciente
+        _idPaciente: this._idPaciente,
+        ultimaAlimentacao: form.ultimaAlimentacao.split(" ")[0],
+        diabetes: form.diabetes
       })
       .then(response => {
         let modalText = ''
@@ -124,6 +130,7 @@ class Form_glicemia extends React.Component {
   }
 
   render() {
+    let hours = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
     return (
       <>
         <div className="content">
@@ -274,16 +281,54 @@ class Form_glicemia extends React.Component {
                             Oral completa
                           </option>
                           <option style={{ backgroundColor: '#27293d' }}>
-                            Interal intermitente
+                            Enteral intermitente
                           </option>
                           <option style={{ backgroundColor: '#27293d' }}>
-                            Interal contínua
+                            Enteral contínua
                           </option>
                           <option style={{ backgroundColor: '#27293d' }}>
                             Parenteral
                           </option>
                         </Input>
+                      </FormGroup> 
+
+                      <FormGroup>
+                        <label>ÚLTIMA ALIMENTAÇÃO</label>
+                        <Input
+                          type="select"
+                          name="ultimaAlimentacao"
+                          value={this.state.form.ultimaAlimentacao}
+                          onChange={this.handleChange}
+                          required
+                        >
+                        {hours.map((e) => (
+                           <option style={{ backgroundColor: '#27293d' }}>
+                            {e} horas atrás
+                          </option>
+                        ))}
+                        </Input>
                       </FormGroup>
+
+                      <FormGroup>
+                        <label>DIABETES</label>
+                        <Input
+                          type="select"
+                          name="diabetes"
+                          value={this.state.form.diabetes}
+                          onChange={this.handleChange}
+                          required
+                        >
+                          <option>Ignorado</option>
+                          <option>Controle domiciliar dietético</option>
+                          <option>
+                            Controle domiciliar com hipoglicemiante oral
+                          </option>
+                          <option>Controle domiciliar com insulina</option>
+                          <option>Controle domiciliar medicamentoso misto</option>
+                          <option>Não tem</option>
+                        </Input>
+                      </FormGroup>
+
                       <FormGroup>
                         <Label for="exampleText">Observações</Label>
                         <Input
