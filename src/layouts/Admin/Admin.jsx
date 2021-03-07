@@ -87,7 +87,7 @@ class Admin extends React.Component {
     for (let i = 0; i < routes.length; i++) {
       if (
         this.props.location.pathname.indexOf(
-          routes[i].layout + routes[i].path 
+          routes[i].layout + routes[i].path
         ) !== -1
       ) {
         return ''
@@ -101,7 +101,7 @@ class Admin extends React.Component {
         <div className="wrapper">
           <Sidebar
             {...this.props}
-            routes={routes} 
+            routes={routes}
             bgColor={this.state.backgroundColor}
             logo={{
               outterLink: null,
@@ -115,12 +115,12 @@ class Admin extends React.Component {
             ref="mainPanel"
             data={this.state.backgroundColor}
           >
-            <AdminNavbar
+            {/* <AdminNavbar
               {...this.props}
               brandText={this.getBrandText(this.props.location.pathname)}
               toggleSidebar={this.toggleSidebar}
               sidebarOpened={this.state.sidebarOpened}
-            />
+            /> */}
             <Switch>{this.getRoutes(routes)}</Switch>
           </div>
         </div>

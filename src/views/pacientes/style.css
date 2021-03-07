@@ -1,5 +1,5 @@
-.trListPaciente:hover{
-    cursor: pointer; 
+.trListPaciente:hover {
+    cursor: pointer;
     background: #363952;
 }
 
@@ -11,35 +11,58 @@ h3 {
     font-size: 25;
 }
 
-.p-recomendacao{
+.p-recomendacao {
     border: 2px solid red;
     padding: 5px;
     margin: 1px 12px 1px 1px;
     text-align: center;
     border-radius: 10px;
     font-weight: Bold;
-    max-width:323;
+    max-width: 323;
 }
-.table > tbody > tr > .td-recomendacao{
+
+.table>tbody>tr>.td-recomendacao {
     margin: 0px;
     padding: 0px;
 }
 
-#buttonSimulatePatient{
+#buttonSimulatePatient {
     position: fixed;
     bottom: 0px;
     right: 0px;
-    display:block;
+    display: block;
     height: 60px;
     width: 60px;
     border-radius: 50%;
-    text-align:center;
+    text-align: center;
     padding: 0;
     margin: 0 20px 20px 0;
     background-color: #0098f0 !important;
     background-image: none !important;
 }
 
-#iconSimulatePatient{
+#iconSimulatePatient {
     font-size: 20px;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+    background-color: #1e1e28;
+    color: #eee;
+}
+
+.modal-title {
+    color: #eee !important;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.modal-dialog{
+    background-color: transparent !important;
+}
+
+.modal-content{
+    background-color: #3e3e28;
+    border: 1px solid #27293d;
 }
