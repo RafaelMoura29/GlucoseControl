@@ -336,6 +336,7 @@ class FormAplicacao extends React.Component {
                 </CardBody>
 
                 <CardFooter>
+                <div className="text-center"> 
                   <Button
                     className="btn-fill"
                     color="info"
@@ -359,6 +360,7 @@ class FormAplicacao extends React.Component {
                   >
                     CANCELAR
                   </Button>
+                  </div>
                 </CardFooter>
               </Form>
             </Card>

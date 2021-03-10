@@ -14,3 +14,7 @@ option {
 #titulo-form{
     font-size: 25;
 }
+
+#btn-simular{
+    background: #D75CF5 !important;
+}

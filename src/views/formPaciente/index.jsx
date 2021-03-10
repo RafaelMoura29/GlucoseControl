@@ -4,6 +4,17 @@ import ModalMessager from '../../components/ModalMessager/modalMessager'
 import './style.css'
 import api from '../../variables/api'
 import FormularioPaciente from './components/form'
+import {
+  Modal,
+  ModalBody,
+  Row,
+  Col,
+  FormGroup,
+  Input,
+  ModalFooter,
+  Button
+} from 'reactstrap'
+import axios from 'axios'
 
 // reactstrap components
 import { ModalHeader } from 'reactstrap'
@@ -23,6 +34,10 @@ class Form_create_paciente extends React.Component {
       idPaciente: 0,
       redirectUrl: '',
       requestType: '',
+      isLoading: false,
+      modalSimulate: false,
+      qtdPacientesSimulados: 0,
+      isSimulatingPatients: false,
       form: {
         prontuario: '',
         nome: '',
@@ -51,6 +66,29 @@ class Form_create_paciente extends React.Component {
         aplicacao: []
       }
     }
+  }
+
+  toggleModalSimulate = () => {
+    this.setState({
+        modalSimulate: !this.state.modalSimulate
+    });
+  }
+
+  simularPacientes = (event) => {
+    this.setState({ isSimulatingPatients: true })
+    event.preventDefault()
+    let qtdPacientes = this.state.qtdPacientesSimulados
+    axios.post(`https://patientsimulator.herokuapp.com/patient/${qtdPacientes}`)
+      .then((response) => {
+        this.props.history.push(`/admin/pacientes?success_message=simulated_patient`) 
+        alert("Pacientes simulados com sucesso!")
+      })
+      .catch((error) => {
+        console.log(error)
+        alert("Ocorreu um erro ao simular novos pacientes! Tente novamente em instantes.")
+      })
+      .finally(() => {
+      })
   }
 
   componentDidMount() {
@@ -138,6 +176,10 @@ class Form_create_paciente extends React.Component {
     this.setState(form)
   }
 
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
   updateCheckedAplicacao = event => {
     let form = this.state.form
     form.planoAplicacao[event.target.name] = event.target.checked
@@ -160,12 +202,7 @@ class Form_create_paciente extends React.Component {
         updateDate: dataCriacao
       })
       .then(({ data }) => {
-        this.setState({
-          LoadingSpinner: false,
-          ModalMessager: true,
-          ModalMessagerText: 'Dados Gravados Com Sucesso',
-          redirectUrl: this.state.redirectUrl + data._id
-        })
+        this.props.history.push(`/admin/PainelPaciente/${data._id}?success_message=save_patient`) 
       })
       .catch(error => {
         this.setState({
@@ -209,12 +246,7 @@ class Form_create_paciente extends React.Component {
         }
       }) 
       .then(response => {
-        this.showOrHideMessager(
-          false,
-          true,
-          'Dados Gravados Com Sucesso',
-          this.state.redirectUrl + this.state.idPaciente
-        )
+        this.props.history.push(`/admin/PainelPaciente/${this.state.idPaciente}?success_message=atualize_patient`) 
       })
       .catch(error => {
         this.setState({
@@ -245,11 +277,7 @@ class Form_create_paciente extends React.Component {
 
   verificarPreenchimentoForm = event => {
     event.preventDefault()
-
-    this.setState({
-      LoadingSpinner: true,
-      modal: false
-    })
+    this.setState({ isLoading: true })
 
     let form = this.state.form
 
@@ -274,6 +302,53 @@ class Form_create_paciente extends React.Component {
   render() {
     return (
       <>
+        <Modal isOpen={this.state.modalSimulate} className="text-center" style={{backgroundColor:'red'}}>
+
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalLongTitle">
+              Simular pacientes
+            </h5>
+            <button
+              type="button"
+              className="close"
+              data-dismiss="modal"
+              aria-hidden="true"
+              onClick={this.toggleModalSimulate}
+            >
+              <i className="tim-icons icon-simple-remove" />
+            </button>
+          </div>
+
+          <form onSubmit={this.simularPacientes}>
+            <ModalBody className="modal-body">
+              <Row>
+
+                <Col md="12">
+                  <FormGroup className="text-left">
+                    <label>Quantidade de pacientes</label>
+                    <Input
+                      style={{ color: '#ddd' }}
+                      name="qtdPacientesSimulados"
+                      value={this.state.qtdPacientesSimulados}
+                      onChange={this.handleChange}
+                      type="number"
+                      required
+                    />
+                  </FormGroup>
+                </Col>
+
+              </Row>
+            </ModalBody>
+
+            <ModalFooter className="d-flex justify-content-center modal-footer">
+              <Button type="submit" color="secondary" className="w-100" disabled={this.state.isSimulatingPatients} onClick={() => {}}>
+                { this.state.isSimulatingPatients ? <><i className="fa fa-spinner fa-spin" /> Carregando </>  : <> SIMULAR </> }
+              </Button>
+            </ModalFooter>
+          </form>
+
+        </Modal>
+
         <div className="content">
           <LoadingSpinner visible={this.state.LoadingSpinner} />
 
@@ -293,6 +368,8 @@ class Form_create_paciente extends React.Component {
             requestType={this.state.requestType}
             history={this.props.history}
             setRedirectUrl={this.setRedirectUrl}
+            isLoading={this.state.isLoading}
+            toggleModalSimulate={this.toggleModalSimulate}
           />
         </div>
       </>

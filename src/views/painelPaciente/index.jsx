@@ -59,6 +59,10 @@ class PainelPaciente extends React.Component {
         successMessage = 'Coleta salva com sucesso!'
       } else if (type === 'aplicacao') {
         successMessage = 'Aplicação salva com sucesso!'        
+      } else if (type === 'save_patient') {
+        successMessage = 'Paciente salvo com sucesso!!'        
+      } else if (type === 'atualize_patient') {
+        successMessage = 'Paciente atualizado com sucesso!!'        
       }
     } 
     let timeout = setTimeout(this.cancelTimeout, 3000);
@@ -417,17 +421,6 @@ class PainelPaciente extends React.Component {
                 </div>
               </Col>
             </CardBody>
-            <Row style={{ marginBottom: 15, paddingLeft: 15 }}>
-              <Col className="pr-md-1" md="2">
-                <Link
-                  style={{ color: '#ddd' }}
-                  to={{}}
-                  onClick={() => this.props.history.goBack()}
-                >
-                  {'<- Voltar'}
-                </Link>
-              </Col>
-            </Row>
           </Card>
         </div>
 
