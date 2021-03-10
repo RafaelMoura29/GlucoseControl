@@ -81,10 +81,8 @@ class Form_create_paciente extends React.Component {
     axios.post(`https://patientsimulator.herokuapp.com/patient/${qtdPacientes}`)
       .then((response) => {
         this.props.history.push(`/admin/pacientes?success_message=simulated_patient`) 
-        alert("Pacientes simulados com sucesso!")
       })
       .catch((error) => {
-        console.log(error)
         alert("Ocorreu um erro ao simular novos pacientes! Tente novamente em instantes.")
       })
       .finally(() => {
