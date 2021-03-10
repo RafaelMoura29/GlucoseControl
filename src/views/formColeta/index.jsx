@@ -110,8 +110,7 @@ class Form_glicemia extends React.Component {
       .then(response => {
         let modalText = ''
         const glicemia = form.valorGlicemia
-
-        this.props.history.push(`/admin/PainelPaciente/${this._idPaciente}?success_message=coleta`)
+        this.props.history.push(`/admin/PainelPaciente/${this._idPaciente}?success_message=coleta`) 
       })
       .catch(error => {
         this.setState({
@@ -343,13 +342,14 @@ class Form_glicemia extends React.Component {
                   </Row>
                 </CardBody>
                 <CardFooter>
+                <div className="text-center"> 
                   <Button disabled={this.state.isLoading} className="btn-fill" color="info" type="submit">
                     {this.state.isLoading ? (
                       <>
                         <i className="fa fa-spinner fa-spin" /> Carregando{' '}
                       </>
                     ) : (
-                      <> SALVAR GLICEMIA </>
+                      <> SALVAR </>
                     )}
                   </Button>
                   <Button
@@ -364,6 +364,7 @@ class Form_glicemia extends React.Component {
                   >
                     CANCELAR
                   </Button>
+                  </div>
                 </CardFooter>
               </Form>
             </Card>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Card, CardBody, Modal, ModalBody, ModalFooter, Button, ModalHeader, FormGroup, Input } from 'reactstrap'
+import { Row, Col, Card, CardBody, Modal, ModalBody, ModalFooter, Button, ModalHeader, FormGroup, Input, Alert } from 'reactstrap'
 import api from '../../variables/api'
 import './style.css'
 import TabelaPacientes from './components/tabelaPacientes'
@@ -19,7 +19,9 @@ class Pacientes extends React.Component {
       isLoading: true,
       modalDemo: false,
       qtdPacientesSimulados: 0,
-      isSimulatingPatients: false
+      isSimulatingPatients: false,
+      successMessage: null,
+      timeout: null
     }
     this.toggleModal = this.toggleModal.bind(this);
   }
@@ -88,7 +90,26 @@ class Pacientes extends React.Component {
   }
 
   componentDidMount() {
+    let successMessage = null
+    if (this.props.location.search) {
+      let type = this.props.location.search.split("=")[1]
+
+      window.history.replaceState({}, document.title,  `/admin/PainelPaciente/${this._idPaciente}`);
+
+      if (type === 'simulated_patient') {
+        successMessage = 'Paciente simulado com sucesso!'
+      } 
+    } 
+    let timeout = setTimeout(this.cancelTimeout, 3000);
+    
+    this.setState({ successMessage, timeout})
+    
     this.getPacientes()
+  }
+
+  cancelTimeout = () => {
+    this.setState({successMessage: null})
+    clearTimeout(this.state.timeout);
   }
 
   toggleModal(){
@@ -115,7 +136,7 @@ class Pacientes extends React.Component {
       })
       .finally(() => {
         this.setState({ isSimulatingPatients: false })
-        this.toggleModal()
+        this.toggleModalSimulate()
       })
   }
 
@@ -221,9 +242,9 @@ class Pacientes extends React.Component {
           </form>
 
         </Modal>
-        <Button color="success" id="buttonSimulatePatient" type="button" onClick={this.toggleModal}>
-          <i className="tim-icons icon-badge" id="iconSimulatePatient"></i>
-        </Button>
+        {this.state.successMessage &&
+        <Alert color="success" id="alertSuccess">{this.state.successMessage}</Alert>
+        }
       </>
     )
   }

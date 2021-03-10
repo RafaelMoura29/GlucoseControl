@@ -66,3 +66,13 @@ h3 {
     background-color: #3e3e28;
     border: 1px solid #27293d;
 }
+
+#alertSuccess {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    display: block;
+    text-align: left;
+    margin: 20px 20px 0 0;
+    transition-delay: 0.3s;
+}

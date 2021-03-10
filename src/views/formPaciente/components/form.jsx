@@ -40,7 +40,9 @@ const FormularioPaciente = ({
   verificarPreenchimentoForm,
   requestType,
   history,
-  setRedirectUrl
+  setRedirectUrl,
+  isLoading,
+  toggleModalSimulate
 }) => (
   <Row>
     <Col md="12">
@@ -505,8 +507,16 @@ const FormularioPaciente = ({
                 color="info"
                 type="submit"
                 onClick={() => setRedirectUrl('/admin/PainelPaciente/')}
+                disabled={isLoading}
               >
-                {requestType === 'post' ? 'SALVAR' : 'ATUALIZAR'}
+                {isLoading ? (
+                  <>
+                    <i className="fa fa-spinner fa-spin" /> Carregando{' '}
+                  </>
+                ) : (
+                  <> {requestType === 'post' ? 'SALVAR' : 'ATUALIZAR'} </>
+                )}
+                
               </Button>
               <Button
                 className="btn-fill"
@@ -515,6 +525,16 @@ const FormularioPaciente = ({
               >
                 CANCELAR
               </Button>
+              {requestType === 'post' 
+              ? <Button
+                id="btn-simular"
+                className="btn-fill"
+                color="danger"
+                onClick={() => toggleModalSimulate()}
+              >
+                SIMULAR
+              </Button>
+              :<></>}
             </div>
           </CardFooter>
         </Form>
