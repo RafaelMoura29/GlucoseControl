@@ -125,7 +125,7 @@ class Form_create_paciente extends React.Component {
               '-' +
               String(dt.getMonth() + 1).padStart(2, '0') +
               '-' +
-              String(dt.getDate() + 1).padStart(2, '0'),
+              String(dt.getDate()).padStart(2, '0'),
               horaInternacao: dt.toLocaleTimeString(),
               internado: statusPaciente === 'internado',
               alta: statusPaciente === 'alta',
