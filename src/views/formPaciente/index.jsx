@@ -98,6 +98,7 @@ class Form_create_paciente extends React.Component {
       api
         .get('/paciente?tagId=' + params._idPaciente)
         .then(({ data }) => {
+          console.log(data)
           const {
             _id,
             statusPaciente,

@@ -87,6 +87,7 @@ class PainelPaciente extends React.Component {
     api
       .get('/paciente?tagId=' + this._idPaciente)
       .then(({ data: { paciente } }) => {
+        console.log(paciente)
         paciente = paciente[0]
         let glicemias = paciente.glicemia.map(glicemia => ({
           ...glicemia,
@@ -106,7 +107,7 @@ class PainelPaciente extends React.Component {
           '-' +
           String(dataInternacao.getMonth() + 1).padStart(2, '0') +
           '-' +
-          dataInternacao.getDate()
+          String(dataInternacao.getDate()).padStart(2, '0')
 
         glicemiaEAplicacoes.sort((a, b) => {
           let auxA =
@@ -143,13 +144,15 @@ class PainelPaciente extends React.Component {
     let state = this.state
     let coletas = state.glicemiaEAplicacoes
       .filter(procedimento => {
+        console.log(procedimento)
         let data = procedimento.dataHoraColeta || procedimento.dataHoraAplicacao
         data =
           data.getFullYear() +
           '-' +
           String(data.getMonth() + 1).padStart(2, '0') +
           '-' +
-          data.getDate()
+          String(data.getDate()).padStart(2, '0')
+          console.log(data)
         return (
           data >= state.filtroDataInicial &&
           data <= state.filtroDataFinal &&
@@ -157,6 +160,7 @@ class PainelPaciente extends React.Component {
         )
       })
       .reverse()
+      console.log(coletas)
     const dados = coletas.map(coleta => coleta.valorGlicemia)
     const labels = coletas.map(({ dataHoraColeta }) => dataHoraColeta.toLocaleDateString())
     state.lineChart.dados = dados
