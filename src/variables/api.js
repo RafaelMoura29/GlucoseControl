@@ -16,16 +16,8 @@ api.interceptors.response.use(undefined, error => {
       !(window.location.pathname === '/authentication/recoverPassword') &&
       !(window.location.pathname === '/authentication/login')
     ) {
-      console.log('error')
-      console.log(error)
-      console.log('error.response')
-      console.log(error.response)
-      console.log('error.response.data')
-      console.log(error.response.data)
-      console.log('error.response.data.auth')
-      console.log(error.response.data.auth)
-      /* localStorage.removeItem('TOKEN')
-      window.location.href = '/' */
+      localStorage.removeItem('TOKEN')
+      window.location.href = '/'
     }
   }
   return Promise.reject(error)
