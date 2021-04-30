@@ -32,6 +32,7 @@ class Pacientes extends React.Component {
     api
       .get('/paciente')
       .then(({ data: { paciente } }) => {
+        console.log(paciente)
         let pacientes = paciente.map(paciente => {
           let dataInternacao = new Date(paciente.dataHoraInternacao)
           dataInternacao =
@@ -46,10 +47,12 @@ class Pacientes extends React.Component {
             prontuario: paciente.prontuario,
             dataInternacao: dataInternacao,
             statusPaciente: paciente.statusPaciente,
-            recomendacao: this.setRecomendacao(paciente.recomendacao)
+            tratamento: this.setRecomendacao(paciente.tratamento),
+            monitoramento: paciente.monitoramento
           }
         })
         this.setState({ pacientes, pacientesFiltrados: pacientes })
+        console.log(pacientes)
       })
       .catch(error => {
         alert(
@@ -98,12 +101,12 @@ class Pacientes extends React.Component {
 
       if (type === 'simulated_patient') {
         successMessage = 'Paciente simulado com sucesso!'
-      } 
-    } 
+      }
+    }
     let timeout = setTimeout(this.cancelTimeout, 3000);
-    
+
     this.setState({ successMessage, timeout})
-    
+
     this.getPacientes()
   }
 
