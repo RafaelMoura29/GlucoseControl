@@ -8,8 +8,9 @@ const TabelaPacientes = ({ pacientes, history, isLoading }) => (
       <tr>
         <th>Prontuário</th>
         <th>Nome</th>
-        <th>Data Internação</th>
-        <th>Recomendação</th>
+        <th>Internação</th>
+        <th>Próx. Coleta</th>
+        <th>Tratamento</th>
       </tr>
     </thead>
     <tbody id="tableBody">
@@ -34,9 +35,10 @@ const TabelaPacientes = ({ pacientes, history, isLoading }) => (
                 <td>{paciente.prontuario}</td>
                 <td>{paciente.nome}</td>
                 <td>{paciente.dataInternacao}</td>
+                <td>{paciente.monitoramento}</td>
                 <td className="td-recomendacao">
-                  <p className="p-recomendacao" style={{borderColor: paciente.recomendacao.color, color:paciente.recomendacao.color}}>
-                    {paciente.recomendacao !== undefined ? paciente.recomendacao.text : "Paciente não possui recomendação"}
+                  <p className="p-recomendacao" style={{borderColor: paciente.tratamento.color, color:paciente.tratamento.color}}>
+                    {paciente.tratamento !== undefined ? paciente.tratamento.text : "Paciente não possui recomendação"}
                   </p>
                 </td>
               </tr>
