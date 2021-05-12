@@ -48,7 +48,11 @@ class Pacientes extends React.Component {
               '/' +
               (dataMonitoramento.getMonth() + 1) +
               '/' +
-              dataMonitoramento.getFullYear()
+              dataMonitoramento.getFullYear() +
+              ' ' +
+              dataMonitoramento.getHours() +
+              ':' +
+              dataMonitoramento.getMinutes()
 
           return {
             _id: paciente._id,
