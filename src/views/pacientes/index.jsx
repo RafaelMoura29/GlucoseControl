@@ -41,6 +41,15 @@ class Pacientes extends React.Component {
             (dataInternacao.getMonth() + 1) +
             '/' +
             dataInternacao.getFullYear()
+
+            let dataMonitoramento = new Date(paciente.monitoramento)
+            dataMonitoramento =
+            dataMonitoramento.getDate() +
+              '/' +
+              (dataMonitoramento.getMonth() + 1) +
+              '/' +
+              dataMonitoramento.getFullYear()
+
           return {
             _id: paciente._id,
             nome: paciente.nome,
@@ -48,7 +57,7 @@ class Pacientes extends React.Component {
             dataInternacao: dataInternacao,
             statusPaciente: paciente.statusPaciente,
             tratamento: this.setRecomendacao(paciente.tratamento),
-            monitoramento: paciente.monitoramento
+            monitoramento: dataMonitoramento
           }
         })
         this.setState({ pacientes, pacientesFiltrados: pacientes })
